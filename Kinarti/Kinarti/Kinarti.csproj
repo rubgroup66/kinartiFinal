@@ -225,7 +225,7 @@
     <Content Include="PriceIT\editMaterials.html" />
     <Content Include="PriceIT\index.html" />
     <Content Include="PriceIT\insertBox.html" />
-    <Content Include="PriceIT\updateParams.js" />
+    <Content Include="PriceIT\updateAllParams.js" />
     <Content Include="PriceIT\old files\insertItem.html" />
     <Content Include="PriceIT\insertMaterial.html" />
     <Content Include="PriceIT\itemJS.js" />

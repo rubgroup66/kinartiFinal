@@ -21,7 +21,7 @@ namespace WebApplication1.Controllers
     {
         [System.Web.Http.HttpGet]
         [Route("api/Hinges")]
-        public IEnumerable<Hinge> GetHinge()
+        public IEnumerable<Hinge> GetHinges()
         {
             Hinge hinge = new Hinge();
             List<Hinge> lm = hinge.getHinges();
