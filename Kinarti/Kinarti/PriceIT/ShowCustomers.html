@@ -1,0 +1,349 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>PriceIT</title>
+
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+
+    <style type="text/css">
+
+        button {
+            margin-left: 10px;
+        }
+    </style>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script src="../Scripts/ajaxCallsStub.js"></script>
+    <script src="../Scripts/ajaxCalls.js"></script>
+    <script>
+        $(document).ready(function () {
+            // once the document is ready we fetch a list of customers from the server
+            ajaxCall("GET", "../api/getCust", "", getSuccess, error);
+
+            $("#custForm").submit(onSubmitFunc); // wire the submit event to a function called f1
+            $("#editDiv").hide();
+
+        });
+
+        function buttonEvents() {
+
+            $(document).on("click", ".addProjBtn", function () {
+                markSelected(this);
+                populatename(this.getAttribute('data-custId'));
+                parent.location = 'AddNewProject.html';
+                
+            });
+
+            function populatename(id) {
+                cust = getCust(id);
+                var first_name = cust.first_name;
+                var last_name = cust.last_name;
+                var cust_id = cust.id;
+                localStorage.setItem("storageF_name", first_name);
+                localStorage.setItem("storageL_name", last_name);
+                localStorage.setItem("storageCust_id", cust_id);
+            }
+
+            $(document).on("click", ".editBtn", function () {
+                markSelected(this);
+                $("#editDiv").show();
+                $("#editDiv :input").prop("disabled", false); // edit mode: enable all controls in the form
+                populateFields(this.getAttribute('data-custId')); // fill the form fields according to the selected row
+            });
+
+            $(document).on("click", ".viewBtn", function () {
+                markSelected(this);
+                $("#editDiv").show();
+                row.className = 'selected';
+                $("#editDiv :input").attr("disabled", "disabled"); // view mode: disable all controls in the form
+                populateFields(this.getAttribute('data-custId'));
+            });
+
+            $(document).on("click", ".deleteBtn", function () {
+                markSelected(this);
+                var custId = this.getAttribute('data-custId');
+                swal({ // this will open a dialouge
+                    title: "Are you sure ??",
+                    text: "",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true
+                })
+                    .then(function (willDelete) {
+                        if (willDelete) DeleteCust(custId);
+                        if (willDelete) window.location.reload();
+                        else swal("Not Deleted!");
+                    });
+            });
+        }
+
+        // mark the selected row
+        function markSelected(btn) {
+            $("#customers_table tr").removeClass("selected"); // remove seleced class from rows that were selected before
+            row = (btn.parentNode).parentNode; // button is in TD which is in Row
+            row.className = 'selected'; // mark as selected
+        }
+
+        // Delete a car from the server
+        function DeleteCust(custId) {
+            let id = custId;
+            ajaxCall("DELETE", "../api/customers/" + custId, JSON.stringify(id), deleteSuccess, error);
+        }
+
+        function onSubmitFunc() {
+            let custAfterEdit = {
+                id: cust.id,
+                first_name: $("#first_name").val(),
+                last_name: $("#last_name").val(),
+                phone_num: $("#phone_num").val(),
+                email: $("#email").val(),
+                
+
+            }
+
+            // update a new Car record to the server
+            ajaxCall("PUT", "../api/putcust", JSON.stringify(custAfterEdit), updateSuccess, error);
+            return false;
+        }
+
+        function populateFields(id) {
+            cust = getCust(id);
+            $("#first_name").val(cust.first_name);
+            $("#last_name").val(cust.last_name);
+            $("#phone_num").val(cust.phone_num);
+            $("#email").val(cust.email);
+        }
+
+        // get a cust according to its id
+        function getCust(id) {
+            for (i in custs) {
+                if (custs[i].id == id)
+                    return custs[i];
+            }
+            return null;
+        }
+        // success callback function after update
+        function updateSuccess(custsdata) {
+            tbl.clear();
+            redrawTable(tbl, custsdata);
+            buttonEvents();
+            $("#editDiv").hide();
+            window.location.reload();
+            swal("Updated Successfuly!", "Great Job", "success");
+        }
+        // success callback function after delete
+        function deleteSuccess(custsdata) {
+            tbl.clear();
+            redrawTable(tbl, custsdata);
+            buttonEvents(); // after redrawing the table, we must wire the new buttons
+            $("#editDiv").hide();
+            swal("Deleted Successfuly!", "Great Job", "success");
+            window.location.reload();
+
+        }
+        // redraw a datatable with new data
+        function redrawTable(tbl, data) {
+            tbl.clear();
+            for (var i = 0; i < data.length; i++) {
+                tbl.row.add(data[i]);
+            }
+            tbl.draw();
+        }
+
+        // this function is activated in case of a success
+        function getSuccess(custsdata) {
+            custs = custsdata; // keep the cars array in a global variable;
+            try {
+                tbl = $('#customers_table').DataTable({
+                    data: custsdata,
+                    pageLength: 5,
+                    columns: [
+                        {
+                            render: function (data, type, row, meta) {
+                                let dataCust = "data-custId='" + row.id + "'";
+
+                                editBtn = "<button type='button' class = 'editBtn btn btn-success' " + dataCust + "> Edit </button>";
+                                viewBtn = "<button type='button' class = 'viewBtn btn btn-info' " + dataCust + "> View </button>";
+                                deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataCust + "> Delete </button>";
+                                addProjBtn = "<button type='button' class = 'addProjBtn btn btn-warning' " + dataCust + "> Add project </button>";
+                                return editBtn + viewBtn + deleteBtn + addProjBtn;
+                            }
+                        },
+                        { data: "id" },
+                        { data: "first_name" },
+                        { data: "last_name" },
+                        { data: "phone_num" },
+                        { data: "email" },
+                    ],
+                });
+                buttonEvents();
+            }
+
+            catch (err) {
+                alert(err);
+            }
+        }
+
+        // this function is activated in case of a failure
+        function error(err) {
+            swal("Error: " + err);
+        }
+
+        function AddNewCustomer() {
+            parent.location = 'CreateNewCustomer.html';
+        }
+
+        function ShowFilter() {
+            document.getElementById('filterDiv').style.display = "block";
+        }
+
+            //function successGetCustomers(data) {
+            //    $('#projects_table').DataTable({
+            //        data: data,
+            //        "autoWidth": false,
+            //        columns: [
+            //            { data: "project_name" },
+            //            { data: "first_name" },
+            //            { data: "last_name" },
+            //            { data: "phone_num" },
+            //            { data: "email" },
+            //            { data: "supervisor" },
+            //            { data: "architect" },
+            //        ]
+            //    })
+            //}
+            //function errorGetCustomers(err) {
+            //    swal("Error getting customers");
+            //}
+
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">PriceIT</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="projectsList.html">פרויקטים</a></li>
+                <li class="active"><a href="ShowCustomers.html">לקוחות</a></li>
+                <li><a href="users.html">ניהול משתמשים</a></li>
+                <li><a href="editBoxes.html">עדכון עלויות</a></li>
+
+            </ul>
+        </div>
+    </nav>
+    <!-------------------------------------->
+    <div class="container">
+        <form id="pForm">
+            <input type="button" value="הוסף לקוח חדש" class="btn btn-primary btn-lg" onclick="AddNewCustomer()" />
+            <br />
+            <br />
+
+            <table id="customers_table" class="display nowrap" style="width:100%">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>מזהה לקוח</th>
+                        <th> שם פרטי</th>
+                        <th>שם משפחה</th>
+                        <th>מספר טלפון</th>
+                        <th>דואר אקלטרוני</th>
+                    </tr>
+                </thead>
+            </table>
+
+        </form>
+        <div id="editDiv">
+            <form id="custForm">
+                <div class="form-group row">
+
+                    <div class="form-group col-sm-3">
+                        <label for="first_name"><span class="red-star">★ </span>שם פרטי</label>
+                        <input type="text" class="form-control" id="first_name" placeholder="Enter the model name" required>
+                    </div>
+
+                    <div class="form-group col-sm-3">
+                        <label for="last_name"><span class="red-star">★ </span>שם משפחה</label>
+                        <input type="text" class="form-control" id="last_name" placeholder="Enter the model name" required>
+                    </div>
+
+                    <div class="form-group col-sm-3">
+                        <label for="phone_num"><span class="red-star">★ </span>מספר טלפון </label>
+                        <input type="text" class="form-control" id="phone_num" placeholder="Enter the model name" required>
+                    </div>
+
+                    <div class="form-group col-sm-3">
+                        <label for="email"><span class="red-star">★ </span>דואר אלקטרוני</label>
+                        <input type="text" class="form-control" id="email" placeholder="Enter the model name" required>
+                    </div> 
+
+                </div>
+                <!-- לרדת שורה מפקח ואדריכל!!-->
+                <!--<div class="form-group row">
+
+
+                    <div class="form-group col-sm-3">
+                        <label for="color"><span class="red-star">★ </span>Color</label>
+                        <select class="form-control" id="color" required>
+                            <option value="">Choose Color</option>
+                            <option value="White"> White </option>
+                            <option value="Blue"> Blue </option>
+                            <option value="Black"> Black </option>
+                            <option value="Red"> Red </option>
+                            <option value="Grey"> Grey </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-sm-3">
+                        <label for="hand"><span class="red-star">★ </span>Hand</label>
+                        <select class="form-control" id="hand" required>
+                            <option value="">Choose Hand</option>
+                            <option value="1"> 1 </option>
+                            <option value="2"> 2 </option>
+                            <option value="3"> 3 </option>
+                            <option value="4"> 4 </option>
+                            <option value="5"> 5 </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-sm-3">
+                        <label for="automatic"><span class="red-star">★ </span>Automatic?</label>
+                        <input type="checkbox" class="form-control" id="automatic" checked />
+                    </div>
+
+                </div>
+                <div class="form-group row">
+                    <div class="form-group col-sm-8">
+                        <label for="description">Description</label>
+                        <textarea rows="6" class="form-control" id="description" placeholder="Enter the description"></textarea>
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <img src="images/car.jpg" id="image" />
+                    </div>
+
+                </div>-->
+
+                <button type="submit" class="btn btn-primary btn-lg" id="saveBTN">Save</button>
+
+            </form>
+        </div>
+
+    </div>
+
+   
+</body>
+</html>

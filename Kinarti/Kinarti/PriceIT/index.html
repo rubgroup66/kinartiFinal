@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>PriceIT</title>
+
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script src="../Scripts/ajaxCalls.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#remember-me').change(function () {
+                checked = $("input[type='checkbox']").val();
+                if (checked == "on") {
+                    // save username and password
+                    localStorage.usrname = $('#id').val();
+                    localStorage.pass = $('#pass').val();
+                    localStorage.chkbx = "on";
+                } else {
+                    localStorage.usrname = '';
+                    localStorage.pass = '';
+                    localStorage.chkbx = '';
+                }
+            });
+            if (localStorage.chkbx && localStorage.chkbx != '') {
+                $('#remember_me').attr('checked', 'checked');
+                $('#id').val(localStorage.usrname);
+                $('#pass').val(localStorage.pass);
+            }
+            else {
+                $('#remember_me').removeAttr('checked');
+                $('#id').val('');
+                $('#pass').val('');
+            }
+
+
+            $("#login").click(f1);
+            $("#signUp").click(function () {
+                $("#id").val("");
+                $("#pass").val("");
+                window.location.href = "signUp.html";
+            });
+        });
+
+        function f1() {
+            var Id = $("#id").val();
+            var Password = $("#pass").val();
+            ajaxCall("GET", "../api/users/?Id=" + Id + "&Password=" + Password, "", successGetUser, errorGetUser);
+            return false;
+        }
+
+        function successGetUser(data) {
+            if (data.UserType == 1 && data.Active == 1) {
+                alert("user found successfully")
+                localStorage.setItem('user', JSON.stringify(data));
+                window.location.href = "ShowCustomers.html";
+            }
+            else {
+                alert("user not found");
+            }
+        }
+
+        function errorGetUser() {
+            alert("error getting user");
+        }
+    </script>
+</head>
+<body style="background-color: #666666;">
+
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <form class="login100-form validate-form">
+                    <span class="login100-form-title p-b-43">
+                        Login to continue
+                    </span>
+
+
+                    <div class="wrap-input100 validate-input" data-validate="Valid Id is required 9 digits">
+                        <input class="input100" type="text" id="id" name="id">
+                        <span class="focus-input100"></span>
+                        <span class="label-input100">ID</span>
+                    </div>
+
+
+                    <div class="wrap-input100 validate-input" data-validate="Password is required">
+                        <input class="input100" type="password" id="pass" name="pass">
+                        <span class="focus-input100"></span>
+                        <span class="label-input100">Password</span>
+                    </div>
+                    <div class="flex-sb-m w-full p-t-3 p-b-32">
+                        <div class="contact100-form-checkbox">
+                            <input class="input-checkbox100" id="remember-me" type="checkbox" name="remember-me">
+                            <label class="label-checkbox100" for="remember-me">
+                                Remember me
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <button id="login" class="login100-form-btn">
+                            Login
+                        </button>
+                    </div>
+
+                    <div class="text-center p-t-46 p-b-20">
+                        <button id="signUp">Sign Up</button>
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+
+   
+</body>
+</html>

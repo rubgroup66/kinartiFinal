@@ -1,0 +1,356 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>PriceIT</title>
+
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="../Scripts/ajaxCalls.js"></script>
+    <style type="text/css">
+
+        button {
+            margin-left: 10px;
+        }
+        #newUserdiv {
+            border:double;
+            direction: rtl;
+            display:none;
+        }
+
+    </style>
+    <script>
+        $(document).ready(function () {
+            // once the document is ready we fetch a list of customers from the server
+            ajaxCall("GET", "../api/users", "", successGetUser, errorGetUser);
+
+            $("#userForm").submit(onSubmitFunc); // wire the submit event to a function called f1
+            $("#editDiv").hide();
+            $("#newUser").submit(f2);
+
+        });
+
+        function successGetUser(userdata) {
+            users = userdata;
+            tbl = $('#users_table').DataTable({
+                data: userdata,
+                "autoWidth": false,
+                columns: [
+                    {
+                        render: function (data, type, row, meta) {
+                            let dataUser = "data-userId='" + row.Id + "'";
+
+                            EditUserBtn = "<button type='button' class = 'EditUserBtn btn btn-success' " + dataUser + "> ערוך משתמש </button>";
+                            DeleteUserBtn = "<button type='button' class = 'DeleteUserBtn btn btn-danger' " + dataUser + "> מחק משתמש </button>";
+                            return EditUserBtn + DeleteUserBtn;
+                        }
+                    },
+                    { data: "Name" },
+                    { data: "Id" },
+                    { data: "Password" },
+                    {
+                        data: "UserType",
+                        render: function (data, type, row, meta) {
+                            UserType = "";
+                            if (data == 1) {
+                                UserType = '<img title="מנהל" src="https://img.icons8.com/office/30/000000/businessman.png">'
+                            } else UserType = '<img title="אורח" src="https://img.icons8.com/windows/32/000000/administrator-male.png">'
+                            return UserType;
+                        }
+                    },
+                    {
+                        data: "Active",
+                        render: function (data, type, row, meta) {
+                            active = "";
+                            if (data == 1) {
+                                active = '<img title="פעיל" src="https://img.icons8.com/office/16/000000/ok.png">'
+                            } else active = '<img title="לא פעיל" src="https://img.icons8.com/office/16/000000/cancel.png">'
+                            return active;
+                        }
+                    },
+                ],
+            });
+            buttonEvents();
+        }
+        function errorGetUser(err) {
+            swal("Error getting users");
+        }
+
+        function DeleteUser(userId) {
+            let id = userId;
+            ajaxCall("DELETE", "../api/users/" + userId, JSON.stringify(id), deleteSuccess, error);
+            return false;
+        }
+
+        function deleteSuccess() {
+            swal("Deleted Successfuly!", "Great Job", "success");
+            window.location.reload();
+
+        }
+        function error(err) {
+            swal("Error: " + err);
+        }
+
+        function buttonEvents() {
+
+            $(document).on("click", ".EditUserBtn", function () {
+                markSelected(this);
+                $("#editDiv").show();
+                $("#editDiv :input").prop("disabled", false); // edit mode: enable all controls in the form
+                populateFields(this.getAttribute('data-userId')); // fill the form fields according to the selected row
+            });
+
+            $(document).on("click", ".DeleteUserBtn", function () {
+                markSelected(this);
+                var userId = this.getAttribute('data-userId');
+                swal({ // this will open a dialouge
+                    title: "Are you sure ??",
+                    text: "",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true
+                })
+                    .then(function (willDelete) {
+                        if (willDelete) DeleteUser(userId);
+                        if (willDelete) window.location.reload();
+                        else swal("Not Deleted!");
+                    });
+            });
+        }
+        function populateFields(id) {
+            user = getuser(id);
+            $("#first_name").val(user.Name);
+            $("#user_id").val(user.Id);
+            $("#user_pass").val(user.Password);
+            if (user.UserType == 1) {
+                $('input:radio[name=type]')[0].checked = true;
+            } else $('input:radio[name=type]')[1].checked = true;
+
+            if (user.Active == 1) {
+                $('input:radio[name=active]')[1].checked = true;
+            } else $('input:radio[name=active]')[0].checked = true;
+        }
+
+        function onSubmitFunc() {
+
+            let userAfterEdit = {
+                Id: user.Id,
+                Name: $("#first_name").val(),
+                Password: $("#user_pass").val(),
+                Active: $("input[name='active']:checked").val(),
+                UserType: $("input[name='type']:checked").val()
+
+            }
+            ajaxCall("PUT", "../api/users", JSON.stringify(userAfterEdit), updateSuccess, error);
+            return false;
+
+        }
+        function updateSuccess(dataUser) {
+            tbl.clear();
+            redrawTable(tbl, dataUser);
+            buttonEvents();
+            $("#editDiv").hide();
+            window.location.reload();
+            swal("Updated Successfuly!", "Great Job", "success");
+        }
+        // get a cust according to its id
+        function getuser(id) {
+            for (i in users) {
+                if (users[i].Id == id)
+                    return users[i];
+            }
+            return null;
+        }
+        function markSelected(btn) {
+            $("#users_table tr").removeClass("selected"); // remove seleced class from rows that were selected before
+            row = (btn.parentNode).parentNode; // button is in TD which is in Row
+            row.className = 'selected'; // mark as selected
+        }
+
+        function redrawTable(tbl, data) {
+            tbl.clear();
+            for (var i = 0; i < data.length; i++) {
+                tbl.row.add(data[i]);
+            }
+            tbl.draw();
+        }
+
+        function error() {
+            alert(error)
+        }
+        function showPass() {
+            var x = document.getElementById("password");
+            if (x.type === "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        }
+        function AddNewUser() {
+            $("#newUserdiv").show();
+        }
+        function CreateNewUser() {
+            User = { // Note that the name of the fields must be identical to the names of the properties of the object in the server
+                Id: $("#userId").val(),
+                Name: $("#new_name").val(),
+                Password: $("#password").val(),
+                UserType: $("input[name='newtype']:checked").val(),
+                Active: $("input[name='newactive']:checked").val()
+            }
+            ajaxCall("POST", "../api/users", JSON.stringify(User), success, error);
+            return false;
+        }
+
+
+        function success(data) {
+            swal({ // this will open a dialouge
+                title: "User added successfully",
+                icon: "success",
+                buttons: false,
+                dangerMode: false
+            })
+            window.location.reload();
+        }
+        function error() {
+            swal("error saving new user")
+        }
+        function f2() {
+            CreateNewUser();
+            return false; // the return false will prevent the form from being submitted
+            // hence the page will not reload
+        }
+
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">PriceIT</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="projectsList.html">פרויקטים</a></li>
+                <li><a href="ShowCustomers.html">לקוחות</a></li>
+                <li class="active"><a href="users.html">ניהול משתמשים</a></li>
+                <li><a href="editBoxes.html">עדכון עלויות</a></li>
+
+            </ul>
+        </div>
+    </nav>
+    <!-------------------------------------->
+    <!---------------------------------------------AddNewUserDIV----------------------------->
+    <div class="container">
+        <input type="button" value="הוסף משתמש חדש" class="btn btn-primary btn-lg" onclick="AddNewUser()" />
+        <br />
+        <br />
+        <div id="newUserdiv">
+            <form id="newUser">
+
+
+                <h2>צור משתמש חדש</h2>
+                <div class="form-group col-sm-5">
+                    <label for="userId">מזהה משתמש</label>
+                    <input type="text" class="form-control" id="userId" placeholder="הכנס מספר מזהה" required>
+                </div>
+                <div class="form-group col-sm-5">
+                    <label for="new_name">שם פרטי</label>
+                    <input type="text" class="form-control" id="new_name" placeholder="הכנס שם פרטי" required>
+                </div>
+                <div class="form-group col-md-10">
+                    <label for="password">בחר סיסמא</label>
+                    <input type="password" value="pass" class="form-control" id="password" placeholder="בחר סיסמא" required>
+                    <input type="checkbox" onclick="showPass()">הצג סיסמא
+                </div>
+                <div id="user_type" class="form-group col-sm-5">
+                    <label for="user_type"><span class="red-star"> </span>סוג משתמש</label><br />
+                    <input class="w3-radio" id="newtype" type="radio" name="newtype" value="1">
+                    <label>מנהל</label><br />
+                    <input class="w3-radio" id="newtype" type="radio" name="newtype" value="0">
+                    <label>אורח</label>
+                </div>
+                <div id="user_status" class="form-group col-sm-5">
+                    <label for="user_status"><span class="red-star"> </span>פעיל/לא פעיל</label><br />
+                    <input class="w3-radio" id="newactive" type="radio" name="newactive" value="1">
+                    <label>פעיל</label><br />
+                    <input class="w3-radio" id="newactive" type="radio" name="newactive" value="0">
+                    <label>לא פעיל</label>
+                </div>
+                <br />
+
+                <button type="submit" class="btn btn-primary btn-lg form-group col-sm-2">צור משתמש חדש</button>
+            </form>
+        </div>
+        <!---------------------------------------------AddNewUserDIV----------------------------->
+        <form id="UserForm">
+
+            <table id="users_table" class="display nowrap" style="width:100%">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>שם פרטי</th>
+                        <th>מזהה משתמש</th>
+                        <th>סיסמא</th>
+                        <th>סוג משתמש</th>
+                        <th>פעיל</th>
+                    </tr>
+                </thead>
+            </table>
+
+        </form>
+
+        <div id="editDiv">
+            <form id="userForm">
+                <div class="form-group row">
+
+                    <div class="form-group col-sm-3">
+                        <label for="first_name"><span class="red-star">★ </span>שם פרטי</label>
+                        <input type="text" class="form-control" id="first_name" placeholder="הכנס שם פרטי" required>
+                    </div>
+
+                    <div class="form-group col-sm-3">
+                        <label for="user_id"><span class="red-star">★ </span>מזהה משתמש </label>
+                        <input type="text" class="form-control" id="user_id" placeholder="הכנס מזהה משתמש" required>
+                    </div>
+
+                    <div class="form-group col-sm-3">
+                        <label for="user_pass"><span class="red-star">★ </span>ססמא</label>
+                        <input type="text" class="form-control" id="user_pass" placeholder="בחר ססמא" required>
+                    </div>
+                    <div id="active" class="form-group col-sm-4">
+                        <label for="active"><span class="red-star">★ </span>פעיל/לא פעיל</label><br />
+                        <input id="active" class="w3-radio" type="radio" name="active" value="0">
+                        <label>לא פעיל</label><br />
+                        <input id="active" class="w3-radio" type="radio" name="active" value="1">
+                        <label>פעיל</label>
+                    </div>
+                    <div id="user_type" class="form-group col-sm-4">
+                        <label for="user_type"><span class="red-star">★ </span>סוג משתמש</label><br />
+                        <input class="w3-radio" id="type" type="radio" name="type" value="1">
+                        <label>מנהל</label><br />
+                        <input class="w3-radio" id="type" type="radio" name="type" value="0">
+                        <label>אורח</label>
+                    </div>
+
+
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg">Save</button>
+
+            </form>
+        </div>
+    </div>
+</body>
+</html>

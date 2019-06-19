@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>PriceIT</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="../Scripts/ajaxCalls.js"></script>
+
+
+    <script>
+
+        $(document).ready(function () {
+            $("#pForm").submit(f1);
+        });
+        function AddCustomer(){
+            Customer = { // Note that the name of the fields must be identical to the names of the properties of the object in the server
+                first_name: $("#first_name").val(),
+                last_name: $("#last_name").val(),
+                phone_num: $("#phone_num").val(),
+                email: $("#email").val(),
+            }
+            ajaxCall("POST", "../api/newCust", JSON.stringify(Customer), success, error);
+        }
+
+
+        function success(data) {
+            swal({ // this will open a dialouge
+                title: "Customer added successfully",
+                text: "Creat new project?",
+                icon: "info",
+                buttons: true,
+                dangerMode: true
+            })
+                .then(function (create) {
+                    if (create) {
+                        var first_name = $("#first_name").val()
+                        var last_name = $("#last_name").val()
+                        localStorage.setItem("storageF_name", first_name);
+                        localStorage.setItem("storageL_name", last_name);
+                        OpenNewProject();
+                        
+                    } 
+                    else swal("Customer saved!");
+                    parent.location = 'ShowCustomers.html';
+                    
+                });
+        }
+
+        function OpenNewProject() {
+            window.location.href = "AddNewProject.html";
+            
+
+        }
+
+        function error(err) {
+            alert("error");
+        }
+
+        function f1() {
+            AddCustomer();
+            return false; // the return false will prevent the form from being submitted
+            // hence the page will not reload
+        }
+
+    </script>
+
+</head>
+<body>
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">PriceIT</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="projectsList.html">פרויקטים</a></li>
+                <li><a href="ShowCustomers.html">לקוחות</a></li>
+                <li><a href="users.html">ניהול משתמשים</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+
+    <div class="container" style="direction:rtl">
+        <form id="pForm">
+            <h2>צור לקוח חדש</h2>
+            <div class="form-group">
+                <label for="first_name">שם פרטי</label>
+                <input type="text" class="form-control" id="first_name" placeholder="הכנס שם פרטי" required>
+            </div>
+            <div class="form-group">
+                <label for="last_name">שם משפחה</label>
+                <input type="text" class="form-control" id="last_name" placeholder="הכנס שם משפחה" required>
+            </div>
+            <div class="form-group">
+                <label for="phone_num">מספר טלפון</label>
+                <input type="text" class="form-control" id="phone_num" placeholder="הכנס מספר טלפון" required>
+            </div>
+            <div class="form-group">
+                <label for="email">כתובת דואר אלקטרוני</label>
+                <input type="email" class="form-control" id="email" placeholder="הכנס כתובת דואר אלקטרוני">
+            </div>
+            <div id="ph"></div>
+            <br />
+            <!--<button class="btn btn-default" id="add">Add</button>-->
+            <input type="submit" value="צור פרויקט ללקוח" />
+        </form>
+    </div>
+
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+﻿
+button {
+    margin-left: 10px;
+}
+
+#newBTN {
+    background-color: blueviolet;
+    margin-bottom: 10px;
+}
+
+.item {
+    direction: rtl;
+}
+
+.container {
+    direction: rtl;
+    width: 60%;
+}
+
+#itemCost {
+    position: fixed;
+}
+
+div {
+    direction: rtl;
+}
+.navbar-nav {
+    float: right;
+}
+th {
+    text-align: right;
+}
+
+.editItem {
+    left: 0px;
+}

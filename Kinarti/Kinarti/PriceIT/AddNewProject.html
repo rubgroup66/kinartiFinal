@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>PriceIT</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="../Scripts/ajaxCalls.js"></script>
+
+
+    <script>
+
+        $(document).ready(function () {
+            ajaxCall("GET", "../api/architect", "", successGetArchitect, errorGetArchitect);
+            ajaxCall("GET", "../api/supervisor", "", successGetSupervisor, errorGetSupervisor);
+            $("#pForm").submit(f1);
+        });
+
+        function AddCustomer() {
+            var selected = [];
+            $('#supervisor :selected').each(function () {
+                selected.push($(this).val());
+            });
+
+            var selected = [];
+            $('#architect :selected').each(function () {
+                selected.push($(this).val());
+            });
+            var custID = localStorage.getItem("storageCust_id");
+            project = {
+                project_name: $("#project_name").val(),
+                create_date: $("#create_date").val(),
+                customer_id: custID,
+                description: $("#description").val(),
+                supervisor: $("#supervisor").val(),
+                architect: $("#architect").val()
+            }
+            ajaxCall("POST", "../api/Proj", JSON.stringify(project), success, errorPostProj);
+
+        }
+
+        function successGetSupervisor(supervisordata) {
+            for (var i = 0; i < supervisordata.length; i++) {
+                $("#supervisor").append($("<option></option>").val(supervisordata[i].sup_id).html(supervisordata[i].sup_name));
+            }
+        }
+
+        function errorGetSupervisor(err) {
+            swal("Error in getting supervisors");
+        }
+
+        function successGetArchitect(architectdata) {
+            for (var i = 0; i < architectdata.length; i++) {
+                $("#architect").append($("<option></option>").val(architectdata[i].arc_id).html(architectdata[i].arc_name));
+            }
+        }
+
+        function errorPostProj(err) {
+            swal("error posting project");
+        }
+
+        function errorGetArchitect(err) {
+            swal("Error in getting architect");
+        }
+
+        function success(data) {
+
+            swal("Customer saved!");
+            window.location.href = "projectsList.html";
+        }
+
+        function OpenNewProject() {
+            window.location.href = "project.html";
+            InsertProject();
+
+        }
+
+        function error(err) {
+            alert("error");
+        }
+
+        function f1() {
+            AddCustomer();
+            return false; // the return false will prevent the form from being submitted
+            // hence the page will not reload
+        }
+
+        function fillInfo() {
+            
+            var first_name = localStorage.getItem("storageF_name");
+            $("#first_name").val(first_name);
+            var last_name = localStorage.getItem("storageL_name");
+            $("#last_name").val(last_name);
+            document.getElementById("first_name").disabled = true;
+            document.getElementById("last_name").disabled = true;
+
+        }
+        
+
+    </script>
+
+</head>
+<body onload="fillInfo()">
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">PriceIT</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="newCustomer.html">פרויקט חדש</a></li>
+                <li><a href="projectsList.html">פרויקטים</a></li>
+                <li><a href="CustomerShow.html">לקוחות</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+
+    <div class="container" style="direction:rtl">
+        <form id="pForm">
+            <h2>צור פרויקט חדש</h2>
+            <div class="form-group">
+                <label for="first_name">שם פרטי</label>
+                <input type="text" class="form-control" id="first_name" required>
+            </div>
+            <div class="form-group">
+                <label for="last_name">שם משפחה</label>
+                <input type="text" class="form-control" id="last_name" placeholder="הכנס שם משפחה" required>
+            </div>
+            <div class="form-group">
+                <label for="project_name">שם פרויקט</label>
+                <input type="text" class="form-control" id="project_name" placeholder="הכנס שם פרויקט ייחודי" required>
+            </div>
+            <div class="form-group">
+                <label for="description">תיאור הפרויקט</label>
+                <input type="text" class="form-control" id="description" placeholder="הזן תיאור לפרויקט" required>
+            </div>
+            <div class="form-group">
+                <label for="create_date"> תאריך יצירה</label>
+                <input type="date" class="form-control" id="create_date" required>
+            </div>
+            <div class="form-group" style="width:auto">
+                <label for="supervisor">מפקח</label>
+                <select id="supervisor" required></select>
+            </div>
+            <div class="form-group" style="width:auto">
+                <label for="architect">אדריכל</label>
+                <select id="architect" required></select>
+            </div>
+            <div id="ph"></div>
+            <br />
+            <!--<button class="btn btn-default" id="add">Add</button>-->
+            <input type="submit" value="צור פרויקט" />
+        </form>
+    </div>
+
+
+</body>
+</html>
