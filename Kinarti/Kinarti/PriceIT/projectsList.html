@@ -176,13 +176,11 @@
                     document.getElementById('statusDiv').style.display = "block";
                     document.getElementById('custDiv').style.display = "none";
                     document.getElementById('priceDiv').style.display = "none";
-
                 }
                 if ($(this).val() === '2') {
                     document.getElementById('custDiv').style.display = "block";
                     document.getElementById('statusDiv').style.display = "none";
                     document.getElementById('priceDiv').style.display = "none";
-
                 }
                 if ($(this).val() === '3') {
                     document.getElementById('custDiv').style.display = "none";
@@ -191,7 +189,6 @@
                 }
             });
             
-
             $("#statusOpt").change(function () {
                 document.getElementById('con').style.display = "none";
                 if ($(this).val() === '1.1') {
@@ -203,10 +200,7 @@
                     status: 1
                 }
                 ajaxCall("POST", "../api/filter", JSON.stringify(Filter), successfilterstatus, errorfilterstatus);
-
-            });
-
-       
+            });     
 
             function errorfilterstatus() {
                 alert("error filtering")
@@ -243,11 +237,17 @@
                         { data: "cost" },
                     ]
                 })
-                }
+            }
+
+            $("#newProjectBtn").on("click", function () {
+                window.location.href = 'AddNewProject.html';
+            });
+
         });
 
-        
-           
+        $("#newProjectBtn").on("click", function () {
+            window.location.href = 'AddNewProject.html';
+        });
 
     </script>
 </head>
@@ -267,6 +267,13 @@
     </nav>
 
     <div id="con" class="container">
+
+        <div class="row item">
+            <div class="form-group col-sm-4">
+                <input type="button" value="הוסף פרויקט" class="btn btn-primary btn-lg" id="newProjectBtn" />
+            </div>
+        </div>
+
         <input type="button" value="מיון" class="btn btn-primary btn-lg" onclick="ShowFilter()" />
         <br />
         <br />
@@ -313,8 +320,6 @@
                         <th> תיאור</th>
                         <th>תאריך יצירה</th>
                         <th>עלות</th>
-
-
                     </tr>
                 </thead>
             </table>

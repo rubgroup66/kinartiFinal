@@ -581,7 +581,7 @@ function onSubmitFunc2() {
     let projecttoSave = {
         ID: getParameterByName("projectId"),
         project_name: $("#projectName").val(), 
-        description: $("#projectName").val(),
+        description: $("#projectDescription").val(),
         create_date: $("#createDate").val(), 
         //status: $("#status").val(),       
        
@@ -754,7 +754,8 @@ function updateProjectSuccess() {    // success callback function after update
     $("#editDiv").hide();
     swal("עודכן בהצלחה!", "הפרויקט נשמר בהצלחה", "success");
     mode = "";
-    window.location.href = 'projectsList.html';
+
+    //window.location.href = 'projectsList.html';
 }
 
 function insertSuccess(itemsdata) {  // success callback function after adding new item
