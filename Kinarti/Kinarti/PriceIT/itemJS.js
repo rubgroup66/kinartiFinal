@@ -584,9 +584,11 @@ function onSubmitFunc2() {
         description: $("#projectName").val(),
         create_date: $("#createDate").val(), 
         //status: $("#status").val(),       
-        //customer_id: $("#itemName").val(),
+       
         architect: $("#projectArchitect").val(),
-        supervisor: $("#projectSupervisor").val()        
+        supervisor: $("#projectSupervisor").val(),
+        cost: $("#projectCost").val()
+        //customer_id: $("#itemName").val()
 
     };
     ajaxCall("PUT", "../api/projects/?Id=" + projectID, JSON.stringify(projecttoSave), updateProjectSuccess, error);
@@ -752,6 +754,7 @@ function updateProjectSuccess() {    // success callback function after update
     $("#editDiv").hide();
     swal("עודכן בהצלחה!", "הפרויקט נשמר בהצלחה", "success");
     mode = "";
+    window.location.href = 'projectsList.html';
 }
 
 function insertSuccess(itemsdata) {  // success callback function after adding new item
@@ -883,4 +886,5 @@ function saveProjectSuccess() {
     swal("הפרויקט נסגר בהצלחה!", "הפעולה בוצעה", "success");
     mode = "";
     parent.location = 'projectsList.html';
+
 }
