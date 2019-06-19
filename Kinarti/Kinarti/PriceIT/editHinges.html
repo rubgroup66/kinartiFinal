@@ -25,7 +25,8 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="../Scripts/ajaxCalls.js"></script>
-    <script src="itemJS.js"></script>
+    <script src="editHinges.js"></script>
+
 </head>
 <body>
     <nav class="navbar navbar-default">
@@ -42,36 +43,25 @@
         </div>
     </nav>
 
-    <h1>צירים</h1>
-
-    <div class="row item">
-        <div class="form-group col-sm-12">
-            <input type="button" value="הוסף" class="btn btn-primary btn-lg" id="newBTN" />
-        </div>
-    </div>
 
     <div class="container">
-
-
-
-
+        <div class="row item">
+            <div class="form-group col-sm-12">
+                <input type="button" value="הוסף" class="btn btn-primary btn-lg" id="newBTN" />
+            </div>
+        </div>
         <form id="pForm">
-            <table id="itemsTable" class="display nowrap" style="width:100%">
+            <h1>צירים</h1>
+            <table id="hingesTable" class="display nowrap" style="width:100%">
                 <thead>
                     <tr>
+
                         <th>#</th>
-                        <th>תאור</th>
-                        <th>מידות</th>
+                        <th>סוג</th>
                         <th>עלות (ש"ח)</th>
                         <th>פעולות</th>
                     </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                        <th colspan="4" style="text-align:left"></th>
-                        <th></th>
-                    </tr>
-                </tfoot>
+                <thead>
             </table>
         </form>
 
@@ -79,17 +69,15 @@
             <form id="pForm">
                 <div class="form-group row">
                     <div class="form-group col-sm-3">
-                        <label for="price"><span class="red-star">★ </span>מחיר</label>
-                        <input type="number" class="form-control" id="price" placeholder="הזן את מחיר המוצר" required />
+                        <label for="hingeCost"><span class="red-star">★ </span>עלות</label>
+                        <input type="number" class="form-control" id="hingeCost" placeholder="הזן את עלות הציר" required />
                     </div>
 
                     <div class="form-group col-sm-6">
-                        <label for="manufacturer"><span class="red-star">★ </span>שם</label>
-                        <input type="text" class="form-control" id="Name" placeholder="הזן את שם המוצר" required>
+                        <label for="hingeName"><span class="red-star">★ </span>שם</label>
+                        <input type="text" class="form-control" id="hingeName" placeholder="הזן את סוג הציר" required>
                     </div>
-
                 </div>
-
 
                 <div class="row">
                     <div class="form-group col-sm-12">
@@ -97,6 +85,8 @@
                         <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTN" value="ביטול" />
                     </div>
                 </div>
+
+
 
             </form>
         </div>

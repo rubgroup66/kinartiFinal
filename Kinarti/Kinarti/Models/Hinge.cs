@@ -17,6 +17,7 @@ namespace kinarti.Models
         public int ID { get; set; }
         public string Type { get; set; }
         public int Cost { get; set; }
+
         public Hinge(int _id, string _type, int _cost)
         {
             ID = _id;
