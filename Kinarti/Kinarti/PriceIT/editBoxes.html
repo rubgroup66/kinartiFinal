@@ -132,16 +132,14 @@
         function DeleteBox(id) {
             ajaxCall("DELETE", "../api/boxes/" + id, "", deleteSuccess, error);
         }
-
-       
+     
         function f1() {
             updateBox();
             return false; // the return false will prevent the form from being submitted
             // hence the page will not reload
         }
 
-        // fill the form fields
-        function populateFields(boxId) {
+        function populateFields(boxId) {        // fill the form fields
             box = getBox(boxId);
             $("#id").val(box.ID);
             $("#type").val(box.Type);
@@ -152,8 +150,8 @@
             $("#Description").val("");
         }
 
-        // fill the form fields
-        function clearFields() {
+
+        function clearFields() {        // clear the form fields
            // box = getBoxes("");
             $("#id").val("");
             $("#type").val("");
@@ -163,8 +161,8 @@
             $("#Description").val("");
         }
 
-        // get a car according to its Id
-        function getBox(id) {
+
+        function getBox(id) {        // get a box according to its Id
             for (i in boxes) {
                 if (boxes[i].ID == id)
                     return boxes[i];
@@ -213,8 +211,7 @@
                                 let dataBox = "data-boxId='" + row.ID + "'";
                                 deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataBox + "> מחק </button>";
                                 editBtn = "<button type='button' class = 'editBtn btn btn-success' " + dataBox + "> עדכן </button>";
-                               // viewBtn = "<button type='button' class = 'viewBtn btn btn-info' " + dataBox + "> הצג </button>";
-                               
+                               // viewBtn = "<button type='button' class = 'viewBtn btn btn-info' " + dataBox + "> הצג </button>";                             
                                 return editBtn + deleteBtn;
                             }
                         },
@@ -227,7 +224,6 @@
                 });
                 buttonEvents();
             }
-
             catch (err) {
                 alert(err);
             }
@@ -274,7 +270,7 @@
         </div>
     </nav>
 
-    <div>
+    
         <!--tabs----------------------------------------------------->
         <div>
             <!-- Nav tabs -->
@@ -299,13 +295,12 @@
 
 
 
-    </div>
+   
 
     <br />
     <br />
 
-    <div class="tab-pane fade" role="tabpanel" id="boxes" aria-labelledby="boxes-tab">
-
+    <!--<div class="tab-pane fade" role="tabpanel" id="boxes" aria-labelledby="boxes-tab">-->
         <div class="container">
             <form id="pForm">
                 <table id="boxesTable" class="display nowrap" style="width:60%">
@@ -322,7 +317,6 @@
                     </thead>
                 </table>
             </form>
-
             <input type="button" value="חדש" class="btn btn-primary btn-lg" id="newBTN" />
 
             <div id="editDiv" style="direction:rtl">
@@ -370,9 +364,7 @@
 
 
 
-
-
-    </div>
+    <!--</div>-->
 
 
 </body>
