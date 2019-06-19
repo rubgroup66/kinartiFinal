@@ -42,17 +42,17 @@ namespace kinarti.Controllers
             return cust;
         }
 
-        [HttpDelete]
-        [Route("api/deleteCust/{id}")]
-        public void Delete(string id)
-        {
-            string custID = id;
-            Customer cust = new Customer();
-            cust.DeleteCust(custID);
+        //[HttpDelete]
+        //[Route("api/deleteCust/{id}")]
+        //public void Delete(string id)
+        //{
+        //    string custID = id;
+        //    Customer cust = new Customer();
+        //    cust.DeleteCust(custID);
 
 
 
-        }
+        //}
 
 
     }

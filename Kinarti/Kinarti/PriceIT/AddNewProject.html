@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="cssGeneral.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -31,6 +32,7 @@
             });
             var custID = localStorage.getItem("storageCust_id");
             project = {
+                ID: 
                 project_name: $("#project_name").val(),
                 create_date: $("#create_date").val(),
                 customer_id: custID,
@@ -111,11 +113,10 @@
                 <a class="navbar-brand" href="#">PriceIT</a>
             </div>
             <ul class="nav navbar-nav">
-                <!--<li class="active"><a href="AddNewProject.html">הקמת פרויקט</a></li>-->
-                <li class="active"><a href="projectsList.html">פרויקטים</a></li>
-                <li><a href="showCustomers.html">לקוחות</a></li>
                 <li><a href="users.html">ניהול משתמשים</a></li>
                 <li><a href="editBoxes.html">עדכון עלויות</a></li>
+                <li><a href="showCustomers.html">לקוחות</a></li>
+                <li><a href="projectsList.html">פרויקטים</a></li>
             </ul>
         </div>
     </nav>

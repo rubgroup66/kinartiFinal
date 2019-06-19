@@ -164,6 +164,7 @@
     <Compile Include="Controllers\ArchitectController.cs" />
     <Compile Include="Controllers\BoxController.cs" />
     <Compile Include="Controllers\ConstantsController.cs" />
+    <Compile Include="Controllers\NewCustomerController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\FacadeController.cs" />
     <Compile Include="Controllers\FacadeMaterialController.cs" />
@@ -173,7 +174,6 @@
     <Compile Include="Controllers\IronWorksController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\MaterialController.cs" />
-    <Compile Include="Controllers\NewCustomerController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\SupervisorController.cs" />
     <Compile Include="Controllers\UserController.cs" />

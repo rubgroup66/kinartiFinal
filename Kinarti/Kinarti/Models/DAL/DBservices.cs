@@ -899,9 +899,8 @@ public class DBservices
     }
 
     //-----------------------------------------------------
-    public int DeleteCust(string custID)
+    public int DeleteCust(int custID)
     {
-
         //SqlConnection con;
         SqlCommand cmd;
 
@@ -911,43 +910,32 @@ public class DBservices
         }
         catch (Exception ex)
         {
-            // write to log
-            throw (ex);
+            throw (ex);// write to log
         }
-
         String cStr = BuildDeleteCust(custID);      // helper method to build the insert string
-
         cmd = CreateCommand(cStr, this.con);             // create the command
-
-
         try
         {
             int numAffected = cmd.ExecuteNonQuery(); // execute the comm
-
             return numAffected;
-
-
         }
         catch (Exception ex)
         {
-
             // write to log
             throw (ex);
         }
-
         finally
         {
             if (this.con != null)
             {
-                // close the db connection
-                this.con.Close();
+                this.con.Close();// close the db connection
             }
         }
 
     }
-    private string BuildDeleteCust(string custID)
+    private string BuildDeleteCust(int custID)
     {
-        string cmdStr = "DELETE FROM Customer2  WHERE id='" + custID + "'";
+        string cmdStr = "DELETE FROM Customer2  WHERE id=" + custID + "";
         return cmdStr;
     }
 
