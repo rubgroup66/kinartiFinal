@@ -9,7 +9,6 @@ using kinarti.Models;
 using System.IO;
 using System.Web;
 using System.Web.Hosting;
-
 namespace kinarti.Controllers
 {
 
@@ -42,15 +41,24 @@ namespace kinarti.Controllers
             return cust;
         }
 
-        [HttpDelete]
-        [Route("api/customers/{project_name}")]
-        public void Delete(string project_name)
-        {
-            string custID = project_name;
-            Customer cust = new Customer();
-            cust.DeleteCust(custID);
-        }
+        //[HttpDelete]
+        //[Route("api/customers/{id}")]
+        //public int Delete(int id)
+        //{
 
+        //    Customer cust = new Customer();
+        //    cust.DeleteCust(id);
+        //    int x = 5;
+        //    return x;
+
+        //}
+        [HttpDelete]
+        [Route("api/customers")]
+        public void Delete(int Id)
+        {
+            Customer cust = new Customer();
+            cust.DeleteCust(Id);
+        }
 
     }
 }

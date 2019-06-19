@@ -10,13 +10,8 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+    <link href="cssGeneral.css" rel="stylesheet" />
 
-    <style type="text/css">
-
-        button {
-            margin-left: 10px;
-        }
-    </style>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -24,8 +19,6 @@
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-    <script src="../Scripts/ajaxCallsStub.js"></script>
     <script src="../Scripts/ajaxCalls.js"></script>
     <script>
         $(document).ready(function () {
@@ -96,12 +89,18 @@
             row.className = 'selected'; // mark as selected
         }
 
-        // Delete a car from the server
-        function DeleteCust(custId) {
-            let id = custId;
-            ajaxCall("DELETE", "../api/customers/" + custId, JSON.stringify(id), deleteSuccess, error);
+        function DeleteCust(id) {
+            ajaxCall("DELETE", "../api/customers/?Id=" + id, deleteSuccess, error);
+            return false;
         }
-
+        //function DeleteCust(id) {
+        //    ajaxCall("DELETE", "../api/customers/?Id=" + id, "", deleteSuccess, error);
+        //    return false;
+        //}
+        function sucssesDeleteCust(data) {
+            alert("tt");
+            console.log("hhhhh");
+        }
         function onSubmitFunc() {
             let custAfterEdit = {
                 id: cust.id,
@@ -137,23 +136,17 @@
         // success callback function after update
         function updateSuccess(custsdata) {
             tbl.clear();
-            redrawTable(tbl, custsdata);
             buttonEvents();
             $("#editDiv").hide();
-            window.location.reload();
-            swal("Updated Successfuly!", "Great Job", "success");
+            swal({ // this will open a dialouge
+                title: "הפרטים עודכנו בהצלחה",
+                icon: "info",
+            })
+                .then(function () {
+                    redrawTable(tbl, custsdata);
+                    window.location.reload();
+                });
         }
-        // success callback function after delete
-        function deleteSuccess(custsdata) {
-            tbl.clear();
-            redrawTable(tbl, custsdata);
-            buttonEvents(); // after redrawing the table, we must wire the new buttons
-            $("#editDiv").hide();
-            swal("Deleted Successfuly!", "Great Job", "success");
-            window.location.reload();
-
-        }
-        // redraw a datatable with new data
         function redrawTable(tbl, data) {
             tbl.clear();
             for (var i = 0; i < data.length; i++) {
@@ -161,6 +154,31 @@
             }
             tbl.draw();
         }
+        // success callback function after delete
+        function deleteSuccess(data) {
+            console.log("ffff");
+            alert(data);
+            //swal({ // this will open a dialouge
+            //    title: "הפרטים עודכנו בהצלחה",
+            //    icon: "info",
+            //})
+            //    .then(function () {
+            //        redrawTable(tbl, custsdata);
+            //        window.location.reload();
+            //    });
+            //tbl.clear();
+            //redrawTable(tbl, custsdata);
+            //buttonEvents(); // after redrawing the table, we must wire the new buttons
+            //$("#editDiv").hide();
+        }
+        // redraw a datatable with new data
+        //function redrawTable(tbl, data) {
+        //    tbl.clear();
+        //    for (var i = 0; i < data.length; i++) {
+        //        tbl.row.add(data[i]);
+        //    }
+        //    tbl.draw();
+        //}
 
         // this function is activated in case of a success
         function getSuccess(custsdata) {
@@ -174,10 +192,10 @@
                             render: function (data, type, row, meta) {
                                 let dataCust = "data-custId='" + row.id + "'";
 
-                                editBtn = "<button type='button' class = 'editBtn btn btn-success' " + dataCust + "> Edit </button>";
-                                viewBtn = "<button type='button' class = 'viewBtn btn btn-info' " + dataCust + "> View </button>";
-                                deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataCust + "> Delete </button>";
-                                addProjBtn = "<button type='button' class = 'addProjBtn btn btn-warning' " + dataCust + "> Add project </button>";
+                                editBtn = "<button type='button' class = 'editBtn btn btn-success' " + dataCust + "> ערוך לקוח </button>";
+                                viewBtn = "<button type='button' class = 'viewBtn btn btn-info' " + dataCust + "> צפייה </button>";
+                                deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataCust + "> מחק לקוח</button>";
+                                addProjBtn = "<button type='button' class = 'addProjBtn btn btn-warning' " + dataCust + "> הוסף פרויקט חדש </button>";
                                 return editBtn + viewBtn + deleteBtn + addProjBtn;
                             }
                         },
@@ -236,10 +254,10 @@
                 <a class="navbar-brand" href="#">PriceIT</a>
             </div>
             <ul class="nav navbar-nav">
-                <li><a href="projectsList.html">פרויקטים</a></li>
-                <li class="active"><a href="ShowCustomers.html">לקוחות</a></li>
                 <li><a href="users.html">ניהול משתמשים</a></li>
                 <li><a href="editBoxes.html">עדכון עלויות</a></li>
+                <li class="active"><a href="showCustomers.html">לקוחות</a></li>
+                <li><a href="projectsList.html">פרויקטים</a></li>
 
             </ul>
         </div>
@@ -254,7 +272,7 @@
             <table id="customers_table" class="display nowrap" style="width:100%">
                 <thead>
                     <tr>
-                        <th></th>
+                        <th>פעולות</th>
                         <th>מזהה לקוח</th>
                         <th> שם פרטי</th>
                         <th>שם משפחה</th>

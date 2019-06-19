@@ -55,10 +55,20 @@ namespace kinarti.Models
             db.Put(c);
         }
 
-        public void DeleteCust(string custID)
+        public void DeleteCust(int custID)
         {
+
             DBservices db = new DBservices();
-            db.DeleteCust(custID);
+            int numAffected = db.DeleteCust(custID);
+
+
+
         }
+        //public void DeleteCust(int Id)
+        //{
+        //    DBservices dbs = new DBservices();
+        //    int numAffected = dbs.DeleteCust(Id);
+
+        //}
     }
 }

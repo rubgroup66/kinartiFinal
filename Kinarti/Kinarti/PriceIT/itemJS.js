@@ -816,10 +816,6 @@ function success(data) {
                 data: itemsdata,
                 pageLength: 5,
                 columns: [
-                    { data: "ID" },
-                    { data: "Name" },
-                    { data: "BoxMeasuresID" },   //?
-                    { data: "Cost" },
                     {
                         render: function (data, type, row, meta) {
                             let dataItem = "data-itemId='" + row.ID + "'";
@@ -829,7 +825,12 @@ function success(data) {
                             deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataItem + "> מחיקה </button>";
                             return editBtn + /*viewBtn +*/ duplicateBtn + deleteBtn;
                         }
-                    }
+                    },
+                    { data: "ID" },
+                    { data: "Name" },
+                    { data: "BoxMeasuresID" },   //?
+                    { data: "Cost" }
+                    
                 ],
                 //////////////////////////
                 "footerCallback": function (row, data, start, end, display) {

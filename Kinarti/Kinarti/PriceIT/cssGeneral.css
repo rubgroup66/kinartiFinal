@@ -27,10 +27,19 @@ div {
 .navbar-nav {
     float: right;
 }
+.nav-tabs{
+    float:right;
+}
 th {
-    text-align: right;
+    text-align: center;
 }
 
 .editItem {
     left: 0px;
+}
+button {
+    margin-left: 10px;
+}
+table{
+    background-color:yellow;
 }

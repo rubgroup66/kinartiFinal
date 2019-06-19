@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+    <link href="cssGeneral.css" rel="stylesheet" />
     <style type="text/css">
         item
         button {
@@ -65,7 +66,7 @@
             })
         }
         function errorGetProj(err) {
-            swal("Error getting customers");
+            swal("Error getting projects");
         }
 
         $(document).on("click", ".EditProjBtn", function (event) {
@@ -255,10 +256,10 @@
                 <a class="navbar-brand" href="#">PriceIT</a>
             </div>
             <ul class="nav navbar-nav">
-                <li class="active"><a href="showProjects.html">פרויקטים</a></li>
-                <li><a href="showCustomers.html">לקוחות</a></li>
                 <li><a href="users.html">ניהול משתמשים</a></li>
                 <li><a href="editBoxes.html">עדכון עלויות</a></li>
+                <li><a href="showCustomers.html">לקוחות</a></li>
+                <li class="active"><a href="projectsList.html">פרויקטים</a></li>
             </ul>
         </div>
     </nav>
@@ -266,12 +267,14 @@
     <div id="con" class="container">
 
         <div class="row item">
-            <div class="form-group col-sm-4">
-                <input type="button" value="הוסף פרויקט" class="btn btn-primary btn-lg" id="newProjectBtn" />
-            </div>
+
+            <input type="button" value="הוסף פרויקט" class="btn btn-primary btn-lg" id="newProjectBtn" />
+            <br/>
+            <br/>
+            <input type="button" value="מיון" class="btn btn-primary btn-lg" onclick="ShowFilter()" />
+
         </div>
 
-        <input type="button" value="מיון" class="btn btn-primary btn-lg" onclick="ShowFilter()" />
         <br />
         <br />
         <div id="filterDiv" class="form-group" style="display:none; background-color:lightblue; border:double; direction:rtl" ;>
