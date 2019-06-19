@@ -304,30 +304,28 @@
     <br />
     <br />
 
-    <div class="container">
-        <form id="pForm">
-            <table id="boxesTable" class="display nowrap" style="width:60%">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <!--<th>מחיר לארגז לפי חומר בסיס</th>-->
-                        <th>עומק</th>
-                        <th>רוחב</th>
-                        <th>גובה</th>
-                        <th>סוג</th>
-                        <th>מס"ד</th>
-                    </tr>
-                </thead>
-            </table>
-        </form>
+    <div class="tab-pane fade" role="tabpanel" id="boxes" aria-labelledby="boxes-tab">
 
-        <input type="button" value="חדש" class="btn btn-primary btn-lg" id="newBTN" />
+        <div class="container">
+            <form id="pForm">
+                <table id="boxesTable" class="display nowrap" style="width:60%">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <!--<th>מחיר לארגז לפי חומר בסיס</th>-->
+                            <th>עומק</th>
+                            <th>רוחב</th>
+                            <th>גובה</th>
+                            <th>סוג</th>
+                            <th>מס"ד</th>
+                        </tr>
+                    </thead>
+                </table>
+            </form>
 
-        <div id="editDiv" style="direction:rtl">
+            <input type="button" value="חדש" class="btn btn-primary btn-lg" id="newBTN" />
 
-            <div class="tab-pane fade" role="tabpanel" id="boxes" aria-labelledby="boxes-tab">
-
-
+            <div id="editDiv" style="direction:rtl">
 
                 <form id="boxesForm">
                     <div class="form-group row">
@@ -345,9 +343,9 @@
                         </div>
                         <div class="form-group row">
                             <!--<div class="form-group col-sm-4">
-                    <label for="costForBasicMaterial"><span class="red-star">★ </span>מחיר ארגז לפי חומר בסיס</label>
-                    <input type="text" class="form-control" id="costForBasicMaterial" placeholder="הזן מחיר ארגז לפי חומר בסיס" required min="1">
-                </div>-->
+                            <label for="costForBasicMaterial"><span class="red-star">★ </span>מחיר ארגז לפי חומר בסיס</label>
+                            <input type="text" class="form-control" id="costForBasicMaterial" placeholder="הזן מחיר ארגז לפי חומר בסיס" required min="1">
+                        </div>-->
                             <div class="form-group col-sm-3" id="typeRDB">
                                 <label for="typeRDB">סוג ארגזת</label> <br />
                                 <input type="radio" name="גמר חוץ" value="1" required> ארון<br />
@@ -355,11 +353,11 @@
                             </div>
                         </div>
                         <!--<div class="form-group row">
-                <div class="form-group col-sm-12">
-                    <label for="description"> תאור</label>
-                    <textarea class="form-control" id="description" placeholder="הזן תאור"></textarea>
-                </div>
-            </div>-->
+                        <div class="form-group col-sm-12">
+                            <label for="description"> תאור</label>
+                            <textarea class="form-control" id="description" placeholder="הזן תאור"></textarea>
+                        </div>
+                    </div>-->
                     </div>
                     <button type="submit" class="btn btn-primary btn-lg" id="saveBTN">אישור</button>
                     <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTN" value="ביטול" />
@@ -369,6 +367,13 @@
 
 
         </div>
+
+
+
+
+
     </div>
+
+
 </body>
 </html>
