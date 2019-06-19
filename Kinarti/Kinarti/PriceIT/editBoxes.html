@@ -252,6 +252,10 @@
         //    ajaxCall("PUT", "../api/boxes"+ boxId, JSON.stringify(boxAfterEdit), updateSuccess, error);
         //    return false;
         //}
+        $('#myTabs a').click(function (e) {
+            e.preventDefault()
+            $(this).tab('show')
+        })
     </script>
 
 </head>
@@ -271,14 +275,36 @@
     </nav>
 
     <!--tabs----------------------------------------------------->
-    <ul class="nav nav-tabs">
-        <li role="presentation" class="active"><a href="#">ארגזות</a></li>
-        <li role="presentation"><a href="#">צירים</a></li>
-        <li role="presentation"><a href="#">חומרי גלם</a></li>
-        <li role="presentation"><a href="#">ידיות</a></li>
-        <li role="presentation"><a href="#">פרמטרים לחישוב</a></li>
-    </ul>
+    <div>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#home" aria-controls="hinges" role="tab" data-toggle="tab">צירים</a></li>
+            <li role="presentation"><a href="#profile" aria-controls="boxes" role="tab" data-toggle="tab">ארגזות</a></li>
+            <li role="presentation"><a href="#messages" aria-controls="materials" role="tab" data-toggle="tab">חומרי גלם</a></li>
+            <li role="presentation"><a href="#settings" aria-controls="handles" role="tab" data-toggle="tab">ידיות</a></li>
+            <li role="presentation"><a href="#settings" aria-controls="constants" role="tab" data-toggle="tab">פרמטרים</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="home">...</div>
+            <div role="tabpanel" class="tab-pane" id="profile">...</div>
+            <div role="tabpanel" class="tab-pane" id="messages">...</div>
+            <div role="tabpanel" class="tab-pane" id="settings">...</div>
+        </div>
+
+    </div>
     <!--tabs----------------------------------------------------->
+
+
+
+
+
+
+
+
+    <br />
+    <br />
+
     <div class="container">
         <form id="pForm">
             <table id="boxesTable" class="display nowrap" style="width:60%">
