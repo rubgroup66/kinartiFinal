@@ -274,93 +274,106 @@
         </div>
     </nav>
 
-    <!--tabs----------------------------------------------------->
     <div>
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#home" aria-controls="hinges" role="tab" data-toggle="tab">צירים</a></li>
-            <li role="presentation"><a href="#profile" aria-controls="boxes" role="tab" data-toggle="tab">ארגזות</a></li>
-            <li role="presentation"><a href="#messages" aria-controls="materials" role="tab" data-toggle="tab">חומרי גלם</a></li>
-            <li role="presentation"><a href="#settings" aria-controls="handles" role="tab" data-toggle="tab">ידיות</a></li>
-            <li role="presentation"><a href="#settings" aria-controls="constants" role="tab" data-toggle="tab">פרמטרים</a></li>
-        </ul>
-        <!-- Tab panes -->
-        <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="home">...</div>
-            <div role="tabpanel" class="tab-pane" id="profile">...</div>
-            <div role="tabpanel" class="tab-pane" id="messages">...</div>
-            <div role="tabpanel" class="tab-pane" id="settings">...</div>
+        <!--tabs----------------------------------------------------->
+        <div>
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#home" aria-controls="hinges" role="tab" data-toggle="tab">צירים</a></li>
+                <li role="presentation"><a href="#boxes" aria-controls="boxes" role="tab" data-toggle="tab">ארגזות</a></li>
+                <li role="presentation"><a href="#materials" aria-controls="materials" role="tab" data-toggle="tab">חומרי גלם</a></li>
+                <li role="presentation"><a href="#handles" aria-controls="handles" role="tab" data-toggle="tab">ידיות</a></li>
+                <li role="presentation"><a href="#constants" aria-controls="constants" role="tab" data-toggle="tab">פרמטרים</a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="boxes">...</div>
+                <div role="tabpanel" class="tab-pane " id="hinges">...</div>
+                <div role="tabpanel" class="tab-pane " id="materials">...</div>
+                <div role="tabpanel" class="tab-pane" id="handles">...</div>
+                <div role="tabpanel" class="tab-pane" id="constants">...</div>
+            </div>
+
         </div>
+        <!--tabs----------------------------------------------------->
+
+
 
     </div>
-    <!--tabs----------------------------------------------------->
-
-
-
-
-
-
-
 
     <br />
     <br />
 
-    <div class="container">
-        <form id="pForm">
-            <table id="boxesTable" class="display nowrap" style="width:60%">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <!--<th>מחיר לארגז לפי חומר בסיס</th>-->
-                        <th>עומק</th>
-                        <th>רוחב</th>
-                        <th>גובה</th>
-                        <th>סוג</th>
-                        <th>מס"ד</th>
-                    </tr>
-                </thead>
-            </table>
-        </form>
+    <div class="tab-pane fade" role="tabpanel" id="boxes" aria-labelledby="boxes-tab">
 
-        <input type="button" value="חדש" class="btn btn-primary btn-lg" id="newBTN" />
+        <div class="container">
+            <form id="pForm">
+                <table id="boxesTable" class="display nowrap" style="width:60%">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <!--<th>מחיר לארגז לפי חומר בסיס</th>-->
+                            <th>עומק</th>
+                            <th>רוחב</th>
+                            <th>גובה</th>
+                            <th>סוג</th>
+                            <th>מס"ד</th>
+                        </tr>
+                    </thead>
+                </table>
+            </form>
 
-        <div id="editDiv" style="direction:rtl">
-            <form id="boxesForm">
-                <div class="form-group row">
-                    <div class="form-group col-sm-3">
-                        <label for="depth"><span class="red-star">★ </span>עומק</label>
-                        <input type="text" class="form-control" id="depth" placeholder="הזן עומק" required min="1">
-                    </div>
-                    <div class="form-group col-sm-3">
-                        <label for="width"><span class="red-star">★ </span>רוחב</label>
-                        <input type="text" class="form-control" id="width" placeholder="הזן רוחב" required min="1">
-                    </div>
-                    <div class="form-group col-sm-3">
-                        <label for="height"><span class="red-star">★ </span>גובה</label>
-                        <input type="text" class="form-control" id="height" placeholder="הזן גובה" required min="1">
-                    </div>
+            <input type="button" value="חדש" class="btn btn-primary btn-lg" id="newBTN" />
+
+            <div id="editDiv" style="direction:rtl">
+
+                <form id="boxesForm">
                     <div class="form-group row">
-                        <!--<div class="form-group col-sm-4">
+                        <div class="form-group col-sm-3">
+                            <label for="depth"><span class="red-star">★ </span>עומק</label>
+                            <input type="text" class="form-control" id="depth" placeholder="הזן עומק" required min="1">
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="width"><span class="red-star">★ </span>רוחב</label>
+                            <input type="text" class="form-control" id="width" placeholder="הזן רוחב" required min="1">
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="height"><span class="red-star">★ </span>גובה</label>
+                            <input type="text" class="form-control" id="height" placeholder="הזן גובה" required min="1">
+                        </div>
+                        <div class="form-group row">
+                            <!--<div class="form-group col-sm-4">
                             <label for="costForBasicMaterial"><span class="red-star">★ </span>מחיר ארגז לפי חומר בסיס</label>
                             <input type="text" class="form-control" id="costForBasicMaterial" placeholder="הזן מחיר ארגז לפי חומר בסיס" required min="1">
                         </div>-->
-                        <div class="form-group col-sm-3" id="typeRDB">
-                            <label for="typeRDB">סוג ארגזת</label> <br />
-                            <input type="radio" name="גמר חוץ" value="1" required> ארון<br />
-                            <input type="radio" name="גמר פנים" value="0"> ספריה<br />
+                            <div class="form-group col-sm-3" id="typeRDB">
+                                <label for="typeRDB">סוג ארגזת</label> <br />
+                                <input type="radio" name="גמר חוץ" value="1" required> ארון<br />
+                                <input type="radio" name="גמר פנים" value="0"> ספריה<br />
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
+                        <!--<div class="form-group row">
                         <div class="form-group col-sm-12">
                             <label for="description"> תאור</label>
                             <textarea class="form-control" id="description" placeholder="הזן תאור"></textarea>
                         </div>
+                    </div>-->
                     </div>
-                </div>
-                <button type="submit" class="btn btn-primary btn-lg" id="saveBTN">אישור</button>
-                <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTN" value="ביטול" />
-            </form>
+                    <button type="submit" class="btn btn-primary btn-lg" id="saveBTN">אישור</button>
+                    <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTN" value="ביטול" />
+                </form>
+
+            </div>
+
+
         </div>
+
+
+
+
+
     </div>
+
+
 </body>
 </html>
