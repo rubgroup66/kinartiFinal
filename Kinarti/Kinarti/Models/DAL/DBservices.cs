@@ -74,9 +74,9 @@ public class DBservices
         String command;
         StringBuilder sbMaterial = new StringBuilder();
         // use a string builder to create the dynamic string
-        sbMaterial.AppendFormat("Values('{0}', '{1}', {2}, {3})",
+        sbMaterial.AppendFormat("Values('{0}', {1}, {2}, {3})",
             material.Name, material.Type, material.Cost, material.Coefficient);
-        String prefix = "INSERT INTO materialTbl " + "(name, type, cost, coefficient, workCost) ";
+        String prefix = "INSERT INTO materialTbl " + "(name, type, cost, coefficient) ";
         command = prefix + sbMaterial.ToString() + ";" + "SELECT CAST(scope_identity() AS int)";
         return command;
     }  

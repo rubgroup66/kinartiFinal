@@ -267,10 +267,10 @@ function onSubmitFunc() {
 
     let materialtoSave = {
         //ID: material.ID,
-        Type: $("#materialName").val(), 
+        Name: $("#materialName").val(), 
         Cost: $("#materialCost").val(),
         Coefficient: $("#materialCoefficient").val(),
-        Type: "box",
+        Type: 1,
        
     };
 
