@@ -1314,6 +1314,58 @@ public class DBservices
         command = prefix + sbItem.ToString() + ";" + "SELECT CAST(scope_identity() AS int)";
         return command;
     }
+
+
+
+    public int insertHandle(Handle handle)//inserting new item
+    {
+        //SqlConnection con;
+        SqlCommand cmd;
+        try
+        {
+            this.con = connect("PriceITConnectionString"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        String cStr = BuildInsertHandleCommand(handle);      // helper method to build the insert string
+        cmd = CreateCommand(cStr, this.con);             // create the command
+        try {
+            int numEffected = cmd.ExecuteNonQuery(); // execute the command
+            return numEffected;
+        }
+        catch (Exception ex)  {
+            return 0;
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (this.con != null)
+            {
+                // close the db connection
+                this.con.Close();
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------
+    // Build the Insert command String
+    //--------------------------------------------------------------------
+    private String BuildInsertHandleCommand(Handle handle)
+    {
+        String command;
+        StringBuilder sbItem = new StringBuilder(); // use a string builder to create the dynamic string
+        sbItem.AppendFormat("Values('{0}', {1} )", handle.Type, handle.Cost);
+        String prefix = "INSERT INTO handleTbl " + "(type, cost) ";
+        //command = prefix + sbItem.ToString();
+        command = prefix + sbItem.ToString() + ";" + "SELECT CAST(scope_identity() AS int)";
+        return command;
+    }
+
+
     //update edited item in system
     public int updateItem(Item item, int Id)
     {
@@ -1384,6 +1436,46 @@ public class DBservices
         return prefix;
     }
 
+    public int updateHandle(Handle handle, int Id)
+    {
+        //SqlConnection con;
+        SqlCommand cmd;
+        try
+        {
+            this.con = connect("PriceITConnectionString"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            throw (ex);          // write to log
+        }
+        String cStr = BuildUpdateHandleCommand(handle, Id);      // helper method to build the insert string
+        cmd = CreateCommand(cStr, this.con);             // create the command
+
+        try
+        {
+            int numEffected = (int)cmd.ExecuteNonQuery(); // execute the command
+            return numEffected;
+        }
+        catch (Exception ex)
+        {
+            return 0;
+            throw (ex);       // write to log
+        }
+        finally
+        {
+            if (this.con != null)
+            {
+                this.con.Close();        // close the db connection
+            }
+        }
+    }
+
+    private string BuildUpdateHandleCommand(Handle p, int id)
+    {
+        //String command;
+        string prefix = "UPDATE handleTbl SET type = '" + p.Type + "', cost = '" + p.Cost + "' WHERE id = " + id;
+        return prefix;
+    }
     //update edited item in system
     public int updateProject(Project project, int Id)
     {
@@ -1867,7 +1959,44 @@ public class DBservices
         return cmdStr;
     }
 
+    public int deleteHandle(int handleID)
+    {
+        //SqlConnection con;
+        SqlCommand cmd;
+        try
+        {
+            this.con = connect("PriceITConnectionString"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            throw (ex);// write to log
+        }
+        String cStr = BuildDeleteHandle(handleID);      // helper method to build the insert string
+        cmd = CreateCommand(cStr, this.con);             // create the command
+        try
+        {
+            int numAffected = cmd.ExecuteNonQuery(); // execute the comm
+            return numAffected;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (this.con != null)
+            {
+                this.con.Close();// close the db connection
+            }
+        }
 
+    }
+    private string BuildDeleteHandle(int handleID)
+    {
+        string cmdStr = "DELETE FROM handleTbl  WHERE id='" + handleID + "'";
+        return cmdStr;
+    }
 
     // fetch single project from DB
     public Project getProject(string conString, string tableName, int id)

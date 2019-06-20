@@ -28,15 +28,7 @@ namespace kinarti.Models
         public Handle()
         {
         }
-        //public int insert()
-        //{
-        //    DBservices dbs = new DBservices();
-        //    int numAffected = dbs.insertMaterial(this);
-        //    return numAffected;
-        //}
-        //--------------------------------------------------------------------------
-        // get the list of the boxes
-        //--------------------------------------------------------------------------
+
         public List<Handle> getHandles()
         {
             DBservices dbs = new DBservices();
@@ -44,25 +36,25 @@ namespace kinarti.Models
             return lp;
         }
 
-        //public int SwitchActive(int isActive, int PersonId)
-        //{
-        //    DBservices dbs = new DBservices();
-        //    int numAffected = dbs.SwitchActive(isActive, PersonId);
-        //    return numAffected;
-        //}
+        public int insert()
+        {
+            DBservices dbs = new DBservices();
+            int numAffected = dbs.insertHandle(this);
+            return numAffected;
+        }
 
-        //public Material getMaterial(string email, string password)
-        //{
-        //    DBservices dbs = new DBservices();
-        //    return dbs.getMaterial("TinderConnectionString", "MaterialTbl", email, password);
-        //}
+        public int updateHandle(int Id)
+        {
+            DBservices dbs = new DBservices();
+            int numAffected = dbs.updateHandle(this, Id);
+            return numAffected;
+        }
 
-        //public int updateMaterial(int Id)
-        //{
-        //    DBservices dbs = new DBservices();
-        //    int numAffected = dbs.updateMaterial(this, Id);
-        //    return numAffected;
-        //}
+        public void deleteHandle(int Id)
+        {
+            DBservices dbs = new DBservices();
+            int numAffected = dbs.deleteHandle(Id);
 
+        }
     }
 }
