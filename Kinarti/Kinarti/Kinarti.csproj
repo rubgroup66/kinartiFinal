@@ -195,7 +195,6 @@
     <Compile Include="Models\IronWork.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Material.cs" />
-    <Compile Include="Models\Material2.cs" />
     <Compile Include="Models\Person.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\Supervisor.cs" />

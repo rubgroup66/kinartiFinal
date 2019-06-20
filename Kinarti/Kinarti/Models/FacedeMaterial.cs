@@ -28,12 +28,12 @@ namespace kinarti.Models
         public FacadeMaterial()
         {
         }
-        //public int insert()
-        //{
-        //    DBservices dbs = new DBservices();
-        //    int numAffected = dbs.insertFacadeMaterial(this);
-        //    return numAffected;
-        //}
+        public int insert()
+        {
+            DBservices dbs = new DBservices();
+            int numAffected = dbs.insertFacadeMaterial(this);
+            return numAffected;
+        }
 
         //--------------------------------------------------------------------------
         // get the list of the persons
@@ -45,13 +45,19 @@ namespace kinarti.Models
             return lp;
         }
 
+        public int updateFacadeMaterial(int Id)
+        {
+            DBservices dbs = new DBservices();
+            int numAffected = dbs.updateFacadeMaterial(this, Id);
+            return numAffected;
+        }
 
-        //public int updateFacade(int Id)
-        //{
-        //    DBservices dbs = new DBservices();
-        //    int numAffected = dbs.updateFacade(this, Id);
-        //    return numAffected;
-        //}
+        public void deleteFacadeMaterial(int Id)
+        {
+            DBservices dbs = new DBservices();
+            int numAffected = dbs.deleteFacadeMaterial(Id);
+
+        }
 
     }
 }

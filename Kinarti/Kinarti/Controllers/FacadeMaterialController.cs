@@ -19,22 +19,6 @@ namespace kinarti.Controllers
 {
     public class FacadeMaterialController : ApiController
     {
-        // POST api/values
-        //[HttpPost]
-        //[Route("api/facadeMaterial")]
-        //public void Post([FromBody]Facade m)
-        //{
-        //    try
-        //    {
-        //        //    int someError = Convert.ToInt32("will fail to convert");
-        //        m.insert();
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        throw e;
-        //        // throw new Exception("Error in posting a new person");
-        //    }
-        //}
 
         [System.Web.Http.HttpGet]
         [Route("api/facadeMaterials")]
@@ -45,39 +29,34 @@ namespace kinarti.Controllers
             return lm;
         }
 
+        [HttpPost]
+        [Route("api/facadeMaterials")]
+        public void Post([FromBody]FacadeMaterial p)
+        {
+            try
+            {
+                p.insert();   //    int someError = Convert.ToInt32("will fail to convert");
+            }
+            catch (Exception e)
+            {
+                throw e; // throw new Exception("Error in posting a new item");
+            }
+        }
 
+        [HttpPut]
+        [Route("api/facadeMaterials")]
+        public void Put([FromBody]FacadeMaterial p, int Id)
+        {
+            p.updateFacadeMaterial(Id);
+        }
 
-        //[System.Web.Http.HttpGet]
-        //[Route("api/test")]
-        //public String GetTest()
-        //{
-
-        //    return "success";
-        //}
-
-
-        //[HttpGet]
-        //[Route("api/persons")]
-        //public Person GetPerson(string email, string password)
-        //{
-        //    Person person = new Person();
-        //    return person.getPerson(email, password);
-        //}
-
-
-        //[HttpPut]
-        //[Route("api/persons")]
-        //public void Put([System.Web.Http.FromBody]Person p, int Id)
-        //{
-        //    p.updatePerson(Id);
-        //}
-
-        //[HttpPut]
-        //[Route("api/materials")]
-        //public void Put([System.Web.Http.FromBody]Material m, int Id)
-        //{
-        //    m.updatefacade(Id);
-        //}
+        [System.Web.Http.HttpDelete]
+        [Route("api/facadeMaterials")]
+        public void Delete(int Id)
+        {
+            FacadeMaterial facadeMaterial = new FacadeMaterial();
+            facadeMaterial.deleteFacadeMaterial(Id);
+        }
     }
 
 }

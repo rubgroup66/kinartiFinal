@@ -5,7 +5,6 @@ using System.Web;
 using System.Data.SqlClient;
 using System.Web.Configuration;
 using System.Data;
-
 using System.Text;
 using kinarti.Models;
 
@@ -45,12 +44,10 @@ public class DBservices
     {
         //SqlConnection con;
         SqlCommand cmd;
-        try
-        {
+        try {
             this.con = connect("PriceITConnectionString"); // create the connection
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             throw (ex); // write to log
         }
         String cStr = BuildInsertMaterialCommand(material);      // helper method to build the insert string
@@ -536,51 +533,7 @@ public class DBservices
         return command;
     }
 
-    //update edited Material in system
-    public int updateMaterial(Material material, int Id)
-    {
-        //SqlConnection con;
-        SqlCommand cmd;
-
-        try
-        {
-            con = connect("PriceITConnectionString"); // create the connection
-        }
-        catch (Exception ex)
-        {
-            throw (ex);          // write to log
-        }
-        String cStr = BuildUpdateCommand(material, Id);   // helper method to build the insert string
-        cmd = CreateCommand(cStr, this.con);             // create the command
-        try
-        {
-            int numEffected = (int)cmd.ExecuteNonQuery(); // execute the command
-            return numEffected;
-        }
-        catch (Exception ex)
-        {
-            return 0;
-            throw (ex);       // write to log
-        }
-        finally
-        {
-            if (this.con != null)
-            {
-                this.con.Close();        // close the db connection
-            }
-        }
-    }
     
-    private string BuildUpdateCommand(Material m, int id)
-    {
-        //String command;
-        //StringBuilder sb = new StringBuilder();
-        // use a string builder to create the dynamic string
-        string prefix = "UPDATE Material SET name = '" + m.Name + "', cost = '" + m.Cost + "', type = '" + m.Type + "',coefficient = '" + m.Coefficient  + " WHERE id=" + id;
-        //command = prefix + "SELECT CAST(scope_identity() AS int)";
-
-        return prefix;
-    }
     //update edited box in system
     public int updateBox(Box box, int Id)
     {
@@ -1316,7 +1269,6 @@ public class DBservices
     }
 
 
-
     public int insertHandle(Handle handle)//inserting new item
     {
         //SqlConnection con;
@@ -1365,6 +1317,52 @@ public class DBservices
         return command;
     }
 
+
+    public int insertFacadeMaterial(FacadeMaterial facadeMaterial)//inserting new item
+    {
+        //SqlConnection con;
+        SqlCommand cmd;
+        try
+        {
+            this.con = connect("PriceITConnectionString"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        String cStr = BuildInsertFacadeMaterialCommand(facadeMaterial);      // helper method to build the insert string
+        cmd = CreateCommand(cStr, this.con);             // create the command
+        try
+        {
+            int numEffected = cmd.ExecuteNonQuery(); // execute the command
+            return numEffected;
+        }
+        catch (Exception ex)
+        {
+            return 0;
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (this.con != null)
+            {
+                // close the db connection
+                this.con.Close();
+            }
+        }
+    }
+
+    private String BuildInsertFacadeMaterialCommand(FacadeMaterial facadeMaterial)
+    {
+        String command;
+        StringBuilder sbItem = new StringBuilder(); // use a string builder to create the dynamic string
+        sbItem.AppendFormat("Values('{0}', {1} )", facadeMaterial.Name, facadeMaterial.Cost);
+        String prefix = "INSERT INTO facadeMaterialTbl " + "(type, cost) ";
+        command = prefix + sbItem.ToString() + ";" + "SELECT CAST(scope_identity() AS int)";
+        return command;
+    }
 
     //update edited item in system
     public int updateItem(Item item, int Id)
@@ -1435,6 +1433,49 @@ public class DBservices
         string prefix = "UPDATE hingeTbl SET type = '" + p.Type + "', cost = '" + p.Cost + "' WHERE id = " + id;
         return prefix;
     }
+
+
+    public int updateFacadeMaterial(FacadeMaterial facadeMaterial, int Id)
+    {
+        //SqlConnection con;
+        SqlCommand cmd;
+        try
+        {
+            this.con = connect("PriceITConnectionString"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            throw (ex);          // write to log
+        }
+        String cStr = BuildUpdateFacadeMaterialCommand(facadeMaterial, Id);      // helper method to build the insert string
+        cmd = CreateCommand(cStr, this.con);             // create the command
+
+        try
+        {
+            int numEffected = (int)cmd.ExecuteNonQuery(); // execute the command
+            return numEffected;
+        }
+        catch (Exception ex)
+        {
+            return 0;
+            throw (ex);       // write to log
+        }
+        finally
+        {
+            if (this.con != null)
+            {
+                this.con.Close();        // close the db connection
+            }
+        }
+    }
+
+    private string BuildUpdateFacadeMaterialCommand(FacadeMaterial p, int id)
+    {
+        //String command;
+        string prefix = "UPDATE facadeMaterialTbl SET type = '" + p.Name + "', cost = '" + p.Cost + "' WHERE id = " + id;
+        return prefix;
+    }
+
 
     public int updateHandle(Handle handle, int Id)
     {
@@ -1510,10 +1551,49 @@ public class DBservices
         }
     }
 
+
     private string BuildUpdateProjectCommand(Project p, int id)
     {
         //String command;
         string prefix = "UPDATE Project2 SET project_name = '" + p.project_name + "', description = '" + p.description + "',  create_date = '" + p.create_date + "', status = '" + p.status + "', architect = '" + p.architect + "', supervisor = '" + p.supervisor + "', cost = '" + p.cost + "' WHERE id = " + id;
+        return prefix;
+    }
+
+
+    public int updateMaterial(Material material, int Id)
+    {
+        //SqlConnection con;
+        SqlCommand cmd;
+        try  {
+            this.con = connect("PriceITConnectionString"); // create the connection
+        }
+        catch (Exception ex) {
+            throw (ex);          // write to log
+        }
+        String cStr = BuildUpdateMaterialCommand(material, Id);      // helper method to build the insert string
+        cmd = CreateCommand(cStr, this.con);             // create the command
+
+        try {
+            int numEffected = (int)cmd.ExecuteNonQuery(); // execute the command
+            return numEffected;
+        }
+        catch (Exception ex)  {
+            return 0;
+            throw (ex);       // write to log
+        }
+        finally
+        {
+            if (this.con != null)
+            {
+                this.con.Close();        // close the db connection
+            }
+        }
+    }
+    private string BuildUpdateMaterialCommand(Material p, int id)
+    {
+        //String command;
+        string prefix = "UPDATE materialTbl SET name = '" + p.Name + "', cost = '" + p.Cost + "', type = '" + p.Type + "',coefficient = '" + p.Coefficient + " WHERE id=" + id;
+
         return prefix;
     }
 
@@ -1959,6 +2039,46 @@ public class DBservices
         return cmdStr;
     }
 
+
+    public int deleteFacadeMaterial(int facadeMaterialID)
+    {
+        //SqlConnection con;
+        SqlCommand cmd;
+        try {
+            this.con = connect("PriceITConnectionString"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            throw (ex);// write to log
+        }
+        String cStr = BuildDeleteFacadeMaterial(facadeMaterialID);      // helper method to build the insert string
+        cmd = CreateCommand(cStr, this.con);             // create the command
+        try
+        {
+            int numAffected = cmd.ExecuteNonQuery(); // execute the comm
+            return numAffected;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (this.con != null)
+            {
+                this.con.Close();// close the db connection
+            }
+        }
+
+    }
+    private string BuildDeleteFacadeMaterial(int facadeMaterialID)
+    {
+        string cmdStr = "DELETE FROM facadeMaterialTbl  WHERE id='" + facadeMaterialID + "'";
+        return cmdStr;
+    }
+
+
     public int deleteHandle(int handleID)
     {
         //SqlConnection con;
@@ -1997,6 +2117,45 @@ public class DBservices
         string cmdStr = "DELETE FROM handleTbl  WHERE id='" + handleID + "'";
         return cmdStr;
     }
+
+
+    public int deleteMaterial(int materialID)
+    {
+        //SqlConnection con;
+        SqlCommand cmd;
+        try  {
+            this.con = connect("PriceITConnectionString"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            throw (ex);// write to log
+        }
+        String cStr = BuildDeleteMaterial(materialID);      // helper method to build the insert string
+        cmd = CreateCommand(cStr, this.con);             // create the command
+        try  {
+            int numAffected = cmd.ExecuteNonQuery(); // execute the comm
+            return numAffected;
+        }
+        catch (Exception ex)  {
+            // write to log
+            throw (ex);
+        }
+        finally  {
+            if (this.con != null)
+            {
+                this.con.Close();// close the db connection
+            }
+        }
+
+    }
+    private string BuildDeleteMaterial(int materialID)
+    {
+        string cmdStr = "DELETE FROM materialTbl  WHERE id='" + materialID + "'";
+        return cmdStr;
+    }
+
+
+
 
     // fetch single project from DB
     public Project getProject(string conString, string tableName, int id)

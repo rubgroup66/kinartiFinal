@@ -119,15 +119,17 @@ function successGetMaterialsEdit(materialsdata) {// this function is activated i
             pageLength: 5,
             columns: [
                 { data: "ID" },
+                { data: "Name" },
                 { data: "Type" },
                 { data: "Cost" },
+                { data: "Coefficient" },
                 {
                     render: function (data, type, row, meta) {
-                        let dataHinge = "data-hingeId='" + row.ID + "'";
-                        editBtn = "<button type='button' class = 'editBtn btn btn-success' " + dataHinge + "> עריכה </button>";
-                        viewBtn = "<button type='button' class = 'viewBtn btn btn-info' " + dataHinge + "> צפייה </button>";
-                        //duplicateBtn = "<button type='button' class = 'duplicateBtn btn btn-info' " + dataHinge + "> שכפול + </button>";
-                        deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataHinge + "> מחיקה </button>";
+                        let dataMaterial = "data-materialId='" + row.ID + "'";
+                        editBtn = "<button type='button' class = 'editBtn btn btn-success' " + dataMaterial + "> עריכה </button>";
+                        viewBtn = "<button type='button' class = 'viewBtn btn btn-info' " + dataMaterial + "> צפייה </button>";
+                        //duplicateBtn = "<button type='button' class = 'duplicateBtn btn btn-info' " + dataMaterial + "> שכפול + </button>";
+                        deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataMaterial + "> מחיקה </button>";
                         return editBtn + /*viewBtn +*/  deleteBtn;
                     }
                 }
@@ -159,7 +161,6 @@ function successGetFacadeMaterials(facadeMaterialsdata) {// this function is act
 // עצרתי בטעינת הצצבעים של החזיתות (גמר + קיר נוסף)
 
 
-
 function successGetConstants(constantsdata) {// this function is activated in case of a success
     constants = constantsdata;
     console.log(constants);
@@ -174,7 +175,7 @@ function f2() {
 //// this should be used when the active value is changed
 function buttonEvents() {
     $(document).on("click", ".isDistanced", function () {
-        isDistanced = $(this).is(':checked') ? 1 : 0; // replace with true value
+        isDistanced = $(this).is(':checked') ? 1 : 0; // replace with true valueFacadeMaterial
         console.log("change made");
     });  
 
@@ -183,7 +184,7 @@ function buttonEvents() {
         markSelected(this);
         $("#materialsEditDiv").show();
         $("#materialsEditDiv :input").prop("disabled", false); // edit mode: enable all controls in the form
-        populateFields(this.getAttribute('data-hingeId')); // fill the form fields according to the selected row
+        populateFields(this.getAttribute('data-materialId')); // fill the form fields according to the selected row
     });
 
     ///////////duplicating
@@ -207,7 +208,7 @@ function buttonEvents() {
     $(document).on("click", ".deleteBtn", function () {
         mode = "delete";
         markSelected(this);
-        var hingeId = this.getAttribute('data-hingeId');
+        var materialId = this.getAttribute('data-materialId');
         swal({ // this will open a dialouge 
             title: "האם אתה בטוח ?",
             text: "",
@@ -216,7 +217,7 @@ function buttonEvents() {
             dangerMode: true
         })
             .then(function (willDelete) {
-                if (willDelete) DeleteHinge(hingeId);
+                if (willDelete) DeleteMaterial(materialId);
                 else swal("הפריט לא נמחק");
             });
     });
@@ -248,33 +249,36 @@ function markSelected(btn) {  // mark the selected row
 }
 
 
-function DeleteHinge(id) {      // Delete a item from the server
+function DeleteMaterial(id) {      // Delete a item from the server
     ajaxCall("DELETE", "../api/materials/?Id=" + id, "", deleteSuccess, error);
 }
 
 function saveProject(id) {      // Delete a item from the server
-    ajaxCall("PUT", "../api/materials/?Id=" + projectID, JSON.stringify(hingetoSave), saveHingeSuccess, error);
+    ajaxCall("PUT", "../api/materials/?Id=" + projectID, JSON.stringify(materialtoSave), saveMaterialSuccess, error);
 }
 
 function onSubmitFunc() {
     var Id = -1;
     //var Image = "car.jpg"; // no image at this point
     if (mode === "edit") {
-        Id = hinge.ID;
+        Id = material.ID;
         //Image = car.Image; // no image at this point
     }
 
-    let hingetoSave = {
-        //ID: hinge.ID,
-        Type: $("#hingeName").val(), 
-        Cost: $("#hingeCost").val() 
+    let materialtoSave = {
+        //ID: material.ID,
+        Type: $("#materialName").val(), 
+        Cost: $("#materialCost").val(),
+        Coefficient: $("#materialCoefficient").val(),
+        Type: "box",
+       
     };
 
     if (mode === "edit")
-        ajaxCall("PUT", "../api/materials/?Id=" + Id, JSON.stringify(hingetoSave), updateSuccess, error);
+        ajaxCall("PUT", "../api/materials/?Id=" + Id, JSON.stringify(materialtoSave), updateSuccess, error);
    
     else if ((mode === "new") || (mode === "duplicate")) // add a new item record to the server
-        ajaxCall("POST", "../api/materials", JSON.stringify(hingetoSave), insertSuccess, error);
+        ajaxCall("POST", "../api/materials", JSON.stringify(materialtoSave), insertSuccess, error);
 
     return false;
 }
@@ -299,14 +303,14 @@ function onSubmitFunc2() {
     return false;
 }
 
-function populateFields(hingeId) {    // fill the form fields
+function populateFields(materialId) {    // fill the form fields
     //debugger;
-    hinge = getHinge(hingeId);
-    console.log(hinge);
+    material = getMaterial(materialId);
+    console.log(material);
     //$("#image").attr("src", "images/" + item.Image);
-    $("#hingeName").val(hinge.Type);
+    $("#materialName").val(material.Type);
    
-    $("#hingeCost").val(hinge.Cost);
+    $("#materialCost").val(material.Cost);
 
 }
     // fill the form fields
@@ -341,7 +345,7 @@ function populateFields(hingeId) {    // fill the form fields
     }
 
     // get item according to its Id
-function getHinge(id) {
+function getMaterial(id) {
     console.log(myMaterials);
     for (i in myMaterials) {
         if (myMaterials[i].ID == id)

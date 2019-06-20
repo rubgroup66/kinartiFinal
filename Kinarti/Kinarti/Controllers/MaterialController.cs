@@ -19,32 +19,6 @@ namespace kinarti.Controllers
 {
     public class MaterialController : ApiController
     {
-        // POST api/values
-        [HttpPost]
-        [Route("api/material")]
-        public void Post([FromBody]Material m)
-        {
-            try
-            {
-                //    int someError = Convert.ToInt32("will fail to convert");
-                m.insert();
-            }
-            catch (Exception e)
-            {
-                throw e;
-                // throw new Exception("Error in posting a new person");
-            }
-        }
-
-        //[HttpGet]
-        //[Route("api/persons")]
-        //public IEnumerable<Person> GetPerson()
-        //{
-        //    Person person = new Person();
-        //    List<Person> lp = person.getPersons();
-        //    return lp;
-        //}
-
         [System.Web.Http.HttpGet]
         [Route("api/materials")]
         public IEnumerable<Material> GetMaterial()
@@ -54,37 +28,31 @@ namespace kinarti.Controllers
             return lm;
         }
 
-
-        //[System.Web.Http.HttpGet]
-        //[Route("api/test")]
-        //public String GetTest()
-        //{
-
-        //    return "success";
-        //}
-
-
-        //[HttpGet]
-        //[Route("api/persons")]
-        //public Person GetPerson(string email, string password)
-        //{
-        //    Person person = new Person();
-        //    return person.getPerson(email, password);
-        //}
-
-
-        //[HttpPut]
-        //[Route("api/persons")]
-        //public void Put([System.Web.Http.FromBody]Person p, int Id)
-        //{
-        //    p.updatePerson(Id);
-        //}
+        [HttpPost]
+        [Route("api/materials")]
+        public void Post([FromBody]Material p)
+        {
+            try {
+                p.insert();   //    int someError = Convert.ToInt32("will fail to convert");
+            }
+            catch (Exception e) {
+                throw e; // throw new Exception("Error in posting a new item");
+            }
+        }
 
         [HttpPut]
         [Route("api/materials")]
-        public void Put([System.Web.Http.FromBody]Material m, int Id)
+        public void Put([FromBody]Material p, int Id)
         {
-            m.updateMaterial(Id);
+            p.updateMaterial(Id);
+        }
+
+        [System.Web.Http.HttpDelete]
+        [Route("api/materials")]
+        public void Delete(int Id)
+        {
+            Material material = new Material();
+            material.deleteMaterial(Id);
         }
     }
     

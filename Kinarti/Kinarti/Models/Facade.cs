@@ -9,7 +9,6 @@ using System.Data;
 
 using System.Text;
 
-
 namespace kinarti.Models
 {
     public class Facade
