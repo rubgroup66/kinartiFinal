@@ -35,7 +35,6 @@ $(document).ready(function () {
     //ajaxCall("GET", "../api/facades", "", successGetFacadesEdit, error);
     //ajaxCall("GET", "../api/boxes", "", successGetBoxesEdit, error);
     //ajaxCall("GET", "../api/handles", "", successGetHandlesEdit, error);
-
     //ajaxCall("GET", "../api/constants", "", successGetConstantsEdit, error);
     //ajaxCall("GET", "../api/ironWorks", "", successGetIronWorksEdit, error);
     //ajaxCall("GET", "../api/facadeMaterials", "", successGetFacadeMaterialsEdit, error);
@@ -44,7 +43,7 @@ $(document).ready(function () {
 
     $("#cancelSaveBTN").on("click", function () {
         item = null;
-        $("#editDiv").hide();
+        $("#hingesEditDiv").hide();
         if (mode === "new") $("#pForm").show();
         mode = "";
     });
@@ -53,16 +52,16 @@ $(document).ready(function () {
         item = null;
         mode = "new";
         $("#pForm").hide();
-        $("#editDiv").show();
+        $("#hingesEditDiv").show();
         clearFields();
-        $("#editDiv :input").prop("disabled", false); // new mode: enable all controls in the form
+        $("#hingesEditDiv :input").prop("disabled", false); // new mode: enable all controls in the form
     });
 
     $("#saveBTN").on("click", function () {
         onSubmitFunc();
     });
 
-    $("#editDiv").hide();
+    $("#hingesEditDiv").hide();
 
     $('input[type=radio][name=status]').change(function () {
         var radioValue = $("input[name='status']:checked").val();
@@ -182,8 +181,8 @@ function buttonEvents() {
     $(document).on("click", ".editBtn", function () {
         mode = "edit";
         markSelected(this);
-        $("#editDiv").show();
-        $("#editDiv :input").prop("disabled", false); // edit mode: enable all controls in the form
+        $("#hingesEditDiv").show();
+        $("#hingesEditDiv :input").prop("disabled", false); // edit mode: enable all controls in the form
         populateFields(this.getAttribute('data-hingeId')); // fill the form fields according to the selected row
     });
 
@@ -191,17 +190,17 @@ function buttonEvents() {
     $(document).on("click", ".duplicateBtn", function () {
         mode = "duplicate";
         markSelected(this);
-        $("#editDiv").show();
-        $("#editDiv :input").prop("disabled", false); // edit mode: enable all controls in the form
+        $("#hingesEditditDiv").show();
+        $("#hingesEditditDiv :input").prop("disabled", false); // edit mode: enable all controls in the form
         populateFields(this.getAttribute('data-itemId')); // fill the form fields according to the selected row
     });
 
     $(document).on("click", ".viewBtn", function () {
         mode = "view";
         markSelected(this);
-        $("#editDiv").show();
+        $("#hingesEditDiv").show();
         row.className = 'selected';
-        $("#editDiv :input").attr("disabled", "disabled"); // view mode: disable all controls in the form
+        $("#hingesEditDiv :input").attr("disabled", "disabled"); // view mode: disable all controls in the form
         populateFields(this.getAttribute('data-itemId'));
     });
 
@@ -243,7 +242,7 @@ function ShowInfo() {
 //$("#pForm").submit(onSubmitFunc); 
 
 function markSelected(btn) {  // mark the selected row
-    $("#itemsTable tr").removeClass("selected"); // remove seleced class from rows that were selected before
+    $("#hingesTable tr").removeClass("selected"); // remove seleced class from rows that were selected before
     row = (btn.parentNode).parentNode; // button is in TD which is in Row
     row.className = 'selected'; // mark as selected
 }
@@ -386,7 +385,7 @@ function updateSuccess() {    // success callback function after update
 
     //redrawTable(tbl, itemsdata);
     buttonEvents();
-    $("#editDiv").hide();
+    $("#hingesEditDiv").hide();
     swal("עודכן בהצלחה!", "הפעולה בוצעה", "success");
     mode = "";
 }
@@ -394,7 +393,7 @@ function updateSuccess() {    // success callback function after update
 function updateProjectSuccess() {    // success callback function after update
 
     buttonEvents();
-    $("#editDiv").hide();
+    $("#hingesEditDiv").hide();
     swal("עודכן בהצלחה!", "הפרויקט נשמר בהצלחה", "success");
     mode = "";
 
@@ -409,7 +408,7 @@ function insertSuccess(itemsdata) {  // success callback function after adding n
 
     //redrawTable(tbl, itemsdata);
     buttonEvents();
-    $("#editDiv").hide();
+    $("#hingesEditDiv").hide();
     swal("נוסף בהצלחה!", "הפעולה בוצעה", "success");
     mode = "";
 }
@@ -422,7 +421,7 @@ function deleteSuccess(itemsdata) {
     ajaxCall("GET", uri, "", populateTableWithUpdatedData, error); //get all relevant project's items from DB 
 
     buttonEvents(); // after redrawing the table, we must wire the new buttons
-    $("#editDiv").hide();
+    $("#hingesEditDiv").hide();
     swal("נמחק בהצלחה!", "הפעולה בוצעה", "success");
     mode = "";
 }
