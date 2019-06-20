@@ -28,5 +28,32 @@ namespace WebApplication1.Controllers
             return lm;
         }
 
+        [HttpPost]
+        [Route("api/hinges")]
+        public void Post([FromBody]Hinge p)
+        {
+            try {
+                p.insert();   //    int someError = Convert.ToInt32("will fail to convert");
+            }
+            catch (Exception e) {
+                throw e; // throw new Exception("Error in posting a new item");
+            }
+        }
+
+        [HttpPut]
+        [Route("api/hinges")]
+        public void Put([FromBody]Hinge p, int Id)
+        {
+            p.updateHinge(Id);
+        }
+
+        [System.Web.Http.HttpDelete]
+        [Route("api/hinges")]
+        public void Delete(int Id)
+        {
+            Hinge hinge = new Hinge();
+            hinge.deleteHinge(Id);
+        }
+
     }
 }

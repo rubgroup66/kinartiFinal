@@ -1269,6 +1269,51 @@ public class DBservices
         return command;
     }
 
+    public int insertHinge(Hinge hinge)//inserting new item
+    {
+        //SqlConnection con;
+        SqlCommand cmd;
+        try {
+            this.con = connect("PriceITConnectionString"); // create the connection
+        }
+        catch (Exception ex) {
+            // write to log
+            throw (ex);
+        }
+        String cStr = BuildInsertHingeCommand(hinge);      // helper method to build the insert string
+        cmd = CreateCommand(cStr, this.con);             // create the command
+        try  {
+            int numEffected = cmd.ExecuteNonQuery(); // execute the command
+            return numEffected;
+        }
+        catch (Exception ex) {
+            return 0;
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (this.con != null)
+            {
+                // close the db connection
+                this.con.Close();
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------
+    // Build the Insert command String
+    //--------------------------------------------------------------------
+    private String BuildInsertHingeCommand(Hinge hinge)
+    {
+        String command;
+        StringBuilder sbItem = new StringBuilder(); // use a string builder to create the dynamic string
+        sbItem.AppendFormat("Values('{0}', {1} )", hinge.Type, hinge.Cost);
+        String prefix = "INSERT INTO hingeTbl " + "(type, cost) ";
+        //command = prefix + sbItem.ToString();
+        command = prefix + sbItem.ToString() + ";" + "SELECT CAST(scope_identity() AS int)";
+        return command;
+    }
     //update edited item in system
     public int updateItem(Item item, int Id)
     {
@@ -1304,7 +1349,40 @@ public class DBservices
         return prefix; 
     }
 
+    public int updateHinge(Hinge hinge, int Id)
+    {
+        //SqlConnection con;
+        SqlCommand cmd;
+        try  {
+            this.con = connect("PriceITConnectionString"); // create the connection
+        }
+        catch (Exception ex)  {
+            throw (ex);          // write to log
+        }
+        String cStr = BuildUpdateHingeCommand(hinge, Id);      // helper method to build the insert string
+        cmd = CreateCommand(cStr, this.con);             // create the command
 
+        try  {
+            int numEffected = (int)cmd.ExecuteNonQuery(); // execute the command
+            return numEffected;
+        }
+        catch (Exception ex) {
+            return 0;
+            throw (ex);       // write to log
+        }
+        finally  {
+            if (this.con != null) {
+                this.con.Close();        // close the db connection
+            }
+        }
+    }
+
+    private string BuildUpdateHingeCommand(Hinge p, int id)
+    {
+        //String command;
+        string prefix = "UPDATE hingeTbl SET type = '" + p.Type + "', cost = '" + p.Cost + "' WHERE id = " + id;
+        return prefix;
+    }
 
     //update edited item in system
     public int updateProject(Project project, int Id)
@@ -1751,7 +1829,43 @@ public class DBservices
         return cmdStr;
     }
 
+    public int deleteHinge(int hingeID)
+    {
+        //SqlConnection con;
+        SqlCommand cmd;
 
+        try {
+            this.con = connect("PriceITConnectionString"); // create the connection
+        }
+        catch (Exception ex)  {
+            throw (ex);// write to log
+        }
+        String cStr = BuildDeleteHinge(hingeID);      // helper method to build the insert string
+        cmd = CreateCommand(cStr, this.con);             // create the command
+        try
+        {
+            int numAffected = cmd.ExecuteNonQuery(); // execute the comm
+            return numAffected;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (this.con != null)
+            {
+                this.con.Close();// close the db connection
+            }
+        }
+
+    }
+    private string BuildDeleteHinge(int hingeID)
+    {
+        string cmdStr = "DELETE FROM hingeTbl  WHERE id='" + hingeID + "'";
+        return cmdStr;
+    }
 
 
 

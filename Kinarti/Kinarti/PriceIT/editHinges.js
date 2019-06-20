@@ -207,7 +207,7 @@ function buttonEvents() {
     $(document).on("click", ".deleteBtn", function () {
         mode = "delete";
         markSelected(this);
-        var itemId = this.getAttribute('data-itemId');
+        var hingeId = this.getAttribute('data-hingeId');
         swal({ // this will open a dialouge 
             title: "האם אתה בטוח ?",
             text: "",
@@ -216,7 +216,7 @@ function buttonEvents() {
             dangerMode: true
         })
             .then(function (willDelete) {
-                if (willDelete) DeleteItem(itemId);
+                if (willDelete) DeleteHinge(hingeId);
                 else swal("הפריט לא נמחק");
             });
     });
@@ -248,8 +248,8 @@ function markSelected(btn) {  // mark the selected row
 }
 
 
-function DeleteItem(id) {      // Delete a item from the server
-    ajaxCall("DELETE", "../api/hinges/?Id=" + id, "", deleteHingeSuccess, error);
+function DeleteHinge(id) {      // Delete a item from the server
+    ajaxCall("DELETE", "../api/hinges/?Id=" + id, "", deleteSuccess, error);
 }
 
 function saveProject(id) {      // Delete a item from the server
@@ -260,48 +260,21 @@ function onSubmitFunc() {
     var Id = -1;
     //var Image = "car.jpg"; // no image at this point
     if (mode === "edit") {
-        Id = item.ID;
+        Id = hinge.ID;
         //Image = car.Image; // no image at this point
     }
-    console.log(projectID);
-    calculateItem();
-    let itemtoSave = {
-        ProjectID: getParameterByName("projectId"),
-        Type: 1, // 'type' will be always 1 untill we add a different kind of box
-        Cost: itemTotalSum, /*$("#itemCost").val()*/
-        Name: $("#itemName").val(),
-        BoxMaterialID: $("#boxMaterial").val(),
-        BoxMeasuresID: $("#boxMeasures").val(),
-        Partitions: $("#partitions").val(),
-        Shelves: $("#shelves").val(),
-        IsDistanced: $("#isDistanced").is(':checked') ? 1 : 0,
-        BoxWoodDrawers: $("#boxWoodDrawers").val(),
-        InternalLegraBoxDrawers: $("#internalLegraBoxDrawers").val(),
-        ExternalLegraBoxDrawers: $("#externalLegraBoxDrawers").val(),
-        InternalScalaBoxDrawers: $("#internalScalaBoxDrawers").val(),
-        ExternalScalaBoxDrawers: $("#externalScalaBoxDrawers").val(),
-        FacadeMaterialTypeID: $("#facadeMaterialType").val(),
-        FacadeID: $("#facadeType").val(),
-        HingesQuantity1: $("#hingesQuantity1").val(),
-        HingesType1ID: $("#hingesType1").val(),
-        HingesQuantity2: $("#hingesQuantity2").val(),
-        HingesType2ID: $("#hingesType1").val(),
-        ExtraWallQuantity: $("#extraWallQuantity").val(),
-        ExtraWallTypeID: $("#extraWallType").val(),
-        HandlesQuantity: $("#handlesQuantity").val(),
-        HandlesTypeID$: $("#handlesType").val(),
-        IronWorksQuantity1: $("#ironWorksQuantity1").val(),
-        IronWorksType1ID: $("#ironWorksType1").val(),
-        IronWorksQuantity2: $("#ironWorksQuantity2").val(),
-        IronWorksType2ID: $("#ironWorksType2").val(),
-        ExtraCostForItem: $("#extraCostForItem").val()
+
+    let hingetoSave = {
+        //ID: hinge.ID,
+        Type: $("#hingeName").val(), 
+        Cost: $("#hingeCost").val() 
     };
 
     if (mode === "edit")
-        ajaxCall("PUT", "../api/items/?Id=" + Id, JSON.stringify(itemtoSave), updateSuccess, error);
+        ajaxCall("PUT", "../api/hinges/?Id=" + Id, JSON.stringify(hingetoSave), updateSuccess, error);
    
     else if ((mode === "new") || (mode === "duplicate")) // add a new item record to the server
-        ajaxCall("POST", "../api/items", JSON.stringify(itemtoSave), insertSuccess, error);
+        ajaxCall("POST", "../api/hinges", JSON.stringify(hingetoSave), insertSuccess, error);
 
     return false;
 }
@@ -380,7 +353,7 @@ function getHinge(id) {
 function updateSuccess() {    // success callback function after update
    // location.reload();
    //tbl.clear();
-    uri = "../api/items/?projectID=" + projectID;
+    uri = "../api/hinges";
     ajaxCall("GET", uri, "", populateTableWithUpdatedData, error); //get all relevant project's items from DB 
 
     //redrawTable(tbl, itemsdata);
@@ -403,7 +376,7 @@ function updateProjectSuccess() {    // success callback function after update
 function insertSuccess(itemsdata) {  // success callback function after adding new item
     $("#pForm").show();
     //tbl.clear();
-    uri = "../api/items/?projectID=" + projectID;
+    uri = "../api/hinges";
     ajaxCall("GET", uri, "", populateTableWithUpdatedData, error); //get all relevant project's items from DB 
 
     //redrawTable(tbl, itemsdata);
@@ -417,7 +390,7 @@ function insertSuccess(itemsdata) {  // success callback function after adding n
 function deleteSuccess(itemsdata) {
     //tbl.clear();
     //  redrawTable(tbl, itemsdata);
-    uri = "../api/items/?projectID=" + projectID;
+    uri = "../api/hinges";
     ajaxCall("GET", uri, "", populateTableWithUpdatedData, error); //get all relevant project's items from DB 
 
     buttonEvents(); // after redrawing the table, we must wire the new buttons
@@ -426,18 +399,13 @@ function deleteSuccess(itemsdata) {
     mode = "";
 }
 
-function populateTableWithUpdatedData(items) {
+function populateTableWithUpdatedData(hinges) {
     console.log("got into the new function!");
-    var dataTable = $('#itemsTable').DataTable();
+    var dataTable = $('#hingesTable').DataTable();
     dataTable.destroy();
     dataTable.clear();
-    successGetItems(items);
+    successGetHingesEdit(hinges);
 }
 
-function success(data) {
-    swal("הפריט נוסף בהצלחה!", "ניתן להמשיך בתמחור פריטים נוספים", "success");
-}
-
- 
 
 
