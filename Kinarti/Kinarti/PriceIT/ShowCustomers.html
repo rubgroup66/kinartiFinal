@@ -90,7 +90,7 @@
         }
 
         function DeleteCust(id) {
-            ajaxCall("DELETE", "../api/customers/?Id=" + id, deleteSuccess, error);
+            ajaxCall("DELETE", "../api/customers/" + id, "", deleteSuccess, error);
             return false;
         }
         //function DeleteCust(id) {
@@ -156,7 +156,7 @@
         }
         // success callback function after delete
         function deleteSuccess(data) {
-            console.log("ffff");
+            console.log(data);
             alert(data);
             //swal({ // this will open a dialouge
             //    title: "הפרטים עודכנו בהצלחה",

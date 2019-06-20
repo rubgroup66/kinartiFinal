@@ -60,7 +60,7 @@ namespace kinarti.Models
 
             DBservices db = new DBservices();
             int numAffected = db.DeleteCust(custID);
-
+            
 
 
         }

@@ -41,24 +41,22 @@ namespace kinarti.Controllers
             return cust;
         }
 
-        //[HttpDelete]
-        //[Route("api/customers/{id}")]
-        //public int Delete(int id)
-        //{
-
-        //    Customer cust = new Customer();
-        //    cust.DeleteCust(id);
-        //    int x = 5;
-        //    return x;
-
-        //}
         [HttpDelete]
-        [Route("api/customers")]
-        public void Delete(int Id)
+        [Route("api/customers/{id}")]
+        public int Delete(int id)
         {
+
             Customer cust = new Customer();
-            cust.DeleteCust(Id);
+            cust.DeleteCust(id);
+            return 1  ;
         }
+        //[HttpDelete]
+        //[Route("api/customers")]
+        //public void Delete(int Id)
+        //{
+        //    Customer cust = new Customer();
+        //    cust.DeleteCust(Id);
+        //}
 
     }
 }
