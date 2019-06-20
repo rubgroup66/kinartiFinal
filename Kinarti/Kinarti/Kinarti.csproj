@@ -222,10 +222,12 @@
     <Content Include="PriceIT\editConstants2.html" />
     <Content Include="PriceIT\editHandles.html" />
     <Content Include="PriceIT\editHandles.js" />
+    <Content Include="PriceIT\editMaterials.html" />
+    <Content Include="PriceIT\editMaterials.js" />
     <Content Include="PriceIT\old files\editHandles.html" />
     <Content Include="PriceIT\editHinges.js" />
     <Content Include="PriceIT\old files\editItem.html" />
-    <Content Include="PriceIT\editMaterials.html" />
+    <Content Include="PriceIT\editMaterialsOLD.html" />
     <Content Include="PriceIT\index.html" />
     <Content Include="PriceIT\insertBox.html" />
     <Content Include="PriceIT\editHinges.html" />
