@@ -77,48 +77,65 @@
             alert("error getting user");
         }
     </script>
+    <style>
+        .container-login100{
+            width: 200px;
+            border:double;
+            background-color:deepskyblue;
+            position:center;
+
+
+        }
+        div {
+            text-align: center;
+            background-color: white;
+        }
+        .limiter{
+            text-align:center;
+        }
+    </style>
 </head>
-<body style="background-color: #666666;">
+<body>
 
     <div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100">
                 <form class="login100-form validate-form">
-                    <span class="login100-form-title p-b-43">
-                        Login to continue
+                    <span class="login100-form-title p-b-43" style="background-color:slategrey">
+                        התחבר
                     </span>
+                    <br/>
+                    <br/>
 
 
                     <div class="wrap-input100 validate-input" data-validate="Valid Id is required 9 digits">
                         <input class="input100" type="text" id="id" name="id">
                         <span class="focus-input100"></span>
-                        <span class="label-input100">ID</span>
+                        <span class="label-input100">שם משתמש</span>
                     </div>
-
+                    <br/>
 
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
                         <input class="input100" type="password" id="pass" name="pass">
                         <span class="focus-input100"></span>
-                        <span class="label-input100">Password</span>
+                        <span class="label-input100">סיסמא</span>
                     </div>
                     <div class="flex-sb-m w-full p-t-3 p-b-32">
                         <div class="contact100-form-checkbox">
                             <input class="input-checkbox100" id="remember-me" type="checkbox" name="remember-me">
                             <label class="label-checkbox100" for="remember-me">
-                                Remember me
+                                זכור אותי
                             </label>
                         </div>
                     </div>
 
                     <div class="container-login100-form-btn">
                         <button id="login" class="login100-form-btn">
-                            Login
+                            התחבר
                         </button>
                     </div>
 
-                    <div class="text-center p-t-46 p-b-20">
-                        <button id="signUp">Sign Up</button>
-                    </div>
+                    
                 </form>
                 
             </div>
