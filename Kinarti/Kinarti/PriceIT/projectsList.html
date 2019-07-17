@@ -38,14 +38,12 @@
             $('#projects_table').DataTable({
                 data: data,
                 "autoWidth": false,
-                columns: [
-                    {
-                        render: function (data, type, row, meta) {
-                            let dataCust = "data-custId='" + row.id + "'";                         
-                            EditProjBtn = "<button type='button' id=" + row.ID + " class = 'EditProjBtn btn btn-success' " + dataCust + "> עריכת פרויקט </button>";
-                            return EditProjBtn;
-                        }
-                    },
+                columns: [              
+                    { data: "project_name" },
+                    { data: "customer_id" },
+                    { data: "description" },
+                    { data: "create_date" },
+                    { data: "cost" },
                     {
                         data: "status",
                         render: function (data, type, row, meta) {
@@ -56,11 +54,13 @@
                             return status;
                         }
                     },
-                    { data: "project_name" },
-                    { data: "customer_id" },
-                    { data: "description" },
-                    { data: "create_date" },
-                    { data: "cost" },
+                    {
+                        render: function (data, type, row, meta) {
+                            let dataCust = "data-custId='" + row.id + "'";
+                            EditProjBtn = "<button type='button' id=" + row.ID + " class = 'EditProjBtn btn btn-success' " + dataCust + "> עריכת פרויקט </button>";
+                            return EditProjBtn;
+                        }
+                    },
                     //{ data: "id" },
                 ]
             })
@@ -312,14 +312,14 @@
         <form id="pForm">
             <table id="projects_table" class="display nowrap" style="width:80%">
                 <thead>
-                    <tr>
-                        <th>פעולות </th>
-                        <th>סטטוס </th>
+                    <tr>                       
                         <th> שם פרויקט</th>
-                        <th>מזהה לקוח</th>
+                        <th>שם הלקוח</th>
                         <th> תיאור</th>
                         <th>תאריך יצירה</th>
                         <th>עלות</th>
+                        <th>סטטוס </th>
+                        <th>פעולות </th>
                     </tr>
                 </thead>
             </table>

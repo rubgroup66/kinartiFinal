@@ -816,20 +816,21 @@ function success(data) {
                 data: itemsdata,
                 pageLength: 5,
                 columns: [
-                    {
-                        render: function (data, type, row, meta) {
-                            let dataItem = "data-itemId='" + row.ID + "'";
-                            editBtn = "<button type='button' class = 'editBtn btn btn-success' " + dataItem + "> עריכה </button>";
-                            viewBtn = "<button type='button' class = 'viewBtn btn btn-info' " + dataItem + "> צפייה </button>";
-                            duplicateBtn = "<button type='button' class = 'duplicateBtn btn btn-info' " + dataItem + "> שכפול + </button>";
-                            deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataItem + "> מחיקה </button>";
-                            return editBtn + /*viewBtn +*/ duplicateBtn + deleteBtn;
-                        }
-                    },
+
                     { data: "ID" },
                     { data: "Name" },
                     { data: "BoxMeasuresID" },   //?
-                    { data: "Cost" }
+                    { data: "Cost" },
+                                        {
+                                            render: function (data, type, row, meta) {
+                                                let dataItem = "data-itemId='" + row.ID + "'";
+                                                editBtn = "<button type='button' class = 'editBtn btn btn-success' " + dataItem + "> עריכה </button>";
+                                                viewBtn = "<button type='button' class = 'viewBtn btn btn-info' " + dataItem + "> צפייה </button>";
+                                                duplicateBtn = "<button type='button' class = 'duplicateBtn btn btn-info' " + dataItem + "> שכפול + </button>";
+                                                deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataItem + "> מחיקה </button>";
+                                                return editBtn + /*viewBtn +*/ duplicateBtn + deleteBtn;
+                                            }
+                                        },
                     
                 ],
                 //////////////////////////
