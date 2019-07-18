@@ -50,3 +50,12 @@ table {
     float: right;
     direction: rtl;
 }*/
+
+#costt {
+    height: 40px;
+    position: fixed;
+    bottom: 0%;
+    width: 40%;
+    background-color: cornflowerblue;
+    opacity: 1;
+}

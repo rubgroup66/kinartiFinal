@@ -123,6 +123,8 @@ function successGetProject(projectdata) {// this function is activated in case o
     $("#projectDescription").val(projectdata.description);
     $("#projectArchitect").val(projectdata.architect);
     $("#projectSupervisor").val(projectdata.supervisor);
+
+
     $("#customerName").val(projectdata.custID);
 
     if (projectdata.status === 1) {
@@ -753,7 +755,7 @@ function updateProjectSuccess() {    // success callback function after update
     swal("עודכן בהצלחה!", "הפרויקט נשמר בהצלחה", "success");
     mode = "";
 
-    window.location.href = 'projectsList.html';
+    //window.location.href = 'projectsList.html';
 }
 
 function insertSuccess(itemsdata) {  // success callback function after adding new item
@@ -814,7 +816,6 @@ function success(data) {
                 data: itemsdata,
                 pageLength: 5,
                 columns: [
-
                     { data: "ID" },
                     { data: "Name" },
                     { data: "BoxMeasuresID" },   //?
