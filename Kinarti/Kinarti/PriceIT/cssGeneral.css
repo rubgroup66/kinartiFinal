@@ -52,10 +52,10 @@ table {
 }*/
 
 #costt {
-    height: 40px;
+    /*height: 40px;*/
     position: fixed;
-    bottom: 0%;
-    width: 40%;
-    background-color: cornflowerblue;
+    bottom: 10%;
+    /*width: 100%;*/
+    /*background-color: cornflowerblue;*/
     opacity: 1;
 }
