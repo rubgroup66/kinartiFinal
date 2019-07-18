@@ -24,11 +24,12 @@ button {
 div {
     direction: rtl;
 }
+
 .navbar-nav {
     float: right;
 }
-.nav-tabs{
-    float:right;
+ .nav-tabs {
+    float: right;
 }
 th {
     text-align: center;
@@ -40,6 +41,12 @@ th {
 button {
     margin-left: 10px;
 }
-table{
-    background-color:yellow;
+
+table {
+    background-color: #d9edf7
 }
+
+/*.navbar-brand {
+    float: right;
+    direction: rtl;
+}*/

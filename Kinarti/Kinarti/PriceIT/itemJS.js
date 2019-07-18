@@ -56,8 +56,6 @@ $(document).ready(function () {
     uri2 = "../api/projects/?projectID=" + projectID;
     ajaxCall("GET", uri2, "", successGetProject, error); //get project's details from DB
 
-
-    
     ajaxCall("GET", "../api/materials", "", successGetMaterials, error); //get all materials from DB
     ajaxCall("GET", "../api/facades", "", successGetFacades, error);
     ajaxCall("GET", "../api/boxes", "", successGetBoxes, error);
@@ -755,7 +753,7 @@ function updateProjectSuccess() {    // success callback function after update
     swal("עודכן בהצלחה!", "הפרויקט נשמר בהצלחה", "success");
     mode = "";
 
-    //window.location.href = 'projectsList.html';
+    window.location.href = 'projectsList.html';
 }
 
 function insertSuccess(itemsdata) {  // success callback function after adding new item
