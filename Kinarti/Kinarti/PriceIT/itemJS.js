@@ -822,12 +822,12 @@ function success(data) {
                                         {
                                             render: function (data, type, row, meta) {
                                                 let dataItem = "data-itemId='" + row.ID + "'";
-                                                editBtn = "<button type='button' class = 'editBtn btn btn-success' " + dataItem + "> עריכה </button>";
-                                                viewBtn = "<button type='button' class = 'viewBtn btn btn-info' " + dataItem + "> צפייה </button>";
-                                                duplicateBtn = "<button type='button' class = 'duplicateBtn btn btn-info' " + dataItem + "> שכפול + </button>";
-                                                deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataItem + "> מחיקה </button>";
+                                                editBtn = "<button type='button' class = 'editBtn btn btn-success' " + dataItem + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>  עריכה </button>";
+                                                //viewBtn = "<button type='button' class = 'viewBtn btn btn-info' " + dataItem + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>  צפייה </button>";
+                                                duplicateBtn = "<button type='button' class = 'duplicateBtn btn btn-info' " + dataItem + ">  <span class='glyphicon glyphicon-duplicate' aria-hidden='true'></span>  שכפול  </button>";
+                                                deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataItem + ">  <span class='glyphicon glyphicon-remove' aria-hidden='true'></span> מחיקה </button>";
                                                 return editBtn + /*viewBtn +*/ duplicateBtn + deleteBtn;
-                                            }
+                                            } 
                                         },
                     
                 ],

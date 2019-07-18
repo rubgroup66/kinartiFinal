@@ -57,7 +57,7 @@
                     {
                         render: function (data, type, row, meta) {
                             let dataCust = "data-custId='" + row.id + "'";
-                            EditProjBtn = "<button type='button' id=" + row.ID + " class = 'EditProjBtn btn btn-success' " + dataCust + "> עריכת פרויקט </button>";
+                            EditProjBtn = "<button type='button' id=" + row.ID + " class = 'EditProjBtn btn btn-success' " + dataCust + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span> עריכה </button>";
                             return EditProjBtn;
                         }
                     },
