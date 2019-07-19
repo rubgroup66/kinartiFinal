@@ -820,7 +820,19 @@ function success(data) {
                 columns: [
                     { data: "ID" },
                     { data: "Name" },
-                    { data: "BoxMeasuresID" },   //?
+                    {
+                        //data: "BoxMeasuresID" 
+                        render: function (data, type, row, meta) {
+                            let theRightBoxMeasures = myBoxes.find(function (item) {
+                                console.log(item);
+                                return item.ID === row.BoxMeasuresID;
+                            });
+                            if (theRightBoxMeasures) {
+                                return theRightBoxMeasures.Height + 'X' + theRightBoxMeasures.Width + 'X' + theRightBoxMeasures.Depth;
+                            }
+                        }
+
+                    },  
                     { data: "Cost" },
                                         {
                                             render: function (data, type, row, meta) {
