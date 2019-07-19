@@ -3,7 +3,7 @@ button {
     margin-left: 10px;
 }
 
-#newBTN {
+#newBTN, #newProjectBtn {
     background-color: blueviolet;
     margin-bottom: 10px;
 }
@@ -24,11 +24,12 @@ button {
 div {
     direction: rtl;
 }
+
 .navbar-nav {
     float: right;
 }
-.nav-tabs{
-    float:right;
+ .nav-tabs {
+    float: right;
 }
 th {
     text-align: center;
@@ -40,6 +41,22 @@ th {
 button {
     margin-left: 10px;
 }
-table{
-    background-color:yellow;
+
+table {
+    background-color: #d9edf7
+}
+
+/*.navbar-brand {
+    float: right;
+    direction: rtl;
+}*/
+
+#costt {
+    /*height: 40px;*/
+    position: sticky;
+    bottom: 0%;
+    /*width: 100%;*/
+    /*background-color: cornflowerblue;*/
+    opacity: 1;
+    border: black;
 }

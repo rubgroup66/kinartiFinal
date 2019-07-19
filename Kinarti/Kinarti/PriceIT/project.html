@@ -16,7 +16,10 @@
             background-color: lightgrey;
             font-size: 60px;
         }*/
+
     </style>
+
+
     <link href="cssGeneral.css" rel="stylesheet" />
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -46,6 +49,29 @@
         <div class="row item">
 
             <div class="form-group col-sm-3">
+                <label for="projectCost"><span class="red-star"></span>עלות כוללת (ש"ח)</label>
+                <input type="number" class="form-control" id="projectCost" value="0" disabled>
+            </div>
+
+            <div class="form-group col-sm-3">
+                <label for="createDate"><span class="red-star"></span>תאריך יצירה</label>
+                <input type="date" class="form-control" id="createDate" disabled>
+            </div>
+
+            <div class="form-group col-sm-3">
+                <label for="customerName"><span class="red-star"></span>שם הלקוח</label>
+                <input type="text" class="form-control" id="customerName" placeholder="שם הלקוח">
+            </div>
+
+            <div class="form-group col-sm-3">
+                <label for="projectName"><span class="red-star"></span>שם הפרויקט</label>
+                <input type="text" class="form-control" id="projectName" placeholder="שם הפרויקט">
+            </div>
+        </div>
+
+        <div class="row item">
+
+            <div class="form-group col-sm-3">
                 <label for="projectCost"><span class="red-star"> </span>סטטוס</label>
                 <br />
                 <div class="btn-group" data-toggle="buttons">
@@ -59,43 +85,33 @@
             </div>
 
             <div class="form-group col-sm-3">
-                <label for="projectCost"><span class="red-star"></span>עלות כוללת (ש"ח)</label>
-                <input type="number" class="form-control" id="projectCost" value="0" disabled>
-            </div>
-
-            <div class="form-group col-sm-3">
-                <label for="createDate"><span class="red-star"></span>תאריך יצירה</label>
-                <input type="date" class="form-control" id="createDate" disabled>
-            </div>
-
-            <div class="form-group col-sm-3">
-                <label for="projectName"><span class="red-star"></span>שם הפרויקט</label>
-                <input type="text" class="form-control" id="projectName" placeholder="שם הפרויקט">
-            </div>
-        </div>
-
-        <div class="row item">
-            <div class="form-group col-sm-3">
                 <label for="projectDescription"><span class="red-star"></span>תאור</label>
                 <input type="text" class="form-control" id="projectDescription" placeholder="תאור הפרויקט">
             </div>
+
             <div class="form-group col-sm-3">
                 <label for="projectArchitect"><span class="red-star"></span>ארכיטקט</label>
-                <input type="text" class="form-control" id="projectArchitect" placeholder="שם הארכיטקט" >
+                <input type="text" class="form-control" id="projectArchitect" placeholder="שם הארכיטקט">
             </div>
             <div class="form-group col-sm-3">
                 <label for="projectSupervisor"><span class="red-star"></span>מפקח</label>
-                <input type="text" class="form-control" id="projectSupervisor" placeholder="שם המפקח" >
+                <input type="text" class="form-control" id="projectSupervisor" placeholder="שם המפקח">
             </div>
-            <div class="form-group col-sm-3">
-                <label for="customerName"><span class="red-star"></span>שם הלקוח</label>
-                <input type="text" class="form-control" id="customerName" placeholder="שם הלקוח" >
-            </div>
+
         </div>
+
+        <!--<div class="row item">
+            <div class="form-group col-sm-12">
+                <input type="button" value="הוסף פריט" class="btn btn-primary btn-lg" id="newBTN" />
+                <span class='glyphicon glyphicon-remove' aria-hidden='true'></span>
+            </div>
+        </div>-->
 
         <div class="row item">
             <div class="form-group col-sm-12">
-                <input type="button" value="הוסף פריט" class="btn btn-primary btn-lg" id="newBTN" />
+                <button type="button" value="הוסף פריט" class="btn btn-primary btn-lg" id="newBTN">
+                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> הוספת פריט
+                </button>
             </div>
         </div>
 
@@ -103,11 +119,12 @@
             <table id="itemsTable" class="display nowrap" style="width:100%">
                 <thead>
                     <tr>
-                        <th>פעולות</th>
+
                         <th>#</th>
                         <th>תאור</th>
                         <th>מידות</th>
                         <th>עלות (ש"ח)</th>
+                        <th>פעולות</th>
                     </tr>
                 </thead>
                 <tfoot>
@@ -119,27 +136,42 @@
             </table>
         </form>
 
+
         <div id="editDiv">
             <form id="pForm">
-                <div id="projectName"> </div>
+                <!--<div id="projectName"> </div>-->
                 <!--<p id="" style="background-color:grey">project name</p>-->
                 <!--<p id="box_name" style="background-color:lightgrey">שם ארגזת</p>-->
-                <p class="bg-info">תמחור ארגזת</p>
-                <br />
-                <div class="form-group col-sm-3">
-                    <!--<div class="row item">-->
-                    <div class="form-group" id="itemCost">
-                        <label for="cost">עלות</label>
-                        <input type="number" class="form-control" id="itemCost" placeholder="0" disabled>
-                        <!--</div>-->
-                    </div>
-                </div>
-                <div class="form-group col-sm-9">
+
+                <p class="bg-info">תמחור פריט</p>
+
+                <!--<div class="form-group col-sm-3">-->
+
+                <!--</div>-->
+
+                <div class="form-group col-sm-12">
                     <div class="row item">
-                        <div class="form-group col-sm-12">
-                            <label for="itemName"><span class="red-star"></span>שם / תאור</label>
+
+                        <div class="form-group col-sm-6">
+                            <label for="projectCost"><span class="red-star"> </span>סוג פריט</label>
+                            <br />
+                            <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-primary active" id="openItem">
+                                    <input type="radio" id="openItem" name="itemType" value="openItem" autocomplete="off" > ארגזת
+                                </label>
+                                <label class="btn btn-primary" id="closedItem">
+                                    <input type="radio" id="closedItem" name="itemType" value="closedItem" disabled> ספריה
+                                </label>
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group col-sm-6">
+                            <label for="itemName"><span class="red-star"></span>שם הפריט</label>
                             <input type="text" class="form-control" id="itemName" placeholder="הזן שם \ תאור פריט">
                         </div>
+
                     </div>
                     <div class="row item">
                         <div class="form-group col-sm-6">
@@ -294,23 +326,59 @@
                         </div>
                     </div>
                     <br />
-                    <!--<button type="submit" class="btn btn-primary btn-lg" id="saveBTN">הוסף פריט</button>
-                <input type="submit" value="Submit BTN" />-->
-                    <button type="button" class="btn btn-primary btn-lg" id="saveBTN">שמירה</button>
-                    <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTN" value="ביטול" />
+
+
+                    <div id="costt">
+                        <!--<div class="form-group col-sm-12">
+                            <div class="form-group" id="itemCost">
+                                <label for="cost">עלות</label>
+                                <input type="number" class="form-control" id="itemCost" placeholder="0" disabled>
+                            </div>
+                        </div>-->
+
+                        <div class="well well-sm"  >
+                           
+                                <strong>עלות פריט: </strong>
+                                <!--<input type="number" class="form-control" id="itemCost" placeholder="0" disabled>-->
+                      
+                        </div>
+
+                    </div>
+
+                    <!--<button type="button" class="btn btn-primary btn-lg" id="saveBTN">שמירה</button>
+                    <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTN" value="ביטול" />-->
+
+                    <div class="form-group col-sm-12">
+                        <button type="button" value="שמירה" class="btn btn-info btn-lg" id="saveBTN">
+                            <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> שמירה
+                        </button>
+
+                        <button type="button" value="ביטול" class="btn btn-warning btn-lg" id="cancelSaveBTN">
+                            <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> ביטול
+                        </button>
+                            
+                    </div>
+
+                    <!--<div class="form-group col-sm-12">
+                        <button type="button" value="ביטול" class="btn btn-warning btn-lg" id="cancelSaveBTN">
+                            <span class="glyphicon glyphicon-save" aria-hidden="true"></span> ביטול
+                        </button>
+                    </div>-->
+
                 </div>
+
+
             </form>
             <br />
         </div>
 
-
-
-
-        <div class="row">
-            <div class="form-group col-sm-12">
-                <button class="btn btn-primary btn-lg" id="finish">שמור</button>
-            </div>
+        <div class="form-group col-sm-12">
+            <button type="button" value="שמירת פריט" class="btn btn-primary btn-lg" id="finish">
+                <span class="glyphicon glyphicon-check" aria-hidden="true"></span> שמירת פרויקט
+            </button>
         </div>
+
     </div>
 </body>
 </html>
+

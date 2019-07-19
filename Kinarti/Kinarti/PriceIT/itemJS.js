@@ -56,8 +56,6 @@ $(document).ready(function () {
     uri2 = "../api/projects/?projectID=" + projectID;
     ajaxCall("GET", uri2, "", successGetProject, error); //get project's details from DB
 
-
-    
     ajaxCall("GET", "../api/materials", "", successGetMaterials, error); //get all materials from DB
     ajaxCall("GET", "../api/facades", "", successGetFacades, error);
     ajaxCall("GET", "../api/boxes", "", successGetBoxes, error);
@@ -125,6 +123,8 @@ function successGetProject(projectdata) {// this function is activated in case o
     $("#projectDescription").val(projectdata.description);
     $("#projectArchitect").val(projectdata.architect);
     $("#projectSupervisor").val(projectdata.supervisor);
+
+
     $("#customerName").val(projectdata.custID);
 
     if (projectdata.status === 1) {
@@ -165,6 +165,7 @@ function successGetBoxes(boxesdata) {// this function is activated in case of a 
     for (var i = 0; i < boxesdata.length; i++) {
         $('#boxMeasures').append('<option value="' + boxesdata[i].ID + '" >' + boxesdata[i].Height + 'X' + boxesdata[i].Width + 'X' + boxesdata[i].Depth + '</option>');
     }
+    console.log(myBoxes);
 }
 
 function successGetHandles(handlesdata) {// this function is activated in case of a success
@@ -281,8 +282,9 @@ function calculateItem() {
     console.log("withHinges2 +" + withHinges2);
     console.log("withHandles +" + withHandles);
     
-    $('#itemCost').val(Math.round(itemTotalSum));
     console.log(itemTotalSum);
+    //$('#itemCost').val(Math.round(itemTotalSum));
+    $('#itemCost').append("<strong> עלות פריט:" + Math.round(itemTotalSum) + "</strong>");
 
     return false; // the return false will prevent the form from being submitted, hence the page will not reload
 }
@@ -816,20 +818,20 @@ function success(data) {
                 data: itemsdata,
                 pageLength: 5,
                 columns: [
-                    {
-                        render: function (data, type, row, meta) {
-                            let dataItem = "data-itemId='" + row.ID + "'";
-                            editBtn = "<button type='button' class = 'editBtn btn btn-success' " + dataItem + "> עריכה </button>";
-                            viewBtn = "<button type='button' class = 'viewBtn btn btn-info' " + dataItem + "> צפייה </button>";
-                            duplicateBtn = "<button type='button' class = 'duplicateBtn btn btn-info' " + dataItem + "> שכפול + </button>";
-                            deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataItem + "> מחיקה </button>";
-                            return editBtn + /*viewBtn +*/ duplicateBtn + deleteBtn;
-                        }
-                    },
                     { data: "ID" },
                     { data: "Name" },
                     { data: "BoxMeasuresID" },   //?
-                    { data: "Cost" }
+                    { data: "Cost" },
+                                        {
+                                            render: function (data, type, row, meta) {
+                                                let dataItem = "data-itemId='" + row.ID + "'";
+                                                editBtn = "<button type='button' class = 'editBtn btn btn-success' " + dataItem + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>  עריכה </button>";
+                                                //viewBtn = "<button type='button' class = 'viewBtn btn btn-info' " + dataItem + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>  צפייה </button>";
+                                                duplicateBtn = "<button type='button' class = 'duplicateBtn btn btn-info' " + dataItem + ">  <span class='glyphicon glyphicon-duplicate' aria-hidden='true'></span>  שכפול  </button>";
+                                                deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataItem + ">  <span class='glyphicon glyphicon-remove' aria-hidden='true'></span> מחיקה </button>";
+                                                return editBtn + /*viewBtn +*/ duplicateBtn + deleteBtn;
+                                            } 
+                                        },
                     
                 ],
                 //////////////////////////
@@ -876,9 +878,9 @@ function success(data) {
         }   
     }
 
-    function calculateAllItemsPrice(list) {
+    //function calculateAllItemsPrice(list) {
 
-    }
+    //}
 
 
 function saveProjectSuccess() {
