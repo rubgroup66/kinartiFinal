@@ -72,7 +72,6 @@
         }
 
         function success(data) {
-
             swal({ // this will open a dialouge
                 title: "הפרויקט נוצר בהצלחה",
                 icon: "info",
@@ -85,7 +84,6 @@
         function OpenNewProject() {
             window.location.href = "project.html";
             InsertProject();
-
         }
 
         function error(err) {
@@ -99,7 +97,6 @@
         }
 
         function fillInfo() {
-            
             var first_name = localStorage.getItem("storageF_name");
             $("#first_name").val(first_name);
             var last_name = localStorage.getItem("storageL_name");
@@ -108,9 +105,21 @@
             document.getElementById("last_name").disabled = true;
 
         }
-        
-        // $('#datetimepicker').data("DateTimePicker").FUNCTION()
+
+        //$(function () {
+        //    $('.input-group.date').datepicker({
+        //        calendarWeeks: true,
+        //        todayHighlight: true,
+        //        autoclose: true
+        //    });
+        //});
+
     </script>
+
+
+
+
+
 
 </head>
 <body>
@@ -135,7 +144,7 @@
 
     <div class="container" style="direction:rtl">
         <form id="pForm">
-            <h2>צור פרויקט חדש</h2>
+            <h2>יצירת פרויקט חדש</h2>
             <div class="form-group">
                 <label for="first_name">שם פרטי</label>
                 <input type="text" class="form-control" id="first_name" required>
@@ -160,48 +169,14 @@
                 <input type="date" class="form-control" id="create_date" required>
             </div>
 
-            <div class="cdate">
-                <div class="row">
-                    <div class='col-sm-6'>
-                        <div class="form-group">
-                            <div class='input-group date' id='datetimepicker2'>
-                                <input type='text' class="form-control" />
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <script type="text/javascript">
-                        $(function () {
-                            $('#datetimepicker2').datetimepicker({
-                                locale: 'ru'
-                            });
-                        });
-                    </script>
-                </div>
-            </div>
 
-            <div class="cdate2">
-                <div class="row">
-                    <div class='col-sm-6'>
-                        <div class="form-group">
-                            <div class='input-group date' id='datetimepicker1'>
-                                <input type='text' class="form-control" />
-                                <span class="input-group-addon">
-                                    <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <script type="text/javascript">
-                        $(function () {
-                            $('#datetimepicker1').datetimepicker();
-                        });
-                    </script>
-                </div>
-            </div>
 
+            <!--<div class="form-group" style="width:auto">
+        <label for="dcate">cdate</label>
+        <div class="input-group date" id='datetimepicker2'>
+            <input type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+        </div>
+    </div>-->
 
             <div class="form-group" style="width:auto">
                 <label for="supervisor">מפקח</label>
@@ -214,7 +189,16 @@
             <div id="ph"></div>
             <br />
             <!--<button class="btn btn-default" id="add">Add</button>-->
-            <input type="submit" value="צור פרויקט" />
+
+            <div class="row item">
+                <div class="form-group col-sm-12">
+                    <button type="submit" value="הוסף פרויקט" class="btn btn-primary btn-lg" id="newProjectBtn">
+                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> צור פרויקט
+                    </button>
+                </div>
+            </div>
+
+                <!--<input type="submit" value="צור פרויקט" />-->
         </form>
     </div>
 

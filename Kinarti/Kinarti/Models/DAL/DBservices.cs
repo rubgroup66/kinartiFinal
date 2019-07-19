@@ -1177,32 +1177,26 @@ public class DBservices
     {
         //SqlConnection con;
         SqlCommand cmd;
-        try
-        {
+        try {
             this.con = connect("PriceITConnectionString"); // create the connection
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             // write to log
             throw (ex);
         }
         String cStr = BuildInsertItemCommand(item);      // helper method to build the insert string
         cmd = CreateCommand(cStr, this.con);             // create the command
-        try
-        {
+        try {
             int numEffected = cmd.ExecuteNonQuery(); // execute the command
             return numEffected;
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex)  {
             return 0;
             // write to log
             throw (ex);
         }
-        finally
-        {
-            if (this.con != null)
-            {
+        finally {
+            if (this.con != null)  {
                 // close the db connection
                 this.con.Close();
             }
@@ -1216,8 +1210,8 @@ public class DBservices
     {
         String command;
         StringBuilder sbItem = new StringBuilder(); // use a string builder to create the dynamic string
-        sbItem.AppendFormat("Values({0}, {1} ,{2}, {3}, {4}, {5}, {6} ,{7}, {8}, {9}, {10}, {11}, {12}, {13}, {14}, {15}, {16}, {17}, {18}, {19}, {20}, {21}, {22}, {23}, {24}, {25}, {26}, {27}, '{28}')",  item.Type, item.Cost, item.ProjectID, item.BoxMaterialID, item.BoxMeasuresID, item.Partitions, item.Shelves, item.IsDistanced, item.BoxWoodDrawers, item.InternalLegraBoxDrawers, item.ExternalLegraBoxDrawers, item.InternalScalaBoxDrawers, item.ExternalScalaBoxDrawers, item.FacadeMaterialTypeID, item.FacadeTypeID, item.HingesQuantity1, item.HingesType1ID, item.HingesQuantity2, item.HingesType2ID, item.ExtraWallQuantity, item.ExtraWallTypeID, item.HandlesQuantity, item.HandlesTypeID, item.IronWorksQuantity1, item.IronWorksType1ID, item.IronWorksQuantity2, item.IronWorksType2ID, item.ExtraCostForItem, item.Name);
-        String prefix = "INSERT INTO itemTbl1 " + "(type, cost, projectID, boxMaterialID, boxMeasuresID, partitions, shelves, isDistanced, boxWoodDrawers, internalLegraBoxDrawers, externalLegraBoxDrawers, internalScalaBoxDrawers, externalScalaBoxDrawers, facadeMaterialTypeID, facadeTypeID, hingesQuantity1, hingesType1ID, hingesQuantity2, hingesType2ID, extraWallQuantity, extraWallTypeID, handlesQuantity, handlesTypeID, ironWorksQuantity1, ironWorksType1ID, ironWorksQuantity2, ironWorksType2ID, extraCostForItem, name) ";
+        sbItem.AppendFormat("Values({0}, {1} ,'{2}', {3}, {4}, {5}, {6} ,{7}, {8}, {9}, {10}, {11}, {12}, {13}, {14}, {15}, {16}, {17}, {18}, {19}, {20}, {21}, {22}, {23}, {24}, {25}, {26}, {27}, {28})",  item.Type, item.Cost, item.ProjectID, item.BoxMaterialID, item.BoxMeasuresID, item.Partitions, item.Shelves, item.IsDistanced, item.BoxWoodDrawers, item.InternalLegraBoxDrawers, item.ExternalLegraBoxDrawers, item.InternalScalaBoxDrawers, item.ExternalScalaBoxDrawers, item.FacadeMaterialTypeID, item.FacadeTypeID, item.HingesQuantity1, item.HingesType1ID, item.HingesQuantity2, item.HingesType2ID, item.ExtraWallQuantity, item.ExtraWallTypeID, item.HandlesQuantity, item.HandlesTypeID, item.IronWorksQuantity1, item.IronWorksType1ID, item.IronWorksQuantity2, item.IronWorksType2ID, item.ExtraCostForItem);
+        String prefix = "INSERT INTO itemTbl1 " + "( projectID, type, , name, cost, boxMaterialID, boxMeasuresID, partitions, shelves, isDistanced, boxWoodDrawers, internalLegraBoxDrawers, externalLegraBoxDrawers, internalScalaBoxDrawers, externalScalaBoxDrawers, facadeMaterialTypeID, facadeTypeID, hingesQuantity1, hingesType1ID, hingesQuantity2, hingesType2ID, extraWallQuantity, extraWallTypeID, handlesQuantity, handlesTypeID, ironWorksQuantity1, ironWorksType1ID, ironWorksQuantity2, ironWorksType2ID, extraCostForItem) ";
         //command = prefix + sbItem.ToString();
         command = prefix + sbItem.ToString() + ";" + "SELECT CAST(scope_identity() AS int)";
         return command;

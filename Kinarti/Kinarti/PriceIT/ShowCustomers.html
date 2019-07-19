@@ -12,7 +12,6 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
     <link href="cssGeneral.css" rel="stylesheet" />
 
-
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
@@ -122,8 +121,7 @@
                 last_name: $("#last_name").val(),
                 phone_num: $("#phone_num").val(),
                 email: $("#email").val(),
-                
-
+               
             }
             // update a new Car record to the server
             ajaxCall("PUT", "../api/putcust", JSON.stringify(custAfterEdit), updateSuccess, error);
@@ -176,10 +174,15 @@
                     data: custsdata,
                     pageLength: 5,
                     columns: [
+
+                        { data: "id" },
+                        { data: "first_name" },
+                        { data: "last_name" },
+                        { data: "phone_num" },
+                        { data: "email" },
                         {
                             render: function (data, type, row, meta) {
                                 let dataCust = "data-custId='" + row.id + "'";
-
                                 editBtn = "<button type='button' class = 'editBtn btn btn-success' " + dataCust + "> ערוך לקוח </button>";
                                 viewBtn = "<button type='button' class = 'viewBtn btn btn-info' " + dataCust + "> צפייה </button>";
                                 deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataCust + "> מחק לקוח</button>";
@@ -187,11 +190,6 @@
                                 return editBtn + viewBtn + deleteBtn + addProjBtn;
                             }
                         },
-                        { data: "id" },
-                        { data: "first_name" },
-                        { data: "last_name" },
-                        { data: "phone_num" },
-                        { data: "email" },
                     ],
                 });
                 buttonEvents();
@@ -260,12 +258,13 @@
             <table id="customers_table" class="display nowrap" style="width:100%">
                 <thead>
                     <tr>
-                        <th>פעולות</th>
+
                         <th>מזהה לקוח</th>
                         <th> שם פרטי</th>
                         <th>שם משפחה</th>
                         <th>מספר טלפון</th>
                         <th>דואר אקלטרוני</th>
+                        <th>פעולות</th>
                     </tr>
                 </thead>
             </table>
