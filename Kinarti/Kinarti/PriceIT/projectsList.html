@@ -42,7 +42,7 @@
                     { data: "project_name" },
                     { data: "customer_id" },
                     { data: "description" },
-                    { data: "create_date" },
+                    { data: "create_date" },             
                     { data: "cost" },
                     {
                         data: "status",
@@ -241,6 +241,7 @@
             }
 
             $("#newProjectBtn").on("click", function () {
+                localStorage.clear();
                 window.location.href = 'AddNewProject.html';
             });
 
@@ -275,7 +276,7 @@
 
             <div class="form-group col-sm-12">
                 <button type="button" value="מיון" class="btn btn-primary btn-lg" onclick="ShowFilter()">
-                    <span class="glyphicon glyphicon-filter" aria-hidden="true"></span> מיון
+                    <span class="glyphicon glyphicon-filter" aria-hidden="true"></span> סינון
                 </button>
             </div>
         </div>

@@ -12,7 +12,8 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
     <link href="cssGeneral.css" rel="stylesheet" />
 
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
@@ -21,15 +22,14 @@
     <script src="../Scripts/ajaxCalls.js"></script>
     <script>
         $(document).ready(function () {
-            alert("ready " + Date.now.toString());
             // once the document is ready we fetch a list of customers from the server
-            ajaxCall("GET", "../api/getCust", "", getSuccess, error);
-
-            $("#custForm").submit(onSubmitFunc); // wire the submit event to a function called f1
             $("#editDiv").hide();
+            $("#editDiv").submit(onSubmitFunc);
+            ajaxCall("GET", "../api/getCust", "", getSuccess, error);
+            return false;
 
         });
-
+        
         function buttonEvents() {
 
             $(document).on("click", ".addProjBtn", function () {
@@ -44,6 +44,8 @@
                 var first_name = cust.first_name;
                 var last_name = cust.last_name;
                 var cust_id = cust.id;
+                var Existing = 1;
+                localStorage.setItem( "EX", Existing );
                 localStorage.setItem("storageF_name", first_name);
                 localStorage.setItem("storageL_name", last_name);
                 localStorage.setItem("storageCust_id", cust_id);
@@ -52,8 +54,8 @@
             $(document).on("click", ".editBtn", function () {
                 markSelected(this);
                 $("#editDiv").show();
-                $("#editDiv :input").prop("disabled", false); // edit mode: enable all controls in the form
-                populateFields(this.getAttribute('data-custId')); // fill the form fields according to the selected row
+                $("#editDiv :input").prop("disabled", false);
+                populateFields(this.getAttribute('data-custId')); // fill the form fields according to the selected row 
             });
 
             $(document).on("click", ".viewBtn", function () {
@@ -68,7 +70,7 @@
                 markSelected(this);
                 var custId = this.getAttribute('data-custId');
                 swal({ // this will open a dialouge
-                    title: "Are you sure ??",
+                    title: "האם אתה בטוח שברצונך למחוק לקוח?",
                     text: "",
                     icon: "warning",
                     buttons: true,
@@ -76,8 +78,7 @@
                 })
                     .then(function (willDelete) {
                         if (willDelete) DeleteCust(custId);
-                        if (willDelete) window.location.reload();
-                        else swal("Not Deleted!");
+                        else swal("לקוח לא נמחק");
                     });
             });
         }
@@ -90,16 +91,29 @@
         }
 
         function DeleteCust(id) {
-            ajaxCall("DELETE", "../api/customers/" + id, "", deleteSuccess, error);
+            ajaxCall("DELETE", "../api/customers/" + id, "", sucssesDeleteCust, errorDeleteCust);
             return false;
         }
-        //function DeleteCust(id) {
-        //    ajaxCall("DELETE", "../api/customers/?Id=" + id, "", deleteSuccess, error);
-        //    return false;
-        //}
+
         function sucssesDeleteCust(data) {
-            alert("tt");
-            console.log("hhhhh");
+            swal({ // this will open a dialouge
+                title: "לקוח נמחק בהצלחה",
+                icon: "info",
+            })
+                .then(function () {
+                    window.location.reload();
+                });
+        }
+
+        function errorDeleteCust() {
+            swal("לקוח נמחק בהצלחה");
+            swal({ // this will open a dialouge
+                title: "לא ניתן למחוק לקוח- קיימים פרויקטים ",
+                icon: "warning",
+            })
+                .then(function () {
+                    window.location.reload();
+                });
         }
         function onSubmitFunc() {
             let custAfterEdit = {
@@ -111,7 +125,6 @@
                 
 
             }
-
             // update a new Car record to the server
             ajaxCall("PUT", "../api/putcust", JSON.stringify(custAfterEdit), updateSuccess, error);
             return false;
@@ -154,31 +167,6 @@
             }
             tbl.draw();
         }
-        // success callback function after delete
-        function deleteSuccess(data) {
-            console.log(data);
-            alert(data);
-            //swal({ // this will open a dialouge
-            //    title: "הפרטים עודכנו בהצלחה",
-            //    icon: "info",
-            //})
-            //    .then(function () {
-            //        redrawTable(tbl, custsdata);
-            //        window.location.reload();
-            //    });
-            //tbl.clear();
-            //redrawTable(tbl, custsdata);
-            //buttonEvents(); // after redrawing the table, we must wire the new buttons
-            //$("#editDiv").hide();
-        }
-        // redraw a datatable with new data
-        //function redrawTable(tbl, data) {
-        //    tbl.clear();
-        //    for (var i = 0; i < data.length; i++) {
-        //        tbl.row.add(data[i]);
-        //    }
-        //    tbl.draw();
-        //}
 
         // this function is activated in case of a success
         function getSuccess(custsdata) {
@@ -354,7 +342,7 @@
 
                 </div>-->
 
-                <button type="submit" class="btn btn-primary btn-lg" id="saveBTN">Save</button>
+                <button type="submit" class="btn btn-primary btn-lg" id="saveBTN" >Save</button>
 
             </form>
         </div>

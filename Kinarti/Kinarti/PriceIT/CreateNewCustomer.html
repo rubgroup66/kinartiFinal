@@ -14,9 +14,7 @@
 
     <script>
 
-        $(document).ready(function () {
-            $("#pForm").submit(f1);
-        });
+
         function AddCustomer(){
             Customer = { // Note that the name of the fields must be identical to the names of the properties of the object in the server
                 first_name: $("#first_name").val(),
@@ -30,8 +28,8 @@
 
         function success(data) {
             swal({ // this will open a dialouge
-                title: "Customer added successfully",
-                text: "Creat new project?",
+                title: "לקוח חדש נוסף בהצלחה",
+                text: "ליצור פרויקט ללקוח?",
                 icon: "info",
                 buttons: true,
                 dangerMode: true
@@ -111,7 +109,7 @@
             <div id="ph"></div>
             <br />
             <!--<button class="btn btn-default" id="add">Add</button>-->
-            <input type="submit" class="btn btn-primary btn-lg" value="צור לקוח חדש" />
+            <input  class="btn btn-primary btn-lg"onclick="f1()" value="צור לקוח חדש" />
         </form>
     </div>
 

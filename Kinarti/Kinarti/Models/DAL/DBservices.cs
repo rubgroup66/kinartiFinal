@@ -920,9 +920,10 @@ public class DBservices
         }
         catch (Exception ex)
         {
-            return 0;
+            
             // write to log
             throw (ex);
+
         }
 
         finally
@@ -943,8 +944,8 @@ public class DBservices
 
         StringBuilder sb = new StringBuilder();
         // use a string builder to create the dynamic string
-        sb.AppendFormat("Values('{0}', '{1}', '{2}', '{3}', '{4}', '{5}', {6})", proj.project_name, proj.description , proj.architect, proj.supervisor , proj.customer_id , 0, proj.ID);
-        String prefix = "INSERT INTO Project2 " + "(project_name, description, architect, supervisor, custID, status, id) ";
+        sb.AppendFormat("Values('{0}', '{1}', '{2}', '{3}', '{4}', '{5}','{6}')", proj.project_name, proj.description , proj.architect, proj.supervisor , proj.customer_id , 0, proj.create_date);
+        String prefix = "INSERT INTO Project2 " + "(project_name, description, architect, supervisor, custID, status, create_date) ";
 
         command = prefix + sb.ToString() + ";" + "SELECT CAST(scope_identity() AS int)";
 
@@ -970,7 +971,7 @@ public class DBservices
                 Project project = new Project();
                 project.ID = Convert.ToInt32(dr["id"]);
                 project.project_name = Convert.ToString(dr["project_name"]);
-                //project.create_date = Convert.ToDateTime(dr["create_date"]);
+                project.create_date = Convert.ToDateTime(dr["create_date"]);
                 project.description = Convert.ToString(dr["description"]);
                 //project.cost = Convert.ToInt32(dr["cost"]);
                 project.status = Convert.ToInt32(dr["status"]);
