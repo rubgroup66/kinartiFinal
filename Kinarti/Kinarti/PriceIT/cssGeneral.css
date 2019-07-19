@@ -3,7 +3,7 @@ button {
     margin-left: 10px;
 }
 
-#newBTN {
+#newBTN, #newProjectBtn {
     background-color: blueviolet;
     margin-bottom: 10px;
 }
@@ -53,9 +53,10 @@ table {
 
 #costt {
     /*height: 40px;*/
-    position: fixed;
-    bottom: 10%;
+    position: sticky;
+    bottom: 0%;
     /*width: 100%;*/
     /*background-color: cornflowerblue;*/
     opacity: 1;
+    border: black;
 }

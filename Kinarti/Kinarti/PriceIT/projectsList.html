@@ -265,11 +265,19 @@
 
     <div id="con" class="container">
 
-        <div class="row item">
 
-            <input type="button" value="הוסף פרויקט" class="btn btn-primary btn-lg" id="newProjectBtn" />
-            <br/>
-            <br/>
+        <div class="row item">
+            <div class="form-group col-sm-12">
+                <button type="button" value="הוסף פרויקט" class="btn btn-primary btn-lg" id="newProjectBtn">
+                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> הוסף פרויקט
+                </button>
+            </div>
+        </div>
+
+        <div class="row item">
+            <!--<input type="button" value="הוסף פרויקט" class="btn btn-primary btn-lg" id="newProjectBtn" />-->
+            <br />
+            <br />
             <input type="button" value="מיון" class="btn btn-primary btn-lg" onclick="ShowFilter()" />
 
         </div>
@@ -311,7 +319,7 @@
         <form id="pForm">
             <table id="projects_table" class="display nowrap" style="width:80%">
                 <thead>
-                    <tr>                       
+                    <tr>
                         <th> שם פרויקט</th>
                         <th>שם הלקוח</th>
                         <th> תיאור</th>

@@ -101,11 +101,11 @@
         </div>
 
         <!--<div class="row item">
-        <div class="form-group col-sm-12">
-            <input type="button" value="הוסף פריט" class="btn btn-primary btn-lg" id="newBTN" />
-            <span class='glyphicon glyphicon-remove' aria-hidden='true'></span>
-        </div>
-    </div>-->
+            <div class="form-group col-sm-12">
+                <input type="button" value="הוסף פריט" class="btn btn-primary btn-lg" id="newBTN" />
+                <span class='glyphicon glyphicon-remove' aria-hidden='true'></span>
+            </div>
+        </div>-->
 
         <div class="row item">
             <div class="form-group col-sm-12">
@@ -145,18 +145,11 @@
 
                 <p class="bg-info">תמחור פריט</p>
 
-                <div class="form-group col-sm-3">
-                    <div id="costt">
-                        <div class="form-group col-sm-12">
-                            <div class="form-group" id="itemCost">
-                                <label for="cost">עלות</label>
-                                <input type="number" class="form-control" id="itemCost" placeholder="0" disabled>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!--<div class="form-group col-sm-3">-->
 
-                <div class="form-group col-sm-9">
+                <!--</div>-->
+
+                <div class="form-group col-sm-12">
                     <div class="row item">
                         <div class="form-group col-sm-6">
                             <label for="itemName"><span class="red-star"></span>שם הפריט</label>
@@ -318,14 +311,23 @@
                     <br />
 
 
+                    <div id="costt">
+                        <!--<div class="form-group col-sm-12">
+                            <div class="form-group" id="itemCost">
+                                <label for="cost">עלות</label>
+                                <input type="number" class="form-control" id="itemCost" placeholder="0" disabled>
+                            </div>
+                        </div>-->
 
 
-                    <!--<div class="well well-sm">עלות הפריט: <span> <input type="number" class="form-control" id="itemCost" placeholder="0" disabled></span></div>
+                        <div class="well well-sm" role="alert">
 
-    <div class="alert alert-info " role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times; </span></button>
-        <strong>עלות פריט: </strong>
-    </div>-->
+                            <strong>עלות פריט: </strong>
+                            <!--<input type="number" class="form-control" id="itemCost" placeholder="0" disabled>-->
+                            <p id="itemCost" >0</p>
+                        </div>
+
+                    </div>
 
 
 
@@ -333,13 +335,13 @@
                     <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTN" value="ביטול" />
                 </div>
 
-    
+
             </form>
             <br />
         </div>
 
         <div class="form-group col-sm-12">
-            <button type="button" value="הוסף פריט" class="btn btn-primary btn-lg" id="finish">
+            <button type="button" value="שמירת פריט" class="btn btn-primary btn-lg" id="finish">
                 <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> שמירת פרויקט
             </button>
         </div>
@@ -347,3 +349,4 @@
     </div>
 </body>
 </html>
+
