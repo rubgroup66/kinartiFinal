@@ -821,9 +821,8 @@ function success(data) {
                     { data: "ID" },
                     { data: "Name" },
                     {
-                        //data: "BoxMeasuresID" ככ
-
-                            render: function (data, type, row, meta) {
+                        //data: "BoxMeasuresID" 
+                        render: function (data, type, row, meta) {
                             let theRightBoxMeasures = myBoxes.find(function (item) {
                                 console.log(item);
                                 return item.ID === row.BoxMeasuresID;
@@ -831,8 +830,7 @@ function success(data) {
                             if (theRightBoxMeasures) {
                                 return theRightBoxMeasures.Height + 'X' + theRightBoxMeasures.Width + 'X' + theRightBoxMeasures.Depth;
                             }
-
-                            }
+                        }
 
                     },  
                     { data: "Cost" },
