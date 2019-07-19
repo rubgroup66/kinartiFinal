@@ -821,19 +821,9 @@ function success(data) {
                     { data: "ID" },
                     { data: "Name" },
                     {
-                        //data: "BoxMeasuresID"
+                        //data: "BoxMeasuresID" ככ
 
                             render: function (data, type, row, meta) {
-                                //let BoxMeasures = "data-itemId='" + row.ID + "'";
-
-                                //for (var j = 0; j < myBoxes.length; j++) {
-                                //    if (myBoxes.ID === row.BoxMeasuresID) {
-                                //        return myBoxes[j].Height + 'X' + myBoxes[j].Width + 'X' + myBoxes[j].Depth
-                                //    }
-
-                            //}
-
-
                             let theRightBoxMeasures = myBoxes.find(function (item) {
                                 console.log(item);
                                 return item.ID === row.BoxMeasuresID;
@@ -842,7 +832,7 @@ function success(data) {
                                 return theRightBoxMeasures.Height + 'X' + theRightBoxMeasures.Width + 'X' + theRightBoxMeasures.Depth;
                             }
 
-                            } 
+                            }
 
                     },  
                     { data: "Cost" },
