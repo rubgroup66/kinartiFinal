@@ -165,6 +165,7 @@ function successGetBoxes(boxesdata) {// this function is activated in case of a 
     for (var i = 0; i < boxesdata.length; i++) {
         $('#boxMeasures').append('<option value="' + boxesdata[i].ID + '" >' + boxesdata[i].Height + 'X' + boxesdata[i].Width + 'X' + boxesdata[i].Depth + '</option>');
     }
+    console.log(myBoxes);
 }
 
 function successGetHandles(handlesdata) {// this function is activated in case of a success
@@ -282,8 +283,8 @@ function calculateItem() {
     console.log("withHandles +" + withHandles);
     
     console.log(itemTotalSum);
-    $('#itemCost').val(Math.round(itemTotalSum));
-    $("p").append("<strong>" + Math.round(itemTotalSum) + "</strong>");
+    //$('#itemCost').val(Math.round(itemTotalSum));
+    $('#itemCost').append("<strong> עלות פריט:" + Math.round(itemTotalSum) + "</strong>");
 
     return false; // the return false will prevent the form from being submitted, hence the page will not reload
 }
