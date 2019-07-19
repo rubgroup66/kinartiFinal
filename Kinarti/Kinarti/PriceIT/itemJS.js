@@ -281,8 +281,9 @@ function calculateItem() {
     console.log("withHinges2 +" + withHinges2);
     console.log("withHandles +" + withHandles);
     
-    $('#itemCost').val(Math.round(itemTotalSum));
     console.log(itemTotalSum);
+    $('#itemCost').val(Math.round(itemTotalSum));
+    $("p").append("<strong>" + Math.round(itemTotalSum) + "</strong>");
 
     return false; // the return false will prevent the form from being submitted, hence the page will not reload
 }
@@ -876,9 +877,9 @@ function success(data) {
         }   
     }
 
-    function calculateAllItemsPrice(list) {
+    //function calculateAllItemsPrice(list) {
 
-    }
+    //}
 
 
 function saveProjectSuccess() {

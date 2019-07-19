@@ -110,7 +110,7 @@
         <div class="row item">
             <div class="form-group col-sm-12">
                 <button type="button" value="הוסף פריט" class="btn btn-primary btn-lg" id="newBTN">
-                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> הוסף פריט
+                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> הוספת פריט
                 </button>
             </div>
         </div>
@@ -319,20 +319,34 @@
                             </div>
                         </div>-->
 
-
                         <div class="well well-sm" role="alert">
-
                             <strong>עלות פריט: </strong>
                             <!--<input type="number" class="form-control" id="itemCost" placeholder="0" disabled>-->
-                            <p id="itemCost" >0</p>
+                            <p id="itemCost">0</p>
                         </div>
 
                     </div>
 
+                    <!--<button type="button" class="btn btn-primary btn-lg" id="saveBTN">שמירה</button>
+                    <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTN" value="ביטול" />-->
 
+                    <div class="form-group col-sm-12">
+                        <button type="button" value="שמירה" class="btn btn-info btn-lg" id="saveBTN">
+                            <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> שמירה
+                        </button>
 
-                    <button type="button" class="btn btn-primary btn-lg" id="saveBTN">שמירה</button>
-                    <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTN" value="ביטול" />
+                        <button type="button" value="ביטול" class="btn btn-warning btn-lg" id="cancelSaveBTN">
+                            <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> ביטול
+                        </button>
+                            
+                    </div>
+
+                    <!--<div class="form-group col-sm-12">
+                        <button type="button" value="ביטול" class="btn btn-warning btn-lg" id="cancelSaveBTN">
+                            <span class="glyphicon glyphicon-save" aria-hidden="true"></span> ביטול
+                        </button>
+                    </div>-->
+
                 </div>
 
 
@@ -342,7 +356,7 @@
 
         <div class="form-group col-sm-12">
             <button type="button" value="שמירת פריט" class="btn btn-primary btn-lg" id="finish">
-                <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> שמירת פרויקט
+                <span class="glyphicon glyphicon-check" aria-hidden="true"></span> שמירת פרויקט
             </button>
         </div>
 

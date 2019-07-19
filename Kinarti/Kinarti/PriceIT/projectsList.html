@@ -269,21 +269,21 @@
         <div class="row item">
             <div class="form-group col-sm-12">
                 <button type="button" value="הוסף פרויקט" class="btn btn-primary btn-lg" id="newProjectBtn">
-                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> הוסף פרויקט
+                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> הוספת פרויקט
+                </button>
+            </div>
+
+            <div class="form-group col-sm-12">
+                <button type="button" value="מיון" class="btn btn-primary btn-lg" onclick="ShowFilter()">
+                    <span class="glyphicon glyphicon-filter" aria-hidden="true"></span> מיון
                 </button>
             </div>
         </div>
-
-        <div class="row item">
+        <!--<div class="row item">-->
             <!--<input type="button" value="הוסף פרויקט" class="btn btn-primary btn-lg" id="newProjectBtn" />-->
-            <br />
-            <br />
-            <input type="button" value="מיון" class="btn btn-primary btn-lg" onclick="ShowFilter()" />
+            <!--<input type="button" value="מיון" class="btn btn-primary btn-lg" onclick="ShowFilter()" />-->
+        <!--</div>-->
 
-        </div>
-
-        <br />
-        <br />
         <div id="filterDiv" class="form-group" style="display:none; background-color:lightblue; border:double; direction:rtl" ;>
             <label for="filter">מיין לפי </label>
             <select id='filterOpt' required>
@@ -331,51 +331,54 @@
                 </thead>
             </table>
         </form>
-    </div>
-    <br />
-    <br />
-    <div id="filterd" class="container" style="display:none; background-color:lightblue; border:double">
-        <form id="pForm">
-            <button value="Refresh Page" class="btn btn-primary btn-lg" onClick="window.location.href=window.location.href">חזור</button>
-            <br />
-            <br />
-            <table id="projects_table2" class="display nowrap" style="width:100% ">
-                <thead>
-                    <tr>
-                        <th>פעולות </th>
-                        <th>סטטוס </th>
-                        <th> שם פרויקט</th>
-                        <th>מזהה לקוח</th>
-                        <th> תיאור</th>
-                        <th>תאריך יצירה</th>
-                        <th>מחיר</th>
-                    </tr>
-                </thead>
-            </table>
-        </form>
+
+        <br />
+        <br />
+        <div id="filterd" class="container" style="display:none; background-color:lightblue; border:double">
+            <form id="pForm">
+                <button value="Refresh Page" class="btn btn-primary btn-lg" onClick="window.location.href=window.location.href">חזור</button>
+                <br />
+                <br />
+                <table id="projects_table2" class="display nowrap" style="width:100% ">
+                    <thead>
+                        <tr>
+                            <th>פעולות </th>
+                            <th>סטטוס </th>
+                            <th> שם פרויקט</th>
+                            <th>מזהה לקוח</th>
+                            <th> תיאור</th>
+                            <th>תאריך יצירה</th>
+                            <th>מחיר</th>
+                        </tr>
+                    </thead>
+                </table>
+            </form>
+
+        </div>
+
+        <div id="filterd2" class="container" style="display:none; background-color:lightblue; border:double">
+            <form id="pForm">
+                <button value="Refresh Page" class="btn btn-primary btn-lg" onClick="window.location.href=window.location.href">חזור</button>
+                <br />
+                <br />
+                <table id="projects_table3" class="display nowrap" style="width:100% ">
+                    <thead>
+                        <tr>
+                            <th>פעולות </th>
+                            <th>סטטוס </th>
+                            <th> שם פרויקט</th>
+                            <th>מזהה לקוח</th>
+                            <th> תיאור</th>
+                            <th>תאריך יצירה</th>
+                            <th>מחיר</th>
+                        </tr>
+                    </thead>
+                </table>
+            </form>
+
+        </div>
 
     </div>
 
-    <div id="filterd2" class="container" style="display:none; background-color:lightblue; border:double">
-        <form id="pForm">
-            <button value="Refresh Page" class="btn btn-primary btn-lg" onClick="window.location.href=window.location.href">חזור</button>
-            <br />
-            <br />  
-            <table id="projects_table3" class="display nowrap" style="width:100% ">
-                <thead>
-                    <tr>
-                        <th>פעולות </th>
-                        <th>סטטוס </th>
-                        <th> שם פרויקט</th>
-                        <th>מזהה לקוח</th>
-                        <th> תיאור</th>
-                        <th>תאריך יצירה</th>
-                        <th>מחיר</th>
-                    </tr>
-                </thead>
-            </table>
-        </form>
-
-    </div>
 </body>
 </html>
