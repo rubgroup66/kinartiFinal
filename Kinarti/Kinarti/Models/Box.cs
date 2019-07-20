@@ -19,16 +19,14 @@ namespace kinarti.Models
         public int Height { get; set; }
         public int Width { get; set; }
         public int Depth { get; set; }
-        public int IsActive { get; set; }
-        // public int CostForBasicMaterial { get; set; }
-        public Box(int _id, int _type, int _height, int _width, int _depth, int _isActive) //int _costForBasicMaterial)
+       // public int CostForBasicMaterial { get; set; }
+        public Box(int _id, int _type, int _height, int _width, int _depth) //int _costForBasicMaterial)
         {
             ID = _id;
             Type = _type;
             Height = _height;
             Width = _width;
             Depth = _depth;
-            IsActive = _isActive;
           //  CostForBasicMaterial = _costForBasicMaterial;
         }
         public Box()
@@ -48,7 +46,7 @@ namespace kinarti.Models
         public List<Box> getBoxes()
         {
             DBservices dbs = new DBservices();
-            List<Box> lp = dbs.getBoxes("PriceITConnectionString", "boxTbl9");
+            List<Box> lp = dbs.getBoxes("PriceITConnectionString", "boxTbl");
             return lp;
         }
 
