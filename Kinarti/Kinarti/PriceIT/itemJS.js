@@ -54,16 +54,16 @@ $(document).ready(function () {
     projectID = getParameterByName("projectId");
 
     uri2 = "../api/projects/?projectID=" + projectID;
-    ajaxCall("GET", uri2, "", successGetProject, error); //get project's details from DB
+    ajaxCall("GET", uri2, "", successGetProject, errorGetProject); //get project's details from DB
 
-    ajaxCall("GET", "../api/materials", "", successGetMaterials, error); //get all materials from DB
-    ajaxCall("GET", "../api/facades", "", successGetFacades, error);
-    ajaxCall("GET", "../api/boxes", "", successGetBoxes, error);
-    ajaxCall("GET", "../api/handles", "", successGetHandles, error);
-    ajaxCall("GET", "../api/hinges", "", successGetHinges, error);
-    ajaxCall("GET", "../api/constants", "", successGetConstants, error);
-    ajaxCall("GET", "../api/ironWorks", "", successGetIronWorks, error);
-    ajaxCall("GET", "../api/facadeMaterials", "", successGetFacadeMaterials, error);
+    ajaxCall("GET", "../api/materials", "", successGetMaterials, errorGetMaterials); //get all materials from DB
+    ajaxCall("GET", "../api/facades", "", successGetFacades, errorGetFacades);
+    ajaxCall("GET", "../api/boxes", "", successGetBoxes, errorGetBoxes);
+    ajaxCall("GET", "../api/handles", "", successGetHandles, errorGetHandles);
+    ajaxCall("GET", "../api/hinges", "", successGetHinges, errorGetHinges);
+    ajaxCall("GET", "../api/constants", "", successGetConstants, errorGetConstants);
+    ajaxCall("GET", "../api/ironWorks", "", successGetIronWorks, errorGetIronWorks);
+    ajaxCall("GET", "../api/facadeMaterials", "", successGetFacadeMaterials, errorGetFacadeMaterials);
 
 
     mode = "";
@@ -94,7 +94,7 @@ $(document).ready(function () {
         var radioValue = $("input[name='status']:checked").val();
         var isActive = radioValue == 'inProgress' ? 0 : 1; // replace with true value
 
-        ajaxCall("PUT", "../api/projects/?isActive=" + isActive + "&ProjectID=" + projectID, "", updateStatusSuccess, error);
+        ajaxCall("PUT", "../api/projects/?isActive=" + isActive + "&ProjectID=" + projectID, "", updateStatusSuccess, errorUpdateStatus);
     });
 
 });
@@ -212,11 +212,6 @@ function successGetFacadeMaterials(facadeMaterialsdata) {// this function is act
 
 }
 
-
-// עצרתי בטעינת הצצבעים של החזיתות (גמר + קיר נוסף)
-
-
-
 function successGetConstants(constantsdata) {// this function is activated in case of a success
     constants = constantsdata;
     console.log(constants);
@@ -230,8 +225,6 @@ function f2() {
 
 var materialCoefficient;
 var itemTotalSum = 0;
-
-
 
 
 function calculateItem() {
@@ -501,7 +494,14 @@ function buttonEvents() {
         onSubmitFunc2();
     });
 
+<<<<<<< HEAD
 }
+=======
+
+
+}
+
+>>>>>>> parent of 67a9f60... 6
 function errorGetBoxes(err) { // this function is activated in case of a failure
     swal("שגיאה באחזור מידות ארגזות");
 }
@@ -534,10 +534,8 @@ function errorUpdateStatus(err) { // this function is activated in case of a fai
     swal("שגיאה בעדכון סטטוס הפרויקט");
 }
 
-
-
 function error(err) { // this function is activated in case of a failure
-    swal("Error: " + err);
+    swal("התרחשה שגיאה כללית");
 }
 
 function ShowInfo() {
