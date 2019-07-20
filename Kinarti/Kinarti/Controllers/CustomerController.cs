@@ -57,6 +57,10 @@ namespace kinarti.Controllers
         //    Customer cust = new Customer();
         //    cust.DeleteCust(Id);
         //}
-
+        public Customer GetCustomer(int customerID)
+        {
+            Customer customer = new Customer();
+            return customer.getCustomer(customerID);
+        }
     }
 }

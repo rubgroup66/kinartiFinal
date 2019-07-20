@@ -65,6 +65,8 @@ $(document).ready(function () {
     ajaxCall("GET", "../api/ironWorks", "", successGetIronWorks, error);
     ajaxCall("GET", "../api/facadeMaterials", "", successGetFacadeMaterials, error);
 
+    ajaxCall("GET", "../api/getCust", "", successGetCustomers, error);
+
     mode = "";
 
     $("#cancelSaveBTN").on("click", function () {
@@ -123,8 +125,6 @@ function successGetProject(projectdata) {// this function is activated in case o
     $("#projectDescription").val(projectdata.description);
     $("#projectArchitect").val(projectdata.architect);
     $("#projectSupervisor").val(projectdata.supervisor);
-
-    $("#customerName").val(projectdata.custID);
 
     if (projectdata.status === 1) {
         //    $("#radio").value('done', 'checked');
@@ -190,6 +190,12 @@ function successGetIronWorks(ironworksdata) {// this function is activated in ca
     }
 }
 
+function successGetCustomers(customersdata) {// this function is activated in case of a success
+    console.log("customer -> " + JSON.stringify(customersdata));
+    $("#customerName").val(customersdata.first_name + last_name);
+
+}
+
 function successGetFacadeMaterials(facadeMaterialsdata) {// this function is activated in case of a success
     myFacadeMaterials = facadeMaterialsdata;
     console.log("facade materials -> " + JSON.stringify(facadeMaterialsdata));
@@ -198,6 +204,8 @@ function successGetFacadeMaterials(facadeMaterialsdata) {// this function is act
     }
 
 }
+
+
 // עצרתי בטעינת הצצבעים של החזיתות (גמר + קיר נוסף)
 
 
@@ -806,8 +814,7 @@ function success(data) {
     //    tbl.draw();
     //}
 
-    // this function is activated in case of a success
-    function successGetItems(itemsdata) {
+    function successGetItems(itemsdata) {    // this function is activated in case of a success
         console.log(itemsdata);
         myItems = itemsdata;
         //console.log(itemsdata[i].Cost); // **need to be fetched when the price is final!!
@@ -822,8 +829,7 @@ function success(data) {
                     {
                         //data: "BoxMeasuresID" 
                         render: function (data, type, row, meta) {
-                            let theRightBoxMeasures = myBoxes.find(function (item) {
-                                console.log(item);
+                            let theRightBoxMeasures = myBoxes.find(function (item) {                               
                                 return item.ID === row.BoxMeasuresID;
                             });
                             if (theRightBoxMeasures) {
@@ -833,16 +839,16 @@ function success(data) {
 
                     },  
                     { data: "Cost" },
-                                        {
-                                            render: function (data, type, row, meta) {
-                                                let dataItem = "data-itemId='" + row.ID + "'";
-                                                editBtn = "<button type='button' class = 'editBtn btn btn-success' " + dataItem + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>  עריכה </button>";
-                                                //viewBtn = "<button type='button' class = 'viewBtn btn btn-info' " + dataItem + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>  צפייה </button>";
-                                                duplicateBtn = "<button type='button' class = 'duplicateBtn btn btn-info' " + dataItem + ">  <span class='glyphicon glyphicon-duplicate' aria-hidden='true'></span>  שכפול  </button>";
-                                                deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataItem + ">  <span class='glyphicon glyphicon-remove' aria-hidden='true'></span> מחיקה </button>";
-                                                return editBtn + /*viewBtn +*/ duplicateBtn + deleteBtn;
-                                            } 
-                                        },
+                    {
+                        render: function (data, type, row, meta) {
+                            let dataItem = "data-itemId='" + row.ID + "'";
+                            editBtn = "<button type='button' class = 'editBtn btn btn-success' " + dataItem + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>  עריכה </button>";
+                            //viewBtn = "<button type='button' class = 'viewBtn btn btn-info' " + dataItem + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>  צפייה </button>";
+                            duplicateBtn = "<button type='button' class = 'duplicateBtn btn btn-info' " + dataItem + ">  <span class='glyphicon glyphicon-duplicate' aria-hidden='true'></span>  שכפול  </button>";
+                            deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataItem + ">  <span class='glyphicon glyphicon-remove' aria-hidden='true'></span> מחיקה </button>";
+                            return editBtn + /*viewBtn +*/ duplicateBtn + deleteBtn;
+                        } 
+                    },
                     
                 ],
                 //////////////////////////

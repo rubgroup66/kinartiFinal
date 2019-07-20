@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
 using System.Data.SqlClient;
 using System.Web.Configuration;
 using System.Data;
@@ -105,7 +104,6 @@ namespace kinarti.Models
             int numAffected = dbs.SwitchActive(isActive, ProjectId);
             return numAffected;
         }
-
 
         public Project getProject(int id)
         {

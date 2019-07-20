@@ -70,5 +70,11 @@ namespace kinarti.Models
         //    int numAffected = dbs.DeleteCust(Id);
 
         //}
+
+        public Customer getCustomer(int customerID)
+        {
+            DBservices dbs = new DBservices();
+            return dbs.getCustomer("PriceITConnectionString", "Customer2", customerID);
+        }
     }
 }
