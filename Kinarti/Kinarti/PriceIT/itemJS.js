@@ -544,6 +544,10 @@ function errorUpdateStatus(err) { // this function is activated in case of a fai
 
 
 >>>>>>> parent of 311c47c... 2
+=======
+
+
+>>>>>>> parent of 311c47c... 2
 }
 
 
