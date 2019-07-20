@@ -214,9 +214,8 @@
     <Content Include="PriceIT\AddNewProject.html" />
     <Content Include="PriceIT\CreateNewCustomer.html" />
     <Content Include="PriceIT\cssGeneral.css" />
-    <Content Include="PriceIT\edit - class Ex TABLE.html" />
-    <Content Include="PriceIT\edit.html" />
-    <Content Include="PriceIT\editAllParams.html" />
+    <Content Include="PriceIT\old files\edit.html" />
+    <Content Include="PriceIT\old files\editAllParams.html" />
     <Content Include="PriceIT\editBoxes.html" />
     <Content Include="PriceIT\editConstants2.html" />
     <Content Include="PriceIT\editHandles.html" />
@@ -230,7 +229,7 @@
     <Content Include="PriceIT\index.html" />
     <Content Include="PriceIT\insertBox.html" />
     <Content Include="PriceIT\editHinges.html" />
-    <Content Include="PriceIT\updateAllParams.js" />
+    <Content Include="PriceIT\old files\updateAllParams.js" />
     <Content Include="PriceIT\old files\insertItem.html" />
     <Content Include="PriceIT\insertMaterial.html" />
     <Content Include="PriceIT\itemJS.js" />
