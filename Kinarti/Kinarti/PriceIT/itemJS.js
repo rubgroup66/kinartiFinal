@@ -393,9 +393,9 @@ function collectChoices() {
         }
         else { ironWorksCost2 = 0; }
 
+        woodBoxDrawerWorkCost = constants[6].Cost;
         LegraBoxDrawerWork = constants[7].Cost;
         //LegraBoxDrawerWork = constants.find(function (item) { return item.constantName === "LegraboxDrawerWork"; });
-
         console.log(LegraBoxDrawerWork);
 
         ScalaDrawerWork = constants[8].Cost;
@@ -406,7 +406,7 @@ function collectChoices() {
         LegraboxExternalRailsCost = constants[12].Cost;
         ScalaInternalRailsCost = constants[11].Cost;
         ScalaExternalRailsCost = constants[13].Cost;
-        woodBoxDrawerWorkCost = constants[6].Cost;
+        
 
         facadeFRNWorkCoefficient = constants[6].Cost;// 280
 
@@ -445,14 +445,13 @@ function buttonEvents() {
         populateFields(this.getAttribute('data-itemId')); // fill the form fields according to the selected row
     });
 
-    ///////////duplicating
-    $(document).on("click", ".duplicateBtn", function () {
+    $(document).on("click", ".duplicateBtn", function () {///////////duplicating
         mode = "duplicate";
         markSelected(this);
         $("#editDiv").show();
         $("#editDiv :input").prop("disabled", false); // edit mode: enable all controls in the form
         populateFields(this.getAttribute('data-itemId')); // fill the form fields according to the selected row
-    });
+    }); 
 
     $(document).on("click", ".viewBtn", function () {
         mode = "view";
@@ -557,12 +556,11 @@ function markSelected(btn) {  // mark the selected row
     row.className = 'selected'; // mark as selected
 }
 
-
-function DeleteItem(id) {      // Delete a item from the server
+function DeleteItem(id) {      // Delete item from the server
     ajaxCall("DELETE", "../api/items/?Id=" + id, "", deleteSuccess, error);
 }
 
-function saveProject(id) {      // Delete a item from the server
+function saveProject() {      // save the project
       ajaxCall("PUT", "../api/projects/?Id=" + projectID, JSON.stringify(projecttoSave), saveProjectSuccess, error);
 }
 
