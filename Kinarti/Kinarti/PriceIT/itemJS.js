@@ -506,6 +506,7 @@ function buttonEvents() {
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 function errorGetBoxes(err) { // this function is activated in case of a failure
     swal("שגיאה באחזור מידות ארגזות");
 }
@@ -535,6 +536,10 @@ function errorGetFacadeMaterials(err) { // this function is activated in case of
 }
 function errorUpdateStatus(err) { // this function is activated in case of a failure
     swal("שגיאה בעדכון סטטוס הפרויקט");
+=======
+
+
+>>>>>>> parent of 311c47c... 2
 =======
 
 
