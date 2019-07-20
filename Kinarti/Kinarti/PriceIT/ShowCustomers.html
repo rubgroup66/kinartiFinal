@@ -30,12 +30,10 @@
         });
         
         function buttonEvents() {
-
             $(document).on("click", ".addProjBtn", function () {
                 markSelected(this);
                 populatename(this.getAttribute('data-custId'));
-                parent.location = 'AddNewProject.html';
-                
+                parent.location = 'AddNewProject.html';                
             });
 
             function populatename(id) {

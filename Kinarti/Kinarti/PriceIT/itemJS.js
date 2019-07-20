@@ -191,7 +191,7 @@ function successGetIronWorks(ironworksdata) {// this function is activated in ca
 }
 
 function successGetCustomers(customersdata) {// this function is activated in case of a success
-    console.log("customer -> " + JSON.stringify(customersdata));
+    console.log(JSON.stringify(customersdata));
 
     $("#customerName").val((customersdata.first_name + " "  + customersdata.last_name));
 }
