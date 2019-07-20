@@ -435,7 +435,7 @@ function buttonEvents() {
     $(document).on("click", ".isDistanced", function () {
         isDistanced = $(this).is(':checked') ? 1 : 0; // replace with true value
         console.log("change made");
-    });  
+    });
 
     $(document).on("click", ".editBtn", function () {
         mode = "edit";
@@ -501,12 +501,7 @@ function buttonEvents() {
     $("#finish").on("click", function () {
         onSubmitFunc2();
     });
-
-
-
-
-<<<<<<< HEAD
-<<<<<<< HEAD
+}
 function errorGetBoxes(err) { // this function is activated in case of a failure
     swal("שגיאה באחזור מידות ארגזות");
 }
@@ -536,14 +531,6 @@ function errorGetFacadeMaterials(err) { // this function is activated in case of
 }
 function errorUpdateStatus(err) { // this function is activated in case of a failure
     swal("שגיאה בעדכון סטטוס הפרויקט");
-=======
-
-
->>>>>>> parent of 311c47c... 2
-=======
-
-
->>>>>>> parent of 311c47c... 2
 }
 
 
