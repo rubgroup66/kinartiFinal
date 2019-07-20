@@ -54,16 +54,16 @@ $(document).ready(function () {
     projectID = getParameterByName("projectId");
 
     uri2 = "../api/projects/?projectID=" + projectID;
-    ajaxCall("GET", uri2, "", successGetProject, errorGetProject); //get project's details from DB
+    ajaxCall("GET", uri2, "", successGetProject, error); //get project's details from DB
 
-    ajaxCall("GET", "../api/materials", "", successGetMaterials, errorGetMaterials); //get all materials from DB
-    ajaxCall("GET", "../api/facades", "", successGetFacades, errorGetFacades);
-    ajaxCall("GET", "../api/boxes", "", successGetBoxes, errorGetBoxes);
-    ajaxCall("GET", "../api/handles", "", successGetHandles, errorGetHandles);
-    ajaxCall("GET", "../api/hinges", "", successGetHinges, errorGetHinges);
-    ajaxCall("GET", "../api/constants", "", successGetConstants, errorGetConstants);
-    ajaxCall("GET", "../api/ironWorks", "", successGetIronWorks, errorGetIronWorks);
-    ajaxCall("GET", "../api/facadeMaterials", "", successGetFacadeMaterials, errorGetFacadeMaterials);
+    ajaxCall("GET", "../api/materials", "", successGetMaterials, error); //get all materials from DB
+    ajaxCall("GET", "../api/facades", "", successGetFacades, error);
+    ajaxCall("GET", "../api/boxes", "", successGetBoxes, error);
+    ajaxCall("GET", "../api/handles", "", successGetHandles, error);
+    ajaxCall("GET", "../api/hinges", "", successGetHinges, error);
+    ajaxCall("GET", "../api/constants", "", successGetConstants, error);
+    ajaxCall("GET", "../api/ironWorks", "", successGetIronWorks, error);
+    ajaxCall("GET", "../api/facadeMaterials", "", successGetFacadeMaterials, error);
 
 
     mode = "";
@@ -94,7 +94,7 @@ $(document).ready(function () {
         var radioValue = $("input[name='status']:checked").val();
         var isActive = radioValue == 'inProgress' ? 0 : 1; // replace with true value
 
-        ajaxCall("PUT", "../api/projects/?isActive=" + isActive + "&ProjectID=" + projectID, "", updateStatusSuccess, errorUpdateStatus);
+        ajaxCall("PUT", "../api/projects/?isActive=" + isActive + "&ProjectID=" + projectID, "", updateStatusSuccess, error);
     });
 
 });
@@ -212,6 +212,8 @@ function successGetFacadeMaterials(facadeMaterialsdata) {// this function is act
 
 }
 
+// עצרתי בטעינת הצצבעים של החזיתות (גמר + קיר נוסף)
+
 function successGetConstants(constantsdata) {// this function is activated in case of a success
     constants = constantsdata;
     console.log(constants);
@@ -225,6 +227,8 @@ function f2() {
 
 var materialCoefficient;
 var itemTotalSum = 0;
+
+
 
 
 function calculateItem() {
@@ -400,7 +404,6 @@ function collectChoices() {
         ScalaInternalRailsCost = constants[11].Cost;
         ScalaExternalRailsCost = constants[13].Cost;
 
-
         facadeFRNWorkCoefficient = constants[6].Cost;// 280
 
         plateWorkCostForSquareMeter = constants[13].Cost;// 25
@@ -419,7 +422,6 @@ function collectChoices() {
         }
         materialWoodDrawersCoefficient = 2.64;
         //materialWoodDrawersCoefficient = params.materialWoodDrawersCoefficient;
-
         extraCostForItem = document.getElementById("extraCostForItem").value;
     }
 }
@@ -493,22 +495,13 @@ function buttonEvents() {
     $("#finish").on("click", function () {
         onSubmitFunc2();
     });
-
-<<<<<<< HEAD
 }
-=======
-
-
-}
-
->>>>>>> parent of 67a9f60... 6
 function errorGetBoxes(err) { // this function is activated in case of a failure
     swal("שגיאה באחזור מידות ארגזות");
 }
 function errorGetMaterials(err) { // this function is activated in case of a failure
     swal("שגיאה באחזור חומרי גלם");
 }
-
 function errorGetProject(err) { // this function is activated in case of a failure
     swal("שגיאה באחזור הפרויקט");
 }
@@ -534,8 +527,10 @@ function errorUpdateStatus(err) { // this function is activated in case of a fai
     swal("שגיאה בעדכון סטטוס הפרויקט");
 }
 
+
+
 function error(err) { // this function is activated in case of a failure
-    swal("התרחשה שגיאה כללית");
+    swal("Error: " + err);
 }
 
 function ShowInfo() {
@@ -547,8 +542,6 @@ function calculateProjectCost() {
     $("#projectCost").val(TC);
     console.log(TC);
 }
-
-//$("#pForm").submit(onSubmitFunc); 
 
 function markSelected(btn) {  // mark the selected row
     $("#itemsTable tr").removeClass("selected"); // remove seleced class from rows that were selected before
@@ -564,6 +557,7 @@ function saveProject() {      // save the project
     ajaxCall("PUT", "../api/projects/?Id=" + projectID, JSON.stringify(projecttoSave), saveProjectSuccess, error);
 }
 
+//$("#pForm").submit(onSubmitFunc); 
 function onSubmitFunc() {
     var Id = -1;
     //var Image = "car.jpg"; // no image at this point
@@ -880,12 +874,8 @@ function successGetItems(itemsdata) {    // this function is activated in case o
                 }
 
             ],
-            //////////////////////////
             "footerCallback": function (row, data, start, end, display) {
                 var api = this.api(), data;
-                //console.log("######");
-                //console.log(api);
-                //console.log("######");
                 var intVal = function (i) {
                     return typeof i === 'string' ?
                         i.replace(/[\$,]/g, '') * 1 :
@@ -923,6 +913,7 @@ function successGetItems(itemsdata) {    // this function is activated in case o
         alert(err);
     }
 }
+
 function saveProjectSuccess() {
     tbl.clear();
     buttonEvents(); // after redrawing the table, we must wire the new buttons
