@@ -508,6 +508,7 @@ function errorGetBoxes(err) { // this function is activated in case of a failure
 function errorGetMaterials(err) { // this function is activated in case of a failure
     swal("שגיאה באחזור חומרי גלם");
 }
+
 function errorGetProject(err) { // this function is activated in case of a failure
     swal("שגיאה באחזור הפרויקט");
 }
