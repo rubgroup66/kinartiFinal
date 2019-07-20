@@ -1,7 +1,11 @@
-﻿
+﻿item
 button {
     margin-left: 10px;
 }
+
+hover span {
+    display: block;
+}   
 
 #newBTN, #newProjectBtn {
     background-color: blueviolet;
