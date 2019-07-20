@@ -879,7 +879,7 @@ function success(data) {
                             deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataItem + ">  <span class='glyphicon glyphicon-remove' aria-hidden='true'></span> מחיקה </button>";
                             return editBtn + /*viewBtn +*/ duplicateBtn + deleteBtn;
                         } 
-                    },
+                    }
                     
                 ],
                 //////////////////////////
