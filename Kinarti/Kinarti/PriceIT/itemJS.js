@@ -65,7 +65,6 @@ $(document).ready(function () {
     ajaxCall("GET", "../api/ironWorks", "", successGetIronWorks, error);
     ajaxCall("GET", "../api/facadeMaterials", "", successGetFacadeMaterials, error);
 
-    ajaxCall("GET", "../api/getCust", "", successGetCustomers, error);
 
     mode = "";
 
@@ -137,6 +136,11 @@ function successGetProject(projectdata) {// this function is activated in case o
     }
     uri = "../api/items/?projectID=" + projectID;
     ajaxCall("GET", uri, "", successGetItems, error); //get all relevant project's items from DB  
+
+
+    uriCustomer = "../api/getCust/?customerID=" + projectdata.customer_id;
+    ajaxCall("GET", uriCustomer, "", successGetCustomers, error);
+
 }
 
 function successGetMaterials(materialsdata) {// this function is activated in case of a success
