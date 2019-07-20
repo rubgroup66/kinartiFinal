@@ -247,14 +247,12 @@ public class DBservices
                 box.Height = Convert.ToInt32(dr["height"]);
                 box.Width = Convert.ToInt32(dr["width"]);
                 box.Depth = Convert.ToInt32(dr["depth"]);
-
-                box.IsActive = Convert.ToInt32(dr["isActive"]);
-
                 boxesList.Add(box);
             }
             return boxesList;
         }
-        catch (Exception ex) {
+        catch (Exception ex)
+        {
             throw (ex); // write to log
         }
         finally {
@@ -502,9 +500,9 @@ public class DBservices
         String command;
         StringBuilder sbBox = new StringBuilder();
         // use a string builder to create the dynamic string
-        sbBox.AppendFormat("Values({0}, {1} ,{2}, {3}, {4}, {5})",
-            box.Type, box.Height, box.Width, box.Depth, 1); // inserted box will always be 1 (active) until removal
-        String prefix = "INSERT INTO boxTbl " + "(type, height, width, depth, Active) ";
+        sbBox.AppendFormat("Values({0}, {1} ,{2}, {3}, {4})",
+            box.Type, box.Height, box.Width, box.Depth);
+        String prefix = "INSERT INTO boxTbl " + "(type, height, width, depth) ";
         command = prefix + sbBox.ToString() + ";" + "SELECT CAST(scope_identity() AS int)";
         return command;
     }
