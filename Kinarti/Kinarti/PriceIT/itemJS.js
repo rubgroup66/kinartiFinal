@@ -134,12 +134,15 @@ function successGetProject(projectdata) {// this function is activated in case o
         $("#inProgressBtn").addClass("active");
         $("#doneBtn").removeClass("active");
     }
-    uri = "../api/items/?projectID=" + projectID;
-    ajaxCall("GET", uri, "", successGetItems, error); //get all relevant project's items from DB  
 
 
     uriCustomer = "../api/getCust/?customerID=" + projectdata.customer_id;
     ajaxCall("GET", uriCustomer, "", successGetCustomers, error);
+
+    uri = "../api/items/?projectID=" + projectID;
+    ajaxCall("GET", uri, "", successGetItems, error); //get all relevant project's items from DB  
+
+
 
 }
 
