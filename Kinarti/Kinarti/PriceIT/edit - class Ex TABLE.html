@@ -1,4 +1,4 @@
-﻿!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -19,7 +19,20 @@
             margin-left: 10px;
         }
 
+        .colorDiv {
+            height:30px;
+            width:70px;
+            border:2px solid black
+        }
+
+        #newBTN {
+            background-color:blueviolet;
+            margin-bottom:10px;
+        }
+
+
     </style>
+
 
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -36,10 +49,30 @@
         // will run when the document is ready
         $(document).ready(function () {
 
+            mode = "";
+
+            $("#cancelSaveBTN").on("click", function () {
+                car = null;
+                $("#editDiv").hide();
+                if (mode == "new") $("#pForm").show();
+                mode = "";
+            });
+
+            $("#newBTN").on("click", function () {
+                car = null;
+                mode = "new";
+                $("#pForm").hide();
+                $("#editDiv").show();
+                clearFields();
+                $("#editDiv :input").prop("disabled", false); // new mode: enable all controls in the form
+            });
+
+
             // once the document is ready we fetch a list of cars from the server
             ajaxCall("GET", "../api/cars", "", getSuccess, error);
             
             $("#carForm").submit(onSubmitFunc); // wire the submit event to a function called f1
+
             $("#editDiv").hide();
         });
 
@@ -47,6 +80,7 @@
         function buttonEvents() {
 
             $(document).on("click", ".editBtn", function () {
+                mode = "edit";
                 markSelected(this);
                 $("#editDiv").show();
                 $("#editDiv :input").prop("disabled", false); // edit mode: enable all controls in the form
@@ -54,6 +88,7 @@
             });
 
             $(document).on("click", ".viewBtn", function () {
+                mode = "view";
                 markSelected(this);
                 $("#editDiv").show();
                 row.className = 'selected';
@@ -62,6 +97,7 @@
             });
 
             $(document).on("click", ".deleteBtn", function () {
+                mode = "delete";
                 markSelected(this);
                 var carId = this.getAttribute('data-carId');
                 swal({ // this will open a dialouge 
@@ -74,7 +110,7 @@
                 .then(function (willDelete) {
                     if (willDelete) DeleteCar(carId);
                     else swal("Not Deleted!");
-                }); 
+                });
             });
         }
 
@@ -91,9 +127,18 @@
         }
 
         function onSubmitFunc() {
-            let carAfterEdit = {
-                Id: car.Id,
-                Image: car.Image, // for now we do not change the image
+
+            var Id = -1;
+            var Image = "car.jpg";
+            if (mode == "edit") {
+                Id = car.Id;
+                Image = car.Image;
+            }
+
+
+            let cartoSave = {
+                Id: Id,
+                Image: Image, // for now we do not change the image
                 Manufacturer: $("#manufacturer").val(),
                 Model: $("#model").val(),
                 Year: $("#year").val(),
@@ -104,8 +149,11 @@
                 Automatic: $("#automatic").is(":checked")
             }
 
-            // update a new Car record to the server
-            ajaxCall("PUT", "../api/cars", JSON.stringify(carAfterEdit), updateSuccess, error);
+            // add a new Car record to the server
+            if(mode == "edit")
+                ajaxCall("PUT", "../api/cars", JSON.stringify(cartoSave), updateSuccess, error);
+            else if (mode == "new")
+                ajaxCall("POST", "../api/cars", JSON.stringify(cartoSave), insertSuccess, error);
             return false;
         }
 
@@ -121,6 +169,20 @@
             $("#description").val(car.Description);
             $("#automatic").prop('checked', car.Automatic);
             $("#image").attr("src", "images/" + car.Image);
+        }
+
+
+        // fill the form fields
+        function clearFields() {
+            $("#manufacturer").val("");
+            $("#model").val("");
+            $("#year").val("");
+            $("#price").val("");
+            $("#color").val("");
+            $("#hand").val("");
+            $("#description").val("");
+            $("#automatic").prop('checked', true);
+            $("#image").attr("src", "images/car.jpg");
         }
 
         // get a car according to its Id
@@ -139,6 +201,18 @@
             buttonEvents();
             $("#editDiv").hide();
             swal("Updated Successfuly!", "Great Job", "success");
+            mode = "";
+        }
+
+        // success callback function after update
+        function insertSuccess(carsdata) {
+            $("#pForm").show();
+            tbl.clear();
+            redrawTable(tbl, carsdata);
+            buttonEvents();
+            $("#editDiv").hide();
+            swal("Inserted Successfuly!", "Great Job", "success");
+            mode = "";
         }
 
         // success callback function after delete
@@ -148,6 +222,7 @@
             buttonEvents(); // after redrawing the table, we must wire the new buttons
             $("#editDiv").hide();
             swal("Deleted Successfuly!", "Great Job", "success");
+            mode = "";
         }
 
         // redraw a datatable with new data
@@ -182,7 +257,12 @@
                         { data: "Model" },
                         { data: "Year" },
                         { data: "Price" },
-                        { data: "Color" },
+                        {
+                            data: "Color",
+                            render: function (data, type, row, meta) {
+                                return "<div class = 'colorDiv' style='background-color:" + data + "'> </div>"
+                            }
+                        },
                         { data: "Hand" },
                         {
                           data: "Automatic",
@@ -230,6 +310,7 @@
     </nav>
 
     <div class="container">
+        <input type="button" value="New" class="btn btn-primary btn-lg" id="newBTN" />
         <form id="pForm">
             <table id="carsTable" class="display nowrap" style="width:100%">
                 <thead>
@@ -329,7 +410,7 @@
         </div>  
             
        <button type="submit" class="btn btn-primary btn-lg" id="saveBTN">Save</button> 
-
+       <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTN" value="Cancel"/>
     </form>
     </div>
 
