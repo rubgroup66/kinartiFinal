@@ -7,19 +7,15 @@ using System.Web.Configuration;
 using System.Data;
 using System.Text;
 using kinarti.Models;
-
-
 public class DBservices
 {
     public SqlDataAdapter da;
     private SqlConnection con;
     public DataTable dt;
-
     public DBservices()
     {
-        // TODO: Add constructor logic here
         con = null;
-}
+    }
     //--------------------------------------------------------------------------------------------------
     // This method creates a connection to the database according to the connectionString name in the web.config 
     //--------------------------------------------------------------------------------------------------
@@ -28,8 +24,7 @@ public class DBservices
         // read the connection string from the configuration file
         if (this.con != null)
         {
-            return this.con;
-            
+            return this.con; 
         }
         string cStr = WebConfigurationManager.ConnectionStrings[conString].ConnectionString;
         SqlConnection con = new SqlConnection(cStr);
@@ -52,8 +47,7 @@ public class DBservices
         }
         String cStr = BuildInsertMaterialCommand(material);      // helper method to build the insert string
         cmd = CreateCommand(cStr, this.con); // create the command  
-        try
-        {
+        try  {
             int materialId = Convert.ToInt32(cmd.ExecuteScalar()); // execute the command
             return materialId;
         }
@@ -94,8 +88,7 @@ public class DBservices
             SqlCommand cmd = new SqlCommand(selectSTR, this.con);
             // get a reader
             SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
-            while (dr.Read())
-            {   // Read till the end of the data into a row
+            while (dr.Read()) {   // Read till the end of the data into a row
                 Material m = new Material();
                 m.ID = Convert.ToInt32(dr["id"]);
                 m.Name = Convert.ToString(dr["name"]);
@@ -109,13 +102,11 @@ public class DBservices
             }
             return lm;
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             throw (ex); // write to log
         }
         finally {
-            if (this.con != null)
-            {
+            if (this.con != null) {
                 this.con.Close();
             }
         }
@@ -128,8 +119,7 @@ public class DBservices
     {
         //SqlConnection con = null;
         List<Material> lm = new List<Material>();
-        try
-        {
+        try {
             this.con = connect(conString); // create a connection to the database using the connection String defined in the web config file
             String selectSTR = "SELECT * FROM " + tableName;
             SqlCommand cmd = new SqlCommand(selectSTR, this.con);
@@ -148,14 +138,11 @@ public class DBservices
             }
             return lm;
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             throw (ex); // write to log
         }
-        finally
-        {
-            if (this.con != null)
-            {
+        finally  {
+            if (this.con != null) {
                 this.con.Close();
             }
         }
@@ -168,8 +155,7 @@ public class DBservices
     {
         //SqlConnection con = null;
         List<Facade> lm = new List<Facade>();
-        try
-        {
+        try {
             this.con = connect(conString); // create a connection to the database using the connection String defined in the web config file
             String selectSTR = "SELECT * FROM " + tableName;
 
@@ -186,14 +172,11 @@ public class DBservices
             }
             return lm;
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex)  {
             throw (ex); // write to log
         }
-        finally
-        {
-            if (this.con != null)
-            {
+        finally {
+            if (this.con != null) {
                 this.con.Close();
             }
         }
@@ -206,30 +189,24 @@ public class DBservices
     {
         //SqlConnection con;
         SqlCommand cmd;
-        try
-        {
+        try {
             this.con = connect("PriceITConnectionString"); // create the connection
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             throw (ex); // write to log
         }
         String cStr = BuildInsertFacadeCommand(facade);      // helper method to build the insert string
         cmd = CreateCommand(cStr, this.con); // create the command  
-        try
-        {
+        try {
             int facadeId = Convert.ToInt32(cmd.ExecuteScalar()); // execute the command
  
             return facadeId;
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             throw (ex); // write to log
         }
-        finally
-        {
-            if (this.con != null)
-            {
+        finally {
+            if (this.con != null) {
                 this.con.Close();// close the db connection
             }
         }
@@ -254,8 +231,7 @@ public class DBservices
     {
         //SqlConnection con = null;
         List<Box> boxesList = new List<Box>();
-        try
-        {
+        try  {
             this.con = connect(conString);
             String selectSTR = "SELECT * FROM  " + tableName; //"SELECT* FROM " + tableName + " where age >=" + filter.MinAge + " and age <=" + filter.MaxAge + "and gender = 'Male'";
 
@@ -279,10 +255,8 @@ public class DBservices
         {
             throw (ex); // write to log
         }
-        finally
-        {
-            if (this.con != null)
-            {
+        finally {
+            if (this.con != null)  {
                 this.con.Close();
             }
         }
@@ -1180,9 +1154,8 @@ public class DBservices
         try {
             this.con = connect("PriceITConnectionString"); // create the connection
         }
-        catch (Exception ex) {
-            // write to log
-            throw (ex);
+        catch (Exception ex) {    
+            throw (ex);// write to log
         }
         String cStr = BuildInsertItemCommand(item);      // helper method to build the insert string
         cmd = CreateCommand(cStr, this.con);             // create the command
@@ -1192,13 +1165,11 @@ public class DBservices
         }
         catch (Exception ex)  {
             return 0;
-            // write to log
-            throw (ex);
+            throw (ex);// write to log
         }
         finally {
             if (this.con != null)  {
-                // close the db connection
-                this.con.Close();
+                this.con.Close(); // close the db connection
             }
         }
     }

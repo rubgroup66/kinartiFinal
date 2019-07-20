@@ -124,7 +124,6 @@ function successGetProject(projectdata) {// this function is activated in case o
     $("#projectArchitect").val(projectdata.architect);
     $("#projectSupervisor").val(projectdata.supervisor);
 
-
     $("#customerName").val(projectdata.custID);
 
     if (projectdata.status === 1) {
@@ -849,9 +848,9 @@ function success(data) {
                 //////////////////////////
                 "footerCallback": function (row, data, start, end, display) {
                     var api = this.api(), data;
-                    console.log("######");
-                    console.log(api);
-                    console.log("######");
+                    //console.log("######");
+                    //console.log(api);
+                    //console.log("######");
                     var intVal = function (i) {
                         return typeof i === 'string' ?
                             i.replace(/[\$,]/g, '') * 1 :
