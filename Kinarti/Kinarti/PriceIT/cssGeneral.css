@@ -7,6 +7,7 @@ hover span {
     display: block;
 }
 
+
 #newBTN, #newProjectBtn, #newBTN2 {
 }
 /*#newBTN, #newProjectBtn, #newCustomerBtn, #newUserBtn {
@@ -15,6 +16,8 @@ hover span {
 }*/
 
 .addnewBTN{
+
+
     background-color: blueviolet;
     margin-bottom: 10px;
 }
