@@ -980,8 +980,7 @@ public class DBservices
         //SqlConnection con;
         List<Project> projectList = new List<Project>();
 
-        try
-        {
+        try  {
             con = connect("PriceITConnectionString"); // create a connection to the database using the connection String defined in the web config file
         }
 

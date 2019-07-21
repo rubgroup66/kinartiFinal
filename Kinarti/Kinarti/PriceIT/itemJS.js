@@ -540,7 +540,7 @@ function errorGetConstants(err) { // this function is activated in case of a fai
 function errorGetHinges(err) { // this function is activated in case of a failure
     swal("שגיאה באחזור צירים");
 }
-function errorGetGetIronWorks(err) { // this function is activated in case of a failure
+function errorGetIronWorks(err) { // this function is activated in case of a failure
     swal("שגיאה באחזור עלויות פרזולים");
 }
 function errorGetFacadeMaterials(err) { // this function is activated in case of a failure

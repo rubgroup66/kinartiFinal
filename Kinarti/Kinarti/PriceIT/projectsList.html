@@ -19,8 +19,7 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="../Scripts/ajaxCalls.js"></script>
     <script>
-        $(document).ready(function () {
-            // once the document is ready we fetch a list of customers from the server
+        $(document).ready(function () { // once the document is ready we fetch a list of customers from the server
             ajaxCall("GET", "../api/proj", "", successGetProj, errorGetProj);          
         });
 
@@ -29,7 +28,8 @@
             $('#projects_table').DataTable({
                 data: data,
                 "autoWidth": false,
-                columns: [              
+                columns: [  
+                    { data: "id" },
                     { data: "project_name" },
                     { data: "customer_id" },
                     { data: "description" },
@@ -52,7 +52,7 @@
                             return EditProjBtn;
                         }
                     },
-                    //{ data: "id" },
+
                 ]
             })
         }
@@ -71,7 +71,6 @@
         function filterCust() {
             Filter = { // Note that the name of the fields must be identical to the names of the properties of the object in the server
                 customer_id: $("#custID").val()
-
             }
             ajaxCall("POST", "../api/filter/cust", JSON.stringify(Filter), successfilterCust, errorfilterCust);
 
@@ -83,7 +82,6 @@
                 maxPrice: $("#maxPrice").val()
             }
             ajaxCall("POST", "../api/filter/price", JSON.stringify(Filter), successfilterPrice, errorfilterPrice);
-
         }
 
         function successfilterPrice(data) {
@@ -93,14 +91,12 @@
                 data: data,
                 "autoWidth": false,
                 columns: [
-                    {
-                        render: function (data, type, row, meta) {
-                            let dataCust = "data-custId='" + row.id + "'";
-
-                            EditProjBtn = "<button type='button' class = 'EditProjBtn btn btn-success' " + dataCust + "> עריכת </button>";
-                            return EditProjBtn;
-                        }
-                    },
+                     { data: "id" },
+                    { data: "project_name" },
+                    { data: "customer_id" },
+                    { data: "description" },
+                    { data: "create_date" },
+                    { data: "cost" },                   
                     {
                         data: "status",
                         render: function (data, type, row, meta) {
@@ -111,11 +107,14 @@
                             return status;
                         }
                     },
-                    { data: "project_name" },
-                    { data: "customer_id" },
-                    { data: "description" },
-                    { data: "create_date" },
-                    { data: "cost" },
+                    {
+                        render: function (data, type, row, meta) {
+                            let dataCust = "data-custId='" + row.id + "'";
+
+                            EditProjBtn = "<button type='button' class = 'EditProjBtn btn btn-success' " + dataCust + "> עריכת </button>";
+                            return EditProjBtn;
+                        }
+                    }
                 ]
             })
         }
@@ -131,14 +130,13 @@
                 data: data,
                 "autoWidth": false,
                 columns: [
-                    {
-                        render: function (data, type, row, meta) {
-                            let dataCust = "data-custId='" + row.id + "'";
+                     { data: "id" },
 
-                            EditProjBtn = "<button type='button' class = 'EditProjBtn btn btn-success' " + dataCust + "> Edit project </button>";
-                            return EditProjBtn;
-                        }
-                    },
+                    { data: "project_name" },
+                    { data: "customer_id" },
+                    { data: "description" },
+                    { data: "create_date" },
+                    { data: "cost" },
                     {
                         data: "status",
                         render: function (data, type, row, meta) {
@@ -149,11 +147,13 @@
                             return status;
                         }
                     },
-                    { data: "project_name" },
-                    { data: "customer_id" },
-                    { data: "description" },
-                    { data: "create_date" },
-                    { data: "cost" },
+                    {
+                        render: function (data, type, row, meta) {
+                            let dataCust = "data-custId='" + row.id + "'";
+                            EditProjBtn = "<button type='button' class = 'EditProjBtn btn btn-success' " + dataCust + "> Edit project </button>";
+                            return EditProjBtn;
+                        }
+                    }
                 ]
             })
         }
@@ -204,14 +204,12 @@
                     data: data,
                     "autoWidth": false,
                     columns: [
-                        {
-                            render: function (data, type, row, meta) {
-                                let dataCust = "data-custId='" + row.id + "'";
-
-                                EditProjBtn = "<button type='button' class = 'EditProjBtn btn btn-success' " + dataCust + "> Edit project </button>";
-                                return EditProjBtn;
-                            }
-                        },
+                        { data: "id" },
+                        { data: "project_name" },
+                        { data: "customer_id" },
+                        { data: "description" },
+                        { data: "create_date" },
+                        { data: "cost" },
                         {
                             data: "status",
                             render: function (data, type, row, meta) {
@@ -222,11 +220,14 @@
                                 return status;
                             }
                         },
-                        { data: "project_name" },
-                        { data: "customer_id" },
-                        { data: "description" },
-                        { data: "create_date" },
-                        { data: "cost" },
+                        {
+                            render: function (data, type, row, meta) {
+                                let dataCust = "data-custId='" + row.id + "'";
+
+                                EditProjBtn = "<button type='button' class = 'EditProjBtn btn btn-success' " + dataCust + "> Edit project </button>";
+                                return EditProjBtn;
+                            }
+                        },
                     ]
                 })
             }
@@ -312,13 +313,14 @@
             <table id="projects_table" class="display nowrap" style="width:80%">
                 <thead>
                     <tr>
-                        <th> שם פרויקט</th>
+                        <th>מספר</th>
+                        <th>שם פרויקט</th>
                         <th>שם הלקוח</th>
-                        <th> תיאור</th>
+                        <th>תיאור</th>
                         <th>תאריך יצירה</th>
                         <th>עלות</th>
-                        <th>סטטוס </th>
-                        <th>פעולות </th>
+                        <th>סטטוס</th>
+                        <th>פעולות</th>
                     </tr>
                 </thead>
             </table>
