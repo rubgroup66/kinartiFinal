@@ -348,7 +348,6 @@ public class DBservices
         {
             this.con = connect(conString);
             String selectSTR = "SELECT * FROM  " + tableName; //"SELECT* FROM " + tableName + " where age >=" + filter.MinAge + " and age <=" + filter.MaxAge + "and gender = 'Male'";
-
             SqlCommand cmd = new SqlCommand(selectSTR, this.con);
             SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
 
@@ -368,8 +367,7 @@ public class DBservices
         {
             throw (ex); // write to log
         }
-        finally
-        {
+        finally {
             if (this.con != null)
             {
                 this.con.Close();
@@ -910,7 +908,8 @@ public class DBservices
                 project.project_name = Convert.ToString(dr["project_name"]);
                 project.create_date = Convert.ToDateTime(dr["create_date"]);
                 project.description = Convert.ToString(dr["description"]);
-                //project.cost = Convert.ToInt32(dr["cost"]);
+
+                project.cost = Convert.ToInt32(dr["cost"]);
                 project.status = Convert.ToInt32(dr["status"]);
                 project.customer_id = Convert.ToInt32(dr["custID"]);
 

@@ -30,8 +30,7 @@ namespace kinarti.Models
             Width = _width;
             Depth = _depth;
             Active = _Active;
-
-        }
+       }
         public Box()
         {
         }
