@@ -29,7 +29,7 @@
                 data: data,
                 "autoWidth": false,
                 columns: [  
-                    { data: "id" },
+                    { data: "ID" },
                     { data: "project_name" },
                     { data: "customer_id" },
                     { data: "description" },
@@ -57,7 +57,8 @@
             })
         }
         function errorGetProj(err) {
-            swal("Error getting projects");
+
+            swal("שגיאה באחזור פרויקטים", "הפרויקטים לא נטענו ", "error")
         }
 
         $(document).on("click", ".EditProjBtn", function (event) {
@@ -91,7 +92,7 @@
                 data: data,
                 "autoWidth": false,
                 columns: [
-                     { data: "id" },
+                     { data: "ID" },
                     { data: "project_name" },
                     { data: "customer_id" },
                     { data: "description" },
@@ -120,7 +121,7 @@
         }
         
         function errorfilterPrice() {
-            alert("error")
+            alert("התרחשה שגיאה")
         }
 
         function successfilterCust(data) {
@@ -130,8 +131,7 @@
                 data: data,
                 "autoWidth": false,
                 columns: [
-                     { data: "id" },
-
+                     { data: "ID" },
                     { data: "project_name" },
                     { data: "customer_id" },
                     { data: "description" },
@@ -196,7 +196,7 @@
 
             function errorfilterstatus() {
                 alert("error filtering")
-            }
+            }           
             function successfilterstatus(data) {
                 document.getElementById('con').style.display = "none";
                 document.getElementById('filterd').style.display = "block"; 
@@ -223,7 +223,6 @@
                         {
                             render: function (data, type, row, meta) {
                                 let dataCust = "data-custId='" + row.id + "'";
-
                                 EditProjBtn = "<button type='button' class = 'EditProjBtn btn btn-success' " + dataCust + "> Edit project </button>";
                                 return EditProjBtn;
                             }
@@ -231,7 +230,6 @@
                     ]
                 })
             }
-
             $("#newProjectBtn").on("click", function () {
                 localStorage.clear();
                 window.location.href = 'AddNewProject.html';
@@ -258,23 +256,25 @@
 
     <div id="con" class="container">
 
-
+        <h1>פרויקטים</h1>
+        <br />
+        <br />
         <div class="row item">
-            <div class="form-group col-sm-12">
-                <button type="button" value="הוסף פרויקט" class="btn btn-primary btn-lg" id="newProjectBtn">
+            <div class="form-group col-sm-3 offset-md-3">
+                <button type="button" value="הוסף פרויקט" class="btn btn-primary btn-md addNew" id="newProjectBtn" >
                     <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> הוספת פרויקט
                 </button>
             </div>
 
-            <div class="form-group col-sm-12">
-                <button type="button" value="מיון" class="btn btn-primary btn-lg" onclick="ShowFilter()">
-                    <span class="glyphicon glyphicon-filter" aria-hidden="true"></span> סינון
-                </button>
+            <div class="form-group col-sm-3 offset-md-3">
+                    <button type="button" value="מיון" class="btn btn-primary btn-md " onclick="ShowFilter()">
+                        <span class="glyphicon glyphicon-filter" aria-hidden="true"></span> סינון
+                    </button>
+                </div>
             </div>
-        </div>
         <!--<div class="row item">-->
-            <!--<input type="button" value="הוסף פרויקט" class="btn btn-primary btn-lg" id="newProjectBtn" />-->
-            <!--<input type="button" value="מיון" class="btn btn-primary btn-lg" onclick="ShowFilter()" />-->
+        <!--<input type="button" value="הוסף פרויקט" class="btn btn-primary btn-lg" id="newProjectBtn" />-->
+        <!--<input type="button" value="מיון" class="btn btn-primary btn-lg" onclick="ShowFilter()" />-->
         <!--</div>-->
 
         <div id="filterDiv" class="form-group" style="display:none; background-color:lightblue; border:double; direction:rtl" ;>
@@ -313,7 +313,7 @@
             <table id="projects_table" class="display nowrap" style="width:80%">
                 <thead>
                     <tr>
-                        <th>מספר</th>
+                        <th>מס"ד</th>
                         <th>שם פרויקט</th>
                         <th>שם הלקוח</th>
                         <th>תיאור</th>

@@ -5,9 +5,14 @@ button {
 
 hover span {
     display: block;
-}   
+}
 
-#newBTN, #newProjectBtn {
+/*#newBTN, #newProjectBtn, #newCustomerBtn, #newUserBtn {
+    background-color: blueviolet;
+    margin-bottom: 10px;
+}*/
+
+.addNew {
     background-color: blueviolet;
     margin-bottom: 10px;
 }

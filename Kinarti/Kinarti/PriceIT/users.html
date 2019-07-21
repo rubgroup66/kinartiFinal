@@ -86,7 +86,7 @@
             buttonEvents();
         }
         function errorGetUser(err) {
-            swal("Error getting users");
+            swal("שגיאה באחזור משתמשי מערכת");
         }
 
         function DeleteUser(userId) {
@@ -253,18 +253,25 @@
     <!-------------------------------------->
     <!---------------------------------------------AddNewUserDIV----------------------------->
     <div class="container">
-        <input type="button" value="הוסף משתמש חדש" class="btn btn-primary btn-lg" onclick="AddNewUser()" />
-        <br />
-        <br />
+        <!--<input type="button" value="הוסף משתמש חדש" class="btn btn-primary btn-lg" onclick="AddNewUser()" />-->
+        <h1>ניהול משתמשים</h1>
+        <div class="row item">
+            <div class="form-group col-sm-12">
+                <button type="button" value="הוסף משתמש חדש" class="btn btn-primary btn-md addNew" onclick="AddNewUser()" id="newUserBtn">
+                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> הוסף משתמש חדש
+                </button>
+            </div>
+        </div>
+
         <div id="newUserdiv">
             <form id="newUser">
-
 
                 <h2>צור משתמש חדש</h2>
                 <div class="form-group col-sm-5">
                     <label for="userId">מזהה משתמש</label>
                     <input type="text" class="form-control" id="userId" placeholder="הכנס מספר מזהה" required>
                 </div>
+
                 <div class="form-group col-sm-5">
                     <label for="new_name">שם פרטי</label>
                     <input type="text" class="form-control" id="new_name" placeholder="הכנס שם פרטי" required>

@@ -1447,8 +1447,7 @@ public class DBservices
     {
         //SqlConnection con;
         SqlCommand cmd;
-        try
-        {
+        try  {
             this.con = connect("PriceITConnectionString"); // create the connection
         }
         catch (Exception ex) {
@@ -1456,19 +1455,15 @@ public class DBservices
         }
         String cStr = BuildUpdateProjectCommand(project, Id);      // helper method to build the insert string
         cmd = CreateCommand(cStr, this.con);             // create the command
-
-        try
-        {
+        try {
             int numEffected = (int)cmd.ExecuteNonQuery(); // execute the command
             return numEffected;
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             return 0;
             throw (ex);       // write to log
         }
-        finally
-        {
+        finally  {
             if (this.con != null)
             {
                 this.con.Close();        // close the db connection

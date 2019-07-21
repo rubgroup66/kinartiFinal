@@ -133,12 +133,10 @@
         </div>
     </nav>
 
-
-
-
     <div class="container" style="direction:rtl">
         <form id="pForm">
-            <h2>צור פרויקט חדש</h2>
+            <h1>יצירת פרויקט חדש</h1>
+            <br />
             <div class="form-group">
                 <label for="project_name">שם פרויקט</label>
                 <input type="text" class="form-control" id="project_name" placeholder="הכנס שם פרויקט ייחודי" required>
@@ -174,7 +172,16 @@
             <div id="ph"></div>
             <br />
             <!--<button class="btn btn-default" id="add">Add</button>-->
-            <input type="submit" value="צור פרויקט" />
+            <!--<input type="submit" value="צור פרויקט" />-->
+
+            <div class="row item">
+                <div class="form-group col-sm-12">
+                    <button type="submit" value="צור פרויקט" class="btn btn-primary btn-md" id="newProjectBtn">
+                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> צור פרויקט
+                    </button>
+                </div>
+            </div>
+
         </form>
     </div>
 

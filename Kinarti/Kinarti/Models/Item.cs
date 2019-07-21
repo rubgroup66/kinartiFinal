@@ -127,7 +127,6 @@ namespace kinarti.Models
         {
             DBservices dbs = new DBservices();
             int numAffected = dbs.deleteItem( Id);
-
         }
 
     }
