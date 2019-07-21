@@ -4,20 +4,27 @@
         // once the document is ready we fetch a list of materials from the server
         ajaxCall("GET", "../api/boxes", "", getSuccess, errorGetBoxes);
         $("#CreateboxesForm").submit(CreateNewBox);
-        $("#CreateboxesForm").hide();
+        $("#boxEditDiv").hide();
         mode = "";
 
-        $("#cancelSaveBTN").on("click", function () {
-          box = null;
-          $("#editDiv").hide();
-            if (mode == "new")/* $("#pForm").show();*/
-             mode = "";
-          });
-         });
+        buttonEvents();
+    });
+       
 
 
     // wire all the buttons to their functions
 function buttonEvents() {
+
+    $("#cancelSaveBTNbox").on("click", function () {
+        box = null;
+        mode = "new";
+        if (mode == "new") {
+            $("#boxEditDiv").hide();
+            $("#boxForm").show();
+            mode = "";
+        }
+        mode = "";
+    });
 
     $(document).on("click", ".viewBtn", function () {
        markSelected(this);
@@ -98,9 +105,11 @@ function DeleteBox(id) {
 
 
 function f2() {
-    $("#CreateboxesForm").show();
+    $("#boxForm").hide();
+    $("#boxEditDiv").show();
     return false;
 }
+
 
 function populateFields(boxId) {        // fill the form fields
     box = getBox(boxId);
@@ -164,6 +173,11 @@ function getSuccess(boxdata) {
             data: boxdata,
             pageLength: 6,
             columns: [
+                { data: "ID" },
+                { data: "Type" },
+                { data: "Height" },
+                { data: "Width" },
+                { data: "Depth" },
                 {
                     render: function (data, type, row, meta) {
                         let dataBox = "data-boxId='" + row.ID + "'";
@@ -171,13 +185,6 @@ function getSuccess(boxdata) {
                         return deleteBtn;
                     }
                 },
-                { data: "Depth" },
-                { data: "Width" },
-                { data: "Height" },
-                { data: "Type" },
-                { data: "ID" },
-
-
             ],
         });
         buttonEvents();

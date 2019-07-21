@@ -49,15 +49,6 @@
                 data: userdata,
                 "autoWidth": false,
                 columns: [
-                    {
-                        render: function (data, type, row, meta) {
-                            let dataUser = "data-userId='" + row.Id + "'";
-
-                            EditUserBtn = "<button type='button' class = 'EditUserBtn btn btn-success' " + dataUser + "> ערוך משתמש </button>";
-                            DeleteUserBtn = "<button type='button' class = 'DeleteUserBtn btn btn-danger' " + dataUser + "> מחק משתמש </button>";
-                            return EditUserBtn + DeleteUserBtn;
-                        }
-                    },
                     { data: "Name" },
                     { data: "Id" },
                     { data: "Password" },
@@ -79,6 +70,15 @@
                                 active = '<img title="פעיל" src="https://img.icons8.com/office/16/000000/ok.png">'
                             } else active = '<img title="לא פעיל" src="https://img.icons8.com/office/16/000000/cancel.png">'
                             return active;
+                        }
+                    },
+                    {
+                        render: function (data, type, row, meta) {
+                            let dataUser = "data-userId='" + row.Id + "'";
+
+                            EditUserBtn = "<button type='button' class = 'EditUserBtn btn btn-success' " + dataUser + "> ערוך משתמש </button>";
+                            DeleteUserBtn = "<button type='button' class = 'DeleteUserBtn btn btn-danger' " + dataUser + "> מחק משתמש </button>";
+                            return EditUserBtn + DeleteUserBtn;
                         }
                     },
                 ],
@@ -306,12 +306,12 @@
             <table id="users_table" class="display nowrap" style="width:100%">
                 <thead>
                     <tr>
-                        <th></th>
                         <th>שם פרטי</th>
                         <th>מזהה משתמש</th>
                         <th>סיסמא</th>
                         <th>סוג משתמש</th>
                         <th>פעיל</th>
+                        <th>פעולות</th>
                     </tr>
                 </thead>
             </table>
