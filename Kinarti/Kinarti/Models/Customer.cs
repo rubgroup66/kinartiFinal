@@ -60,16 +60,8 @@ namespace kinarti.Models
 
             DBservices db = new DBservices();
             int numAffected = db.DeleteCust(custID);
-            
-
 
         }
-        //public void DeleteCust(int Id)
-        //{
-        //    DBservices dbs = new DBservices();
-        //    int numAffected = dbs.DeleteCust(Id);
-
-        //}
 
         public Customer getCustomer(int customerID)
         {

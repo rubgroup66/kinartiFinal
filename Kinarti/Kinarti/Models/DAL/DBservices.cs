@@ -242,12 +242,26 @@ public class DBservices
             {// Read till the end of the data into a row
                 // read first field from the row into the list collection
                 Box box = new Box();
-                box.Type = Convert.ToInt32(dr["type"]);
+                box.Type = Convert.ToString(dr["type"]);
                 box.ID = Convert.ToInt32(dr["id"]);
                 box.Height = Convert.ToInt32(dr["height"]);
                 box.Width = Convert.ToInt32(dr["width"]);
                 box.Depth = Convert.ToInt32(dr["depth"]);
+<<<<<<< HEAD
+                box.Active = Convert.ToInt16(dr["Active"]);
+                if (box.Active == 1)
+                {
+                    boxesList.Add(box);
+
+                }
+=======
+
+                box.isActive = Convert.ToInt32(dr["Active"]);
+
+
+
                 boxesList.Add(box);
+>>>>>>> 445fe8a218eb4b6225ec527ebdd93248dc8868f1
             }
             return boxesList;
         }
@@ -498,58 +512,16 @@ public class DBservices
     private String BuildInsertBoxCommand(Box box)
     {
         String command;
-        StringBuilder sbBox = new StringBuilder();
         // use a string builder to create the dynamic string
-        sbBox.AppendFormat("Values({0}, {1} ,{2}, {3}, {4})",
-            box.Type, box.Height, box.Width, box.Depth);
-        String prefix = "INSERT INTO boxTbl " + "(type, height, width, depth) ";
-        command = prefix + sbBox.ToString() + ";" + "SELECT CAST(scope_identity() AS int)";
+        StringBuilder sb = new StringBuilder(); // use a string builder to create the dynamic string
+        sb.AppendFormat("Values('{0}', {1} , {2}, {3}, {4},{5})", box.Type, box.Width, box.Height, box.Depth, 1, 1);
+        String prefix = "INSERT INTO boxTbl " + "(type, width, height, depth,materialID,Active) ";
+        //command = prefix + sbItem.ToString();
+        command = prefix + sb.ToString() + ";" + "SELECT CAST(scope_identity() AS int)";
         return command;
     }
 
-    
-    //update edited box in system
-    public int updateBox(Box box, int Id)
-    {
-        //SqlConnection con;
-        SqlCommand cmd;
-        try
-        {
-            con = connect("PriceITConnectionString"); // create the connection
-        }
-        catch (Exception ex)
-        {
-            throw (ex);          // write to log
-        }
-        String cStr = BuildUpdateCommand(box, Id);      // helper method to build the insert string
-        cmd = CreateCommand(cStr, this.con);             // create the command
-        try
-        {
-            int numEffected = (int)cmd.ExecuteNonQuery(); // execute the command
-
-            return numEffected;
-        }
-        catch (Exception ex)
-        {
-            return 0;
-            throw (ex);       // write to log
-        }
-        finally
-        {
-            if (this.con != null)
-            {
-                this.con.Close();        // close the db connection
-            }
-        }
-    }
-
-    private string BuildUpdateCommand(Box box, int id)
-    {
-        string prefix = "UPDATE boxTbl SET type = '" + 1 + "', height = '" + box.Height + "', width = '" + box.Width + "',depth = '" + box.Depth + " WHERE id=" + id;
-        return prefix;
-    }
-    //update edited Material in system
-    public int updateConstants(Constants constants)
+        public int updateConstants(Constants constants)
     {
         //SqlConnection con;
         SqlCommand cmd;
@@ -918,8 +890,8 @@ public class DBservices
 
         StringBuilder sb = new StringBuilder();
         // use a string builder to create the dynamic string
-        sb.AppendFormat("Values('{0}', '{1}', '{2}', '{3}', '{4}', '{5}','{6}')", proj.project_name, proj.description , proj.architect, proj.supervisor , proj.customer_id , 0, proj.create_date);
-        String prefix = "INSERT INTO Project2 " + "(project_name, description, architect, supervisor, custID, status, create_date) ";
+        sb.AppendFormat("Values('{0}', '{1}', '{2}', '{3}', '{4}', '{5}','{6}', {7})", proj.project_name, proj.description , proj.architect, proj.supervisor , proj.customer_id , 0, proj.create_date, 0);
+        String prefix = "INSERT INTO Project2 " + "(project_name, description, architect, supervisor, custID, status, create_date, cost) ";
 
         command = prefix + sb.ToString() + ";" + "SELECT CAST(scope_identity() AS int)";
 
@@ -2223,5 +2195,50 @@ public class DBservices
                 this.con.Close();   // close the db connection
             }
         }
+
+        
+
+    }
+    //------------DeleteBox-------------//
+
+    public int DeleteBox(int boxID)
+    {
+        //SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            this.con = connect("PriceITConnectionString"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            throw (ex);// write to log
+        }
+        String cStr = BuildDeleteBox(boxID);      // helper method to build the insert string
+        cmd = CreateCommand(cStr, this.con);             // create the command
+        try
+        {
+            int numAffected = cmd.ExecuteNonQuery(); // execute the comm
+            return numAffected;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (this.con != null)
+            {
+                this.con.Close();// close the db connection
+            }
+        }
+
+    }
+    private string BuildDeleteBox(int boxID)
+    {
+        //string cmdStr = "UPDATE boxTbl SET Active='" + 0 + "'";
+        string cmdStr = "UPDATE boxTbl SET Active='" + 0 + "' WHERE id='" + boxID + "'";
+        return cmdStr;
     }
 }

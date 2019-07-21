@@ -54,18 +54,17 @@ $(document).ready(function () {
     projectID = getParameterByName("projectId");
 
     uri2 = "../api/projects/?projectID=" + projectID;
-    ajaxCall("GET", uri2, "", successGetProject, error); //get project's details from DB
+    ajaxCall("GET", uri2, "", successGetProject, errorGetProject); //get project's details from DB
 
-    ajaxCall("GET", "../api/materials", "", successGetMaterials, error); //get all materials from DB
-    ajaxCall("GET", "../api/facades", "", successGetFacades, error);
-    ajaxCall("GET", "../api/boxes", "", successGetBoxes, error);
-    ajaxCall("GET", "../api/handles", "", successGetHandles, error);
-    ajaxCall("GET", "../api/hinges", "", successGetHinges, error);
-    ajaxCall("GET", "../api/constants", "", successGetConstants, error);
-    ajaxCall("GET", "../api/ironWorks", "", successGetIronWorks, error);
-    ajaxCall("GET", "../api/facadeMaterials", "", successGetFacadeMaterials, error);
+    ajaxCall("GET", "../api/materials", "", successGetMaterials, errorGetMaterials); //get all materials from DB
+    ajaxCall("GET", "../api/facades", "", successGetFacades, errorGetFacades);
+    ajaxCall("GET", "../api/boxes", "", successGetBoxes, errorGetBoxes);
+    ajaxCall("GET", "../api/handles", "", successGetHandles, errorGetHandles);
+    ajaxCall("GET", "../api/hinges", "", successGetHinges, errorGetHinges);
+    ajaxCall("GET", "../api/constants", "", successGetConstants, errorGetConstants);
+    ajaxCall("GET", "../api/ironWorks", "", successGetIronWorks, errorGetIronWorks);
+    ajaxCall("GET", "../api/facadeMaterials", "", successGetFacadeMaterials, errorGetFacadeMaterials);
 
-    ajaxCall("GET", "../api/getCust", "", successGetCustomers, error);
 
     mode = "";
 
@@ -121,22 +120,43 @@ function updateStatusSuccess() {
 function successGetProject(projectdata) {// this function is activated in case of a success
     console.log(projectdata);
     $("#projectName").val(projectdata.project_name);
+
     $("#createDate").val(projectdata.create_date);
+
+    $("#projectCost").val(projectdata.cost);
+
+
+
+    //var date_test = new Date("2011-07-14 11:23:00".replace(/-/g, "/"));
+    //console.log(date_test);
+
     $("#projectDescription").val(projectdata.description);
     $("#projectArchitect").val(projectdata.architect);
     $("#projectSupervisor").val(projectdata.supervisor);
 
     if (projectdata.status === 1) {
-        //    $("#radio").value('done', 'checked');
-        //$("input[name=status][value='done'").attr('checked', 'checked');
         $("#doneBtn").addClass("active");
         $("#inProgressBtn").removeClass("active");
+
+        $("#editDiv :input").attr("disabled", "disabled"); // this needs to be disabled when status = 1
+
+
+
+
     } else {
         $("#inProgressBtn").addClass("active");
         $("#doneBtn").removeClass("active");
     }
+
+
+    uriCustomer = "../api/getCust/?customerID=" + projectdata.customer_id;
+    ajaxCall("GET", uriCustomer, "", successGetCustomers, error);
+
     uri = "../api/items/?projectID=" + projectID;
     ajaxCall("GET", uri, "", successGetItems, error); //get all relevant project's items from DB  
+
+
+
 }
 
 function successGetMaterials(materialsdata) {// this function is activated in case of a success
@@ -191,9 +211,16 @@ function successGetIronWorks(ironworksdata) {// this function is activated in ca
 }
 
 function successGetCustomers(customersdata) {// this function is activated in case of a success
-    console.log("customer -> " + JSON.stringify(customersdata));
-    $("#customerName").val("customersdata.first_name " + "customersdata.last_name"));
+<<<<<<< HEAD
 
+    console.log("customer -> " + JSON.stringify(customersdata));
+    $("#customerName").val("customersdata.first_name " + "customersdata.last_name");
+
+=======
+>>>>>>> 445fe8a218eb4b6225ec527ebdd93248dc8868f1
+    console.log(JSON.stringify(customersdata));
+
+    $("#customerName").val((customersdata.first_name + " " + customersdata.last_name));
 }
 
 function successGetFacadeMaterials(facadeMaterialsdata) {// this function is activated in case of a success
@@ -217,7 +244,7 @@ function successGetConstants(constantsdata) {// this function is activated in ca
 }
 
 function f2() {
-   // addItem();
+    // addItem();
     return false; // the return false will prevent the form from being submitted, hence the page will not reload
 }
 
@@ -288,7 +315,7 @@ function calculateItem() {
     console.log("withHinges1 +" + withHinges1);
     console.log("withHinges2 +" + withHinges2);
     console.log("withHandles +" + withHandles);
-    
+
     console.log(itemTotalSum);
     //$('#itemCost').val(Math.round(itemTotalSum));
     $('#itemCost').append("<strong> עלות פריט:" + Math.round(itemTotalSum) + "</strong>");
@@ -386,9 +413,9 @@ function collectChoices() {
         }
         else { ironWorksCost2 = 0; }
 
+        woodBoxDrawerWorkCost = constants[6].Cost;
         LegraBoxDrawerWork = constants[7].Cost;
         //LegraBoxDrawerWork = constants.find(function (item) { return item.constantName === "LegraboxDrawerWork"; });
-
         console.log(LegraBoxDrawerWork);
 
         ScalaDrawerWork = constants[8].Cost;
@@ -399,7 +426,7 @@ function collectChoices() {
         LegraboxExternalRailsCost = constants[12].Cost;
         ScalaInternalRailsCost = constants[11].Cost;
         ScalaExternalRailsCost = constants[13].Cost;
-        woodBoxDrawerWorkCost = constants[6].Cost;
+
 
         facadeFRNWorkCoefficient = constants[6].Cost;// 280
 
@@ -428,7 +455,7 @@ function buttonEvents() {
     $(document).on("click", ".isDistanced", function () {
         isDistanced = $(this).is(':checked') ? 1 : 0; // replace with true value
         console.log("change made");
-    });  
+    });
 
     $(document).on("click", ".editBtn", function () {
         mode = "edit";
@@ -438,8 +465,7 @@ function buttonEvents() {
         populateFields(this.getAttribute('data-itemId')); // fill the form fields according to the selected row
     });
 
-    ///////////duplicating
-    $(document).on("click", ".duplicateBtn", function () {
+    $(document).on("click", ".duplicateBtn", function () {///////////duplicating
         mode = "duplicate";
         markSelected(this);
         $("#editDiv").show();
@@ -494,12 +520,36 @@ function buttonEvents() {
     $("#finish").on("click", function () {
         onSubmitFunc2();
     });
-
-
-
-
-
-
+}
+function errorGetBoxes(err) { // this function is activated in case of a failure
+    swal("שגיאה באחזור מידות ארגזות");
+}
+function errorGetMaterials(err) { // this function is activated in case of a failure
+    swal("שגיאה באחזור חומרי גלם");
+}
+function errorGetProject(err) { // this function is activated in case of a failure
+    swal("שגיאה באחזור הפרויקט");
+}
+function errorGetFacades(err) { // this function is activated in case of a failure
+    swal("שגיאה באחזור ציפויים חיצוניים");
+}
+function errorGetHandles(err) { // this function is activated in case of a failure
+    swal("שגיאה באחזור הפרויקט");
+}
+function errorGetConstants(err) { // this function is activated in case of a failure
+    swal("שגיאה באחזור פרמטרי חישוב");
+}
+function errorGetHinges(err) { // this function is activated in case of a failure
+    swal("שגיאה באחזור צירים");
+}
+function errorGetGetIronWorks(err) { // this function is activated in case of a failure
+    swal("שגיאה באחזור עלויות פרזולים");
+}
+function errorGetFacadeMaterials(err) { // this function is activated in case of a failure
+    swal("שגיאה באחזור חומרי גלם לגמרי חוץ");
+}
+function errorUpdateStatus(err) { // this function is activated in case of a failure
+    swal("שגיאה בעדכון סטטוס הפרויקט");
 }
 
 
@@ -512,11 +562,11 @@ function ShowInfo() {
     $("#info").show();
 }
 
-function calculateProjectCost() {
-    TC = tbl.column(4).data().sum();
-    $("#projectCost").val(TC);
-    console.log(TC);
-}
+//function calculateProjectCost() {
+//    TC = tbl.column(4).data().sum();
+//    $("#projectCost").val(TC);
+//    console.log(TC);
+//}
 
 //$("#pForm").submit(onSubmitFunc); 
 
@@ -526,13 +576,12 @@ function markSelected(btn) {  // mark the selected row
     row.className = 'selected'; // mark as selected
 }
 
-
-function DeleteItem(id) {      // Delete a item from the server
+function DeleteItem(id) {      // Delete item from the server
     ajaxCall("DELETE", "../api/items/?Id=" + id, "", deleteSuccess, error);
 }
 
-function saveProject(id) {      // Delete a item from the server
-      ajaxCall("PUT", "../api/projects/?Id=" + projectID, JSON.stringify(projecttoSave), saveProjectSuccess, error);
+function saveProject() {      // save the project
+    ajaxCall("PUT", "../api/projects/?Id=" + projectID, JSON.stringify(projecttoSave), saveProjectSuccess, error);
 }
 
 function onSubmitFunc() {
@@ -578,7 +627,7 @@ function onSubmitFunc() {
 
     if (mode === "edit")
         ajaxCall("PUT", "../api/items/?Id=" + Id, JSON.stringify(itemtoSave), updateSuccess, error);
-   
+
     else if ((mode === "new") || (mode === "duplicate")) // add a new item record to the server
         ajaxCall("POST", "../api/items", JSON.stringify(itemtoSave), insertSuccess, error);
 
@@ -586,14 +635,14 @@ function onSubmitFunc() {
 }
 
 function onSubmitFunc2() {
-   
+
     let projecttoSave = {
         ID: getParameterByName("projectId"),
-        project_name: $("#projectName").val(), 
+        project_name: $("#projectName").val(),
         description: $("#projectDescription").val(),
-        create_date: $("#createDate").val(), 
+        create_date: $("#createDate").val(),
         //status: $("#status").val(),       
-       
+
         architect: $("#projectArchitect").val(),
         supervisor: $("#projectSupervisor").val(),
         cost: $("#projectCost").val()
@@ -625,7 +674,7 @@ function populateFields(itemId) {    // fill the form fields
     //$("#boxMeasures").val(item.BoxMeasures);
 
     $("#partitions").val(item.Partitions);
-        $("#shelves").val(item.Shelves);
+    $("#shelves").val(item.Shelves);
     $("#isDistanced").is(':checked') ? 1 : 0;
     $("#boxWoodDrawers").val(item.BoxWoodDrawers);
     $("#internalLegraBoxDrawers").val(item.InternalLegraBoxDrawers);
@@ -680,18 +729,18 @@ function populateFields(itemId) {    // fill the form fields
         }
     }
 
-        $("#ironWorksQuantity1").val(item.IronWorksQuantity1);
+    $("#ironWorksQuantity1").val(item.IronWorksQuantity1);
 
-        //$("#ironWorksType1").val(item.ironWorksType1);
+    //$("#ironWorksType1").val(item.ironWorksType1);
     for (i = 0; i < myIronWorks.length; i++) {
         if (myIronWorks[i].ID.toString() === item.IronWorksType1ID) { // this is the specific material cost
             $("#ironWorksType1").val(item.IronWorksType1ID);
         }
     }
 
-        $("#ironWorksQuantity2").val(item.IronWorksQuantity2);
+    $("#ironWorksQuantity2").val(item.IronWorksQuantity2);
 
-        //$("#ironWorksType2").val(item.IronWorksType2);
+    //$("#ironWorksType2").val(item.IronWorksType2);
     for (i = 0; i < myIronWorks.length; i++) {
         if (myIronWorks[i].ID.toString() === item.IronWorksType2ID) { // this is the specific material cost
             $("#ironWorksType2").val(item.IronWorksType2ID);
@@ -699,42 +748,42 @@ function populateFields(itemId) {    // fill the form fields
 
         $("#extraCostForItem").val(item.ExtraCostForItem);
     }
-    
+
     $("#itemCost").val(item.Cost);
     calculateItem(); // need to be checked
 }
-    // fill the form fields
-    function clearFields() {
-        //$("#itemCost").val(item.Cost);
-        $("#itemName").val("פריט כללי");
-        //$("#boxMaterial").val("");
-        //$("#boxMeasures").val("");
-        $("#partitions").val(0),
-            $("#shelves").val(0);
-        //$("#isDistanced").is(':checked') ? 1 : 0,
-        $("#boxWoodDrawers").val(0);
-        $("#internalLegraBoxDrawers").val(0);
-        $("#externalLegraBoxDrawers").val(0);
-        $("#internalScalaBoxDrawers").val(0);
-        $("#externalScalaBoxDrawers").val(0);
-        // $("#facadeMaterialType").val(0);
-        //$("#facade").val(itemsdata[i].FacadeID);
-        $("#hingesQuantity1").val(0);
-        //$("#hingesType1").val(0);
-        $("#hingesQuantity2").val(0);
-        //$("#hingesType1").val(itemsdata[i].HingesType1);
-        $("#extraWallQuantity").val(0);
-        //$("#extraWallType").val(itemsdata[i].ExtraWallTypeID);
-        $("#handlesQuantity").val(0);
-        //$("#handlesType").val(itemsdata[i].handlesType);
-        $("#ironWorksQuantity1").val(0);
-        //$("#ironWorksType1").val(itemsdata[i].ironWorksType1);
-        $("#ironWorksQuantity2").val(0);
-        //$("#ironWorksType2").val(itemsdata[i].IronWorksType2);
-        //  $("#image").attr("src", "images/item.jpg");
-    }
+// fill the form fields
+function clearFields() {
+    //$("#itemCost").val(item.Cost);
+    $("#itemName").val("פריט כללי");
+    //$("#boxMaterial").val("");
+    //$("#boxMeasures").val("");
+    $("#partitions").val(0),
+        $("#shelves").val(0);
+    //$("#isDistanced").is(':checked') ? 1 : 0,
+    $("#boxWoodDrawers").val(0);
+    $("#internalLegraBoxDrawers").val(0);
+    $("#externalLegraBoxDrawers").val(0);
+    $("#internalScalaBoxDrawers").val(0);
+    $("#externalScalaBoxDrawers").val(0);
+    // $("#facadeMaterialType").val(0);
+    //$("#facade").val(itemsdata[i].FacadeID);
+    $("#hingesQuantity1").val(0);
+    //$("#hingesType1").val(0);
+    $("#hingesQuantity2").val(0);
+    //$("#hingesType1").val(itemsdata[i].HingesType1);
+    $("#extraWallQuantity").val(0);
+    //$("#extraWallType").val(itemsdata[i].ExtraWallTypeID);
+    $("#handlesQuantity").val(0);
+    //$("#handlesType").val(itemsdata[i].handlesType);
+    $("#ironWorksQuantity1").val(0);
+    //$("#ironWorksType1").val(itemsdata[i].ironWorksType1);
+    $("#ironWorksQuantity2").val(0);
+    //$("#ironWorksType2").val(itemsdata[i].IronWorksType2);
+    //  $("#image").attr("src", "images/item.jpg");
+}
 
-    // get item according to its Id
+// get item according to its Id
 function getItem(id) {
     console.log(myItems);
     for (i in myItems) {
@@ -745,8 +794,8 @@ function getItem(id) {
 }
 
 function updateSuccess() {    // success callback function after update
-   // location.reload();
-   //tbl.clear();
+    // location.reload();
+    //tbl.clear();
     uri = "../api/items/?projectID=" + projectID;
     ajaxCall("GET", uri, "", populateTableWithUpdatedData, error); //get all relevant project's items from DB 
 
@@ -805,107 +854,98 @@ function success(data) {
     swal("הפריט נוסף בהצלחה!", "ניתן להמשיך בתמחור פריטים נוספים", "success");
 }
 
-    //// redraw a datatable with new data
-    //function redrawTable(tbl, itemsdata) {
-    //    tbl.clear();
-    //    for (var i = 0; i < itemsdata.length; i++) {
-    //        tbl.row.add(itemsdata[i]);
-    //    }
-    //    tbl.draw();
-    //}
+//// redraw a datatable with new data
+//function redrawTable(tbl, itemsdata) {
+//    tbl.clear();
+//    for (var i = 0; i < itemsdata.length; i++) {
+//        tbl.row.add(itemsdata[i]);
+//    }
+//    tbl.draw();
+//}
 
-    function successGetItems(itemsdata) {    // this function is activated in case of a success
-        console.log(itemsdata);
-        myItems = itemsdata;
-        //console.log(itemsdata[i].Cost); // **need to be fetched when the price is final!!
-        //totalCost = totalCost + itemsdata[i].Cost;
-        try {
-            tbl = $('#itemsTable').DataTable({
-                data: itemsdata,
-                pageLength: 5,
-                columns: [
-                    { data: "ID" },
-                    { data: "Name" },
-                    {
-                        //data: "BoxMeasuresID" 
-                        render: function (data, type, row, meta) {
-                            let theRightBoxMeasures = myBoxes.find(function (item) {                               
-                                return item.ID === row.BoxMeasuresID;
-                            });
-                            if (theRightBoxMeasures) {
-                                return theRightBoxMeasures.Height + 'X' + theRightBoxMeasures.Width + 'X' + theRightBoxMeasures.Depth;
-                            }
+function successGetItems(itemsdata) {    // this function is activated in case of a success
+    console.log(itemsdata);
+    myItems = itemsdata;
+    //console.log(itemsdata[i].Cost); // **need to be fetched when the price is final!!
+    //totalCost = totalCost + itemsdata[i].Cost;
+    try {
+        tbl = $('#itemsTable').DataTable({
+            data: itemsdata,
+            pageLength: 5,
+            columns: [
+                { data: "ID" },
+                { data: "Name" },
+                {
+                    //data: "BoxMeasuresID" 
+                    render: function (data, type, row, meta) {
+                        let theRightBoxMeasures = myBoxes.find(function (item) {
+                            return item.ID === row.BoxMeasuresID;
+                        });
+                        if (theRightBoxMeasures) {
+                            return theRightBoxMeasures.Height + 'X' + theRightBoxMeasures.Width + 'X' + theRightBoxMeasures.Depth;
                         }
+                    }
 
-                    },  
-                    { data: "Cost" },
-                    {
-                        render: function (data, type, row, meta) {
-                            let dataItem = "data-itemId='" + row.ID + "'";
-                            editBtn = "<button type='button' class = 'editBtn btn btn-success' " + dataItem + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>  עריכה </button>";
-                            //viewBtn = "<button type='button' class = 'viewBtn btn btn-info' " + dataItem + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>  צפייה </button>";
-                            duplicateBtn = "<button type='button' class = 'duplicateBtn btn btn-info' " + dataItem + ">  <span class='glyphicon glyphicon-duplicate' aria-hidden='true'></span>  שכפול  </button>";
-                            deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataItem + ">  <span class='glyphicon glyphicon-remove' aria-hidden='true'></span> מחיקה </button>";
-                            return editBtn + /*viewBtn +*/ duplicateBtn + deleteBtn;
-                        } 
-                    },
-                    
-                ],
-                //////////////////////////
-                "footerCallback": function (row, data, start, end, display) {
-                    var api = this.api(), data;
-                    //console.log("######");
-                    //console.log(api);
-                    //console.log("######");
-                    var intVal = function (i) {
-                        return typeof i === 'string' ?
-                            i.replace(/[\$,]/g, '') * 1 :
-                            typeof i === 'number' ?
-                                i : 0;
-                    };
-
-                    // Total over all pages
-                    total = api
-                        .column(3)
-                        .data()
-                        .reduce(function (a, b) {
-                            return intVal(a) + intVal(b);
-                        }, 0);
-                    //TC = total; // presenting total cost above the dattable
-                    $("#projectCost").val(total);
-                    console.log(total);
-
-                    // Total over this page
-                    pageTotal = api
-                        .column(3, { page: 'current' })
-                        .data()
-                        .reduce(function (a, b) {
-                            return intVal(a) + intVal(b);
-                        }, 0);
-                    // Update footer
-                    $(api.column(3).footer()).html(
-                        ' עלות :             ' + pageTotal + ' ש"ח ' + '(' + total + ' ש"ח ' +  ' סה"כ)'
-                    );
+                },
+                { data: "Cost" },
+                {
+                    render: function (data, type, row, meta) {
+                        let dataItem = "data-itemId='" + row.ID + "'";
+                        editBtn = "<button type='button' class = 'editBtn btn btn-success' " + dataItem + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>  עריכה </button>";
+                        //viewBtn = "<button type='button' class = 'viewBtn btn btn-info' " + dataItem + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>  צפייה </button>";
+                        duplicateBtn = "<button type='button' class = 'duplicateBtn btn btn-info' " + dataItem + ">  <span class='glyphicon glyphicon-duplicate' aria-hidden='true'></span>  שכפול  </button>";
+                        deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataItem + ">  <span class='glyphicon glyphicon-remove' aria-hidden='true'></span> מחיקה </button>";
+                        return editBtn + /*viewBtn +*/ duplicateBtn + deleteBtn;
+                    }
                 }
-            });
-            buttonEvents();
-        }
-        catch (err) {
-            alert(err);
-        }   
+
+            ],
+            "footerCallback": function (row, data, start, end, display) {
+                var api = this.api();
+
+                var intVal = function (i) {
+                    return typeof i === 'string' ?
+                        i.replace(/[\$,]/g, '') * 1 :
+                        typeof i === 'number' ?
+                            i : 0;
+                };
+
+                // Total over all pages
+                total = api
+                    .column(3)
+                    .data()
+                    .reduce(function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0);
+                //TC = total; // presenting total cost above the dattable
+                $("#projectCost").val(total);
+                console.log(total);
+
+                // Total over this page
+                pageTotal = api
+                    .column(3, { page: 'current' })
+                    .data()
+                    .reduce(function (a, b) {
+                        return intVal(a) + intVal(b);
+                    }, 0);
+                // Update footer
+                $(api.column(3).footer()).html(
+                    ' עלות כוללת עדכנית :   ' + pageTotal + ' ש"ח ' + '(' + total + ' ש"ח ' + ' סה"כ)'
+                );
+            }
+        });
+        buttonEvents();
     }
-
-    //function calculateAllItemsPrice(list) {
-
-    //}
-
+    catch (err) {
+        alert(err);
+    }
+}
 
 function saveProjectSuccess() {
     tbl.clear();
     buttonEvents(); // after redrawing the table, we must wire the new buttons
     $("#editDiv").hide();
-    swal("הפרויקט נסגר בהצלחה!", "הפעולה בוצעה", "success");
+    swal("הפרויקט נשמר בהצלחה!", "הפעולה בוצעה", "success");
     mode = "";
     parent.location = 'projectsList.html';
-
 }

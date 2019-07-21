@@ -20,6 +20,7 @@
     <script src="../Scripts/ajaxCalls.js"></script>
     <script src="editBoxes.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="cssGeneral.css" rel="stylesheet" />
     <style>
         * {
             box-sizing: border-box
@@ -58,20 +59,21 @@
         }
 
         #box {
-            background-color: bisque;
+            background-color: powderblue;
         }
 
         #News {
-            background-color: bisque;
+            background-color: powderblue;
         }
 
         #Contact {
-            background-color: bisque;
+            background-color: powderblue;
         }
 
         #About {
-            background-color: bisque;
+            background-color: powderblue;
         }
+
     </style>
 
 </head>
@@ -83,26 +85,26 @@
             </div>
             <ul class="nav navbar-nav">
                 <li><a href="users.html">ניהול משתמשים</a></li>
-                <li class="active"><a href="editBoxes.html">עדכון עלויות</a></li>
+                <li class="active"><a href="updatePar.html">עדכון עלויות</a></li>
                 <li><a href="showCustomers.html">לקוחות</a></li>
                 <li><a href="projectsList.html">פרויקטים</a></li>
             </ul>
         </div>
     </nav>
 
-    <button class="tablink" onclick="openPage('box', this, 'sandybrown')">ארגזות</button>
-    <button class="tablink" onclick="openPage('News', this, 'sandybrown')" id="defaultOpen">News</button>
-    <button class="tablink" onclick="openPage('Contact', this, 'sandybrown')">Contact</button>
-    <button class="tablink" onclick="openPage('About', this, 'sandybrown')">About</button>
+    <button class="tablink" onclick="openPage('box', this, 'deepskyblue')" id="defaultOpen" >ארגזות</button>
+    <button class="tablink" onclick="openPage('News', this, 'deepskyblue')">צירים</button>
+    <button class="tablink" onclick="openPage('Contact', this, 'deepskyblue')">חומרי גלם</button>
+    <button class="tablink" onclick="openPage('About', this, 'deepskyblue')">פרמטרים</button>
 
     <div id="box" class="tabcontent">
         <div class="container">
             <form id="pForm">
+                <input type="button" value="הוסף ארגזת חדשה" class="btn btn-success btn-lg" onclick="f2()" id="nwb" />
                 <table id="boxesTable" class="display nowrap" style="width:60%">
                     <thead>
                         <tr>
                             <th></th>
-                            <!--<th>מחיר לארגז לפי חומר בסיס</th>-->
                             <th>עומק</th>
                             <th>רוחב</th>
                             <th>גובה</th>
@@ -112,48 +114,25 @@
                     </thead>
                 </table>
             </form>
-            <input type="button" value="חדש" class="btn btn-primary btn-lg" id="newBTN" />
 
-            <div id="editDiv" style="direction:rtl">
-
-                <form id="boxesForm">
-                    <div class="form-group row">
-                        <div class="form-group col-sm-3">
-                            <label for="depth"><span class="red-star">★ </span>עומק</label>
-                            <input type="text" class="form-control" id="depth" placeholder="הזן עומק" required min="1">
-                        </div>
-                        <div class="form-group col-sm-3">
-                            <label for="width"><span class="red-star">★ </span>רוחב</label>
-                            <input type="text" class="form-control" id="width" placeholder="הזן רוחב" required min="1">
-                        </div>
-                        <div class="form-group col-sm-3">
-                            <label for="height"><span class="red-star">★ </span>גובה</label>
-                            <input type="text" class="form-control" id="height" placeholder="הזן גובה" required min="1">
-                        </div>
-                        <div class="form-group row">
-                            <!--<div class="form-group col-sm-4">
-                            <label for="costForBasicMaterial"><span class="red-star">★ </span>מחיר ארגז לפי חומר בסיס</label>
-                            <input type="text" class="form-control" id="costForBasicMaterial" placeholder="הזן מחיר ארגז לפי חומר בסיס" required min="1">
-                        </div>-->
-                            <div class="form-group col-sm-3" id="typeRDB">
-                                <label for="typeRDB">סוג ארגזת</label> <br />
-                                <input type="radio" name="גמר חוץ" value="1" required> ארון<br />
-                                <input type="radio" name="גמר פנים" value="0"> ספריה<br />
-                            </div>
-                        </div>
-                        <!--<div class="form-group row">
-                        <div class="form-group col-sm-12">
-                            <label for="description"> תאור</label>
-                            <textarea class="form-control" id="description" placeholder="הזן תאור"></textarea>
-                        </div>
-                    </div>-->
+            <form id="CreateboxesForm">
+                <div class="form-group row">
+                    <div class="form-group col-sm-3">
+                        <label for="depth"><span class="red-star">★ </span>עומק</label>
+                        <input type="text" class="form-control" id="depth" placeholder="הזן עומק" required min="1">
                     </div>
-                    <button type="submit" class="btn btn-primary btn-lg" id="saveBTN">אישור</button>
-                    <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTN" value="ביטול" />
-                </form>
-
-            </div>
-
+                    <div class="form-group col-sm-3">
+                        <label for="width"><span class="red-star">★ </span>רוחב</label>
+                        <input type="text" class="form-control" id="width" placeholder="הזן רוחב" required min="1">
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label for="height"><span class="red-star">★ </span>גובה</label>
+                        <input type="text" class="form-control" id="height" placeholder="הזן גובה" required min="1">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg" id="saveBTN">אישור</button>
+                <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTN" value="ביטול" />
+            </form>
 
         </div>
     </div>

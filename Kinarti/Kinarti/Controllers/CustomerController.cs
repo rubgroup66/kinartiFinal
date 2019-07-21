@@ -50,6 +50,10 @@ namespace kinarti.Controllers
             cust.DeleteCust(id);
             return 1  ;
         }
+
+        [HttpDelete]
+        [Route("api/customers")]
+
         //[HttpDelete]
         //[Route("api/customers")]
         //public void Delete(int Id)
@@ -57,6 +61,8 @@ namespace kinarti.Controllers
         //    Customer cust = new Customer();
         //    cust.DeleteCust(Id);
         //}
+        [HttpGet]
+        [Route("api/getCust")]
         public Customer GetCustomer(int customerID)
         {
             Customer customer = new Customer();

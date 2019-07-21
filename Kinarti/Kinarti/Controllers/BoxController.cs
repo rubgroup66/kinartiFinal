@@ -24,56 +24,20 @@ namespace kinarti.Controllers
             return lm;
         }
 
-        //[HttpGet]
-        //[Route("api/boxes")]
-        //public IEnumerable<Box> Get()
-        //{
-        //    Box box = new Box();
-        //    List<Box> boxesList = box.getBoxes();
-        //    return boxesList;
-        //}
-
-        //[System.Web.Http.HttpPost]
-        //[Route("api/calculateItemPrice")]
-        //public IEnumerable<float> CalculatePrice()
-        //{
-        //    Box box = new Box();
-        //    List<Box> lm = box.getBoxes();
-
-        //    Hinge hinge = new Hinge();
-        //    List<Hinge> lh = hinge.getHinges();
-        //    return lm;
-        //}
-
-
-        // POST api/values
-        [HttpPost]
         [Route("api/boxes")]
-        public void Post([FromBody]Box p)
+        public void Post([FromBody]Box box)
         {
-            try
-            {                
-                p.insert();   //    int someError = Convert.ToInt32("will fail to convert");
-            }
-            catch (Exception e)
-            {
-                throw e; // throw new Exception("Error in posting a new person");
-            }
+            box.insertBox();
         }
 
-        [HttpPut]
-        [Route("api/boxes")]
-        public void Put([FromBody]Box p, int Id)
+        [HttpDelete]
+        [Route("api/boxes/{id}")]
+        public int Delete(int id)
         {
-            p.updateBox(Id);
-        }
 
-   //[HttpGet]
-        //[Route("api/boxes")]
-        //public float getTotalCost(params p)
-        //{
-        //    params person = new Person();
-        //    return person.getPerson(email, password);
-        //}
+            Box box = new Box();
+            box.DeleteBox(id);
+            return 1;
+        }
     }
 }

@@ -15,30 +15,41 @@ namespace kinarti.Models
     public class Box
     {
         public int ID { get; set; }
-        public int Type { get; set; }
+        public string Type { get; set; }
         public int Height { get; set; }
         public int Width { get; set; }
         public int Depth { get; set; }
-       // public int CostForBasicMaterial { get; set; }
+<<<<<<< HEAD
+        public int Active { get; set; }
+
+        public Box(int _id, string _type, int _height, int _width, int _depth, int _Active) 
+
+
+=======
+        public int isActive { get; set; }
+        // public int CostForBasicMaterial { get; set; }
         public Box(int _id, int _type, int _height, int _width, int _depth) //int _costForBasicMaterial)
+>>>>>>> 445fe8a218eb4b6225ec527ebdd93248dc8868f1
         {
             ID = _id;
             Type = _type;
             Height = _height;
             Width = _width;
             Depth = _depth;
-          //  CostForBasicMaterial = _costForBasicMaterial;
+            Active = _Active;
+
         }
         public Box()
         {
         }
 
-        public int insert()
+        public int insertBox()
         {
             DBservices dbs = new DBservices();
             int numAffected = dbs.insertBox(this);
             return numAffected;
         }
+
 
         //--------------------------------------------------------------------------
         // get the list of the boxes
@@ -50,14 +61,14 @@ namespace kinarti.Models
             return lp;
         }
 
-        public int updateBox(int Id)
+        public void DeleteBox(int boxID)
         {
-            DBservices dbs = new DBservices();
-            int numAffected = dbs.updateBox(this, Id);
-            return numAffected;
+
+            DBservices db = new DBservices();
+            int numAffected = db.DeleteBox(boxID);
+
         }
-
-
+        
 
     }
 }

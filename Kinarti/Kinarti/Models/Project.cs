@@ -22,7 +22,6 @@ namespace kinarti.Models
         public int customer_id { get; set; }
         public string architect { get; set; }
         public string supervisor { get; set; }
-
         public Project(string _project_name, DateTime _create_date, string _description, int _cost, int _status, int _customer_id, string _architect, string _supervisor, int _projectID)
         {
             ID = _projectID;
@@ -34,6 +33,7 @@ namespace kinarti.Models
             customer_id = _customer_id;
             supervisor = _supervisor;
             architect = _architect;
+
         }
 
         public Project()
@@ -77,27 +77,6 @@ namespace kinarti.Models
             return listProj;
         }
 
-
-        //    public List<Customer> GetCustomers()
-        //    {
-        //        DBservices db = new DBservices();
-        //        List<Customer> customerList = new List<Customer>();
-        //        customerList = db.GetCustomers();
-        //        return customerList;
-        //    }
-
-        //    public void Put(Customer c)
-        //    {
-        //        DBservices db = new DBservices();
-        //        db.Put(c);
-        //    }
-
-        //    public void DeleteCust(string custID)
-        //    {
-        //        DBservices db = new DBservices();
-        //        db.DeleteCust(custID);
-        //    }
-        //}
         public int SwitchActive(int isActive, int ProjectId)
         {
             DBservices dbs = new DBservices();

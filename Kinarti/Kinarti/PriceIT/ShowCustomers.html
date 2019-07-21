@@ -30,12 +30,10 @@
         });
         
         function buttonEvents() {
-
             $(document).on("click", ".addProjBtn", function () {
                 markSelected(this);
                 populatename(this.getAttribute('data-custId'));
-                parent.location = 'AddNewProject.html';
-                
+                parent.location = 'AddNewProject.html';                
             });
 
             function populatename(id) {
@@ -43,7 +41,7 @@
                 var first_name = cust.first_name;
                 var last_name = cust.last_name;
                 var cust_id = cust.id;
-                var Existing = 1;
+                var Existing = 1;   
                 localStorage.setItem( "EX", Existing );
                 localStorage.setItem("storageF_name", first_name);
                 localStorage.setItem("storageL_name", last_name);
@@ -241,7 +239,7 @@
             </div>
             <ul class="nav navbar-nav">
                 <li><a href="users.html">ניהול משתמשים</a></li>
-                <li><a href="editBoxes.html">עדכון עלויות</a></li>
+                <li><a href="updatePar.html">עדכון עלויות</a></li>
                 <li class="active"><a href="showCustomers.html">לקוחות</a></li>
                 <li><a href="projectsList.html">פרויקטים</a></li>
 
@@ -295,52 +293,6 @@
                     </div> 
 
                 </div>
-                <!-- לרדת שורה מפקח ואדריכל!!-->
-                <!--<div class="form-group row">
-
-
-                    <div class="form-group col-sm-3">
-                        <label for="color"><span class="red-star">★ </span>Color</label>
-                        <select class="form-control" id="color" required>
-                            <option value="">Choose Color</option>
-                            <option value="White"> White </option>
-                            <option value="Blue"> Blue </option>
-                            <option value="Black"> Black </option>
-                            <option value="Red"> Red </option>
-                            <option value="Grey"> Grey </option>
-                        </select>
-                    </div>
-
-                    <div class="form-group col-sm-3">
-                        <label for="hand"><span class="red-star">★ </span>Hand</label>
-                        <select class="form-control" id="hand" required>
-                            <option value="">Choose Hand</option>
-                            <option value="1"> 1 </option>
-                            <option value="2"> 2 </option>
-                            <option value="3"> 3 </option>
-                            <option value="4"> 4 </option>
-                            <option value="5"> 5 </option>
-                        </select>
-                    </div>
-
-                    <div class="form-group col-sm-3">
-                        <label for="automatic"><span class="red-star">★ </span>Automatic?</label>
-                        <input type="checkbox" class="form-control" id="automatic" checked />
-                    </div>
-
-                </div>
-                <div class="form-group row">
-                    <div class="form-group col-sm-8">
-                        <label for="description">Description</label>
-                        <textarea rows="6" class="form-control" id="description" placeholder="Enter the description"></textarea>
-                    </div>
-
-                    <div class="form-group col-sm-4">
-                        <img src="images/car.jpg" id="image" />
-                    </div>
-
-                </div>-->
-
                 <button type="submit" class="btn btn-primary btn-lg" id="saveBTN" >Save</button>
 
             </form>
