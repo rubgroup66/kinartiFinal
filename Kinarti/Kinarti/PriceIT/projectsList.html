@@ -259,18 +259,18 @@
         <br />
 
         <div class="row item">
-            <div class="form-group col-sm-3 offset-md-3">
+            <div class="form-group col-sm-12">
                 <button type="button" value="הוסף פרויקט" class="btn btn-primary btn-md addNew" id="newProjectBtn">
                     <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> הוספת פרויקט
                 </button>
             </div>
-
-            <div class="form-group col-sm-3 offset-md-3">
-                <button type="button" value="מיון" class="btn btn-primary btn-md " onclick="ShowFilter()">
-                    <span class="glyphicon glyphicon-filter" aria-hidden="true"></span> סינון
-                </button>
-            </div>
         </div>
+        <!--<div class="form-group col-sm-3 offset-md-3">
+            <button type="button" value="מיון" class="btn btn-primary btn-md " onclick="ShowFilter()">
+                <span class="glyphicon glyphicon-filter" aria-hidden="true"></span> סינון
+            </button>
+        </div>
+    </div>-->
 
         <div class="row item">
 
@@ -278,48 +278,124 @@
             <div id="filterDiv" class="form-group" style=" background-color:lightblue; border:double; direction:rtl" ;>
                 <!--// display:none;-->
 
-                <label for="filter">מיין לפי </label>
-                <select id='filterOpt' required>
-                    <!--<option value=''> בחר</option>-->
-                    <option value='1'>סטטוס</option>
-                    <option value='2'> לקוח</option>
-                    <option value='3'> מחיר</option>
-                </select>
-
-                <div id="statusDiv">
-                    <!--//style="display:none"-->
-                    <label id="filterStat">בחר סטטוס </label>
-                    <select id='statusOpt' required>
-                        <option value=''> בחר</option>
-                        <option value='1.1'>בתהליך</option>
-                        <option value='1.2'>הסתיים</option>
-                    </select>
-                </div>
-
-                <div id="custDiv" class="form-group" style="display:none">
-
-                    <label for="custID"> לקוח</label>
-                    <input type="text" id="custID" placeholder="שם לקוח" required>
-                    <input type="button" value="מיין" onclick="filterCust()" />
-                </div>
-
                 <div class="row item">
-                    <div id="priceDiv" class="form-group" style="display:none">
-                        <label for="minPrice">סכום החל מ</label>
-                        <input type="number" class="form-control" id="minPrice" placeholder="הזן סכום מינימלי" required>
-                        <label for="maxPrice">עד</label>
-                        <input type="number" class="form-control" id="maxPrice" placeholder="הזן סכום מקסימלי" required>
-                        <input type="button" value="מיין" onclick="filterPrice()" />
+
+                    <div class="form-group col-sm-9 offset-md-3">
+                        <!--//style="display:none"-->
+                        <div id="statusDiv">
+
+                            <!--<label id="filterStat">בחר סטטוס </label>
+                        <select id='statusOpt' required>
+                            <option value=''> בחר</option>
+                            <option value='1.1'>בתהליך</option>
+                            <option value='1.2'>הסתיים</option>
+                        </select>-->
+
+                            <label for="filterStat">בחר סטטוס</label>
+                            <select id="statusOpt" class="form-control" required>
+                                <!--<option value=''> בחר</option>-->
+                                <option value=''> בחר</option>
+                                <option value='1.1'>בתהליך</option>
+                                <option value='1.2'>הסתיים</option>
+
+                            </select>
+                        </div>
+
+                        <!--<div id="custDiv" class="form-group" style="display:none">
+                        <label for="custID"> לקוח</label>
+                        <input type="text" id="custID" placeholder="שם לקוח" required>
+                        <input type="button" value="מיין" onclick="filterCust()" />
+                    </div>-->
+
+                        <div id="custDiv" class="form-group" style="display:none">
+
+                            <div class="form-group col-sm-6 ">
+                                <button type="button" value="סינון" class="btn btn-primary btn-md " onclick="filterCust()">
+                                    <span class="glyphicon glyphicon-filter"></span> סינון
+                                </button>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="custID">שם הלקוח</label>
+                                <input type="text" class="form-control" id="custID" placeholder="הזן שם לקוח לסינון" required>
+                            </div>
+                        </div>
+
+                        <div id="priceDiv" class="form-group" style="display:none">
+                            <div class="form-group col-sm-4 ">
+                                <button type="button" value="מיון" class="btn btn-primary btn-md " onclick="filterPrice()">
+                                    <span class="glyphicon glyphicon-filter" aria-hidden="true"></span> סינון
+                                </button>
+                            </div>
+                            <div class="form-group col-sm-4 ">
+                                <label for="maxPrice">עד</label>
+                                <input type="number" class="form-control" id="maxPrice" placeholder="הזן סכום מקסימלי" required>
+                            </div>
+
+                            <div class="form-group col-sm-4">
+                                <label for="minPrice">סכום החל מ</label>
+                                <input type="number" class="form-control" id="minPrice" placeholder="הזן סכום מינימלי" required>
+                            </div>
+                            <!--<div class="form-group col-sm-4">
+                            <input type="button" value="מיין" onclick="filterPrice()" />
+                        </div>-->
+
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group col-sm-3">
+
+                        <!--<label for="filter">מיין לפי </label>
+                    <select id='filterOpt' required>
+
+                        <option value='1'>סטטוס</option>
+                        <option value='2'> לקוח</option>
+                        <option value='3'> מחיר</option>
+                    </select>-->
+
+                        <label for="filter">מיין לפי</label>
+                        <select id="filterOpt" class="form-control">
+                            <!--<option value=''> בחר</option>-->
+                            <option value='1'>סטטוס</option>
+                            <option value='2'> לקוח</option>
+                            <option value='3'> מחיר</option>
+                        </select>
+
                     </div>
                 </div>
 
-                </div>
 
             </div>
-            <br />
+        </div>
 
+
+        <br />
+
+        <form id="pForm">
+            <table id="projects_table" class="display nowrap" style="width:80%">
+                <thead>
+                    <tr>
+                        <th>מס"ד</th>
+                        <th>שם פרויקט</th>
+                        <th>שם הלקוח</th>
+                        <th>תיאור</th>
+                        <th>תאריך יצירה</th>
+                        <th>עלות</th>
+                        <th>סטטוס</th>
+                        <th>פעולות</th>
+                    </tr>
+                </thead>
+            </table>
+        </form>
+ 
+        <br />
+        <div id="filterd" class="container" style="display:none; background-color:lightblue; border:double">
             <form id="pForm">
-                <table id="projects_table" class="display nowrap" style="width:80%">
+                <button value="Refresh Page" class="btn btn-primary btn-md" onClick="window.location.href=window.location.href">חזור</button>
+                <br />
+                <table id="projects_table2" class="display nowrap" style="width:100% ">
                     <thead>
                         <tr>
                             <th>מס"ד</th>
@@ -335,54 +411,32 @@
                 </table>
             </form>
 
-            <br />
-            <br />
-            <div id="filterd" class="container" style="display:none; background-color:lightblue; border:double">
-                <form id="pForm">
-                    <button value="Refresh Page" class="btn btn-primary btn-md" onClick="window.location.href=window.location.href">חזור</button>
-                    <br />
-                    <table id="projects_table2" class="display nowrap" style="width:100% ">
-                        <thead>
-                            <tr>
-                                <th>מס"ד</th>
-                                <th>שם פרויקט</th>
-                                <th>שם הלקוח</th>
-                                <th>תיאור</th>
-                                <th>תאריך יצירה</th>
-                                <th>עלות</th>
-                                <th>סטטוס</th>
-                                <th>פעולות</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </form>
-
-            </div>
-
-            <div id="filterd2" class="container" style="display:none; background-color:lightblue; border:double">
-                <form id="pForm">
-                    <button value="Refresh Page" class="btn btn-primary btn-md" onClick="window.location.href=window.location.href">חזור</button>
-                    <br />
-  
-                    <table id="projects_table3" class="display nowrap" style="width:100% ">
-                        <thead>
-                            <tr>
-                                <th>מס"ד</th>
-                                <th>שם פרויקט</th>
-                                <th>שם הלקוח</th>
-                                <th>תיאור</th>
-                                <th>תאריך יצירה</th>
-                                <th>עלות</th>
-                                <th>סטטוס</th>
-                                <th>פעולות</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </form>
-
-            </div>
-
         </div>
 
+        <div id="filterd2" class="container" style="display:none; background-color:lightblue; border:double">
+            <form id="pForm">
+                <button value="Refresh Page" class="btn btn-primary btn-md" onClick="window.location.href=window.location.href">חזור</button>
+                <br />
+
+                <table id="projects_table3" class="display nowrap" style="width:100% ">
+                    <thead>
+                        <tr>
+                            <th>מס"ד</th>
+                            <th>שם פרויקט</th>
+                            <th>שם הלקוח</th>
+                            <th>תיאור</th>
+                            <th>תאריך יצירה</th>
+                            <th>עלות</th>
+                            <th>סטטוס</th>
+                            <th>פעולות</th>
+                        </tr>
+                    </thead>
+                </table>
+            </form>
+
+        </div>
+    </div>
+    <!--</div>-->
+    
 </body>
 </html>
