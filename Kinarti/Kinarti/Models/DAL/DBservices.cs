@@ -247,21 +247,12 @@ public class DBservices
                 box.Height = Convert.ToInt32(dr["height"]);
                 box.Width = Convert.ToInt32(dr["width"]);
                 box.Depth = Convert.ToInt32(dr["depth"]);
-<<<<<<< HEAD
                 box.Active = Convert.ToInt16(dr["Active"]);
                 if (box.Active == 1)
                 {
                     boxesList.Add(box);
 
                 }
-=======
-
-                box.isActive = Convert.ToInt32(dr["Active"]);
-
-
-
-                boxesList.Add(box);
->>>>>>> 445fe8a218eb4b6225ec527ebdd93248dc8868f1
             }
             return boxesList;
         }

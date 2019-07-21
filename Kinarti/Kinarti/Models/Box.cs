@@ -19,17 +19,10 @@ namespace kinarti.Models
         public int Height { get; set; }
         public int Width { get; set; }
         public int Depth { get; set; }
-<<<<<<< HEAD
+
         public int Active { get; set; }
 
         public Box(int _id, string _type, int _height, int _width, int _depth, int _Active) 
-
-
-=======
-        public int isActive { get; set; }
-        // public int CostForBasicMaterial { get; set; }
-        public Box(int _id, int _type, int _height, int _width, int _depth) //int _costForBasicMaterial)
->>>>>>> 445fe8a218eb4b6225ec527ebdd93248dc8868f1
         {
             ID = _id;
             Type = _type;
