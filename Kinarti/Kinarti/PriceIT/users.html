@@ -49,15 +49,6 @@
                 data: userdata,
                 "autoWidth": false,
                 columns: [
-                    {
-                        render: function (data, type, row, meta) {
-                            let dataUser = "data-userId='" + row.Id + "'";
-
-                            EditUserBtn = "<button type='button' class = 'EditUserBtn btn btn-success' " + dataUser + "> ערוך משתמש </button>";
-                            DeleteUserBtn = "<button type='button' class = 'DeleteUserBtn btn btn-danger' " + dataUser + "> מחק משתמש </button>";
-                            return EditUserBtn + DeleteUserBtn;
-                        }
-                    },
                     { data: "Name" },
                     { data: "Id" },
                     { data: "Password" },
@@ -81,12 +72,21 @@
                             return active;
                         }
                     },
+                    {
+                        render: function (data, type, row, meta) {
+                            let dataUser = "data-userId='" + row.Id + "'";
+
+                            EditUserBtn = "<button type='button' class = 'EditUserBtn btn btn-success' " + dataUser + "> ערוך משתמש </button>";
+                            DeleteUserBtn = "<button type='button' class = 'DeleteUserBtn btn btn-danger' " + dataUser + "> מחק משתמש </button>";
+                            return EditUserBtn + DeleteUserBtn;
+                        }
+                    },
                 ],
             });
             buttonEvents();
         }
         function errorGetUser(err) {
-            swal("Error getting users");
+            swal("שגיאה באחזור משתמשי מערכת");
         }
 
         function DeleteUser(userId) {
@@ -253,18 +253,25 @@
     <!-------------------------------------->
     <!---------------------------------------------AddNewUserDIV----------------------------->
     <div class="container">
-        <input type="button" value="הוסף משתמש חדש" class="btn btn-primary btn-lg" onclick="AddNewUser()" />
-        <br />
-        <br />
+        <!--<input type="button" value="הוסף משתמש חדש" class="btn btn-primary btn-lg" onclick="AddNewUser()" />-->
+        <h1>ניהול משתמשים</h1>
+        <div class="row item">
+            <div class="form-group col-sm-12">
+                <button type="button" value="הוסף משתמש חדש" class="btn btn-primary btn-md addNew" onclick="AddNewUser()" id="newUserBtn">
+                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> הוסף משתמש חדש
+                </button>
+            </div>
+        </div>
+
         <div id="newUserdiv">
             <form id="newUser">
-
 
                 <h2>צור משתמש חדש</h2>
                 <div class="form-group col-sm-5">
                     <label for="userId">מזהה משתמש</label>
                     <input type="text" class="form-control" id="userId" placeholder="הכנס מספר מזהה" required>
                 </div>
+
                 <div class="form-group col-sm-5">
                     <label for="new_name">שם פרטי</label>
                     <input type="text" class="form-control" id="new_name" placeholder="הכנס שם פרטי" required>
@@ -299,12 +306,12 @@
             <table id="users_table" class="display nowrap" style="width:100%">
                 <thead>
                     <tr>
-                        <th></th>
                         <th>שם פרטי</th>
                         <th>מזהה משתמש</th>
                         <th>סיסמא</th>
                         <th>סוג משתמש</th>
                         <th>פעיל</th>
+                        <th>פעולות</th>
                     </tr>
                 </thead>
             </table>

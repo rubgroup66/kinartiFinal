@@ -18,6 +18,7 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="../Scripts/ajaxCalls.js"></script>
+    <script src="editHinges.js"></script>
     <script src="editBoxes.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="cssGeneral.css" rel="stylesheet" />
@@ -43,7 +44,7 @@
             cursor: pointer;
             padding: 14px 16px;
             font-size: 17px;
-            width: 20%;
+            width: 15%;
         }
 
             .tablink:hover {
@@ -58,22 +59,28 @@
             height: 100%;
         }
 
-        #box {
-            background-color: powderblue;
+        .collapsible {
+            background-color: #777;
+            color: white;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: center;
+            outline: none;
+            font-size: 15px;
         }
 
-        #News {
-            background-color: powderblue;
-        }
+            .active, .collapsible:hover {
+                background-color: #555;
+            }
 
-        #Contact {
-            background-color: powderblue;
+        .content {
+            padding: 0 18px;
+            display: none;
+            overflow: hidden;
+            background-color: #f1f1f1;
         }
-
-        #About {
-            background-color: powderblue;
-        }
-
     </style>
 
 </head>
@@ -92,59 +99,264 @@
         </div>
     </nav>
 
-    <button class="tablink" onclick="openPage('box', this, 'deepskyblue')" id="defaultOpen" >ארגזות</button>
-    <button class="tablink" onclick="openPage('News', this, 'deepskyblue')">צירים</button>
-    <button class="tablink" onclick="openPage('Contact', this, 'deepskyblue')">חומרי גלם</button>
+    <button class="tablink" onclick="openPage('box', this, 'deepskyblue')" id="defaultOpen">ארגזות</button>
+    <button class="tablink" onclick="openPage('totalDiv', this, 'deepskyblue')">פרזול</button>
+    <button class="tablink" onclick="openPage('experts', this, 'deepskyblue')">בעלי מקצוע</button>
+    <button class="tablink" onclick="openPage('About', this, 'deepskyblue')">חומרי גלם</button>
     <button class="tablink" onclick="openPage('About', this, 'deepskyblue')">פרמטרים</button>
-
+    <br />
+    <!-------------------------Box----------------------------->
     <div id="box" class="tabcontent">
         <div class="container">
+<<<<<<< HEAD
+            <div class="row item">
+                <div class="form-group col-sm-12">
+                    <input type="button" value="הוסף ארגזת חדשה" class="btn btn-primary btn-lg" onclick="f2()" id="newBTN2" />
+                </div>
+            </div>
+            <form id="boxForm">
+                <h1>ארגזות</h1>
+                <table id="boxesTable" class="display nowrap" style="width:100%">
+=======
             <form id="pForm">
-                <input type="button" value="הוסף ארגזת חדשה" class="btn btn-success btn-lg" onclick="f2()" id="nwb" />
+                <input type="button" value="הוסף ארגזת חדשה" class="btn btn-success btn-md" onclick="f2()" id="nwb" />
                 <table id="boxesTable" class="display nowrap" style="width:60%">
+>>>>>>> 80a1cb64192e6ca1c23ce961bc1444e525a26e9b
                     <thead>
                         <tr>
-                            <th></th>
-                            <th>עומק</th>
-                            <th>רוחב</th>
-                            <th>גובה</th>
-                            <th>סוג</th>
                             <th>מס"ד</th>
+                            <th>סוג</th>
+                            <th>גובה</th>
+                            <th>רוחב</th>
+                            <th>עומק</th>
+                            <th></th>
                         </tr>
                     </thead>
                 </table>
             </form>
-
-            <form id="CreateboxesForm">
-                <div class="form-group row">
-                    <div class="form-group col-sm-3">
-                        <label for="depth"><span class="red-star">★ </span>עומק</label>
-                        <input type="text" class="form-control" id="depth" placeholder="הזן עומק" required min="1">
+            <div id="boxEditDiv">
+                <form id="CreateboxesForm">
+                    <div class="form-group row">
+                        <div class="form-group col-sm-3">
+                            <label for="depth"><span class="red-star">★ </span>עומק</label>
+                            <input type="text" class="form-control" id="depth" placeholder="הזן עומק" required min="1">
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="width"><span class="red-star">★ </span>רוחב</label>
+                            <input type="text" class="form-control" id="width" placeholder="הזן רוחב" required min="1">
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <label for="height"><span class="red-star">★ </span>גובה</label>
+                            <input type="text" class="form-control" id="height" placeholder="הזן גובה" required min="1">
+                        </div>
                     </div>
-                    <div class="form-group col-sm-3">
-                        <label for="width"><span class="red-star">★ </span>רוחב</label>
-                        <input type="text" class="form-control" id="width" placeholder="הזן רוחב" required min="1">
-                    </div>
-                    <div class="form-group col-sm-3">
-                        <label for="height"><span class="red-star">★ </span>גובה</label>
-                        <input type="text" class="form-control" id="height" placeholder="הזן גובה" required min="1">
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary btn-lg" id="saveBTN">אישור</button>
-                <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTN" value="ביטול" />
-            </form>
-
+                    <button type="submit" class="btn btn-primary btn-lg">אישור</button>
+                    <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTN" value="ביטול" />
+                </form>
+            </div>
         </div>
     </div>
+    <!-------------------------Box----------------------------->
+    <!-------------------------pirzul total----------------------------->
 
-    <div id="News" class="tabcontent">
-        <h3>News</h3>
-        <p>Some news this fine day!</p>
+    <div id="totalDiv" class="tabcontent">
+        <button class="collapsible">צירים</button>
+        <!-------------------------hinges----------------------------->
+
+        <div id="hinges" class="content">
+            <div class="row item">
+                <div class="form-group col-sm-12">
+                    <input type="button" value=" הוסף ציר חדש" class="btn btn-primary btn-lg" onclick="f3()" id="newBTN2" />
+                </div>
+            </div>
+            <form id="hingesForm">
+                <table id="hingesTable" class="display nowrap" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>סוג</th>
+                            <th>עלות (ש"ח)</th>
+                            <th>פעולות</th>
+                        </tr>
+                    <thead>
+                </table>
+            </form>
+            <div id="hingesEditDiv">
+                <form id="editHingesForm">
+                    <div class="form-group row">
+                        <div class="form-group col-sm-6">
+                            <label for="hingeCost"><span class="red-star">★ </span>עלות</label>
+                            <input type="number" class="form-control" id="hingeCost" placeholder="הזן את עלות הציר" required />
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <label for="hingeName"><span class="red-star">★ </span>שם</label>
+                            <input type="text" class="form-control" id="hingeName" placeholder="הזן את סוג הציר" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <button type="submit" class="btn btn-primary btn-lg">שמירה</button>
+                            <input type="button" class="btn btn-warning btn-lg" id="cancelSave" value="ביטול" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-------------------------hinges----------------------------->
+
+        <br />
+        <br />
+        <!-------------------------handles----------------------------->
+
+        <button class="collapsible">ידיות</button>
+        <div id="handles" class="content">
+            <div class="row item">
+                <div class="form-group col-sm-12">
+                    <input type="button" value="הוסף ידית חדשה" class="btn btn-primary btn-lg" id="newBTN" />
+                </div>
+            </div>
+            <form id="HandlesForm">
+                <h1>ידיות</h1>
+                <table id="handlesTable" class="display nowrap" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>סוג</th>
+                            <th>עלות (ש"ח)</th>
+                            <th>פעולות</th>
+                        </tr>
+                    <thead>
+                </table>
+            </form>
+
+            <div id="handlesEditDiv">
+                <form id="editHandlesForm">
+                    <div class="form-group row">
+                        <div class="form-group col-sm-6">
+                            <label for="handleCost"><span class="red-star">★ </span>עלות</label>
+                            <input type="number" class="form-control" id="handleCost" placeholder="הזן את עלות הידית" required />
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <label for="handleName"><span class="red-star">★ </span>שם</label>
+                            <input type="text" class="form-control" id="handleName" placeholder="הזן את סוג הידית" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <button type="button" class="btn btn-primary btn-lg" id="saveBTN">שמירה</button>
+                            <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTN" value="ביטול" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-------------------------handles----------------------------->
+
     </div>
+    <!-------------------------pirzul total----------------------------->
+    <br />
+    <br />
+    <!-------------------------experts----------------------------->
 
-    <div id="Contact" class="tabcontent">
-        <h3>Contact</h3>
-        <p>Get in touch, or swing by for a cup of coffee.</p>
+    <div id="experts" class="tabcontent">
+        <button class="collapsible">אדריכלים</button>
+        <!-------------------------Architect----------------------------->
+
+        <div id="architect" class="content">
+            <div class="row item">
+                <div class="form-group col-sm-12">
+                    <input type="button" value=" הוסף אדריכל חדש" class="btn btn-primary btn-lg" onclick="f4()" id="newBTN2" />
+                </div>
+            </div>
+            <form id="archForm">
+                <table id="archTable" class="display nowrap" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>מספר מזהה</th>
+                            <th>שם פרטי</th>
+                        </tr>
+                    <thead>
+                </table>
+            </form>
+            <div id="archEditDiv">
+                <form id="editArchForm">
+                    <div class="form-group row">
+                        <div class="form-group col-sm-6">
+                            <label for="archName"><span class="red-star">★ </span> שם</label>
+                            <input type="text" class="form-control" id="archName" placeholder="הזן את שם האדריכל" required>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <label for="archID"><span class="red-star">★ </span>מספר מזהה</label>
+                            <input type="number" class="form-control" id="archID" placeholder="הזן את המספר מזהה של האדריכל" required />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <button type="button" class="btn btn-primary btn-lg" id="saveBTN">שמירה</button>
+                            <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTN" value="ביטול" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-------------------------Architect----------------------------->
+        <br />
+        <br />
+        <button class="collapsible">מפקחים</button>
+        <!-------------------------Supervisor----------------------------->
+        <div id="supervisor" class="content">
+            <div class="row item">
+                <div class="form-group col-sm-12">
+                    <input type="button" value=" הוסף מפקח חדש" class="btn btn-primary btn-lg" onclick="f5()" id="newBTN2" />
+                </div>
+            </div>
+            <form id="supForm" style="direction:rtl">
+                <table id="suphTable" class="display nowrap" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>מספר מזהה</th>
+                            <th>שם פרטי</th>
+                            <th>מספר טלפון נייד</th>
+                        </tr>
+                    <thead>
+                </table>
+            </form>
+            <div id="supEditDiv" style="direction:rtl;">
+                <form id="editSupForm" style="direction:rtl">
+                    <div class="form-group row" style="direction:rtl">
+                        <div class="form-group col-lg-4">
+                            <label for="supPnum"><span class="red-star">★ </span> מספר נייד</label>
+                            <input type="text" class="form-control" id="supPnum" placeholder="הזן מספר טלפון נייד" required>
+                        </div>
+
+                        <div class="form-group col-lg-4">
+                            <label for="supName"><span class="red-star">★ </span> שם</label>
+                            <input type="text" class="form-control" id="supName" placeholder="הזן את שם המפקח" required>
+                        </div>
+
+                        <div class="form-group col-lg-4">
+                            <label for="supID"><span class="red-star">★ </span>מספר מזהה</label>
+                            <input type="number" class="form-control" id="supID" placeholder="הזן את המספר מזהה של המפקח" required />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <button type="button" class="btn btn-primary btn-lg" id="saveBTN">שמירה</button>
+                            <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTN" value="ביטול" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
     <div id="About" class="tabcontent">
@@ -170,7 +382,22 @@
         // Get the element with id="defaultOpen" and click on it
         document.getElementById("defaultOpen").click();
     </script>
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
 
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        }
+    </script>
 
 </body>
 </html>

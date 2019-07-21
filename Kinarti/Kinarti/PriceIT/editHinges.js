@@ -1,76 +1,48 @@
-﻿var myBoxes;
-var myMaterials;
-var myFacades;
-var myHandles, handlesCost;
-var myHinges, hingesCost1, hingesCost2;
-//var constants;
-//var params;
-//var height, width, depth;
-var myIronWorks, ironWorksCost1, ironWorksCost2;
-//var numberOfDistancedInternalDrawer = 1;
-//var facadeColorWorkCoefficient, facadeFRNWorkCoefficient;
-//var woodBoxDrawerWorkCost;
-//var isColor = 1;
-//var projectID;
-
-//var boxWorkCost;
-//var isDistanced = 0;
-
-//var plateWorkCostForSquareMeter;
-//var plateSquareMeter;
-//var drawerCoefficientCost;
-//var materialWoodDrawersCoefficient;
-//var myFacadeMaterials;
-
-//var extraCostForItem;
-//var myItems;
+﻿var myHinges, hingesCost1, hingesCost2;
 var myExrtaWallTypeID;
-//var TC;
-//var totalCost;
 
 $(document).ready(function () {
-
+    $("#hingesEditDiv").hide();
+    $("#editHandlesForm").hide();
     ajaxCall("GET", "../api/hinges", "", successGetHingesEdit, error);
-    //ajaxCall("GET", "../api/materials", "", successGetMaterialsEdit, error); //get all materials from DB
-    //ajaxCall("GET", "../api/facades", "", successGetFacadesEdit, error);
-    //ajaxCall("GET", "../api/boxes", "", successGetBoxesEdit, error);
-    //ajaxCall("GET", "../api/handles", "", successGetHandlesEdit, error);
-    //ajaxCall("GET", "../api/constants", "", successGetConstantsEdit, error);
-    //ajaxCall("GET", "../api/ironWorks", "", successGetIronWorksEdit, error);
-    //ajaxCall("GET", "../api/facadeMaterials", "", successGetFacadeMaterialsEdit, error);
-
     mode = "";
+    buttonEvents();
 
-    $("#cancelSaveBTN").on("click", function () {
-        item = null;
-        $("#hingesEditDiv").hide();
-        if (mode === "new") $("#pForm").show();
-        mode = "";
-    });
-
-    $("#newBTN").on("click", function () {
-        item = null;
-        mode = "new";
-        $("#pForm").hide();
-        $("#hingesEditDiv").show();
-        clearFields();
-        $("#hingesEditDiv :input").prop("disabled", false); // new mode: enable all controls in the form
-    });
+});
+function buttonEvents() {
 
     $("#saveBTN").on("click", function () {
         onSubmitFunc();
     });
 
-    $("#hingesEditDiv").hide();
-
-    $('input[type=radio][name=status]').change(function () {
-        var radioValue = $("input[name='status']:checked").val();
-        var isActive = radioValue == 'inProgress' ? 0 : 1; // replace with true value
-
-        ajaxCall("PUT", "../api/projects/?isActive=" + isActive + "&ProjectID=" + projectID, "", updateStatusSuccess, error);
+    $("#newBTN").on("click", function () {
+        item = null;
+        mode = "new";
+        $("#hingesForm").hide();
+        $("#hingesEditDiv").show();
+        clearFields();
+        $("#hingesEditDiv :input").prop("disabled", false); // new mode: enable all controls in the form
     });
 
-});
+    $("#cancelSave").on("click", function () {
+        box = null;
+        mode = "new";
+        if (mode == "new") {
+            $("#hingesEditDiv").hide();
+            $("#hingesForm").show();
+            mode = "";
+        }
+        mode = "";
+    });
+}
+
+
+
+function f3() {
+    $("#hingesForm").hide();
+    $("#hingesEditDiv").show();
+    return false;
+}
 
 function updateStatusSuccess() {
     swal("עודכן בהצלחה!", "סטטוס הפרויקט עודכן", "success");
@@ -166,11 +138,6 @@ function successGetConstants(constantsdata) {// this function is activated in ca
     //constants = (JSON.stringify(constantsdata));
 }
 
-function f2() {
-   // addItem();
-    return false; // the return false will prevent the form from being submitted, hence the page will not reload
-}
-
 //// this should be used when the active value is changed
 function buttonEvents() {
     $(document).on("click", ".isDistanced", function () {
@@ -261,7 +228,6 @@ function onSubmitFunc() {
     //var Image = "car.jpg"; // no image at this point
     if (mode === "edit") {
         Id = hinge.ID;
-        //Image = car.Image; // no image at this point
     }
 
     let hingetoSave = {
@@ -374,7 +340,7 @@ function updateProjectSuccess() {    // success callback function after update
 }
 
 function insertSuccess(itemsdata) {  // success callback function after adding new item
-    $("#pForm").show();
+    $("#hingesForm").show();
     //tbl.clear();
     uri = "../api/hinges";
     ajaxCall("GET", uri, "", populateTableWithUpdatedData, error); //get all relevant project's items from DB 

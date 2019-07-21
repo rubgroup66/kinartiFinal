@@ -200,7 +200,8 @@
 
         // this function is activated in case of a failure
         function error(err) {
-            swal("Error: " + err);
+            //swal("Error: " + err);
+            swal("שגיאה ", "התרחשה שגיאה באחזור הנתונים", "error")
         }
 
         function AddNewCustomer() {
@@ -249,9 +250,18 @@
     <!-------------------------------------->
     <div class="container">
         <form id="pForm">
-            <input type="button" value="הוסף לקוח חדש" class="btn btn-primary btn-lg" onclick="AddNewCustomer()" />
+            <!--<input type="button" value="הוסף לקוח חדש" class="btn btn-primary btn-lg" onclick="AddNewCustomer()" />-->
+
+            <h1>לקוחות</h1>
             <br />
-            <br />
+
+            <div class="row item">
+                <div class="form-group col-sm-12">
+                    <button type="button" value="הוסף לקוח חדש" class="btn btn-primary btn-md addNew" onclick="AddNewCustomer()" id="newCustomerBtn">
+                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> הוסף לקוח חדש
+                    </button>
+                </div>
+            </div>
 
             <table id="customers_table" class="display nowrap" style="width:100%">
                 <thead>

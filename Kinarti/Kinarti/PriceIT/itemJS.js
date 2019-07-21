@@ -116,7 +116,6 @@ function updateStatusSuccess() {
     swal("עודכן בהצלחה!", "סטטוס הפרויקט עודכן", "success");
 }
 
-
 function successGetProject(projectdata) {// this function is activated in case of a success
     console.log(projectdata);
     $("#projectName").val(projectdata.project_name);
@@ -124,7 +123,6 @@ function successGetProject(projectdata) {// this function is activated in case o
     $("#createDate").val(projectdata.create_date);
 
     $("#projectCost").val(projectdata.cost);
-
 
 
     //var date_test = new Date("2011-07-14 11:23:00".replace(/-/g, "/"));
@@ -234,7 +232,6 @@ function successGetFacadeMaterials(facadeMaterialsdata) {// this function is act
 // עצרתי בטעינת הצצבעים של החזיתות (גמר + קיר נוסף)
 
 
-
 function successGetConstants(constantsdata) {// this function is activated in case of a success
     constants = constantsdata;
     console.log(constants);
@@ -248,8 +245,6 @@ function f2() {
 
 var materialCoefficient;
 var itemTotalSum = 0;
-
-
 
 
 function calculateItem() {
@@ -540,7 +535,7 @@ function errorGetConstants(err) { // this function is activated in case of a fai
 function errorGetHinges(err) { // this function is activated in case of a failure
     swal("שגיאה באחזור צירים");
 }
-function errorGetGetIronWorks(err) { // this function is activated in case of a failure
+function errorGetIronWorks(err) { // this function is activated in case of a failure
     swal("שגיאה באחזור עלויות פרזולים");
 }
 function errorGetFacadeMaterials(err) { // this function is activated in case of a failure
@@ -549,11 +544,8 @@ function errorGetFacadeMaterials(err) { // this function is activated in case of
 function errorUpdateStatus(err) { // this function is activated in case of a failure
     swal("שגיאה בעדכון סטטוס הפרויקט");
 }
-
-
-
 function error(err) { // this function is activated in case of a failure
-    swal("Error: " + err);
+    swal("שגיאה: " + err);
 }
 
 function ShowInfo() {
@@ -593,7 +585,7 @@ function onSubmitFunc() {
     calculateItem();
     let itemtoSave = {
         ProjectID: getParameterByName("projectId"),
-        Type: 1, // 'type' will be always 1 untill we add a different kind of box
+        Type: "ארגזת", // 'type' will be always 1 untill we add a different kind of box
         Cost: itemTotalSum, /*$("#itemCost").val()*/
         Name: $("#itemName").val(),
         BoxMaterialID: $("#boxMaterial").val(),
@@ -640,7 +632,6 @@ function onSubmitFunc2() {
         description: $("#projectDescription").val(),
         create_date: $("#createDate").val(),
         //status: $("#status").val(),       
-
         architect: $("#projectArchitect").val(),
         supervisor: $("#projectSupervisor").val(),
         cost: $("#projectCost").val()
@@ -693,7 +684,6 @@ function populateFields(itemId) {    // fill the form fields
     }
 
     $("#hingesQuantity1").val(item.HingesQuantity1);
-
     //$("#hingesType1").val(item.HingesType1);
     for (i = 0; i < myHinges.length; i++) {
         if (myHinges[i].ID.toString() === item.HingesType1ID) {
@@ -916,7 +906,7 @@ function successGetItems(itemsdata) {    // this function is activated in case o
                         return intVal(a) + intVal(b);
                     }, 0);
                 //TC = total; // presenting total cost above the dattable
-                $("#projectCost").val(total);
+                //$("#projectCost").val(total);
                 console.log(total);
 
                 // Total over this page
