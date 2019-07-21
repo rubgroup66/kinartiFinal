@@ -114,6 +114,10 @@ $(document).ready(function () {
 
 function updateStatusSuccess() {
     swal("עודכן בהצלחה!", "סטטוס הפרויקט עודכן", "success");
+
+
+
+    $("#editDiv :input").attr("disabled", "disabled"); // view mode: disable all controls in the form
 }
 
 function successGetProject(projectdata) {// this function is activated in case of a success
@@ -858,6 +862,13 @@ function successGetItems(itemsdata) {    // this function is activated in case o
     //totalCost = totalCost + itemsdata[i].Cost;
     try {
         tbl = $('#itemsTable').DataTable({
+
+            language: {
+                'search': 'חיפוש:',
+                "lengthMenu": "הצג _MENU_ רשומות",
+                "info": "מציג _START_ עד _END_ מתוך _TOTAL_ רשומות",
+                "emptyTable": "אין רשומות בטבלה. אפשר להתחיל להוסיף :)"
+            }, 
             data: itemsdata,
             pageLength: 5,
             columns: [
@@ -873,7 +884,6 @@ function successGetItems(itemsdata) {    // this function is activated in case o
                             return theRightBoxMeasures.Height + 'X' + theRightBoxMeasures.Width + 'X' + theRightBoxMeasures.Depth;
                         }
                     }
-
                 },
                 { data: "Cost" },
                 {
