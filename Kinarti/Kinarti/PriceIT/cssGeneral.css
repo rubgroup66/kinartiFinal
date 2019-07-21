@@ -3,6 +3,9 @@ button {
     margin-left: 10px;
 }
 
+body {
+    background-color: powderblue;
+}
 hover span {
     display: block;
 }
