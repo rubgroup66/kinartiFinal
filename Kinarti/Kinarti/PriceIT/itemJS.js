@@ -28,6 +28,8 @@ var myExrtaWallTypeID;
 var TC;
 var totalCost;
 
+var myProject;
+
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
     name = name.replace(/[\[\]]/g, '\\$&');
@@ -76,12 +78,20 @@ $(document).ready(function () {
     });
 
     $("#newBTN").on("click", function () {
-        item = null;
-        mode = "new";
-        $("#pForm").hide();
-        $("#editDiv").show();
-        clearFields();
-        $("#editDiv :input").prop("disabled", false); // new mode: enable all controls in the form
+
+        var radioValue = $("input[name='status']:checked").val();
+        var isActive = radioValue == 'inProgress' ? 0 : 1; // replace with true value
+        if (isActive == 1) {
+            swal("!לא ניתן להוסיף פריטים נוספים..", "כדי לאפשר הוספה נדרש להעביר את הפרויקט למצב 'בתהליך'", "error");
+        }
+        else {
+            item = null;
+            mode = "new";
+            $("#pForm").hide();
+            $("#editDiv").show();
+            clearFields();
+            $("#editDiv :input").prop("disabled", false); // new mode: enable all controls in the form
+        }
     });
 
     $("#saveBTN").on("click", function () {
@@ -115,13 +125,15 @@ $(document).ready(function () {
 function updateStatusSuccess() {
     swal("עודכן בהצלחה!", "סטטוס הפרויקט עודכן", "success");
 
+    $("#editDiv :input").attr("disabled", "disabled"); 
+    $(".projectDetails :input").attr("disabled", "disabled"); 
 
 
-    $("#editDiv :input").attr("disabled", "disabled"); // view mode: disable all controls in the form
 }
 
 function successGetProject(projectdata) {// this function is activated in case of a success
     console.log(projectdata);
+    myProject = projectdata;
     $("#projectName").val(projectdata.project_name);
 
     $("#createDate").val(projectdata.create_date);
