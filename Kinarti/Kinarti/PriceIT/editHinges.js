@@ -2,45 +2,66 @@
 var myExrtaWallTypeID;
 
 $(document).ready(function () {
-    $("#hingesEditDiv").hide();
-    $("#editHandlesForm").hide();
     ajaxCall("GET", "../api/hinges", "", successGetHingesEdit, error);
+    $("#editHingesForm").hide();
+    $("#editHandlesForm").hide();
     mode = "";
-    buttonEvents();
+
+    buttonEventsH();
+
 
 });
-function buttonEvents() {
 
-    $("#saveBTN").on("click", function () {
-        onSubmitFunc();
-    });
+function buttonEventsH() {
 
-    $("#newBTN").on("click", function () {
-        item = null;
-        mode = "new";
-        $("#hingesForm").hide();
-        $("#hingesEditDiv").show();
-        clearFields();
-        $("#hingesEditDiv :input").prop("disabled", false); // new mode: enable all controls in the form
-    });
+    //$("#saveBTN").on("click", function () {
+    //    onSubmitFunc();
+    //});
 
-    $("#cancelSave").on("click", function () {
+    //$("#newBTN").on("click", function () {
+    //    item = null;
+    //    mode = "new";
+    //    $("#hingesForm").hide();
+    //    $("#hingesEditDiv").show();
+    //    clearFields();
+    //    $("#hingesEditDiv :input").prop("disabled", false); // new mode: enable all controls in the form
+    //});
+
+    $("#cancelSaveBTNhinges").on("click", function () {
         box = null;
         mode = "new";
         if (mode == "new") {
-            $("#hingesEditDiv").hide();
+            $("#editHingesForm").hide();
             $("#hingesForm").show();
             mode = "";
         }
         mode = "";
     });
+
+    $("#cancelSaveBTNHandles").on("click", function () {
+        box = null;
+        mode = "new";
+        if (mode == "new") {
+            $("#editHandlesForm").hide();
+            $("#HandlesForm").show();
+            mode = "";
+        }
+        mode = "";
+    });
+ 
+    
 }
 
 
 
 function f3() {
     $("#hingesForm").hide();
-    $("#hingesEditDiv").show();
+    $("#editHingesForm").show();
+    return false;
+}
+function f4() {
+    $("#HandlesForm").hide();
+    $("#editHandlesForm").show();
     return false;
 }
 
@@ -105,7 +126,7 @@ function successGetHingesEdit(hingesdata) {// this function is activated in case
                 }
             ],
         });
-        buttonEvents();
+        buttonEventsH();
     }
     catch (err) {
         alert(err);
@@ -139,62 +160,62 @@ function successGetConstants(constantsdata) {// this function is activated in ca
 }
 
 //// this should be used when the active value is changed
-function buttonEvents() {
-    $(document).on("click", ".isDistanced", function () {
-        isDistanced = $(this).is(':checked') ? 1 : 0; // replace with true value
-        console.log("change made");
-    });  
+//function buttonEvents() {
+//    $(document).on("click", ".isDistanced", function () {
+//        isDistanced = $(this).is(':checked') ? 1 : 0; // replace with true value
+//        console.log("change made");
+//    });  
 
-    $(document).on("click", ".editBtn", function () {
-        mode = "edit";
-        markSelected(this);
-        $("#hingesEditDiv").show();
-        $("#hingesEditDiv :input").prop("disabled", false); // edit mode: enable all controls in the form
-        populateFields(this.getAttribute('data-hingeId')); // fill the form fields according to the selected row
-    });
+//    $(document).on("click", ".editBtn", function () {
+//        mode = "edit";
+//        markSelected(this);
+//        $("#hingesEditDiv").show();
+//        $("#hingesEditDiv :input").prop("disabled", false); // edit mode: enable all controls in the form
+//        populateFields(this.getAttribute('data-hingeId')); // fill the form fields according to the selected row
+//    });
 
-    ///////////duplicating
-    $(document).on("click", ".duplicateBtn", function () {
-        mode = "duplicate";
-        markSelected(this);
-        $("#hingesEditditDiv").show();
-        $("#hingesEditditDiv :input").prop("disabled", false); // edit mode: enable all controls in the form
-        populateFields(this.getAttribute('data-itemId')); // fill the form fields according to the selected row
-    });
+//    ///////////duplicating
+//    $(document).on("click", ".duplicateBtn", function () {
+//        mode = "duplicate";
+//        markSelected(this);
+//        $("#hingesEditditDiv").show();
+//        $("#hingesEditditDiv :input").prop("disabled", false); // edit mode: enable all controls in the form
+//        populateFields(this.getAttribute('data-itemId')); // fill the form fields according to the selected row
+//    });
 
-    $(document).on("click", ".viewBtn", function () {
-        mode = "view";
-        markSelected(this);
-        $("#hingesEditDiv").show();
-        row.className = 'selected';
-        $("#hingesEditDiv :input").attr("disabled", "disabled"); // view mode: disable all controls in the form
-        populateFields(this.getAttribute('data-itemId'));
-    });
+//    $(document).on("click", ".viewBtn", function () {
+//        mode = "view";
+//        markSelected(this);
+//        $("#hingesEditDiv").show();
+//        row.className = 'selected';
+//        $("#hingesEditDiv :input").attr("disabled", "disabled"); // view mode: disable all controls in the form
+//        populateFields(this.getAttribute('data-itemId'));
+//    });
 
-    $(document).on("click", ".deleteBtn", function () {
-        mode = "delete";
-        markSelected(this);
-        var hingeId = this.getAttribute('data-hingeId');
-        swal({ // this will open a dialouge 
-            title: "האם אתה בטוח ?",
-            text: "",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true
-        })
-            .then(function (willDelete) {
-                if (willDelete) DeleteHinge(hingeId);
-                else swal("הפריט לא נמחק");
-            });
-    });
+//    $(document).on("click", ".deleteBtn", function () {
+//        mode = "delete";
+//        markSelected(this);
+//        var hingeId = this.getAttribute('data-hingeId');
+//        swal({ // this will open a dialouge 
+//            title: "האם אתה בטוח ?",
+//            text: "",
+//            icon: "warning",
+//            buttons: true,
+//            dangerMode: true
+//        })
+//            .then(function (willDelete) {
+//                if (willDelete) DeleteHinge(hingeId);
+//                else swal("הפריט לא נמחק");
+//            });
+//    });
 
-    $("#finish").on("click", function () {
-        onSubmitFunc2();
-    });
+//    $("#finish").on("click", function () {
+//        onSubmitFunc2();
+//    });
 
 
 
-}
+//}
 
 
 
@@ -323,7 +344,7 @@ function updateSuccess() {    // success callback function after update
     ajaxCall("GET", uri, "", populateTableWithUpdatedData, error); //get all relevant project's items from DB 
 
     //redrawTable(tbl, itemsdata);
-    buttonEvents();
+    buttonEventsH();
     $("#hingesEditDiv").hide();
     swal("עודכן בהצלחה!", "הפעולה בוצעה", "success");
     mode = "";
@@ -346,7 +367,7 @@ function insertSuccess(itemsdata) {  // success callback function after adding n
     ajaxCall("GET", uri, "", populateTableWithUpdatedData, error); //get all relevant project's items from DB 
 
     //redrawTable(tbl, itemsdata);
-    buttonEvents();
+    buttonEventsH();
     $("#hingesEditDiv").hide();
     swal("נוסף בהצלחה!", "הפעולה בוצעה", "success");
     mode = "";
@@ -359,7 +380,7 @@ function deleteSuccess(itemsdata) {
     uri = "../api/hinges";
     ajaxCall("GET", uri, "", populateTableWithUpdatedData, error); //get all relevant project's items from DB 
 
-    buttonEvents(); // after redrawing the table, we must wire the new buttons
+    buttonEventsH(); // after redrawing the table, we must wire the new buttons
     $("#hingesEditDiv").hide();
     swal("נמחק בהצלחה!", "הפעולה בוצעה", "success");
     mode = "";

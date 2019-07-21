@@ -15,7 +15,7 @@
     // wire all the buttons to their functions
 function buttonEvents() {
 
-    $("#cancelSaveBTN").on("click", function () {
+    $("#cancelSaveBTNbox").on("click", function () {
         box = null;
         mode = "new";
         if (mode == "new") {
