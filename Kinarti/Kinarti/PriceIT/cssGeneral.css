@@ -6,18 +6,15 @@ button {
 hover span {
     display: block;
 }
-<<<<<<< HEAD
 
 #newBTN, #newProjectBtn, #newBTN2 {
-=======
-
+}
 /*#newBTN, #newProjectBtn, #newCustomerBtn, #newUserBtn {
     background-color: blueviolet;
     margin-bottom: 10px;
 }*/
 
-.addNew {
->>>>>>> 80a1cb64192e6ca1c23ce961bc1444e525a26e9b
+.addnewBTN{
     background-color: blueviolet;
     margin-bottom: 10px;
 }
