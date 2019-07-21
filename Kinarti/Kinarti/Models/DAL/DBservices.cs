@@ -923,8 +923,8 @@ public class DBservices
 
         StringBuilder sb = new StringBuilder();
         // use a string builder to create the dynamic string
-        sb.AppendFormat("Values('{0}', '{1}', '{2}', '{3}', '{4}', '{5}','{6}')", proj.project_name, proj.description , proj.architect, proj.supervisor , proj.customer_id , 0, proj.create_date);
-        String prefix = "INSERT INTO Project2 " + "(project_name, description, architect, supervisor, custID, status, create_date) ";
+        sb.AppendFormat("Values('{0}', '{1}', '{2}', '{3}', '{4}', '{5}','{6}', {7})", proj.project_name, proj.description , proj.architect, proj.supervisor , proj.customer_id , 0, proj.create_date, 0);
+        String prefix = "INSERT INTO Project2 " + "(project_name, description, architect, supervisor, custID, status, create_date, cost) ";
 
         command = prefix + sb.ToString() + ";" + "SELECT CAST(scope_identity() AS int)";
 

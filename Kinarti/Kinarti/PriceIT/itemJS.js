@@ -123,6 +123,10 @@ function successGetProject(projectdata) {// this function is activated in case o
 
     $("#createDate").val(projectdata.create_date);
 
+    $("#projectCost").val(projectdata.cost);
+
+
+
     //var date_test = new Date("2011-07-14 11:23:00".replace(/-/g, "/"));
     //console.log(date_test);
 
@@ -131,10 +135,14 @@ function successGetProject(projectdata) {// this function is activated in case o
     $("#projectSupervisor").val(projectdata.supervisor);
 
     if (projectdata.status === 1) {
-        //    $("#radio").value('done', 'checked');
-        //$("input[name=status][value='done'").attr('checked', 'checked');
         $("#doneBtn").addClass("active");
         $("#inProgressBtn").removeClass("active");
+
+        $("#editDiv :input").attr("disabled", "disabled"); // this needs to be disabled when status = 1
+
+
+
+
     } else {
         $("#inProgressBtn").addClass("active");
         $("#doneBtn").removeClass("active");
@@ -547,11 +555,11 @@ function ShowInfo() {
     $("#info").show();
 }
 
-function calculateProjectCost() {
-    TC = tbl.column(4).data().sum();
-    $("#projectCost").val(TC);
-    console.log(TC);
-}
+//function calculateProjectCost() {
+//    TC = tbl.column(4).data().sum();
+//    $("#projectCost").val(TC);
+//    console.log(TC);
+//}
 
 //$("#pForm").submit(onSubmitFunc); 
 
@@ -885,12 +893,9 @@ function successGetItems(itemsdata) {    // this function is activated in case o
                 }
 
             ],
-            //////////////////////////
             "footerCallback": function (row, data, start, end, display) {
-                var api = this.api(), data;
-                //console.log("######");
-                //console.log(api);
-                //console.log("######");
+                var api = this.api();
+
                 var intVal = function (i) {
                     return typeof i === 'string' ?
                         i.replace(/[\$,]/g, '') * 1 :
@@ -918,7 +923,7 @@ function successGetItems(itemsdata) {    // this function is activated in case o
                     }, 0);
                 // Update footer
                 $(api.column(3).footer()).html(
-                    ' עלות :             ' + pageTotal + ' ש"ח ' + '(' + total + ' ש"ח ' + ' סה"כ)'
+                    ' עלות כוללת עדכנית :   ' + pageTotal + ' ש"ח ' + '(' + total + ' ש"ח ' + ' סה"כ)'
                 );
             }
         });
