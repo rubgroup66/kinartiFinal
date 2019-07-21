@@ -5,6 +5,7 @@ button {
 
 body {
     background-color: powderblue;
+    font-family: Arial;
 }
 hover span {
     display: block;
