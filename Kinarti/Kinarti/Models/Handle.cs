@@ -17,13 +17,14 @@ namespace kinarti.Models
         public int ID { get; set; }
         public string Type { get; set; }
         public int Cost { get; set; }
-        public Handle(int _id, string _type, int _cost)
+        public int Active { get; set; }
+
+        public Handle(int _id, string _type, int _cost, int _Active)
         {
             ID = _id;
             Type = _type;
-
             Cost = _cost;
-
+            Active = _Active;
         }
         public Handle()
         {

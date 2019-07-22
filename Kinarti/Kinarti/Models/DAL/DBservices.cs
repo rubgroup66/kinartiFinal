@@ -285,8 +285,12 @@ public class DBservices
                 handle.Type = Convert.ToString(dr["type"]);
                 handle.ID = Convert.ToInt32(dr["id"]);
                 handle.Cost = Convert.ToInt32(dr["cost"]);
+                handle.Active = Convert.ToInt16(dr["Active"]);
+                if(handle.Active == 1)
+                {
+                    handlesList.Add(handle);
 
-                handlesList.Add(handle);
+                }
             }
             return handlesList;
         }
@@ -1242,8 +1246,8 @@ public class DBservices
     {
         String command;
         StringBuilder sbItem = new StringBuilder(); // use a string builder to create the dynamic string
-        sbItem.AppendFormat("Values('{0}', {1} )", handle.Type, handle.Cost);
-        String prefix = "INSERT INTO handleTbl " + "(type, cost) ";
+        sbItem.AppendFormat("Values('{0}', {1}, {2} )", handle.Type, handle.Cost, 1);
+        String prefix = "INSERT INTO handleTbl " + "(type, cost, Active) ";
         //command = prefix + sbItem.ToString();
         command = prefix + sbItem.ToString() + ";" + "SELECT CAST(scope_identity() AS int)";
         return command;
@@ -2046,7 +2050,7 @@ public class DBservices
     }
     private string BuildDeleteHandle(int handleID)
     {
-        string cmdStr = "DELETE FROM handleTbl  WHERE id='" + handleID + "'";
+        string cmdStr = "UPDATE handleTbl SET Active='" + 0 + "' WHERE id='" + handleID + "'";
         return cmdStr;
     }
 

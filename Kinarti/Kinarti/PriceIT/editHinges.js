@@ -5,7 +5,6 @@ $(document).ready(function () {
     ajaxCall("GET", "../api/hinges", "", successGetHingesEdit, error);
     $("#editHingesForm").hide();
     $("#editHandlesForm").hide();
-    ajaxCall("GET", "../api/boxes", "", getSuccess, errorGetBoxes);
     $("#editHingesForm").submit(addHinge);
     mode = "";
     hingeMode = "new";
@@ -43,18 +42,8 @@ function buttonEventsH() {
         mode = "";
     });
 
-    $("#cancelSaveBTNHandles").on("click", function () {
-        box = null;
-        mode = "new";
-        if (mode == "new") {
-            $("#editHandlesForm").hide();
-            $("#HandlesForm").show();
-            mode = "";
-        }
-        mode = "";
-    });
 
-    $(document).on("click", ".editBtn", function () {
+    $(document).on("click", ".editBtnHinges", function () {
         hingeMode = "edit";
         markSelected(this);
         $("#editHingesForm").show();
@@ -82,7 +71,7 @@ function buttonEventsH() {
     
 }
 function DeleteHinge(id) {      // Delete a item from the server
-    ajaxCall("DELETE", "../api/hinges/?Id=" + id, "", deleteSuccess, error);
+    ajaxCall("DELETE", "../api/hinges/?Id=" + id, "", deleteHingeSuccess, error);
 }
 
 function successGetHingesEdit(hingesdata) {// this function is activated in case of a success
@@ -99,11 +88,10 @@ function successGetHingesEdit(hingesdata) {// this function is activated in case
                 {
                     render: function (data, type, row, meta) {
                         let dataHinge = "data-hingeId='" + row.ID + "'";
-                        editBtn = "<button type='button' class = 'editBtn btn btn-success' " + dataHinge + "> עריכה </button>";
-                        viewBtn = "<button type='button' class = 'viewBtn btn btn-info' " + dataHinge + "> צפייה </button>";
-                        //duplicateBtn = "<button type='button' class = 'duplicateBtn btn btn-info' " + dataHinge + "> שכפול + </button>";
+                        editBtnHinges = "<button type='button' class = 'editBtnHinges btn btn-success' " + dataHinge + "> עריכה </button>";
+                        //viewBtn = "<button type='button' class = 'viewBtn btn btn-info' " + dataHinge + "> צפייה </button>";
                         deleteBtnHinge = "<button type='button' class = 'deleteBtnHinge btn btn-danger' " + dataHinge + "> מחיקה </button>";
-                        return editBtn + /*viewBtn +*/  deleteBtnHinge;
+                        return editBtnHinges + /*viewBtn +*/  deleteBtnHinge;
                     }
                 }
             ],
@@ -123,11 +111,6 @@ function f3() {
     return false;
 }
 
-function f4() {
-    $("#HandlesForm").hide();
-    $("#editHandlesForm").show();
-    return false;
-}
 
 function addHinge() {
     if (hingeMode === "edit") {
@@ -164,7 +147,7 @@ function insertSuccess() {  // success callback function after adding new item
     mode = "";
     $("#hingesForm").show();
 }
-function deleteSuccess(itemsdata) {
+function deleteHingeSuccess(itemsdata) {
     uri = "../api/hinges";
     ajaxCall("GET", uri, "", populateTableWithUpdatedData, error); //get all relevant project's items from DB 
     buttonEventsH(); // after redrawing the table, we must wire the new buttons
@@ -204,129 +187,61 @@ function populateFields(hingeId) {    // fill the form fields
 
 }
 
-function updateStatusSuccess() {
-    swal("עודכן בהצלחה!", "סטטוס הפרויקט עודכן", "success");
-}
 
-function successGetMaterials(materialsdata) {// this function is activated in case of a success
-    myMaterials = materialsdata;
-    for (var i = 0; i < materialsdata.length; i++) {
-        $('#boxMaterial').append('<option value="' + materialsdata[i].ID + '" >' + materialsdata[i].Name + '</option>');
-    }
-    console.log(myMaterials);
-}
 
-function successGetFacades(facadesdata) {// this function is activated in case of a success
-    console.log(facadesdata);
-    myFacades = facadesdata;
-    for (var i = 0; i < facadesdata.length; i++) {
-        $('#facadeType').append('<option value="' + facadesdata[i].ID + '" >' + facadesdata[i].Type + '</option>');
-    }
-    for (i = 0; i < facadesdata.length; i++) {
-        $('#extraWallType').append('<option value="' + facadesdata[i].ID + '" >' + facadesdata[i].Type + '</option>');
-    }
-    console.log(myFacades);
-}
+//function successGetMaterials(materialsdata) {// this function is activated in case of a success
+//    myMaterials = materialsdata;
+//    for (var i = 0; i < materialsdata.length; i++) {
+//        $('#boxMaterial').append('<option value="' + materialsdata[i].ID + '" >' + materialsdata[i].Name + '</option>');
+//    }
+//    console.log(myMaterials);
+//}
 
-function successGetBoxes(boxesdata) {// this function is activated in case of a success
-    myBoxes = boxesdata;
-    for (var i = 0; i < boxesdata.length; i++) {
-        $('#boxMeasures').append('<option value="' + boxesdata[i].ID + '" >' + boxesdata[i].Height + 'X' + boxesdata[i].Width + 'X' + boxesdata[i].Depth + '</option>');
-    }
-}
+//function successGetFacades(facadesdata) {// this function is activated in case of a success
+//    console.log(facadesdata);
+//    myFacades = facadesdata;
+//    for (var i = 0; i < facadesdata.length; i++) {
+//        $('#facadeType').append('<option value="' + facadesdata[i].ID + '" >' + facadesdata[i].Type + '</option>');
+//    }
+//    for (i = 0; i < facadesdata.length; i++) {
+//        $('#extraWallType').append('<option value="' + facadesdata[i].ID + '" >' + facadesdata[i].Type + '</option>');
+//    }
+//    console.log(myFacades);
+//}
 
-function successGetHandles(handlesdata) {// this function is activated in case of a success
-    myHandles = handlesdata;
-    for (var i = 0; i < handlesdata.length; i++) {
-        $('#handlesType').append('<option value="' + handlesdata[i].ID + '" >' + handlesdata[i].Type + '</option>');
-    }
-}
+//function successGetBoxes(boxesdata) {// this function is activated in case of a success
+//    myBoxes = boxesdata;
+//    for (var i = 0; i < boxesdata.length; i++) {
+//        $('#boxMeasures').append('<option value="' + boxesdata[i].ID + '" >' + boxesdata[i].Height + 'X' + boxesdata[i].Width + 'X' + boxesdata[i].Depth + '</option>');
+//    }
+//}
+
+//function successGetHandles(handlesdata) {// this function is activated in case of a success
+//    myHandles = handlesdata;
+//    for (var i = 0; i < handlesdata.length; i++) {
+//        $('#handlesType').append('<option value="' + handlesdata[i].ID + '" >' + handlesdata[i].Type + '</option>');
+//    }
+//}
 
 
 
-function successGetIronWorks(ironworksdata) {// this function is activated in case of a success
-    myIronWorks = ironworksdata;
-    for (var i = 0; i < ironworksdata.length; i++) {
-        $('#ironWorksType1').append('<option value="' + ironworksdata[i].ID + '" >' + ironworksdata[i].Type + '</option>');
-        $('#ironWorksType2').append('<option value="' + ironworksdata[i].ID + '" >' + ironworksdata[i].Type + '</option>');
-    }
-}
+//function successGetIronWorks(ironworksdata) {// this function is activated in case of a success
+//    myIronWorks = ironworksdata;
+//    for (var i = 0; i < ironworksdata.length; i++) {
+//        $('#ironWorksType1').append('<option value="' + ironworksdata[i].ID + '" >' + ironworksdata[i].Type + '</option>');
+//        $('#ironWorksType2').append('<option value="' + ironworksdata[i].ID + '" >' + ironworksdata[i].Type + '</option>');
+//    }
+//}
 
-function successGetFacadeMaterials(facadeMaterialsdata) {// this function is activated in case of a success
-    myFacadeMaterials = facadeMaterialsdata;
-    console.log("facade materials -> " + JSON.stringify(facadeMaterialsdata));
-    for (var i = 0; i < facadeMaterialsdata.length; i++) {
-        $('#facadeMaterialType').append('<option value="' + facadeMaterialsdata[i].ID + '" >' + facadeMaterialsdata[i].Name + '</option>');
-    }
-
-}
-// עצרתי בטעינת הצצבעים של החזיתות (גמר + קיר נוסף)
-
-
-
-function successGetConstants(constantsdata) {// this function is activated in case of a success
-    constants = constantsdata;
-    console.log(constants);
-    //constants = (JSON.stringify(constantsdata));
-}
-
-//// this should be used when the active value is changed
-//function buttonEvents() {
-//    $(document).on("click", ".isDistanced", function () {
-//        isDistanced = $(this).is(':checked') ? 1 : 0; // replace with true value
-//        console.log("change made");
-//    });  
-
-//    $(document).on("click", ".editBtn", function () {
-//        mode = "edit";
-//        markSelected(this);
-//        $("#hingesEditDiv").show();
-//        $("#hingesEditDiv :input").prop("disabled", false); // edit mode: enable all controls in the form
-//        populateFields(this.getAttribute('data-hingeId')); // fill the form fields according to the selected row
-//    });
-
-//    ///////////duplicating
-//    $(document).on("click", ".duplicateBtn", function () {
-//        mode = "duplicate";
-//        markSelected(this);
-//        $("#hingesEditditDiv").show();
-//        $("#hingesEditditDiv :input").prop("disabled", false); // edit mode: enable all controls in the form
-//        populateFields(this.getAttribute('data-itemId')); // fill the form fields according to the selected row
-//    });
-
-//    $(document).on("click", ".viewBtn", function () {
-//        mode = "view";
-//        markSelected(this);
-//        $("#hingesEditDiv").show();
-//        row.className = 'selected';
-//        $("#hingesEditDiv :input").attr("disabled", "disabled"); // view mode: disable all controls in the form
-//        populateFields(this.getAttribute('data-itemId'));
-//    });
-
-//    $(document).on("click", ".deleteBtn", function () {
-//        mode = "delete";
-//        markSelected(this);
-//        var hingeId = this.getAttribute('data-hingeId');
-//        swal({ // this will open a dialouge 
-//            title: "האם אתה בטוח ?",
-//            text: "",
-//            icon: "warning",
-//            buttons: true,
-//            dangerMode: true
-//        })
-//            .then(function (willDelete) {
-//                if (willDelete) DeleteHinge(hingeId);
-//                else swal("הפריט לא נמחק");
-//            });
-//    });
-
-//    $("#finish").on("click", function () {
-//        onSubmitFunc2();
-//    });
-
-
+//function successGetFacadeMaterials(facadeMaterialsdata) {// this function is activated in case of a success
+//    myFacadeMaterials = facadeMaterialsdata;
+//    console.log("facade materials -> " + JSON.stringify(facadeMaterialsdata));
+//    for (var i = 0; i < facadeMaterialsdata.length; i++) {
+//        $('#facadeMaterialType').append('<option value="' + facadeMaterialsdata[i].ID + '" >' + facadeMaterialsdata[i].Name + '</option>');
+//    }
 
 //}
+//// עצרתי בטעינת הצצבעים של החזיתות (גמר + קיר נוסף)
 
 
 
@@ -338,45 +253,12 @@ function ShowInfo() {
     $("#info").show();
 }
 
-//$("#pForm").submit(onSubmitFunc); 
 
 function markSelected(btn) {  // mark the selected row
     $("#hingesTable tr").removeClass("selected"); // remove seleced class from rows that were selected before
     row = (btn.parentNode).parentNode; // button is in TD which is in Row
     row.className = 'selected'; // mark as selected
 }
-
-
-
-
-function saveProject(id) {      // Delete a item from the server
-    ajaxCall("PUT", "../api/hinges/?Id=" + projectID, JSON.stringify(hingetoSave), saveHingeSuccess, error);
-}
-
-
-
-
-function onSubmitFunc2() {
-   
-    let projecttoSave = {
-        ID: getParameterByName("projectId"),
-        project_name: $("#projectName").val(), 
-        description: $("#projectDescription").val(),
-        create_date: $("#createDate").val(), 
-        //status: $("#status").val(),       
-       
-        architect: $("#projectArchitect").val(),
-        supervisor: $("#projectSupervisor").val(),
-        cost: $("#projectCost").val()
-        //customer_id: $("#itemName").val()
-
-    };
-    ajaxCall("PUT", "../api/projects/?Id=" + projectID, JSON.stringify(projecttoSave), updateProjectSuccess, error);
-
-    return false;
-}
-
-
 
 
     // get item according to its Id
@@ -388,16 +270,4 @@ function getHinge(id) {
     }
     return null;
 }
-
-
-
-
-
-
-
-// success callback function after delete
-
-
-
-
 
