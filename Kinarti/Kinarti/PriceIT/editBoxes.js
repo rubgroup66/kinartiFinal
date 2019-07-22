@@ -1,4 +1,4 @@
-﻿
+﻿    
     // will run when the document is ready
     $(document).ready(function () {
         // once the document is ready we fetch a list of materials from the server

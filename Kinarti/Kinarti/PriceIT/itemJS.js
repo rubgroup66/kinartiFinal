@@ -123,10 +123,21 @@ $(document).ready(function () {
 //}
 
 function updateStatusSuccess() {
-    swal("עודכן בהצלחה!", "סטטוס הפרויקט עודכן", "success");
 
+    var radioValue = $("input[name='status']:checked").val();
+    var isActive = radioValue == 'inProgress' ? 0 : 1; // replace with true value
+    if (isActive == 1) {
     $("#editDiv :input").attr("disabled", "disabled"); 
-    $(".projectDetails :input").attr("disabled", "disabled"); 
+        $(".projectDetails :input").attr("disabled", "disabled"); 
+
+        swal("סטטוס הפרויקט עודכן בהצלחה!", "ניתן לצפות בפרטי הפרויקט", "success");
+
+    }
+    else {
+        $("#editDiv :input").attr("disabled", false);
+        $(".projectDetails :input").attr("disabled", false);     
+        swal("סטטוס הפרויקט עודכן בהצלחה!", "כעת ניתן להוסיף ולערוך פריטים", "success");
+    }
 
 
 }
@@ -148,16 +159,13 @@ function successGetProject(projectdata) {// this function is activated in case o
     $("#projectArchitect").val(projectdata.architect);
     $("#projectSupervisor").val(projectdata.supervisor);
 
-    if (projectdata.status === 1) {
+    if (myProject.status === 1) {
         $("#doneBtn").addClass("active");
         $("#inProgressBtn").removeClass("active");
 
         $("#editDiv :input").attr("disabled", "disabled"); // this needs to be disabled when status = 1
-
-
-
-
-    } else {
+    }
+    else {
         $("#inProgressBtn").addClass("active");
         $("#doneBtn").removeClass("active");
     }
@@ -470,7 +478,12 @@ function buttonEvents() {
         mode = "edit";
         markSelected(this);
         $("#editDiv").show();
-        $("#editDiv :input").prop("disabled", false); // edit mode: enable all controls in the form
+
+        if (myProject.status === 1) {
+            $("#editDiv :input").prop("disabled", "disabled");
+        }
+
+        // edit mode: enable all controls in the form
         populateFields(this.getAttribute('data-itemId')); // fill the form fields according to the selected row
     });
 
@@ -811,7 +824,6 @@ function updateSuccess() {    // success callback function after update
 }
 
 function updateProjectSuccess() {    // success callback function after update
-
     buttonEvents();
     $("#editDiv").hide();
     swal("עודכן בהצלחה!", "הפרויקט נשמר בהצלחה", "success");
