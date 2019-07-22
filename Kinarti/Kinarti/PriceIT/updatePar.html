@@ -21,6 +21,8 @@
     <script src="editBoxes.js"></script>
     <script src="editHinges.js"></script>
     <script src="editHandles.js"></script>
+    <script src="editArchitect.js"></script>
+    <script src="editSupervisor.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="cssGeneral.css" rel="stylesheet" />
     <style>
@@ -115,7 +117,7 @@
                 </div>
             </div>
             <form id="boxForm">
-                <h1>ארגזות</h1>
+
                 <table id="boxesTable" class="display nowrap" style="width:100%">
                     <thead>
                         <tr>
@@ -263,16 +265,16 @@
         <div id="architect" class="content">
             <div class="row item">
                 <div class="form-group col-sm-12">
-                    <input type="button" value=" הוסף אדריכל חדש" class="btn btn-primary btn-lg" onclick="f4()" id="newBTN2" />
+                    <input type="button" value=" הוסף אדריכל חדש" class="btn btn-primary btn-lg"  id="newBTNArch" />
                 </div>
             </div>
             <form id="archForm">
                 <table id="archTable" class="display nowrap" style="width:100%">
                     <thead>
                         <tr>
-                            <th>#</th>
                             <th>מספר מזהה</th>
                             <th>שם פרטי</th>
+                            <th>פעולות</th>
                         </tr>
                     <thead>
                 </table>
@@ -293,8 +295,8 @@
 
                     <div class="row">
                         <div class="form-group col-sm-12">
-                            <button type="button" class="btn btn-primary btn-lg" id="saveBTN">שמירה</button>
-                            <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTN" value="ביטול" />
+                            <button type="submit" class="btn btn-primary btn-lg" id="saveBTN">שמירה</button>
+                            <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTNArch" value="ביטול" />
                         </div>
                     </div>
                 </form>
@@ -308,11 +310,11 @@
         <div id="supervisor" class="content">
             <div class="row item">
                 <div class="form-group col-sm-12">
-                    <input type="button" value=" הוסף מפקח חדש" class="btn btn-primary btn-lg" onclick="f5()" id="newBTN2" />
+                    <input type="button" value=" הוסף מפקח חדש" class="btn btn-primary btn-lg" id="newBTNSup" />
                 </div>
             </div>
             <form id="supForm" style="direction:rtl">
-                <table id="suphTable" class="display nowrap" style="width:100%">
+                <table id="supTable" class="display nowrap" style="width:100%">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -344,8 +346,8 @@
 
                     <div class="row">
                         <div class="form-group col-sm-12">
-                            <button type="button" class="btn btn-primary btn-lg" id="saveBTN">שמירה</button>
-                            <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTN" value="ביטול" />
+                            <button type="submit" class="btn btn-primary btn-lg" id="saveBTN">שמירה</button>
+                            <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTNSup" value="ביטול" />
                         </div>
                     </div>
                 </form>
