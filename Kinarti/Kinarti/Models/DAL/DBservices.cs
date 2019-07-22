@@ -70,53 +70,14 @@ public class DBservices
         String command;
         StringBuilder sbMaterial = new StringBuilder();
         // use a string builder to create the dynamic string
-        sbMaterial.AppendFormat("Values('{0}', {1}, {2}, {3})",
-            material.Name, material.Type, material.Cost, material.Coefficient);
-        String prefix = "INSERT INTO materialTbl " + "(name, type, cost, coefficient) ";
+        sbMaterial.AppendFormat("Values('{0}', {1}, {2}, {3},{4}, {5})",
+        material.Name, 1 , material.Cost, material.Coefficient, material.WorkCost, 1);
+        String prefix = "INSERT INTO materialTbl " + "(name, type, cost, coefficient, workCost, Active) ";
         command = prefix + sbMaterial.ToString() + ";" + "SELECT CAST(scope_identity() AS int)";
         return command;
     }  
+    //---------------------------------------------------------------------------------
 
-    //---------------------------------------------------------------------------------
-    // Read from the DB into a list - dataReader
-    //---------------------------------------------------------------------------------
-    public List<Material> getMaterials(string conString, string tableName)
-    {
-        //SqlConnection con = null;
-        List<Material> lm = new List<Material>();
-        try {
-            this.con = connect(conString); // create a connection to the database using the connection String defined in the web config file
-            String selectSTR = "SELECT * FROM " + tableName;
-            SqlCommand cmd = new SqlCommand(selectSTR, this.con);
-            // get a reader
-            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
-            while (dr.Read()) {   // Read till the end of the data into a row
-                Material m = new Material();
-                m.ID = Convert.ToInt32(dr["id"]);
-                m.Name = Convert.ToString(dr["name"]);
-                m.Type = Convert.ToString(dr["type"]);
-                m.Cost = Convert.ToInt32(dr["cost"]);
-                m.Coefficient = Convert.ToInt32 (dr["coefficient"]);
-               // m.WorkCost = Convert.ToInt32(dr["workCost"]);
-                //this function will return list of hobbies indexes
-                //p.Hobbies = getHobbiesForPerson("TinderConnectionString", "HobbiesForUsers", p.ID);
-                lm.Add(m);
-            }
-            return lm;
-        }
-        catch (Exception ex) {
-            throw (ex); // write to log
-        }
-        finally {
-            if (this.con != null) {
-                this.con.Close();
-            }
-        }
-    }
-
-    //---------------------------------------------------------------------------------
-    // Read from the DB into a list - dataReader
-    //---------------------------------------------------------------------------------
     public List<Material> getMaterials2(string conString, string tableName)
     {
         //SqlConnection con = null;
@@ -132,11 +93,16 @@ public class DBservices
                 Material m = new Material();
                 m.ID = Convert.ToInt32(dr["id"]);
                 m.Name = Convert.ToString(dr["name"]);
-                m.Type = Convert.ToString(dr["type"]);
-            //    m.Cost = Convert.ToInt32(dr["cost"]);
-                m.Coefficient = Convert.ToInt32(dr["coefficient"]);
-            //    m.WorkCost = Convert.ToInt32(dr["workCost"]);
-                lm.Add(m);
+                m.Type = "ארגזת";
+                m.Cost = Convert.ToInt32(dr["cost"]);
+                m.Coefficient = Convert.ToSingle(dr["coefficient"]);
+                m.WorkCost = Convert.ToInt32(dr["workCost"]);
+                m.Active = Convert.ToInt16(dr["Active"]);
+                if(m.Active == 1)
+                {
+                    lm.Add(m);
+
+                }
             }
             return lm;
         }
@@ -575,7 +541,7 @@ public class DBservices
     }
 
     //upload Architect from DB
-    public List<Architect> Read2(string conString2, string tableName2)
+    public List<Architect> getArchitect(string conString2, string tableName2)
     {
         //SqlConnection con = null;
         List<Architect> lc = new List<Architect>();
@@ -594,7 +560,11 @@ public class DBservices
                 Architect a = new Architect();
                 a.arc_id = Convert.ToInt32(dr["arc_id"]);
                 a.arc_name = (string)dr["arc_name"];
-                lc.Add(a);
+                a.Active = Convert.ToInt16(dr["Active"]);
+                if(a.Active== 1)
+                {
+                    lc.Add(a);
+                }
             }
             return lc;
         }
@@ -615,7 +585,7 @@ public class DBservices
     }
 
     //Upload Supervisor from DB
-    public List<Supervisor> Read(string conString, string tableName)
+    public List<Supervisor> GetSupervisor(string conString, string tableName)
     {
         //SqlConnection con = null;
         List<Supervisor> lc = new List<Supervisor>();
@@ -634,7 +604,12 @@ public class DBservices
                 s.sup_id = Convert.ToInt32(dr["sup_id"]);
                 s.sup_name = (string)dr["sup_name"];
                 s.sup_phone = (string)dr["sup_phone"];
-                lc.Add(s);
+                s.Active = Convert.ToInt16(dr["Active"]);
+                if(s.Active == 1)
+                {
+                    lc.Add(s);
+
+                }
             }
             return lc;
         }
@@ -1255,6 +1230,105 @@ public class DBservices
         return command;
     }
 
+    public int insertArch(Architect Architect)//inserting new item
+    {
+        SqlCommand cmd;
+        try
+        {
+            this.con = connect("PriceITConnectionString"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        String cStr = BuildInsertArchCommand(Architect);      // helper method to build the insert string
+        cmd = CreateCommand(cStr, this.con);             // create the command
+        try
+        {
+            int numEffected = cmd.ExecuteNonQuery(); // execute the command
+            return numEffected;
+        }
+        catch (Exception ex)
+        {
+            return 0;
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (this.con != null)
+            {
+                // close the db connection
+                this.con.Close();
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------
+    // Build the Insert command String
+    //--------------------------------------------------------------------
+    private String BuildInsertArchCommand(Architect Architect)
+    {
+        String command;
+
+        StringBuilder sb = new StringBuilder();
+        // use a string builder to create the dynamic string
+        sb.AppendFormat("Values({0},'{1}', {2})", Architect.arc_id, Architect.arc_name, 1);
+        String prefix = "INSERT INTO architect" + "(arc_id, arc_name, Active)";
+        command = prefix + sb.ToString();
+        return command;
+    }
+
+    public int insertSup(Supervisor sup)//inserting new item
+    {
+        SqlCommand cmd;
+        try
+        {
+            this.con = connect("PriceITConnectionString"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        String cStr = BuildInsertSupCommand(sup);      // helper method to build the insert string
+        cmd = CreateCommand(cStr, this.con);             // create the command
+        try
+        {
+            int numEffected = cmd.ExecuteNonQuery(); // execute the command
+            return numEffected;
+        }
+        catch (Exception ex)
+        {
+            return 0;
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (this.con != null)
+            {
+                // close the db connection
+                this.con.Close();
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------
+    // Build the Insert command String
+    //--------------------------------------------------------------------
+    private String BuildInsertSupCommand(Supervisor sup)
+    {
+        String command;
+
+        StringBuilder sb = new StringBuilder();
+        // use a string builder to create the dynamic string
+        sb.AppendFormat("Values({0},'{1}', '{2}', {3})", sup.sup_id, sup.sup_name, sup.sup_phone, 1);
+        String prefix = "INSERT INTO supervisor" + "(sup_id, sup_name, sup_phone , Active)";
+        command = prefix + sb.ToString();
+        return command;
+    }
 
     public int insertFacadeMaterial(FacadeMaterial facadeMaterial)//inserting new item
     {
@@ -1530,7 +1604,7 @@ public class DBservices
     private string BuildUpdateMaterialCommand(Material p, int id)
     {
         //String command;
-        string prefix = "UPDATE materialTbl SET name = '" + p.Name + "', cost = '" + p.Cost + "', type = '" + p.Type + "',coefficient = '" + p.Coefficient + " WHERE id=" + id;
+        string prefix = "UPDATE materialTbl SET name = '" + p.Name + "', cost = '" + p.Cost + "', type = '" + p.Type + "',coefficient = '" + p.Coefficient + "' ,workCost = '" + p.WorkCost + "' WHERE id=" + id;
 
         return prefix;
     }
@@ -2056,6 +2130,83 @@ public class DBservices
         return cmdStr;
     }
 
+    public int deleteArc(int arcID)
+    {
+        //SqlConnection con;
+        SqlCommand cmd;
+        try
+        {
+            this.con = connect("PriceITConnectionString"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            throw (ex);// write to log
+        }
+        String cStr = BuildDeleteArc(arcID);      // helper method to build the insert string
+        cmd = CreateCommand(cStr, this.con);             // create the command
+        try
+        {
+            int numAffected = cmd.ExecuteNonQuery(); // execute the comm
+            return numAffected;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (this.con != null)
+            {
+                this.con.Close();// close the db connection
+            }
+        }
+
+    }
+    private string BuildDeleteArc(int arcID)
+    {
+        string cmdStr = "UPDATE architect SET Active='" + 0 + "' WHERE arc_id='" + arcID + "'";
+        return cmdStr;
+    }
+
+    public int deleteSup(int supID)
+    {
+        //SqlConnection con;
+        SqlCommand cmd;
+        try
+        {
+            this.con = connect("PriceITConnectionString"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            throw (ex);// write to log
+        }
+        String cStr = BuildDeleteSup(supID);      // helper method to build the insert string
+        cmd = CreateCommand(cStr, this.con);             // create the command
+        try
+        {
+            int numAffected = cmd.ExecuteNonQuery(); // execute the comm
+            return numAffected;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (this.con != null)
+            {
+                this.con.Close();// close the db connection
+            }
+        }
+
+    }
+    private string BuildDeleteSup(int supID)
+    {
+        string cmdStr = "UPDATE supervisor SET Active='" + 0 + "' WHERE sup_id='" + supID + "'";
+        return cmdStr;
+    }
 
     public int deleteMaterial(int materialID)
     {
@@ -2088,7 +2239,7 @@ public class DBservices
     }
     private string BuildDeleteMaterial(int materialID)
     {
-        string cmdStr = "DELETE FROM materialTbl  WHERE id='" + materialID + "'";
+        string cmdStr = "UPDATE materialTbl SET Active='" + 0 + "' WHERE id='" + materialID + "'";
         return cmdStr;
     }
 

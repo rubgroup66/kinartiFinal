@@ -1,49 +1,41 @@
-﻿var myHandles, handlesCost;
+﻿var  myArch;
 
 $(document).ready(function () {
-    ajaxCall("GET", "../api/handles", "", successGetHandlesEdit, error);
-    $("#editHingesForm").hide();
-    $("#editHandlesForm").hide();
-    $("#editHandlesForm").submit(addHandle);
+    ajaxCall("GET", "../api/architect", "", successGetArchEdit, error);
+    $("#editArchForm").hide();
+    $("#editSupForm").hide();
+    $("#editArchForm").submit(addArch);
     mode = "";
     handleMode = "new";
 
-    buttonEventsHd();
+    buttonEventsA();
 
 
 });
 
-function buttonEventsHd() {
+function buttonEventsA() {
 
-    $("#newBTN3").on("click", function () {
+    $("#newBTNArch").on("click", function () {
         handleMode = "new";
-        f4();
+        f5();
 
     });
 
-    $("#cancelSaveBTNHandles").on("click", function () {
+    $("#cancelSaveBTNArch").on("click", function () {
         box = null;
         mode = "new";
         if (mode == "new") {
-            $("#editHandlesForm").hide();
-            $("#HandlesForm").show();
+            $("#editArchForm").hide();
+            $("#archForm").show();
             mode = "";
         }
         mode = "";
     });
 
-    $(document).on("click", ".editBtnHandle", function () {
-        handleMode = "edit";
-        markSelectedHandles(this);
-        $("#editHandlesForm").show();
-        $("#editHandlesForm :input").prop("disabled", false); // edit mode: enable all controls in the form
-        populateFieldsHandles(this.getAttribute('data-handleId'));
-    });
-
-    $(document).on("click", ".deleteBtnHandle", function () {
+    $(document).on("click", ".deleteBtnArch", function () {
         mode = "delete";
-        markSelectedHandles(this);
-        var handleId = this.getAttribute('data-handleId');
+        markSelected(this);
+        var arcId = this.getAttribute('data-archId');
         swal({ // this will open a dialouge 
             title: "האם אתה בטוח ?",
             text: "",
@@ -52,40 +44,37 @@ function buttonEventsHd() {
             dangerMode: true
         })
             .then(function (willDelete) {
-                if (willDelete) DeleteHandle(handleId);
+                if (willDelete) DeleteArc(arcId);
                 else swal("הפריט לא נמחק");
             });
     });
 
 
 }
-function DeleteHandle(id) {      // Delete a item from the server
-    ajaxCall("DELETE", "../api/handles/?Id=" + id, "", deleteHandleSuccess, error);
+function DeleteArc(id) {      // Delete a item from the server
+    ajaxCall("DELETE", "../api/architect/?Id=" + id, "", deleteArcSuccess, error);
 }
 
-function successGetHandlesEdit(handledata) {// this function is activated in case of a success
-    console.log(handledata);
-    myHandles = handledata;
+function successGetArchEdit(archdata) {// this function is activated in case of a success
+    console.log(archdata);
+    myArch = archdata;
     try {
-        tbl = $('#handlesTable').DataTable({
-            data: handledata,
+        tbl = $('#archTable').DataTable({
+            data: archdata,
             pageLength: 5,
             columns: [
-                { data: "ID" },
-                { data: "Type" },
-                { data: "Cost" },
+                { data: "arc_id" },
+                { data: "arc_name" },
                 {
                     render: function (data, type, row, meta) {
-                        let dataHandle = "data-handleId='" + row.ID + "'";
-                        editBtnHandle = "<button type='button' class = 'editBtnHandle btn btn-success' " + dataHandle + "> עריכה </button>";
-                        //viewBtn = "<button type='button' class = 'viewBtn btn btn-info' " + dataHandle + "> צפייה </button>";
-                        deleteBtnHandle = "<button type='button' class = 'deleteBtnHandle btn btn-danger' " + dataHandle + "> מחיקה </button>";
-                        return editBtnHandle + deleteBtnHandle;
+                        let dataArch = "data-archId='" + row.arc_id + "'";
+                        deleteBtnArch = "<button type='button' class = 'deleteBtnArch btn btn-danger' " + dataArch + "> מחיקה </button>";
+                        return  deleteBtnArch;
                     }
                 }
             ],
         });
-        buttonEventsHd();
+        buttonEventsA();
     }
     catch (err) {
         alert(err);
@@ -93,52 +82,50 @@ function successGetHandlesEdit(handledata) {// this function is activated in cas
 }
 
 
-function f4() {
-    $("#HandlesForm").hide();
-    $("#editHandlesForm").show();
+function f5() {
+    $("#archForm").hide();
+    $("#editArchForm").show();
     clearFields();
     return false;
 }
 
-function addHandle() {
-    if (handleMode === "edit") {
-        Id = handle.ID;
-    }
+function addArch() {
 
-    let handletoSave = {
-        //ID: hinge.ID,
-        Type: $("#handleName").val(),
-        Cost: $("#handleCost").val()
+    let ArchData = {
+        arc_id: $("#archID").val(),
+        arc_name: $("#archName").val()
     };
-
-    if (handleMode === "edit")
-        ajaxCall("PUT", "../api/handles/?Id=" + Id, JSON.stringify(handletoSave), updateHandlesSuccess, error);
-
-    else if ((handleMode === "new") || (handleMode === "duplicate")) // add a new item record to the server
-        ajaxCall("POST", "../api/handles", JSON.stringify(handletoSave), insertHandlesSuccess, error);
+    ajaxCall("POST", "../api/architect", JSON.stringify(ArchData), insertArchSuccess, errorPostArch);
     return false;
 }
 
+function errorPostArch() {
+    alert("שגיאה בשמירת אדריכל");
+}
 function clearFields() {
     $("#handleName").val("");
     $("#handleCost").val("");
 
 }
 
-function insertHandlesSuccess() {  // success callback function after adding new item
-    uri = "../api/handles";
-    ajaxCall("GET", uri, "", populateTableWithUpdatedDataHd, errorGetUpdatedH);
-    buttonEventsHd();
-    $("#handlesEditDiv").hide();
+function insertArchSuccess() {  // success callback function after adding new item
+    uri = "../api/architect";
+    ajaxCall("GET", uri, "", populateTableWithUpdatedDataAr, errorGetUpdateAr);
+    buttonEventsA();
+    $("#archEditDiv").hide();
     swal("נוסף בהצלחה!", "הפעולה בוצעה", "success");
     mode = "";
-    $("#HandlesForm").show();
+    $("#archForm").show();
 }
-function deleteHandleSuccess(itemsdata) {
-    uri = "../api/handles";
-    ajaxCall("GET", uri, "", populateTableWithUpdatedDataHd, error); //get all relevant project's items from DB 
-    buttonEventsHd(); // after redrawing the table, we must wire the new buttons
-    $("#handlesEditDiv").hide();
+
+function errorGetUpdateAr() {
+    alert("שגיאה בשליפת אדריכלים");
+}
+function deleteArcSuccess(itemsdata) {
+    uri = "../api/architect";
+    ajaxCall("GET", uri, "", populateTableWithUpdatedDataAr, error); //get all relevant project's items from DB 
+    buttonEventsAr(); // after redrawing the table, we must wire the new buttons
+    $("#archEditDiv").hide();
     swal("נמחק בהצלחה!", "הפעולה בוצעה", "success");
     mode = "";
 }
@@ -153,19 +140,20 @@ function updateHandlesSuccess() {    // success callback function after update
     mode = "";
 }
 
-function populateTableWithUpdatedDataHd(handles) {
-    var dataTable = $('#handlesTable').DataTable();
+function populateTableWithUpdatedDataAr(arc) {
+    var dataTable = $('#archTable').DataTable();
     dataTable.destroy();
     dataTable.clear();
-    successGetHandlesEdit(handles);
+    successGetArchEdit(arc);
 }
-function errorGetUpdatedH() {
-    alert("error");
+function errorGetUpdatedAr() {
+    alert("שגיאה בטעינת אדריכלים");
 }
 
-function populateFieldsHandles(handleId) {    // fill the form fields
-    handleMode = "edit";
+function populateFields(handleId) {    // fill the form fields
+    //debugger;
     handle = getHandle(handleId);
+    console.log(handle);
     $("#handleName").val(handle.Type);
     $("#handleCost").val(handle.Cost);
     mode = "edit";
@@ -239,7 +227,7 @@ function ShowInfo() {
 }
 
 
-function markSelectedHandles(btn) {  // mark the selected row
+function markSelected(btn) {  // mark the selected row
     $("#handlesTable tr").removeClass("selected"); // remove seleced class from rows that were selected before
     row = (btn.parentNode).parentNode; // button is in TD which is in Row
     row.className = 'selected'; // mark as selected

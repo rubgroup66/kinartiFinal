@@ -16,14 +16,18 @@ namespace kinarti.Models
         public string Type { get; set; }
         public int Cost { get; set; }
         public float Coefficient { get; set; }
+        public int WorkCost { get; set; }
+        public int Active { get; set; }
 
-        public Material(int _id, string _name, string _type, int _cost, float _coefficient)
+        public Material(int _id, string _name, string _type, int _cost, float _coefficient, int _WorkCost, int _Active)
         {
             ID = _id;
             Name = _name;
             Type = _type;
             Cost = _cost;
             Coefficient = _coefficient;
+            WorkCost = _WorkCost;
+            Active = _Active;
         }
         public Material()
         {

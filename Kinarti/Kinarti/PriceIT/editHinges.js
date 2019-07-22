@@ -45,15 +45,15 @@ function buttonEventsH() {
 
     $(document).on("click", ".editBtnHinges", function () {
         hingeMode = "edit";
-        markSelected(this);
+        markSelectedHinge(this);
         $("#editHingesForm").show();
         $("#editHingesForm :input").prop("disabled", false); // edit mode: enable all controls in the form
-        populateFields(this.getAttribute('data-hingeId'));
+        populateFieldsHinge(this.getAttribute('data-hingeId'));
     });
 
     $(document).on("click", ".deleteBtnHinge", function () {
         mode = "delete";
-        markSelected(this);
+        markSelectedHinge(this);
         var hingeId = this.getAttribute('data-hingeId');
         swal({ // this will open a dialouge 
             title: "האם אתה בטוח ?",
@@ -176,14 +176,12 @@ function errorGetUpdatedH() {
     alert("error");
 }
 
-function populateFields(hingeId) {    // fill the form fields
-    //debugger;
+function populateFieldsHinge(hingeId) {
+    hingeMode = "edit";
     hinge = getHinge(hingeId);
-    console.log(hinge);
-    //$("#image").attr("src", "images/" + item.Image);
     $("#hingeName").val(hinge.Type);
     $("#hingeCost").val(hinge.Cost);
-    mode = "edit";
+
 
 }
 
@@ -254,7 +252,7 @@ function ShowInfo() {
 }
 
 
-function markSelected(btn) {  // mark the selected row
+function markSelectedHinge(btn) {  // mark the selected row
     $("#hingesTable tr").removeClass("selected"); // remove seleced class from rows that were selected before
     row = (btn.parentNode).parentNode; // button is in TD which is in Row
     row.className = 'selected'; // mark as selected

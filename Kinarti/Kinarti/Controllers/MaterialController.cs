@@ -22,6 +22,7 @@ namespace kinarti.Controllers
         [System.Web.Http.HttpGet]
         [Route("api/materials")]
         public IEnumerable<Material> GetMaterial()
+
         {
             Material material = new Material();
             List<Material> lm = material.getMaterials();

@@ -1,77 +1,127 @@
-﻿var myBoxes;
-var myMaterials;
-var myFacades;
-var myHandles, handlesCost;
+﻿var myMaterials;
 var materialsCost1, materialsCost2;
-//var constants;
-//var params;
-//var height, width, depth;
 var myIronWorks, ironWorksCost1, ironWorksCost2;
-//var numberOfDistancedInternalDrawer = 1;
-//var facadeColorWorkCoefficient, facadeFRNWorkCoefficient;
-//var woodBoxDrawerWorkCost;
-//var isColor = 1;
-//var projectID;
-
-//var boxWorkCost;
-//var isDistanced = 0;
-
-//var plateWorkCostForSquareMeter;
-//var plateSquareMeter;
-//var drawerCoefficientCost;
-//var materialWoodDrawersCoefficient;
-//var myFacadeMaterials;
-
-//var extraCostForItem;
-//var myItems;
-var myExrtaWallTypeID;
-//var TC;
-//var totalCost;
 
 $(document).ready(function () {
 
-    //ajaxCall("GET", "../api/materials", "", successGetMaterialsEdit, error);
-    ajaxCall("GET", "../api/materials", "", successGetMaterialsEdit, error); //get all materials from DB
-    //ajaxCall("GET", "../api/facades", "", successGetFacadesEdit, error);
-    //ajaxCall("GET", "../api/boxes", "", successGetBoxesEdit, error);
-    //ajaxCall("GET", "../api/handles", "", successGetHandlesEdit, error);
-    //ajaxCall("GET", "../api/constants", "", successGetConstantsEdit, error);
-    //ajaxCall("GET", "../api/ironWorks", "", successGetIronWorksEdit, error);
-    //ajaxCall("GET", "../api/facadeMaterials", "", successGetFacadeMaterialsEdit, error);
-
-    mode = "";
-
-    $("#cancelSaveBTN").on("click", function () {
-        item = null;
-        $("#materialsEditDiv").hide();
-        if (mode === "new") $("#pForm").show();
-        mode = "";
-    });
-
-    $("#newBTN").on("click", function () {
-        item = null;
-        mode = "new";
-        $("#pForm").hide();
-        $("#materialsEditDiv").show();
-        clearFields();
-        $("#materialsEditDiv :input").prop("disabled", false); // new mode: enable all controls in the form
-    });
-
-    $("#saveBTN").on("click", function () {
-        onSubmitFunc();
-    });
-
-    $("#materialsEditDiv").hide();
-
-    $('input[type=radio][name=status]').change(function () {
-        var radioValue = $("input[name='status']:checked").val();
-        var isActive = radioValue == 'inProgress' ? 0 : 1; // replace with true value
-
-        ajaxCall("PUT", "../api/projects/?isActive=" + isActive + "&ProjectID=" + projectID, "", updateStatusSuccess, error);
-    });
+    ajaxCall("GET", "../api/materials", "", successGetMaterialsEdit, error);
+    $("#editMatForm").hide();
+    matMode = "new";
+    $("#editMatForm").submit(addMaterial);
+    buttonEvents();
 
 });
 
+
+function buttonEventsM() {
+    $("#cancelSaveBTNMat").on("click", function () {
+        item = null;
+        $("#editMatForm").hide();
+        if (mode === "new") $("#matForm").show();
+        mode = "";
+    });
+
+    $("#newBTNMat").on("click", function () {
+        item = null;
+        mode = "new";
+        $("#matForm").hide();
+        $("#editMatForm").show();
+        clearFields();
+        $("#matEditDiv :input").prop("disabled", false); // new mode: enable all controls in the form
+    });
+
+    $(document).on("click", ".editBtnMat", function () {
+        matMode = "edit";
+        markSelectedMat(this);
+        $("#editMatForm").show();
+        $("#editMatForm :input").prop("disabled", false); // edit mode: enable all controls in the form
+        populateFields(this.getAttribute('data-materialId'));
+    });
+
+    $(document).on("click", ".deleteBtnMat", function () {
+        mode = "delete";
+        markSelectedMat(this);
+        var matId = this.getAttribute('data-materialId');
+        swal({ // this will open a dialouge 
+            title: "האם אתה בטוח ?",
+            text: "",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true
+        })
+            .then(function (willDelete) {
+                if (willDelete) DeleteMaterial(matId);
+                else swal("הפריט לא נמחק");
+            });
+    });
+
+}
+
+function DeleteMaterial(id) {      // Delete a item from the server
+    ajaxCall("DELETE", "../api/materials/?Id=" + id, "", deleteSuccessMat, errorDelMat);
+}
+
+function errorDelMat() {
+    alert("שדיאה במחיקת חומר גלם")
+}
+function deleteSuccessMat(itemsdata) {
+
+    uri = "../api/materials";
+    ajaxCall("GET", uri, "", populateTableWithUpdatedDataMat, error); //get all relevant project's items from DB 
+    buttonEventsM(); // after redrawing the table, we must wire the new buttons
+    $("#matEditDiv").hide();
+    swal("נמחק בהצלחה!", "הפעולה בוצעה", "success");
+    mode = "";
+
+}
+
+function addMaterial() {
+
+    if (matMode === "edit") {
+        Id = material.ID;
+    }
+
+    let materialtoSave = {
+
+        Name: $("#mat").val(),
+        Cost: $("#Cost").val(),
+        Coefficient: $("#coef").val(),
+        WorkCost: $("#wCost").val()
+
+    };
+
+    if (matMode === "edit")
+        ajaxCall("PUT", "../api/materials/?Id=" + Id, JSON.stringify(materialtoSave), updateSuccessMat, error);
+
+    else if ((mode === "new") || (mode === "duplicate")) // add a new item record to the server
+        ajaxCall("POST", "../api/materials", JSON.stringify(materialtoSave), insertSuccessMat, error);
+
+    return false;
+}
+
+//function addMaterial() {
+//    alert(matMode);
+//    console.log(matMode);
+//    if (matMode === "edit") {
+//        Id = material.ID;
+//    }
+    
+//    let mattoSave = {
+//        Name: $("#mat").val(),
+//        Type: $("#type").val(),
+//        Cost: $("#Cost").val(),
+//        Coefficient: $("#coef").val(),
+//        WorkCost: $("#wCost").val()
+//    };
+
+//    if (matMode === "edit")
+//        ajaxCall("PUT", "../api/materials/?Id=" + Id, JSON.stringify(mattoSave), updateSuccessMat, error);
+
+//    else if ((matMode === "new") || (matMode === "duplicate")) // add a new item record to the server
+//        ajaxCall("POST", "../api/materials", JSON.stringify(mattoSave), insertSuccessMat, error);
+//    console.log(matMode);
+//    return false;
+//}
 function updateStatusSuccess() {
     swal("עודכן בהצלחה!", "סטטוס הפרויקט עודכן", "success");
 }
@@ -114,28 +164,28 @@ function successGetMaterialsEdit(materialsdata) {// this function is activated i
     console.log(materialsdata);
     myMaterials = materialsdata;
     try {
-        tbl = $('#materialsTable').DataTable({
+        tbl = $('#matTable').DataTable({
             data: materialsdata,
             pageLength: 5,
             columns: [
                 { data: "ID" },
                 { data: "Name" },
                 { data: "Type" },
-                { data: "Cost" },
                 { data: "Coefficient" },
+                { data: "WorkCost" },
+                { data: "Cost" },
+
                 {
                     render: function (data, type, row, meta) {
                         let dataMaterial = "data-materialId='" + row.ID + "'";
-                        editBtn = "<button type='button' class = 'editBtn btn btn-success' " + dataMaterial + "> עריכה </button>";
-                        viewBtn = "<button type='button' class = 'viewBtn btn btn-info' " + dataMaterial + "> צפייה </button>";
-                        //duplicateBtn = "<button type='button' class = 'duplicateBtn btn btn-info' " + dataMaterial + "> שכפול + </button>";
-                        deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataMaterial + "> מחיקה </button>";
-                        return editBtn + /*viewBtn +*/  deleteBtn;
+                        editBtnMat = "<button type='button' class = 'editBtnMat btn btn-success' " + dataMaterial + "> עריכה </button>";
+                        deleteBtnMat = "<button type='button' class = 'deleteBtnMat btn btn-danger' " + dataMaterial + "> מחיקה </button>";
+                        return editBtnMat + deleteBtnMat;
                     }
                 }
             ],
         });
-        buttonEvents();
+        buttonEventsM();
     }
     catch (err) {
         alert(err);
@@ -160,188 +210,31 @@ function successGetFacadeMaterials(facadeMaterialsdata) {// this function is act
 }
 // עצרתי בטעינת הצצבעים של החזיתות (גמר + קיר נוסף)
 
-
-function successGetConstants(constantsdata) {// this function is activated in case of a success
-    constants = constantsdata;
-    console.log(constants);
-    //constants = (JSON.stringify(constantsdata));
-}
-
-function f2() {
-   // addItem();
-    return false; // the return false will prevent the form from being submitted, hence the page will not reload
-}
-
-//// this should be used when the active value is changed
-function buttonEvents() {
-    $(document).on("click", ".isDistanced", function () {
-        isDistanced = $(this).is(':checked') ? 1 : 0; // replace with true valueFacadeMaterial
-        console.log("change made");
-    });  
-
-    $(document).on("click", ".editBtn", function () {
-        mode = "edit";
-        markSelected(this);
-        $("#materialsEditDiv").show();
-        $("#materialsEditDiv :input").prop("disabled", false); // edit mode: enable all controls in the form
-        populateFields(this.getAttribute('data-materialId')); // fill the form fields according to the selected row
-    });
-
-    ///////////duplicating
-    $(document).on("click", ".duplicateBtn", function () {
-        mode = "duplicate";
-        markSelected(this);
-        $("#materialsEditditDiv").show();
-        $("#materialsEditditDiv :input").prop("disabled", false); // edit mode: enable all controls in the form
-        populateFields(this.getAttribute('data-itemId')); // fill the form fields according to the selected row
-    });
-
-    $(document).on("click", ".viewBtn", function () {
-        mode = "view";
-        markSelected(this);
-        $("#materialsEditDiv").show();
-        row.className = 'selected';
-        $("#materialsEditDiv :input").attr("disabled", "disabled"); // view mode: disable all controls in the form
-        populateFields(this.getAttribute('data-itemId'));
-    });
-
-    $(document).on("click", ".deleteBtn", function () {
-        mode = "delete";
-        markSelected(this);
-        var materialId = this.getAttribute('data-materialId');
-        swal({ // this will open a dialouge 
-            title: "האם אתה בטוח ?",
-            text: "",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true
-        })
-            .then(function (willDelete) {
-                if (willDelete) DeleteMaterial(materialId);
-                else swal("הפריט לא נמחק");
-            });
-    });
-
-    $("#finish").on("click", function () {
-        onSubmitFunc2();
-    });
-
-
-
-}
-
-
-
 function error(err) { // this function is activated in case of a failure
     swal("Error: " + err);
 }
 
-function ShowInfo() {
-    $("#info").show();
-}
-
-//$("#pForm").submit(onSubmitFunc); 
-
-function markSelected(btn) {  // mark the selected row
-    $("#materialsTable tr").removeClass("selected"); // remove seleced class from rows that were selected before
+function markSelectedMat(btn) {  // mark the selected row
+    $("#matTable tr").removeClass("selected"); // remove seleced class from rows that were selected before
     row = (btn.parentNode).parentNode; // button is in TD which is in Row
     row.className = 'selected'; // mark as selected
 }
 
-
-function DeleteMaterial(id) {      // Delete a item from the server
-    ajaxCall("DELETE", "../api/materials/?Id=" + id, "", deleteSuccess, error);
-}
-
-function saveProject(id) {      // Delete a item from the server
-    ajaxCall("PUT", "../api/materials/?Id=" + projectID, JSON.stringify(materialtoSave), saveMaterialSuccess, error);
-}
-
-function onSubmitFunc() {
-    var Id = -1;
-    //var Image = "car.jpg"; // no image at this point
-    if (mode === "edit") {
-        Id = material.ID;
-        //Image = car.Image; // no image at this point
-    }
-
-    let materialtoSave = {
-        //ID: material.ID,
-        Name: $("#materialName").val(), 
-        Cost: $("#materialCost").val(),
-        Coefficient: $("#materialCoefficient").val(),
-        Type: 1,
-       
-    };
-
-    if (mode === "edit")
-        ajaxCall("PUT", "../api/materials/?Id=" + Id, JSON.stringify(materialtoSave), updateSuccess, error);
-   
-    else if ((mode === "new") || (mode === "duplicate")) // add a new item record to the server
-        ajaxCall("POST", "../api/materials", JSON.stringify(materialtoSave), insertSuccess, error);
-
-    return false;
-}
-
-function onSubmitFunc2() {
-   
-    let projecttoSave = {
-        ID: getParameterByName("projectId"),
-        project_name: $("#projectName").val(), 
-        description: $("#projectDescription").val(),
-        create_date: $("#createDate").val(), 
-        //status: $("#status").val(),       
-       
-        architect: $("#projectArchitect").val(),
-        supervisor: $("#projectSupervisor").val(),
-        cost: $("#projectCost").val()
-        //customer_id: $("#itemName").val()
-
-    };
-    ajaxCall("PUT", "../api/projects/?Id=" + projectID, JSON.stringify(projecttoSave), updateProjectSuccess, error);
-
-    return false;
-}
-
-function populateFields(materialId) {    // fill the form fields
-    //debugger;
-    material = getMaterial(materialId);
-    console.log(material);
-    //$("#image").attr("src", "images/" + item.Image);
-    $("#materialName").val(material.Type);
-   
-    $("#materialCost").val(material.Cost);
-
+function populateFields(materialId) {
+    matMode = "edit";
+    material = getMaterial(materialId);;
+    $("#mat").val(material.Name);
+    $("#coef").val(material.Coefficient);
+    $("#wCost").val(material.WorkCost);
+    $("#Cost").val(material.Cost);
 }
     // fill the form fields
     function clearFields() {
-        //$("#itemCost").val(item.Cost);
-        $("#itemName").val("פריט כללי");
-        //$("#boxMaterial").val("");
-        //$("#boxMeasures").val("");
-        $("#partitions").val(0),
-            $("#shelves").val(0);
-        //$("#isDistanced").is(':checked') ? 1 : 0,
-        $("#boxWoodDrawers").val(0);
-        $("#internalLegraBoxDrawers").val(0);
-        $("#externalLegraBoxDrawers").val(0);
-        $("#internalScalaBoxDrawers").val(0);
-        $("#externalScalaBoxDrawers").val(0);
-        // $("#facadeMaterialType").val(0);
-        //$("#facade").val(itemsdata[i].FacadeID);
-        $("#materialsQuantity1").val(0);
-        //$("#materialsType1").val(0);
-        $("#materialsQuantity2").val(0);
-        //$("#materialsType1").val(itemsdata[i].MaterialsType1);
-        $("#extraWallQuantity").val(0);
-        //$("#extraWallType").val(itemsdata[i].ExtraWallTypeID);
-        $("#handlesQuantity").val(0);
-        //$("#handlesType").val(itemsdata[i].handlesType);
-        $("#ironWorksQuantity1").val(0);
-        //$("#ironWorksType1").val(itemsdata[i].ironWorksType1);
-        $("#ironWorksQuantity2").val(0);
-        //$("#ironWorksType2").val(itemsdata[i].IronWorksType2);
-        //  $("#image").attr("src", "images/item.jpg");
+        $("#wCost").val("");
+        $("#coef").val("");
+        $("#type").val("");
+        $("#mat").val("");
+        $("#Cost").val("");
     }
 
     // get item according to its Id
@@ -354,38 +247,23 @@ function getMaterial(id) {
     return null;
 }
 
-function updateSuccess() {    // success callback function after update
-   // location.reload();
-   //tbl.clear();
+function updateSuccessMat() {    // success callback function after update
     uri = "../api/materials";
-    ajaxCall("GET", uri, "", populateTableWithUpdatedData, error); //get all relevant project's items from DB 
-
-    //redrawTable(tbl, itemsdata);
-    buttonEvents();
-    $("#materialsEditDiv").hide();
+    ajaxCall("GET", uri, "", populateTableWithUpdatedDataMat, error); //get all relevant project's items from DB 
+    buttonEventsM();
+    $("#editMatForm").hide();
     swal("עודכן בהצלחה!", "הפעולה בוצעה", "success");
     mode = "";
 }
 
-function updateProjectSuccess() {    // success callback function after update
 
-    buttonEvents();
-    $("#materialsEditDiv").hide();
-    swal("עודכן בהצלחה!", "הפרויקט נשמר בהצלחה", "success");
-    mode = "";
 
-    //window.location.href = 'projectsList.html';
-}
-
-function insertSuccess(itemsdata) {  // success callback function after adding new item
-    $("#pForm").show();
-    //tbl.clear();
+function insertSuccessMat(itemsdata) {  // success callback function after adding new item
+    $("#matForm").show();
     uri = "../api/materials";
-    ajaxCall("GET", uri, "", populateTableWithUpdatedData, error); //get all relevant project's items from DB 
-
-    //redrawTable(tbl, itemsdata);
-    buttonEvents();
-    $("#materialsEditDiv").hide();
+    ajaxCall("GET", uri, "", populateTableWithUpdatedDataMat, error); //get all relevant project's items from DB 
+    buttonEventsM();
+    $("#editMatForm").hide();
     swal("נוסף בהצלחה!", "הפעולה בוצעה", "success");
     mode = "";
 }
@@ -395,17 +273,15 @@ function deleteSuccess(itemsdata) {
     //tbl.clear();
     //  redrawTable(tbl, itemsdata);
     uri = "../api/materials";
-    ajaxCall("GET", uri, "", populateTableWithUpdatedData, error); //get all relevant project's items from DB 
-
+    ajaxCall("GET", uri, "", populateTableWithUpdatedDataMat, error); //get all relevant project's items from DB 
     buttonEvents(); // after redrawing the table, we must wire the new buttons
     $("#materialsEditDiv").hide();
     swal("נמחק בהצלחה!", "הפעולה בוצעה", "success");
     mode = "";
 }
 
-function populateTableWithUpdatedData(materials) {
-    console.log("got into the new function!");
-    var dataTable = $('#materialsTable').DataTable();
+function populateTableWithUpdatedDataMat(materials) {
+    var dataTable = $('#matTable').DataTable();
     dataTable.destroy();
     dataTable.clear();
     successGetMaterialsEdit(materials);
