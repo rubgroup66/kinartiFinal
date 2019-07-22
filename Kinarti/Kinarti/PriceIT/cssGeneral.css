@@ -3,6 +3,10 @@ button {
     margin-left: 10px;
 }
 
+body {
+    background-color: powderblue;
+    font-family: Arial;
+}
 hover span {
     display: block;
 }

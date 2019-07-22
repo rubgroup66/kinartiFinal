@@ -28,6 +28,8 @@ var myExrtaWallTypeID;
 var TC;
 var totalCost;
 
+var myProject;
+
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
     name = name.replace(/[\[\]]/g, '\\$&');
@@ -75,13 +77,56 @@ $(document).ready(function () {
         mode = "";
     });
 
+
+    //<div class="form-group col-sm-12">
+    //    <button type="button" value="הוסף פריט" class="btn btn-primary btn-md addNew" id="newBTN">
+    //        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> הוספת פריט
+    //            </button>
+    //</div>
+
+    //    <div class="form-group col-sm-12">
+    //        <button type="button" value="ביטול" class="btn btn-warning btn-md" id="cancelSaveBTN">
+    //            <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> ביטול
+    //            </button>
+    //    </div>
+
     $("#newBTN").on("click", function () {
-        item = null;
-        mode = "new";
-        $("#pForm").hide();
-        $("#editDiv").show();
-        clearFields();
-        $("#editDiv :input").prop("disabled", false); // new mode: enable all controls in the form
+
+        //var showButton = '"<span class="glyphicon glyphicon-plus - sign" ></span> ביטול';
+        //var hidebutton = '"<span class="glyphicon glyphicon-plus - sign" ></span> הוספת פריט';
+
+        //$("#newBTN").text('value', '<span class="glyphicon glyphicon-plus-sign" ></span> ביטול'); 
+
+
+
+        var radioValue = $("input[name='status']:checked").val();
+        var isActive = radioValue == 'inProgress' ? 0 : 1; // replace with true value
+
+
+        //var radioValue1 = $("#inProgress").hasClass("active");
+
+
+        if (isActive == 1) {
+            swal("!לא ניתן להוסיף פריטים נוספים..", "כדי לאפשר הוספה נדרש להעביר את הפרויקט למצב 'בתהליך'", "info");
+        }
+        else {
+
+            if ($("#editDiv").is(":visible")  ) {
+                item = null;
+                $("#editDiv").hide();
+                if (mode === "new") $("#pForm").show();
+                mode = "";
+            }
+            else {
+                item = null;
+                mode = "new";
+                $("#pForm").hide();
+                $("#editDiv").show();
+                clearFields();
+                $("#editDiv :input").prop("disabled", false); // new mode: enable all controls in the form
+            }
+
+        }
     });
 
     $("#saveBTN").on("click", function () {
@@ -113,11 +158,28 @@ $(document).ready(function () {
 //}
 
 function updateStatusSuccess() {
-    swal("עודכן בהצלחה!", "סטטוס הפרויקט עודכן", "success");
+
+    var radioValue = $("input[name='status']:checked").val();
+    var isActive = radioValue == 'inProgress' ? 0 : 1; // replace with true value
+    if (isActive == 1) {
+    $("#editDiv :input").attr("disabled", "disabled"); 
+        $(".projectDetails :input").attr("disabled", "disabled"); 
+
+        swal("סטטוס הפרויקט עודכן בהצלחה!", "ניתן לצפות בפרטי הפרויקט", "success");
+
+    }
+    else {
+        $("#editDiv :input").attr("disabled", false);
+        $(".projectDetails :input").attr("disabled", false);     
+        swal("סטטוס הפרויקט עודכן בהצלחה!", "כעת ניתן להוסיף ולערוך פריטים", "success");
+    }
+
+
 }
 
 function successGetProject(projectdata) {// this function is activated in case of a success
     console.log(projectdata);
+    myProject = projectdata;
     $("#projectName").val(projectdata.project_name);
 
     $("#createDate").val(projectdata.create_date);
@@ -132,16 +194,13 @@ function successGetProject(projectdata) {// this function is activated in case o
     $("#projectArchitect").val(projectdata.architect);
     $("#projectSupervisor").val(projectdata.supervisor);
 
-    if (projectdata.status === 1) {
+    if (myProject.status === 1) {
         $("#doneBtn").addClass("active");
         $("#inProgressBtn").removeClass("active");
 
         $("#editDiv :input").attr("disabled", "disabled"); // this needs to be disabled when status = 1
-
-
-
-
-    } else {
+    }
+    else {
         $("#inProgressBtn").addClass("active");
         $("#doneBtn").removeClass("active");
     }
@@ -454,7 +513,12 @@ function buttonEvents() {
         mode = "edit";
         markSelected(this);
         $("#editDiv").show();
-        $("#editDiv :input").prop("disabled", false); // edit mode: enable all controls in the form
+
+        if (myProject.status === 1) {
+            $("#editDiv :input").prop("disabled", "disabled");
+        }
+
+        // edit mode: enable all controls in the form
         populateFields(this.getAttribute('data-itemId')); // fill the form fields according to the selected row
     });
 
@@ -795,7 +859,6 @@ function updateSuccess() {    // success callback function after update
 }
 
 function updateProjectSuccess() {    // success callback function after update
-
     buttonEvents();
     $("#editDiv").hide();
     swal("עודכן בהצלחה!", "הפרויקט נשמר בהצלחה", "success");
@@ -858,6 +921,13 @@ function successGetItems(itemsdata) {    // this function is activated in case o
     //totalCost = totalCost + itemsdata[i].Cost;
     try {
         tbl = $('#itemsTable').DataTable({
+
+            language: {
+                'search': 'חיפוש:',
+                "lengthMenu": "הצג _MENU_ רשומות",
+                "info": "מציג _START_ עד _END_ מתוך _TOTAL_ רשומות",
+                "emptyTable": "אין רשומות בטבלה. אפשר להתחיל להוסיף :)"
+            }, 
             data: itemsdata,
             pageLength: 5,
             columns: [
@@ -873,7 +943,6 @@ function successGetItems(itemsdata) {    // this function is activated in case o
                             return theRightBoxMeasures.Height + 'X' + theRightBoxMeasures.Width + 'X' + theRightBoxMeasures.Depth;
                         }
                     }
-
                 },
                 { data: "Cost" },
                 {
