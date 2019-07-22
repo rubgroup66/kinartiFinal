@@ -42,7 +42,7 @@
             <div class="row item">
 
                 <div class="form-group col-sm-3">
-                    <label for="projectCost"><span class="red-star"></span>עלות כוללת (ש"ח)</label>
+                    <label for="projectCost"><span class="red-star"></span>עלות כוללת נוכחית (ש"ח)</label>
                     <input type="number" class="form-control" id="projectCost" value="0" disabled>
                 </div>
 
@@ -53,7 +53,7 @@
 
                 <div class="form-group col-sm-3">
                     <label for="customerName"><span class="red-star"></span>שם הלקוח</label>
-                    <input type="text" class="form-control" id="customerName" placeholder="שם הלקוח">
+                    <input type="text" class="form-control" id="customerName" placeholder="שם הלקוח" disabled>
                 </div>
 
                 <div class="form-group col-sm-3">
@@ -210,7 +210,7 @@
                                 <input type="number" class="form-control" id="externalScalaBoxDrawers" placeholder="הזן כמות מגירות Scala חיצוניות" min="0" value="0" required onblur="calculateItem()">
                             </div>
                         </div>
-                        <h1>חזית</h1>
+                        <h4>חזית</h4>
                         <div class="row">
                             <div class="form-group col-sm-6">
                                 <label for="facadeMaterialType"><span class="red-star">★ </span>סוג חומר גמר</label>

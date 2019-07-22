@@ -698,8 +698,8 @@ function onSubmitFunc2() {
         //status: $("#status").val(),       
         architect: $("#projectArchitect").val(),
         supervisor: $("#projectSupervisor").val(),
-        cost: $("#projectCost").val()
-        //customer_id: $("#itemName").val()
+        cost: $(TC).val()
+
 
     };
     ajaxCall("PUT", "../api/projects/?Id=" + projectID, JSON.stringify(projecttoSave), updateProjectSuccess, error);
@@ -872,8 +872,6 @@ function insertSuccess(itemsdata) {  // success callback function after adding n
     //tbl.clear();
     uri = "../api/items/?projectID=" + projectID;
     ajaxCall("GET", uri, "", populateTableWithUpdatedData, error); //get all relevant project's items from DB 
-
-    //redrawTable(tbl, itemsdata);
     buttonEvents();
     $("#editDiv").hide();
     swal("נוסף בהצלחה!", "הפעולה בוצעה", "success");
@@ -882,8 +880,6 @@ function insertSuccess(itemsdata) {  // success callback function after adding n
 
 // success callback function after delete
 function deleteSuccess(itemsdata) {
-    //tbl.clear();
-    //  redrawTable(tbl, itemsdata);
     uri = "../api/items/?projectID=" + projectID;
     ajaxCall("GET", uri, "", populateTableWithUpdatedData, error); //get all relevant project's items from DB 
 
@@ -894,7 +890,7 @@ function deleteSuccess(itemsdata) {
 }
 
 function populateTableWithUpdatedData(items) {
-    console.log("got into the new function!");
+    //console.log("got into the new function!");
     var dataTable = $('#itemsTable').DataTable();
     dataTable.destroy();
     dataTable.clear();
@@ -974,7 +970,7 @@ function successGetItems(itemsdata) {    // this function is activated in case o
                     .reduce(function (a, b) {
                         return intVal(a) + intVal(b);
                     }, 0);
-                //TC = total; // presenting total cost above the dattable
+                TC = total; // presenting total cost above the dattable
                 //$("#projectCost").val(total);
                 console.log(total);
 
