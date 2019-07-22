@@ -217,7 +217,6 @@
     <Content Include="PriceIT\edit.html" />
     <Content Include="PriceIT\editAllParams.html" />
     <Content Include="PriceIT\editBoxes.js" />
-    <Content Include="PriceIT\old files\HtmlPage1.html" />
     <Content Include="PriceIT\updatePar.html" />
     <Content Include="PriceIT\editBoxes.html" />
     <Content Include="PriceIT\editConstants2.html" />
