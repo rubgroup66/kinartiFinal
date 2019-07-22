@@ -5,7 +5,10 @@ $(document).ready(function () {
     ajaxCall("GET", "../api/hinges", "", successGetHingesEdit, error);
     $("#editHingesForm").hide();
     $("#editHandlesForm").hide();
+    ajaxCall("GET", "../api/boxes", "", getSuccess, errorGetBoxes);
+    $("#editHingesForm").submit(addHinge);
     mode = "";
+    hingeMode = "new";
 
     buttonEventsH();
 
@@ -14,9 +17,11 @@ $(document).ready(function () {
 
 function buttonEventsH() {
 
-    //$("#saveBTN").on("click", function () {
-    //    onSubmitFunc();
-    //});
+    $("#newBTN2").on("click", function () {
+        hingeMode = "new";
+        f3();
+
+    });
 
     //$("#newBTN").on("click", function () {
     //    item = null;
@@ -48,21 +53,155 @@ function buttonEventsH() {
         }
         mode = "";
     });
+
+    $(document).on("click", ".editBtn", function () {
+        hingeMode = "edit";
+        markSelected(this);
+        $("#editHingesForm").show();
+        $("#editHingesForm :input").prop("disabled", false); // edit mode: enable all controls in the form
+        populateFields(this.getAttribute('data-hingeId'));
+    });
+
+    $(document).on("click", ".deleteBtnHinge", function () {
+        mode = "delete";
+        markSelected(this);
+        var hingeId = this.getAttribute('data-hingeId');
+        swal({ // this will open a dialouge 
+            title: "האם אתה בטוח ?",
+            text: "",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true
+        })
+            .then(function (willDelete) {
+                if (willDelete) DeleteHinge(hingeId);
+                else swal("הפריט לא נמחק");
+            });
+    });
  
     
 }
+function DeleteHinge(id) {      // Delete a item from the server
+    ajaxCall("DELETE", "../api/hinges/?Id=" + id, "", deleteSuccess, error);
+}
 
+function successGetHingesEdit(hingesdata) {// this function is activated in case of a success
+    console.log(hingesdata);
+    myHinges = hingesdata;
+    try {
+        tbl = $('#hingesTable').DataTable({
+            data: hingesdata,
+            pageLength: 5,
+            columns: [
+                { data: "ID" },
+                { data: "Type" },
+                { data: "Cost" },
+                {
+                    render: function (data, type, row, meta) {
+                        let dataHinge = "data-hingeId='" + row.ID + "'";
+                        editBtn = "<button type='button' class = 'editBtn btn btn-success' " + dataHinge + "> עריכה </button>";
+                        viewBtn = "<button type='button' class = 'viewBtn btn btn-info' " + dataHinge + "> צפייה </button>";
+                        //duplicateBtn = "<button type='button' class = 'duplicateBtn btn btn-info' " + dataHinge + "> שכפול + </button>";
+                        deleteBtnHinge = "<button type='button' class = 'deleteBtnHinge btn btn-danger' " + dataHinge + "> מחיקה </button>";
+                        return editBtn + /*viewBtn +*/  deleteBtnHinge;
+                    }
+                }
+            ],
+        });
+        buttonEventsH();
+    }
+    catch (err) {
+        alert(err);
+    }
+}
 
 
 function f3() {
     $("#hingesForm").hide();
     $("#editHingesForm").show();
+    clearFields();
     return false;
 }
+
 function f4() {
     $("#HandlesForm").hide();
     $("#editHandlesForm").show();
     return false;
+}
+
+function addHinge() {
+    if (hingeMode === "edit") {
+        Id = hinge.ID;
+    }
+
+    let hingetoSave = {
+        //ID: hinge.ID,
+        Type: $("#hingeName").val(),
+        Cost: $("#hingeCost").val()
+    };
+
+    if (hingeMode === "edit")
+        ajaxCall("PUT", "../api/hinges/?Id=" + Id, JSON.stringify(hingetoSave), updateSuccess, error);
+
+    else if ((hingeMode === "new") || (hingeMode === "duplicate")) // add a new item record to the server
+        ajaxCall("POST", "../api/hinges", JSON.stringify(hingetoSave), insertSuccess, error);
+    console.log(hingeMode);
+    return false;
+}
+
+function clearFields() {
+    $("#hingeName").val("");
+    $("#hingeCost").val("");
+
+}
+
+function insertSuccess() {  // success callback function after adding new item
+    uri = "../api/hinges";
+    ajaxCall("GET", uri, "", populateTableWithUpdatedData, errorGetUpdatedH);
+    buttonEventsH();
+    $("#hingesEditDiv").hide();
+    swal("נוסף בהצלחה!", "הפעולה בוצעה", "success");
+    mode = "";
+    $("#hingesForm").show();
+}
+function deleteSuccess(itemsdata) {
+    uri = "../api/hinges";
+    ajaxCall("GET", uri, "", populateTableWithUpdatedData, error); //get all relevant project's items from DB 
+    buttonEventsH(); // after redrawing the table, we must wire the new buttons
+    $("#hingesEditDiv").hide();
+    swal("נמחק בהצלחה!", "הפעולה בוצעה", "success");
+    mode = "";
+}
+
+function updateSuccess() {    // success callback function after update
+
+    uri = "../api/hinges";
+    ajaxCall("GET", uri, "", populateTableWithUpdatedData, error); //get all relevant project's items from DB 
+    buttonEventsH();
+    $("#hingesEditDiv").hide();
+    swal("עודכן בהצלחה!", "הפעולה בוצעה", "success");
+    mode = "";
+}
+
+function populateTableWithUpdatedData(hinges) {
+    var dataTable = $('#hingesTable').DataTable();
+    dataTable.destroy();
+    dataTable.clear();
+    successGetHingesEdit(hinges);
+}
+function errorGetUpdatedH() {
+    alert("error");
+}
+
+function populateFields(hingeId) {    // fill the form fields
+    //debugger;
+    hinge = getHinge(hingeId);
+    console.log(hinge);
+    //$("#image").attr("src", "images/" + item.Image);
+    $("#hingeName").val(hinge.Type);
+    $("#hingeCost").val(hinge.Cost);
+    mode = "edit";
+
 }
 
 function updateStatusSuccess() {
@@ -103,35 +242,7 @@ function successGetHandles(handlesdata) {// this function is activated in case o
     }
 }
 
-function successGetHingesEdit(hingesdata) {// this function is activated in case of a success
-    console.log(hingesdata);
-    myHinges = hingesdata;
-    try {
-        tbl = $('#hingesTable').DataTable({
-            data: hingesdata,
-            pageLength: 5,
-            columns: [
-                { data: "ID" },
-                { data: "Type" },
-                { data: "Cost" },
-                {
-                    render: function (data, type, row, meta) {
-                        let dataHinge = "data-hingeId='" + row.ID + "'";
-                        editBtn = "<button type='button' class = 'editBtn btn btn-success' " + dataHinge + "> עריכה </button>";
-                        viewBtn = "<button type='button' class = 'viewBtn btn btn-info' " + dataHinge + "> צפייה </button>";
-                        //duplicateBtn = "<button type='button' class = 'duplicateBtn btn btn-info' " + dataHinge + "> שכפול + </button>";
-                        deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataHinge + "> מחיקה </button>";
-                        return editBtn + /*viewBtn +*/  deleteBtn;
-                    }
-                }
-            ],
-        });
-        buttonEventsH();
-    }
-    catch (err) {
-        alert(err);
-    }
-}
+
 
 function successGetIronWorks(ironworksdata) {// this function is activated in case of a success
     myIronWorks = ironworksdata;
@@ -236,35 +347,14 @@ function markSelected(btn) {  // mark the selected row
 }
 
 
-function DeleteHinge(id) {      // Delete a item from the server
-    ajaxCall("DELETE", "../api/hinges/?Id=" + id, "", deleteSuccess, error);
-}
+
 
 function saveProject(id) {      // Delete a item from the server
     ajaxCall("PUT", "../api/hinges/?Id=" + projectID, JSON.stringify(hingetoSave), saveHingeSuccess, error);
 }
 
-function onSubmitFunc() {
-    var Id = -1;
-    //var Image = "car.jpg"; // no image at this point
-    if (mode === "edit") {
-        Id = hinge.ID;
-    }
 
-    let hingetoSave = {
-        //ID: hinge.ID,
-        Type: $("#hingeName").val(), 
-        Cost: $("#hingeCost").val() 
-    };
 
-    if (mode === "edit")
-        ajaxCall("PUT", "../api/hinges/?Id=" + Id, JSON.stringify(hingetoSave), updateSuccess, error);
-   
-    else if ((mode === "new") || (mode === "duplicate")) // add a new item record to the server
-        ajaxCall("POST", "../api/hinges", JSON.stringify(hingetoSave), insertSuccess, error);
-
-    return false;
-}
 
 function onSubmitFunc2() {
    
@@ -286,46 +376,8 @@ function onSubmitFunc2() {
     return false;
 }
 
-function populateFields(hingeId) {    // fill the form fields
-    //debugger;
-    hinge = getHinge(hingeId);
-    console.log(hinge);
-    //$("#image").attr("src", "images/" + item.Image);
-    $("#hingeName").val(hinge.Type);
-   
-    $("#hingeCost").val(hinge.Cost);
 
-}
-    // fill the form fields
-    function clearFields() {
-        //$("#itemCost").val(item.Cost);
-        $("#itemName").val("פריט כללי");
-        //$("#boxMaterial").val("");
-        //$("#boxMeasures").val("");
-        $("#partitions").val(0),
-            $("#shelves").val(0);
-        //$("#isDistanced").is(':checked') ? 1 : 0,
-        $("#boxWoodDrawers").val(0);
-        $("#internalLegraBoxDrawers").val(0);
-        $("#externalLegraBoxDrawers").val(0);
-        $("#internalScalaBoxDrawers").val(0);
-        $("#externalScalaBoxDrawers").val(0);
-        // $("#facadeMaterialType").val(0);
-        //$("#facade").val(itemsdata[i].FacadeID);
-        $("#hingesQuantity1").val(0);
-        //$("#hingesType1").val(0);
-        $("#hingesQuantity2").val(0);
-        //$("#hingesType1").val(itemsdata[i].HingesType1);
-        $("#extraWallQuantity").val(0);
-        //$("#extraWallType").val(itemsdata[i].ExtraWallTypeID);
-        $("#handlesQuantity").val(0);
-        //$("#handlesType").val(itemsdata[i].handlesType);
-        $("#ironWorksQuantity1").val(0);
-        //$("#ironWorksType1").val(itemsdata[i].ironWorksType1);
-        $("#ironWorksQuantity2").val(0);
-        //$("#ironWorksType2").val(itemsdata[i].IronWorksType2);
-        //  $("#image").attr("src", "images/item.jpg");
-    }
+
 
     // get item according to its Id
 function getHinge(id) {
@@ -337,62 +389,15 @@ function getHinge(id) {
     return null;
 }
 
-function updateSuccess() {    // success callback function after update
-   // location.reload();
-   //tbl.clear();
-    uri = "../api/hinges";
-    ajaxCall("GET", uri, "", populateTableWithUpdatedData, error); //get all relevant project's items from DB 
 
-    //redrawTable(tbl, itemsdata);
-    buttonEventsH();
-    $("#hingesEditDiv").hide();
-    swal("עודכן בהצלחה!", "הפעולה בוצעה", "success");
-    mode = "";
-}
 
-function updateProjectSuccess() {    // success callback function after update
 
-    buttonEvents();
-    $("#hingesEditDiv").hide();
-    swal("עודכן בהצלחה!", "הפרויקט נשמר בהצלחה", "success");
-    mode = "";
 
-    //window.location.href = 'projectsList.html';
-}
 
-function insertSuccess(itemsdata) {  // success callback function after adding new item
-    $("#hingesForm").show();
-    //tbl.clear();
-    uri = "../api/hinges";
-    ajaxCall("GET", uri, "", populateTableWithUpdatedData, error); //get all relevant project's items from DB 
-
-    //redrawTable(tbl, itemsdata);
-    buttonEventsH();
-    $("#hingesEditDiv").hide();
-    swal("נוסף בהצלחה!", "הפעולה בוצעה", "success");
-    mode = "";
-}
 
 // success callback function after delete
-function deleteSuccess(itemsdata) {
-    //tbl.clear();
-    //  redrawTable(tbl, itemsdata);
-    uri = "../api/hinges";
-    ajaxCall("GET", uri, "", populateTableWithUpdatedData, error); //get all relevant project's items from DB 
 
-    buttonEventsH(); // after redrawing the table, we must wire the new buttons
-    $("#hingesEditDiv").hide();
-    swal("נמחק בהצלחה!", "הפעולה בוצעה", "success");
-    mode = "";
-}
 
-function populateTableWithUpdatedData(hinges) {
-    console.log("got into the new function!");
-    var dataTable = $('#hingesTable').DataTable();
-    dataTable.destroy();
-    dataTable.clear();
-    successGetHingesEdit(hinges);
-}
 
 
 

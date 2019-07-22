@@ -168,8 +168,8 @@ function getSuccess(boxdata) {
     boxes = boxdata; // keep the cars array in a global variable;
     try {
         tbl = $('#boxesTable').DataTable({
+            retrieve: true,
             paging: false,
-            searching: false,
             data: boxdata,
             pageLength: 6,
             columns: [
