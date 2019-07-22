@@ -68,53 +68,14 @@ public class DBservices
         String command;
         StringBuilder sbMaterial = new StringBuilder();
         // use a string builder to create the dynamic string
-        sbMaterial.AppendFormat("Values('{0}', {1}, {2}, {3})",
-            material.Name, material.Type, material.Cost, material.Coefficient);
-        String prefix = "INSERT INTO materialTbl " + "(name, type, cost, coefficient) ";
+        sbMaterial.AppendFormat("Values('{0}', {1}, {2}, {3},{4}, {5})",
+        material.Name, 1 , material.Cost, material.Coefficient, material.WorkCost, 1);
+        String prefix = "INSERT INTO materialTbl " + "(name, type, cost, coefficient, workCost, Active) ";
         command = prefix + sbMaterial.ToString() + ";" + "SELECT CAST(scope_identity() AS int)";
         return command;
     }  
+    //---------------------------------------------------------------------------------
 
-    //---------------------------------------------------------------------------------
-    // Read from the DB into a list - dataReader
-    //---------------------------------------------------------------------------------
-    public List<Material> getMaterials(string conString, string tableName)
-    {
-        //SqlConnection con = null;
-        List<Material> lm = new List<Material>();
-        try {
-            this.con = connect(conString); // create a connection to the database using the connection String defined in the web config file
-            String selectSTR = "SELECT * FROM " + tableName;
-            SqlCommand cmd = new SqlCommand(selectSTR, this.con);
-            // get a reader
-            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
-            while (dr.Read()) {   // Read till the end of the data into a row
-                Material m = new Material();
-                m.ID = Convert.ToInt32(dr["id"]);
-                m.Name = Convert.ToString(dr["name"]);
-                m.Type = Convert.ToString(dr["type"]);
-                m.Cost = Convert.ToInt32(dr["cost"]);
-                m.Coefficient = Convert.ToInt32 (dr["coefficient"]);
-               // m.WorkCost = Convert.ToInt32(dr["workCost"]);
-                //this function will return list of hobbies indexes
-                //p.Hobbies = getHobbiesForPerson("TinderConnectionString", "HobbiesForUsers", p.ID);
-                lm.Add(m);
-            }
-            return lm;
-        }
-        catch (Exception ex) {
-            throw (ex); // write to log
-        }
-        finally {
-            if (this.con != null) {
-                this.con.Close();
-            }
-        }
-    }
-
-    //---------------------------------------------------------------------------------
-    // Read from the DB into a list - dataReader
-    //---------------------------------------------------------------------------------
     public List<Material> getMaterials2(string conString, string tableName)
     {
         //SqlConnection con = null;
@@ -130,11 +91,16 @@ public class DBservices
                 Material m = new Material();
                 m.ID = Convert.ToInt32(dr["id"]);
                 m.Name = Convert.ToString(dr["name"]);
-                m.Type = Convert.ToString(dr["type"]);
-            //    m.Cost = Convert.ToInt32(dr["cost"]);
-                m.Coefficient = Convert.ToInt32(dr["coefficient"]);
-            //    m.WorkCost = Convert.ToInt32(dr["workCost"]);
-                lm.Add(m);
+                m.Type = "ארגזת";
+                m.Cost = Convert.ToInt32(dr["cost"]);
+                m.Coefficient = Convert.ToSingle(dr["coefficient"]);
+                m.WorkCost = Convert.ToInt32(dr["workCost"]);
+                m.Active = Convert.ToInt16(dr["Active"]);
+                if(m.Active == 1)
+                {
+                    lm.Add(m);
+
+                }
             }
             return lm;
         }
@@ -1636,7 +1602,7 @@ public class DBservices
     private string BuildUpdateMaterialCommand(Material p, int id)
     {
         //String command;
-        string prefix = "UPDATE materialTbl SET name = '" + p.Name + "', cost = '" + p.Cost + "', type = '" + p.Type + "',coefficient = '" + p.Coefficient + " WHERE id=" + id;
+        string prefix = "UPDATE materialTbl SET name = '" + p.Name + "', cost = '" + p.Cost + "', type = '" + p.Type + "',coefficient = '" + p.Coefficient + "' ,workCost = '" + p.WorkCost + "' WHERE id=" + id;
 
         return prefix;
     }
@@ -2271,7 +2237,7 @@ public class DBservices
     }
     private string BuildDeleteMaterial(int materialID)
     {
-        string cmdStr = "DELETE FROM materialTbl  WHERE id='" + materialID + "'";
+        string cmdStr = "UPDATE materialTbl SET Active='" + 0 + "' WHERE id='" + materialID + "'";
         return cmdStr;
     }
 

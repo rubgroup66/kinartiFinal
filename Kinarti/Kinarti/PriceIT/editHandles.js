@@ -34,15 +34,15 @@ function buttonEventsHd() {
 
     $(document).on("click", ".editBtnHandle", function () {
         handleMode = "edit";
-        markSelected(this);
+        markSelectedHandles(this);
         $("#editHandlesForm").show();
         $("#editHandlesForm :input").prop("disabled", false); // edit mode: enable all controls in the form
-        populateFields(this.getAttribute('data-handleId'));
+        populateFieldsHandles(this.getAttribute('data-handleId'));
     });
 
     $(document).on("click", ".deleteBtnHandle", function () {
         mode = "delete";
-        markSelected(this);
+        markSelectedHandles(this);
         var handleId = this.getAttribute('data-handleId');
         swal({ // this will open a dialouge 
             title: "האם אתה בטוח ?",
@@ -163,10 +163,9 @@ function errorGetUpdatedH() {
     alert("error");
 }
 
-function populateFields(handleId) {    // fill the form fields
-    //debugger;
+function populateFieldsHandles(handleId) {    // fill the form fields
+    handleMode = "edit";
     handle = getHandle(handleId);
-    console.log(handle);
     $("#handleName").val(handle.Type);
     $("#handleCost").val(handle.Cost);
     mode = "edit";
@@ -240,7 +239,7 @@ function ShowInfo() {
 }
 
 
-function markSelected(btn) {  // mark the selected row
+function markSelectedHandles(btn) {  // mark the selected row
     $("#handlesTable tr").removeClass("selected"); // remove seleced class from rows that were selected before
     row = (btn.parentNode).parentNode; // button is in TD which is in Row
     row.className = 'selected'; // mark as selected

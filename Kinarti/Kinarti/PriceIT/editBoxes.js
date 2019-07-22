@@ -124,7 +124,6 @@ function clearFields() {// clear the form fields// box = getBoxes("");
     $("#type").val("");
     $("#height").val("");
     $("#width").val("");
-  //  $("#costForBasicMaterial").val("");
     $("#Description").val("");
 }
 

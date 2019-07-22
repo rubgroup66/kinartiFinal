@@ -23,6 +23,7 @@
     <script src="editHandles.js"></script>
     <script src="editArchitect.js"></script>
     <script src="editSupervisor.js"></script>
+    <script src="editMaterials.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="cssGeneral.css" rel="stylesheet" />
     <style>
@@ -105,7 +106,7 @@
     <button class="tablink" onclick="openPage('box', this, 'deepskyblue')" id="defaultOpen">ארגזות</button>
     <button class="tablink" onclick="openPage('totalDiv', this, 'deepskyblue')">פרזול</button>
     <button class="tablink" onclick="openPage('experts', this, 'deepskyblue')">בעלי מקצוע</button>
-    <button class="tablink" onclick="openPage('About', this, 'deepskyblue')">חומרי גלם</button>
+    <button class="tablink" onclick="openPage('material', this, 'deepskyblue')">חומרי גלם</button>
     <button class="tablink" onclick="openPage('About', this, 'deepskyblue')">פרמטרים</button>
     <br />
     <!-------------------------Box----------------------------->
@@ -265,7 +266,7 @@
         <div id="architect" class="content">
             <div class="row item">
                 <div class="form-group col-sm-12">
-                    <input type="button" value=" הוסף אדריכל חדש" class="btn btn-primary btn-lg"  id="newBTNArch" />
+                    <input type="button" value=" הוסף אדריכל חדש" class="btn btn-primary btn-lg" id="newBTNArch" />
                 </div>
             </div>
             <form id="archForm">
@@ -354,11 +355,58 @@
             </div>
         </div>
     </div>
+    <!-------------------------Material----------------------------->
 
-    <div id="About" class="tabcontent">
-        <h3>About</h3>
-        <p>Who we are and what we do.</p>
+    <div id="material" class="tabcontent">
+        <div class="container">
+            <div class="row item">
+                <div class="form-group col-sm-12">
+                    <input type="button" value="הוסף חומר גלם חדש" class="btn btn-primary btn-lg"  id="newBTNMat" />
+                </div>
+            </div>
+            <form id="matForm">
+
+                <table id="matTable" class="display nowrap" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>מס"ד</th>
+                            <th>חומר גלם</th>
+                            <th>סוג</th>
+                            <th>מקדם</th>
+                            <th>עלות עבודה</th>
+                            <th>עלות חומר</th>
+                            <th>פעולות</th>
+                        </tr>
+                    </thead>
+                </table>
+            </form>
+            <div id="matEditDiv">
+                <form id="editMatForm">
+                    <div class="form-group row">
+                        <div class="form-group col-lg-3">
+                            <label for="Cost"><span class="red-star">★ </span>עלות חומר</label>
+                            <input type="text" class="form-control" id="Cost" placeholder="הזן עלות חומר בשקלים" required min="1">
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label for="wCost"><span class="red-star">★ </span>עלות עבודה</label>
+                            <input type="text" class="form-control" id="wCost" placeholder="הזן עלות עבודה בשקלים" required min="1">
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label for="coef"><span class="red-star">★ </span>מקדם</label>
+                            <input type="text" class="form-control" id="coef" placeholder="הזן מקדם חישוב" required min="1">
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label for="mat"><span class="red-star">★ </span>חומר גלם</label>
+                            <input type="text" class="form-control" id="mat" placeholder="הזן שם חומר גלם" required min="1">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg">אישור</button>
+                    <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTNMat" value="ביטול" />
+                </form>
+            </div>
+        </div>
     </div>
+    <!-------------------------Material----------------------------->
 
     <script>
         function openPage(pageName, elmnt, color) {

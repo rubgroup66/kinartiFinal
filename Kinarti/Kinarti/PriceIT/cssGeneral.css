@@ -12,7 +12,7 @@ hover span {
 }
 
 
-#newBTN, #newProjectBtn, #newBTN2, #newBTN3, #newBTNArch, #newBTNSup {
+#newBTN, #newProjectBtn, #newBTN2, #newBTN3, #newBTNArch, #newBTNSup, #newBTNMat {
     background-color: blueviolet;
     margin-bottom: 10px;
 }
@@ -120,7 +120,7 @@ body, html {
     background-color: powderblue;
 }
 
-#Contact {
+#material {
     background-color: powderblue;
 }
 
