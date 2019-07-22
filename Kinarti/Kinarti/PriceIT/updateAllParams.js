@@ -202,13 +202,22 @@ function getSuccessBoxes(boxdata) {
     boxes = boxdata; // keep the cars array in a global variable;
     try {
         tbl = $('#boxesTable').DataTable({
+            language: {
+                'search': 'חיפוש:',
+                "lengthMenu": "הצג _MENU_ רשומות",
+                "info": "מציג _START_ עד _END_ מתוך _TOTAL_ רשומות",
+                "emptyTable": "לא קיימות רשומות בטבלה. אפשר להתחיל להוסיף :)"
+            }, 
             data: boxdata,
             pageLength: 5,
             columns: [
                 {
                     render: function (data, type, row, meta) {
                         let dataBox = "data-boxId='" + row.ID + "'";
-                        deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataBox + "> מחק </button>";
+                        //deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataBox + "> מחק </button>";
+
+                        deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataBox + ">  <span class='glyphicon glyphicon-remove' aria-hidden='true'></span> מחיקה </button>";
+
                         editBtn = "<button type='button' class = 'editBtn btn btn-success' " + dataBox + "> עדכן </button>";
                         // viewBtn = "<button type='button' class = 'viewBtn btn btn-info' " + dataBox + "> הצג </button>";
 

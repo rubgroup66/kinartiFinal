@@ -46,6 +46,12 @@
         function successGetUser(userdata) {
             users = userdata;
             tbl = $('#users_table').DataTable({
+                            language: {
+                'search': 'חיפוש:',
+                "lengthMenu": "הצג _MENU_ רשומות",
+                "info": "מציג _START_ עד _END_ מתוך _TOTAL_ רשומות",
+                "emptyTable": "לא קיימות רשומות בטבלה. אפשר להתחיל להוסיף :)"
+            }, 
                 data: userdata,
                 "autoWidth": false,
                 columns: [
