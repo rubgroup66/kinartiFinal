@@ -97,14 +97,19 @@ $(document).ready(function () {
 
         //$("#newBTN").text('value', '<span class="glyphicon glyphicon-plus-sign" ></span> ביטול'); 
 
+
+
         var radioValue = $("input[name='status']:checked").val();
         var isActive = radioValue == 'inProgress' ? 0 : 1; // replace with true value
+
+
+        //var radioValue1 = $("#inProgress").hasClass("active");
+
+
         if (isActive == 1) {
             swal("!לא ניתן להוסיף פריטים נוספים..", "כדי לאפשר הוספה נדרש להעביר את הפרויקט למצב 'בתהליך'", "info");
         }
         else {
-
-
 
             if ($("#editDiv").is(":visible")  ) {
                 item = null;
@@ -120,7 +125,6 @@ $(document).ready(function () {
                 clearFields();
                 $("#editDiv :input").prop("disabled", false); // new mode: enable all controls in the form
             }
-
 
         }
     });
