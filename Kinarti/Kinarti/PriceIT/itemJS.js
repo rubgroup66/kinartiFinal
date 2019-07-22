@@ -77,7 +77,25 @@ $(document).ready(function () {
         mode = "";
     });
 
+
+    //<div class="form-group col-sm-12">
+    //    <button type="button" value="הוסף פריט" class="btn btn-primary btn-md addNew" id="newBTN">
+    //        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> הוספת פריט
+    //            </button>
+    //</div>
+
+    //    <div class="form-group col-sm-12">
+    //        <button type="button" value="ביטול" class="btn btn-warning btn-md" id="cancelSaveBTN">
+    //            <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> ביטול
+    //            </button>
+    //    </div>
+
     $("#newBTN").on("click", function () {
+
+        //var showButton = '"<span class="glyphicon glyphicon-plus - sign" ></span> ביטול';
+        //var hidebutton = '"<span class="glyphicon glyphicon-plus - sign" ></span> הוספת פריט';
+
+        //$("#newBTN").text('value', '<span class="glyphicon glyphicon-plus-sign" ></span> ביטול'); 
 
         var radioValue = $("input[name='status']:checked").val();
         var isActive = radioValue == 'inProgress' ? 0 : 1; // replace with true value
@@ -85,12 +103,25 @@ $(document).ready(function () {
             swal("!לא ניתן להוסיף פריטים נוספים..", "כדי לאפשר הוספה נדרש להעביר את הפרויקט למצב 'בתהליך'", "info");
         }
         else {
-            item = null;
-            mode = "new";
-            $("#pForm").hide();
-            $("#editDiv").show();
-            clearFields();
-            $("#editDiv :input").prop("disabled", false); // new mode: enable all controls in the form
+
+
+
+            if ($("#editDiv").is(":visible")  ) {
+                item = null;
+                $("#editDiv").hide();
+                if (mode === "new") $("#pForm").show();
+                mode = "";
+            }
+            else {
+                item = null;
+                mode = "new";
+                $("#pForm").hide();
+                $("#editDiv").show();
+                clearFields();
+                $("#editDiv :input").prop("disabled", false); // new mode: enable all controls in the form
+            }
+
+
         }
     });
 
