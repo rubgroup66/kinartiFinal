@@ -322,8 +322,13 @@ public class DBservices
                 hinge.Type = Convert.ToString(dr["type"]);
                 hinge.ID = Convert.ToInt32(dr["id"]);
                 hinge.Cost = Convert.ToInt32(dr["cost"]);
+                hinge.Active = Convert.ToInt16(dr["Active"]);
+                if (hinge.Active == 1)
+                {
+                    hingesList.Add(hinge);
 
-                hingesList.Add(hinge);
+                }
+
             }
             return hingesList;
         }
@@ -348,6 +353,7 @@ public class DBservices
         {
             this.con = connect(conString);
             String selectSTR = "SELECT * FROM  " + tableName; //"SELECT* FROM " + tableName + " where age >=" + filter.MinAge + " and age <=" + filter.MaxAge + "and gender = 'Male'";
+
             SqlCommand cmd = new SqlCommand(selectSTR, this.con);
             SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
 
@@ -367,7 +373,8 @@ public class DBservices
         {
             throw (ex); // write to log
         }
-        finally {
+        finally
+        {
             if (this.con != null)
             {
                 this.con.Close();
@@ -908,8 +915,7 @@ public class DBservices
                 project.project_name = Convert.ToString(dr["project_name"]);
                 project.create_date = Convert.ToDateTime(dr["create_date"]);
                 project.description = Convert.ToString(dr["description"]);
-
-                project.cost = Convert.ToInt32(dr["cost"]);
+                //project.cost = Convert.ToInt32(dr["cost"]);
                 project.status = Convert.ToInt32(dr["status"]);
                 project.customer_id = Convert.ToInt32(dr["custID"]);
 
@@ -980,7 +986,8 @@ public class DBservices
         //SqlConnection con;
         List<Project> projectList = new List<Project>();
 
-        try  {
+        try
+        {
             con = connect("PriceITConnectionString"); // create a connection to the database using the connection String defined in the web config file
         }
 
@@ -1186,8 +1193,8 @@ public class DBservices
     {
         String command;
         StringBuilder sbItem = new StringBuilder(); // use a string builder to create the dynamic string
-        sbItem.AppendFormat("Values('{0}', {1} )", hinge.Type, hinge.Cost);
-        String prefix = "INSERT INTO hingeTbl " + "(type, cost) ";
+        sbItem.AppendFormat("Values('{0}', {1}, {2} )", hinge.Type, hinge.Cost, 1);
+        String prefix = "INSERT INTO hingeTbl " + "(type, cost, Active) ";
         //command = prefix + sbItem.ToString();
         command = prefix + sbItem.ToString() + ";" + "SELECT CAST(scope_identity() AS int)";
         return command;
@@ -1447,7 +1454,8 @@ public class DBservices
     {
         //SqlConnection con;
         SqlCommand cmd;
-        try  {
+        try
+        {
             this.con = connect("PriceITConnectionString"); // create the connection
         }
         catch (Exception ex) {
@@ -1455,15 +1463,19 @@ public class DBservices
         }
         String cStr = BuildUpdateProjectCommand(project, Id);      // helper method to build the insert string
         cmd = CreateCommand(cStr, this.con);             // create the command
-        try {
+
+        try
+        {
             int numEffected = (int)cmd.ExecuteNonQuery(); // execute the command
             return numEffected;
         }
-        catch (Exception ex) {
+        catch (Exception ex)
+        {
             return 0;
             throw (ex);       // write to log
         }
-        finally  {
+        finally
+        {
             if (this.con != null)
             {
                 this.con.Close();        // close the db connection
@@ -1955,7 +1967,7 @@ public class DBservices
     }
     private string BuildDeleteHinge(int hingeID)
     {
-        string cmdStr = "DELETE FROM hingeTbl  WHERE id='" + hingeID + "'";
+        string cmdStr = "UPDATE hingeTbl SET Active='" + 0 + "' WHERE id='" + hingeID + "'";
         return cmdStr;
     }
 
