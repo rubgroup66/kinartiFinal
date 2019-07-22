@@ -18,8 +18,9 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="../Scripts/ajaxCalls.js"></script>
-    <script src="editHinges.js"></script>
     <script src="editBoxes.js"></script>
+    <script src="editHinges.js"></script>
+    <script src="editHandles.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="cssGeneral.css" rel="stylesheet" />
     <style>
@@ -208,12 +209,8 @@
         <div id="handles" class="content">
             <div class="row item">
                 <div class="form-group col-sm-12">
-                    <input type="button" value="הוסף ידית חדשה" class="btn btn-primary btn-lg" onclick="f4()" id="newBTN" />
+                    <input type="button" value="הוסף ידית חדשה" class="btn btn-primary btn-lg" onclick="f4()" id="newBTN3" />
                 </div>
-<<<<<<< HEAD
-                <button type="submit" class="btn btn-primary btn-md" id="saveBTN">אישור</button>
-                <input type="button" class="btn btn-warning btn-md" id="cancelSaveBTN" value="ביטול" />
-=======
             </div>
             <form id="HandlesForm">
                 <table id="handlesTable" class="display nowrap" style="width:100%">
@@ -226,7 +223,6 @@
                         </tr>
                     <thead>
                 </table>
-
             </form>
 
             <div id="handlesEditDiv">
@@ -245,7 +241,7 @@
 
                     <div class="row">
                         <div class="form-group col-sm-12">
-                            <button type="button" class="btn btn-primary btn-lg" id="saveBTN">שמירה</button>
+                            <button type="submit" class="btn btn-primary btn-lg" id="saveBTN">שמירה</button>
                             <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTNHandles" value="ביטול" />
                         </div>
                     </div>
