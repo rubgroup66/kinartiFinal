@@ -171,15 +171,23 @@
                 tbl = $('#customers_table').DataTable({
                                 language: {
                 'search': 'חיפוש:',
-                "lengthMenu": "הצג _MENU_ רשומות",
+                        "lengthMenu": "הצג _MENU_ רשומות",
+                                "paginate": {
+                    "previous": "הקודם",
+                     "next": "הבא"
+    },
                 "info": "מציג _START_ עד _END_ מתוך _TOTAL_ רשומות",
                 "emptyTable": "לא קיימות רשומות בטבלה. אפשר להתחיל להוסיף :)"
             }, 
                     data: custsdata,
                     pageLength: 5,
                     columns: [
-
-                        { data: "id" },
+                                                                                    {
+                    render: function (data, type, row, meta) {
+                        return custsdata.findIndex(i => i.ID === row.ID) + 1;
+                    }
+                },
+                        //{ data: "id" },
                         { data: "first_name" },
                         { data: "last_name" },
                         { data: "phone_num" },
@@ -190,13 +198,11 @@
                                 //editBtn = "<button type='button' class = 'editBtn btn btn-success' " + dataCust + "> ערוך לקוח </button>";
                                 editBtn = "<button type='button' class = 'editBtn btn btn-success' " + dataCust + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>  עריכה </button>";
                                 //viewBtn = "<button type='button' class = 'viewBtn btn btn-info' " + dataCust + "> צפייה </button>";
-                                 viewBtn = "<button type='button' class = 'editBtn btn btn-info' " + dataCust + ">  <span class='glyphicon glyphicon-eye-open' aria-hidden='true'></span> צפייה </button>";
-
-                                
+                                 viewBtn = "<button type='button' class = 'viewBtn btn btn-info' " + dataCust + ">  <span class='glyphicon glyphicon-eye-open' aria-hidden='true'></span> צפייה </button>";
                                 //deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataCust + "> מחק לקוח</button>";
                                 deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataCust + ">  <span class='glyphicon glyphicon-remove' aria-hidden='true'></span> מחיקה </button>";
                                 //addProjBtn = "<button type='button' class = 'addProjBtn btn btn-warning' " + dataCust + "> הוסף פרויקט חדש </button>";
-                                addProjBtn = "<button type='button' class = 'deleteBtn btn btn-warning' " + dataCust + ">  <span class='glyphicon glyphicon-plus' aria-hidden='true'></span> יצירת פרויקט </button>";
+                                addProjBtn = "<button type='button' class = 'addProjBtn btn btn-warning' " + dataCust + ">  <span class='glyphicon glyphicon-plus' aria-hidden='true'></span> יצירת פרויקט </button>";
                                 return editBtn + viewBtn + deleteBtn + addProjBtn;
                             }
                         },

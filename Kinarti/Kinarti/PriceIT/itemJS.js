@@ -99,7 +99,11 @@ $(document).ready(function () {
 
 
 
+        //var radioValue = $("input[name='status']:checked").val();
         var radioValue = $("input[name='status']:checked").val();
+        console.log("###########");
+        console.log(radioValue);
+        console.log("###########");
         var isActive = radioValue == 'inProgress' ? 0 : 1; // replace with true value
 
 
@@ -182,7 +186,30 @@ function successGetProject(projectdata) {// this function is activated in case o
     myProject = projectdata;
     $("#projectName").val(projectdata.project_name);
 
-    $("#createDate").val(projectdata.create_date);
+    //let endIndex = projectdata.create_date.indexOf("T");
+    //if (endIndex > 0) {
+    //    let trimmedDate = projectdata.create_date.substr(0, endIndex);
+    //    $("#createDate").val(trimmedDate);
+    //} else {
+    //    $("#createDate").val(projectdata.create_date);
+    //}
+
+    var date = new Date(projectdata.create_date);
+
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+
+    if (day < 10) {
+        day = '0' + day;
+    }
+    if (month < 10) {
+        month = '0' + month;
+    }
+
+    var formattedDate = day + '-' + month + '-' + year;
+
+    $("#createDate").val(formattedDate);
 
     $("#projectCost").val(projectdata.cost);
 
@@ -196,12 +223,17 @@ function successGetProject(projectdata) {// this function is activated in case o
 
     if (myProject.status === 1) {
         $("#doneBtn").addClass("active");
+        $("#done").attr("checked", "checked");
+        //$("#doneBtn").prop('checked', true);
         $("#inProgressBtn").removeClass("active");
 
         $("#editDiv :input").attr("disabled", "disabled"); // this needs to be disabled when status = 1
     }
     else {
         $("#inProgressBtn").addClass("active");
+        $("#inProgress").attr("checked", "checked");
+        //$("#inProgressBtn").prop('checked', true);
+
         $("#doneBtn").removeClass("active");
     }
 
@@ -370,7 +402,7 @@ function calculateItem() {
 
     console.log(itemTotalSum);
     //$('#itemCost').val(Math.round(itemTotalSum));
-    $('#itemCost').append("<strong> עלות פריט:" + Math.round(itemTotalSum) + "</strong>");
+    $('#itemCostCalculation').html("<strong> עלות פריט:" + Math.round(itemTotalSum) + "</strong>");
 
     return false; // the return false will prevent the form from being submitted, hence the page will not reload
 }
@@ -510,15 +542,17 @@ function buttonEvents() {
     });
 
     $(document).on("click", ".editBtn", function () {
-        mode = "edit";
+        mode = "edit";        // edit mode: enable all controls in the form
         markSelected(this);
         $("#editDiv").show();
 
         if (myProject.status === 1) {
             $("#editDiv :input").prop("disabled", "disabled");
         }
+        else {
+            $("#editDiv :input").prop("disabled", false);
+        }
 
-        // edit mode: enable all controls in the form
         populateFields(this.getAttribute('data-itemId')); // fill the form fields according to the selected row
     });
 
@@ -922,12 +956,22 @@ function successGetItems(itemsdata) {    // this function is activated in case o
                 'search': 'חיפוש:',
                 "lengthMenu": "הצג _MENU_ רשומות",
                 "info": "מציג _START_ עד _END_ מתוך _TOTAL_ רשומות",
+                "paginate": {
+                    "previous": "הקודם",
+                    "next": "הבא"
+                },
                 "emptyTable": "אין רשומות בטבלה. אפשר להתחיל להוסיף :)"
             }, 
             data: itemsdata,
             pageLength: 5,
             columns: [
-                { data: "ID" },
+                {
+                    render: function (data, type, row, meta) {
+                       // itemsdata.findIndex(i => i.ID === row.ID)
+                        return itemsdata.findIndex(i => i.ID === row.ID) + 1;
+                    }
+                },
+                //{ data: "ID" },
                 { data: "Name" },
                 {
                     //data: "BoxMeasuresID" 
@@ -951,7 +995,6 @@ function successGetItems(itemsdata) {    // this function is activated in case o
                         return editBtn + /*viewBtn +*/ duplicateBtn + deleteBtn;
                     }
                 }
-
             ],
             "footerCallback": function (row, data, start, end, display) {
                 var api = this.api();

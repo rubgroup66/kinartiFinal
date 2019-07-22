@@ -205,6 +205,10 @@ function getSuccessBoxes(boxdata) {
             language: {
                 'search': 'חיפוש:',
                 "lengthMenu": "הצג _MENU_ רשומות",
+                "paginate": {
+                    "previous": "הקודם",
+                    "next": "הבא"
+                },
                 "info": "מציג _START_ עד _END_ מתוך _TOTAL_ רשומות",
                 "emptyTable": "לא קיימות רשומות בטבלה. אפשר להתחיל להוסיף :)"
             }, 

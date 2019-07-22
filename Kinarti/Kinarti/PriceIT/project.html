@@ -48,7 +48,7 @@
 
                 <div class="form-group col-sm-3">
                     <label for="createDate"><span class="red-star"></span>תאריך יצירה</label>
-                    <input type="date" class="form-control" id="createDate" disabled>
+                    <input type="datetime" class="form-control" id="createDate" disabled>
                 </div>
 
                 <div class="form-group col-sm-3">
@@ -115,7 +115,8 @@
                     <thead>
                         <tr>
                             <th>מס"ד</th>
-                            <th>תאור</th>
+                            <!--<th>מס"ד</th>-->
+                            <th>שם</th>
                             <th>מידות</th>
                             <th>עלות (ש"ח)</th>
                             <th>פעולות</th>
@@ -321,7 +322,7 @@
                         </div>
                     </div>-->
 
-                            <div class="well well-sm">
+                            <div class="well well-sm" id="itemCostCalculation">
 
                                 <strong>עלות פריט: </strong>
                                 <!--<input type="number" class="form-control" id="itemCost" placeholder="0" disabled>-->
