@@ -968,17 +968,14 @@ public class DBservices
 
     public List<Project> filterProjC(Filter c)
     {
-
         //SqlConnection con;
         List<Project> projectList = new List<Project>();
 
-        try
-        {
+        try   {
             con = connect("PriceITConnectionString"); // create a connection to the database using the connection String defined in the web config file
         }
 
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             // write to log
             throw (ex);
         }
@@ -1016,23 +1013,17 @@ public class DBservices
 
     public List<Project> filterProjP(Filter p)
     {
-
         //SqlConnection con;
         List<Project> projectList = new List<Project>();
-
-        try
-        {
+        try {
             this.con = connect("PriceITConnectionString"); // create a connection to the database using the connection String defined in the web config file
         }
-
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             // write to log
             throw (ex);
         }
 
-        try
-        {
+        try {
             String selectSTR = "SELECT * FROM Project2 where cost>= " + p.minPrice + " and cost<= " + p.maxPrice + "";
 
             SqlCommand cmd = new SqlCommand(selectSTR, this.con);
@@ -1053,13 +1044,11 @@ public class DBservices
                 projectList.Add(project);
             }
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             // write to log
             throw (ex);
         }
         return projectList;
-
     }
 
 

@@ -63,8 +63,6 @@ namespace kinarti.Controllers
             return projectList;
         }
 
-
-
         //1-active 0-non active
         [HttpPut]
         [Route("api/projects")]

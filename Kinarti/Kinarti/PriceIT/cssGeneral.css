@@ -30,7 +30,7 @@ hover span {
 
 .container {
     direction: rtl;
-    width: 70%;
+    width: 60%;
 }
 
 #itemCost {
@@ -161,5 +161,5 @@ body, html {
 .projectDetails .filterDiv {
     background-color: lightblue;
     /*border: double;*/
-    border-style: outset
+    border-style: ridge
 }

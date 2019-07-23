@@ -20,7 +20,8 @@
     <script src="../Scripts/ajaxCalls.js"></script>
     <script>
         $(document).ready(function () { // once the document is ready we fetch a list of customers from the server
-            ajaxCall("GET", "../api/proj", "", successGetProj, errorGetProj);          
+            ajaxCall("GET", "../api/proj", "", successGetProj, errorGetProj);     
+
         });
 
         function destroyAndHideDataTableOne() {
@@ -45,6 +46,13 @@
         }
 
         function successGetProj(pdata) {
+
+
+            //////////////////////////////
+        ajaxCall("GET", "../api/getCust", "", getCustomersSuccess, errorGetCustomers);
+
+
+
             destroyAndHideDataTableTwo();
             destroyAndHideDataTableThree();
             console.log(pdata);
@@ -115,11 +123,11 @@
             debugger;
             destroyAndHideDataTableOne();
             destroyAndHideDataTableTwo();
-            document.getElementById('filterd2').style.display = "block";
-            var dataTable = $('#projects_table3').DataTable();
+            document.getElementById('filterd').style.display = "block";
+            var dataTable = $('#projects_table').DataTable();
             dataTable.destroy();
             dataTable.clear();
-            $('#projects_table2').DataTable({
+            $('#projects_table').DataTable({
                 language: {
                     'search': 'חיפוש:',
                     "paginate": {
@@ -186,11 +194,11 @@
         function successfilterCust(pdata) {
             destroyAndHideDataTableOne();
             destroyAndHideDataTableTwo();
-            document.getElementById('filterd2').style.display = "block";
-            var dataTable = $('#projects_table3').DataTable();
+            document.getElementById('filterd').style.display = "block";
+            var dataTable = $('#projects_table').DataTable();
             dataTable.destroy();
             dataTable.clear();
-            $('#projects_table3').DataTable({
+            $('#projects_table').DataTable({
                 language: {
                 'search': 'חיפוש:',
                     "lengthMenu": "הצג _MENU_ רשומות",
@@ -243,8 +251,7 @@
                     {
                         render: function (data, type, row, meta) {
                             let dataCust = "data-custId='" + row.id + "'";
-                                                        EditProjBtn = "<button type='button' id=" + row.ID + " class = 'EditProjBtn btn btn-success' " + dataCust + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span> עריכה </button>";
-
+                            EditProjBtn = "<button type='button' id=" + row.ID + " class = 'EditProjBtn btn btn-success' " + dataCust + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span> עריכה </button>";
                             //EditProjBtn = "<button type='button' class = 'EditProjBtn btn btn-success' " + dataCust + "> Edit project </button>";
                             return EditProjBtn;
                         }
@@ -254,7 +261,6 @@
         }
 
         function successfilterstatus(pdata) {
-            debugger;
             destroyAndHideDataTableThree();
             destroyAndHideDataTableTwo();
             document.getElementById('filterd').style.display = "block"; 
@@ -326,6 +332,21 @@
 
         function errorGetProj(err) {
             swal("שגיאה באחזור פרויקטים", "הפרויקטים לא נטענו ", "error")
+        }
+
+
+           function getCustomersSuccess(err) {
+               swal("שגיאה באחזור פרויקטים", "הפרויקטים לא נטענו ", "error")
+
+
+
+
+
+
+        }
+
+                function errorGetCustomers(err) {
+            swal("שגיאה באחזור לקוחות", "הלקוחות לא נטענו ", "error")
         }
 
         $(document).on("click", ".EditProjBtn", function (event) {
@@ -420,7 +441,7 @@
         </div>
     </nav>
 
-    <div id="con" class="container" <!--style="width: 60%"-->>
+    <div id="con" class="container">
 
         <h1>פרויקטים</h1>
         <br />
@@ -481,7 +502,7 @@
                                 <label for="minPrice">סכום החל מ</label>
                                 <input type="number" class="form-control" id="minPrice" placeholder="הזן סכום מינימלי" required>
                             </div>
-                       </div>
+                        </div>
                     </div>
                 </div>
 
@@ -496,12 +517,20 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div id="filterd" class="container" background-color:lightblue; border:double">
+        <form id="pForm">
 
-        <div id="filterd" class="container" background-color:lightblue; border:double">
-            <form id="pForm">
-                <button value="Refresh Page" class="btn btn-primary btn-md" onClick="window.location.href=window.location.href">בטל סינון</button>
 
-    <br />
+
+            <div class="row item">
+                <div class="form-group col-sm-12">
+                    <button type="button" value="הוספת פריט" class="btn btn-primary btn-md " >
+                        <span class="glyphicon glyphicon-plus-ref" aria-hidden="true"></span> בטל סינון
+                    </button>
+                </div>
+
+                <br />
                 <table id="projects_table" class="display nowrap" style="width:100%">
                     <thead>
                         <tr>
@@ -516,55 +545,54 @@
                         </tr>
                     </thead>
                 </table>
-            </form>
-        </div>  
+        </form>
+    </div>
+    
+    <br />
 
+    <div id="filterd1" class="container" style="display:none; background-color:lightblue; border:double">
+        <form id="pForm">
+            <button value="Refresh Page" class="btn btn-primary btn-md" onClick="window.location.href=window.location.href">בטל סינון</button>
             <br />
+            <table id="projects_table2" class="display nowrap" style="width:100% ">
+                <thead>
+                    <tr>
+                        <th>מס"ד</th>
+                        <th>שם פרויקט</th>
+                        <th>שם הלקוח</th>
+                        <th>תיאור</th>
+                        <th>תאריך יצירה</th>
+                        <th>עלות</th>
+                        <th>סטטוס</th>
+                        <th>פעולות</th>
+                    </tr>
+                </thead>
+            </table>
+        </form>
 
-            <div id="filterd1" class="container" style="display:none; background-color:lightblue; border:double">
-                <form id="pForm">
-                    <button value="Refresh Page" class="btn btn-primary btn-md" onClick="window.location.href=window.location.href">בטל סינון</button>
-                    <br />
-                    <table id="projects_table2" class="display nowrap" style="width:100% ">
-                        <thead>
-                            <tr>
-                                <th>מס"ד</th>
-                                <th>שם פרויקט</th>
-                                <th>שם הלקוח</th>
-                                <th>תיאור</th>
-                                <th>תאריך יצירה</th>
-                                <th>עלות</th>
-                                <th>סטטוס</th>
-                                <th>פעולות</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </form>
+    </div>
 
-            </div>
+    <div id="filterd2" class="container" style="display:none; background-color:lightblue; border:double">
+        <form id="pForm">
+            <button value="Refresh Page" class="btn btn-primary btn-md" onClick="window.location.href=window.location.href">חזור</button>
+            <br />
+            <table id="projects_table3" class="display nowrap" style="width:100% ">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>שם פרויקט</th>
+                        <th>שם הלקוח</th>
+                        <th>תיאור</th>
+                        <th>תאריך יצירה</th>
+                        <th>עלות</th>
+                        <th>סטטוס</th>
+                        <th>פעולות</th>
+                    </tr>
+                </thead>
+            </table>
+        </form>
+    </div>
 
-            <div id="filterd2" class="container" style="display:none; background-color:lightblue; border:double">
-                <form id="pForm">
-                    <button value="Refresh Page" class="btn btn-primary btn-md" onClick="window.location.href=window.location.href">חזור</button>
-                    <br />
-                    <table id="projects_table3" class="display nowrap" style="width:100% ">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>שם פרויקט</th>
-                                <th>שם הלקוח</th>
-                                <th>תיאור</th>
-                                <th>תאריך יצירה</th>
-                                <th>עלות</th>
-                                <th>סטטוס</th>
-                                <th>פעולות</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </form>
-
-            </div>
-        </div>
 
 </body>
 </html>
