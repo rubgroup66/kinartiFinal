@@ -948,9 +948,9 @@ public class DBservices
              // read first field from the row into the list collection
                 Project project = new Project();
                 project.project_name = Convert.ToString(dr["project_name"]);
-                //project.create_date = Convert.ToDateTime(dr["create_date"]);
+                project.create_date = Convert.ToDateTime(dr["create_date"]);
                 project.description = Convert.ToString(dr["description"]);
-                //project.cost = Convert.ToInt32(dr["cost"]);
+                project.cost = Convert.ToInt32(dr["cost"]);
                 project.status = Convert.ToInt32(dr["status"]);
                 project.customer_id = Convert.ToInt32(dr["custID"]);
 
@@ -996,9 +996,9 @@ public class DBservices
              // read first field from the row into the list collection
                 Project project = new Project();
                 project.project_name = Convert.ToString(dr["project_name"]);
-                //project.create_date = Convert.ToDateTime(dr["create_date"]);
+                project.create_date = Convert.ToDateTime(dr["create_date"]);
                 project.description = Convert.ToString(dr["description"]);
-                //project.cost = Convert.ToInt32(dr["cost"]);
+                project.cost = Convert.ToInt32(dr["cost"]);
                 project.status = Convert.ToInt32(dr["status"]);
                 project.customer_id = Convert.ToInt32(dr["custID"]);
 
@@ -1044,9 +1044,9 @@ public class DBservices
              // read first field from the row into the list collection
                 Project project = new Project();
                 project.project_name = Convert.ToString(dr["project_name"]);
-                //project.create_date = Convert.ToDateTime(dr["create_date"]);
+                project.create_date = Convert.ToDateTime(dr["create_date"]);
                 project.description = Convert.ToString(dr["description"]);
-                //project.cost = Convert.ToInt32(dr["cost"]);
+                project.cost = Convert.ToInt32(dr["cost"]);
                 project.status = Convert.ToInt32(dr["status"]);
                 project.customer_id = Convert.ToInt32(dr["custID"]);
 
