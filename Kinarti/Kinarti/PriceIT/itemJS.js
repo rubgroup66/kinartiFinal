@@ -383,7 +383,7 @@ function calculateItem() {
 
     console.log(itemTotalSum);
     //$('#itemCost').val(Math.round(itemTotalSum));
-    $('#itemCostCalculation').html("<strong> עלות פריט: " + Math.round(itemTotalSum) + "</strong>");
+    $('#itemCostCalculation').html("<strong> עלות פריט: " + Math.round(itemTotalSum) + "  שח " +"</strong>");
 
     return false; // the return false will prevent the form from being submitted, hence the page will not reload
 }
@@ -704,8 +704,8 @@ function onSubmitFunc2() {
         //status: $("#status").val(),       
         architect: $("#projectArchitect").val(),
         supervisor: $("#projectSupervisor").val(),
-        cost: $(TC).val()
-
+        //cost: $(int(TC)).val()
+        cost: TC
     };
     ajaxCall("PUT", "../api/projects/?Id=" + projectID, JSON.stringify(projecttoSave), updateProjectSuccess, error);
 
