@@ -103,10 +103,6 @@ $(document).ready(function () {
         var radioValue = $("input[name='status']:checked").val();
         var isActive = radioValue == 'inProgress' ? 0 : 1; // replace with true value
 
-
-        //var radioValue1 = $("#inProgress").hasClass("active");
-
-
         if (isActive == 1) {
             swal("!לא ניתן להוסיף פריטים נוספים..", "כדי לאפשר הוספה נדרש להעביר את הפרויקט למצב 'בתהליך'", "info");
         }
@@ -384,15 +380,18 @@ function calculateItem() {
 
     console.log(itemTotalSum);
     //$('#itemCost').val(Math.round(itemTotalSum));
-    $('#itemCostCalculation').html("<strong> עלות פריט: " + formatNumber(Math.round(itemTotalSum)) + "  שח " +"</strong>");
+    console.log(formatNumber(11111111));
+    var formattedNumber = formatNumber(Math.round(itemTotalSum));
+    $('#itemCostCalculation').html("<strong> עלות פריט: " + formattedNumber + "  שח " +"</strong>");
 
     return false; // the return false will prevent the form from being submitted, hence the page will not reload
 }
 
-
 function formatNumber(num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }
+
+Math.round(itemTotalSum)
 
 function collectChoices() {
     params = {
@@ -865,14 +864,30 @@ function updateSuccess() {    // success callback function after update
     mode = "";
 }
 
-function updateProjectSuccess() {    // success callback function after update
-    buttonEvents();
-    $("#editDiv").hide();
-    swal("עודכן בהצלחה!", "הפרויקט נשמר בהצלחה", "success");
-    mode = "";
+function updateProjectSuccess(data) {
+    swal({ // this will open a dialouge
+        title: "הפרויקט נשמר !",
+        text: "עודכן בהצלחה!",
+        icon: "success",
+        button: "אישור"
+    })
+        .then(function (create) {
 
-    //window.location.href = 'projectsList.html';
+                window.location.href = 'projectsList.html';
+
+        });
+
 }
+
+
+
+
+
+
+
+
+
+
 
 function insertSuccess(itemsdata) {  // success callback function after adding new item
     $("#pForm").show();

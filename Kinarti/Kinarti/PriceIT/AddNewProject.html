@@ -73,8 +73,11 @@
 
         function success(data) {
             swal({ // this will open a dialouge
-                title: "הפרויקט נוצר בהצלחה",
-                icon: "info",
+                title: "הפרויקט נוצר בהצלחה!",
+                text: "האם ברצונך להמשיך לתמחור פרויקט?",
+                icon: "success",
+                buttons: true,
+                //dangerMode: true
             })
                 .then(function () {
                     window.location.href = "projectsList.html";
