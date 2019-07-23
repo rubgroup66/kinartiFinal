@@ -380,7 +380,6 @@ function calculateItem() {
 
     console.log(itemTotalSum);
     //$('#itemCost').val(Math.round(itemTotalSum));
-    console.log(formatNumber(11111111));
     var formattedNumber = formatNumber(Math.round(itemTotalSum));
     $('#itemCostCalculation').html("<strong> עלות פריט: " + formattedNumber + "  שח " +"</strong>");
 
@@ -390,8 +389,6 @@ function calculateItem() {
 function formatNumber(num) {
     return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }
-
-Math.round(itemTotalSum)
 
 function collectChoices() {
     params = {
@@ -1013,7 +1010,7 @@ function successGetItems(itemsdata) {    // this function is activated in case o
                     }, 0);
                 // Update footer
                 $(api.column(3).footer()).html(
-                    ' עלות כוללת עדכנית :   ' + pageTotal + ' ש"ח ' + '(' + total + ' ש"ח ' + ' סה"כ)'
+                    '           עלות כוללת עדכנית :   ' + formatNumber(pageTotal) + ' ש"ח ' + '(' + formatNumber(total) + ' ש"ח ' + ' סה"כ)'
                 );
             }
         });
@@ -1023,7 +1020,7 @@ function successGetItems(itemsdata) {    // this function is activated in case o
         alert(err);
     }
 }
-
+//var formattedNumber = formatNumber(Math.round(itemTotalSum));
 function saveProjectSuccess() {
     tbl.clear();
     buttonEvents(); // after redrawing the table, we must wire the new buttons
