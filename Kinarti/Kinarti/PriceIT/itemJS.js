@@ -204,7 +204,7 @@ function successGetProject(projectdata) {// this function is activated in case o
 
     $("#createDate").val(formattedDate);
 
-    $("#projectCost").val(projectdata.cost);
+    $("#projectCost").val(formatNumber(projectdata.cost));
 
     $("#projectDescription").val(projectdata.description);
     $("#projectArchitect").val(projectdata.architect);

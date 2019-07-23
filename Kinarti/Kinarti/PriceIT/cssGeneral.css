@@ -157,3 +157,9 @@ body, html {
 #itemCostCalculation {
     color:blue;
 }
+
+.projectDetails .filterDiv {
+    background-color: lightblue;
+    /*border: double;*/
+    border-style: outset
+}
