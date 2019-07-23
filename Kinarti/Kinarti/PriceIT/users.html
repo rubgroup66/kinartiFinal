@@ -59,6 +59,11 @@
                 data: userdata,
                 "autoWidth": false,
                 columns: [
+                                                                            {
+                    render: function (data, type, row, meta) {
+                        return userdata.findIndex(i => i.Id === row.Id) + 1;
+                    }
+                },
                     { data: "Name" },
                     { data: "Id" },
                     { data: "Password" },
@@ -86,8 +91,9 @@
                         render: function (data, type, row, meta) {
                             let dataUser = "data-userId='" + row.Id + "'";
 
-                            EditUserBtn = "<button type='button' class = 'EditUserBtn btn btn-success' " + dataUser + "> ערוך משתמש </button>";
-                            DeleteUserBtn = "<button type='button' class = 'DeleteUserBtn btn btn-danger' " + dataUser + "> מחק משתמש </button>";
+                            EditUserBtn = "<button type='button' class = 'EditUserBtn btn btn-success' " + dataUser + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span> עריכה </button>";
+                            DeleteUserBtn = "<button type='button' class = 'DeleteUserBtn btn btn-danger' " + dataUser + ">  <span class='glyphicon glyphicon-remove' aria-hidden='true'></span> מחיקה </button>";
+
                             return EditUserBtn + DeleteUserBtn;
                         }
                     },
@@ -106,12 +112,12 @@
         }
 
         function deleteSuccess() {
-            swal("Deleted Successfuly!", "Great Job", "success");
+                swal("נמחק בהצלחה!", "הפעולה בוצעה", "success");
             window.location.reload();
 
         }
         function error(err) {
-            swal("Error: " + err);
+            swal("שגיאה: " + err);
         }
 
         function buttonEvents() {
@@ -127,7 +133,7 @@
                 markSelected(this);
                 var userId = this.getAttribute('data-userId');
                 swal({ // this will open a dialouge
-                    title: "Are you sure ??",
+            title: "האם אתה בטוח ?",
                     text: "",
                     icon: "warning",
                     buttons: true,
@@ -136,7 +142,7 @@
                     .then(function (willDelete) {
                         if (willDelete) DeleteUser(userId);
                         if (willDelete) window.location.reload();
-                        else swal("Not Deleted!");
+                else swal("המשתמש לא נמחק");
                     });
             });
         }
@@ -316,6 +322,7 @@
             <table id="users_table" class="display nowrap" style="width:100%">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>שם פרטי</th>
                         <th>מזהה משתמש</th>
                         <th>סיסמא</th>

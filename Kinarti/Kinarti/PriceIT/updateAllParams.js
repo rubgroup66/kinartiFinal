@@ -203,7 +203,7 @@ function getSuccessBoxes(boxdata) {
     try {
         tbl = $('#boxesTable').DataTable({
             language: {
-                'search': 'חיפוש:',
+                'search': 'חיפוש: ',
                 "lengthMenu": "הצג _MENU_ רשומות",
                 "paginate": {
                     "previous": "הקודם",
@@ -219,12 +219,10 @@ function getSuccessBoxes(boxdata) {
                     render: function (data, type, row, meta) {
                         let dataBox = "data-boxId='" + row.ID + "'";
                         //deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataBox + "> מחק </button>";
-
                         deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataBox + ">  <span class='glyphicon glyphicon-remove' aria-hidden='true'></span> מחיקה </button>";
 
                         editBtn = "<button type='button' class = 'editBtn btn btn-success' " + dataBox + "> עדכן </button>";
                         // viewBtn = "<button type='button' class = 'viewBtn btn btn-info' " + dataBox + "> הצג </button>";
-
                         return editBtn + deleteBtn;
                     }
                 },
@@ -232,8 +230,14 @@ function getSuccessBoxes(boxdata) {
                 { data: "Width" },
                 { data: "Height" },
                 { data: "Type" },
-                { data: "ID" },
-            ],
+                //{ data: "ID" },
+                {
+                    render: function (data, type, row, meta) {
+                        return boxdata.findIndex(i => i.ID === row.ID) + 1;
+                    }
+                }
+
+            ]
         });
         buttonEvents();
     }

@@ -62,7 +62,7 @@ function DeleteMaterial(id) {      // Delete a item from the server
 }
 
 function errorDelMat() {
-    alert("שדיאה במחיקת חומר גלם")
+    alert("שגיאה במחיקת חומר גלם")
 }
 function deleteSuccessMat(itemsdata) {
 

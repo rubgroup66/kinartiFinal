@@ -966,7 +966,6 @@ function successGetItems(itemsdata) {    // this function is activated in case o
             columns: [
                 {
                     render: function (data, type, row, meta) {
-                       // itemsdata.findIndex(i => i.ID === row.ID)
                         return itemsdata.findIndex(i => i.ID === row.ID) + 1;
                     }
                 },

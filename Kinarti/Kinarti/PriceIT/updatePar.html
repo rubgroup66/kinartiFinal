@@ -114,15 +114,20 @@
         <div class="container">
             <div class="row item">
                 <div class="form-group col-sm-12">
-                    <input type="button" value="הוסף ארגזת חדשה" class="btn btn-primary btn-lg" onclick="f2()" id="newBTN2" />
+                    <button type="button" value="הוסף ארגזת" class="btn btn-primary btn-md addNew" id="newBTN2" onclick="f2()">
+                        <span class="glyphicon glyphicon-plus-sign"></span> הוספת ארגזת
+                    </button>
                 </div>
             </div>
+
+
+
             <form id="boxForm">
 
                 <table id="boxesTable" class="display nowrap" style="width:100%">
                     <thead>
                         <tr>
-                            <th>מס"ד</th>
+                            <th></th>
                             <th>סוג</th>
                             <th>גובה</th>
                             <th>רוחב</th>
@@ -164,7 +169,12 @@
         <div id="hinges" class="content">
             <div class="row item">
                 <div class="form-group col-sm-12">
-                    <input type="button" value=" הוסף ציר חדש" class="btn btn-primary btn-lg" onclick="f3()" id="newBTN2" />
+                    <!--<input type="button" value=" הוסף ציר חדש" class="btn btn-primary btn-lg" onclick="f3()" id="newBTN2" />-->
+
+                    <button type="button" value="הוסף ציר" class="btn btn-primary btn-md addNew" id="newBTN2" onclick="f3()">
+                        <span class="glyphicon glyphicon-plus-sign"></span> הוספת ציר
+                    </button>
+
                 </div>
             </div>
             <form id="hingesForm">

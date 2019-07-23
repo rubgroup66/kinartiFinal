@@ -169,10 +169,25 @@ function getSuccess(boxdata) {
         tbl = $('#boxesTable').DataTable({
             retrieve: true,
             paging: false,
+            language: {
+                'search': 'חיפוש:',
+                "lengthMenu": "הצג _MENU_ רשומות",
+                "info": "מציג _START_ עד _END_ מתוך _TOTAL_ רשומות",
+                "paginate": {
+                    "previous": "הקודם",
+                    "next": "הבא"
+                },
+                "emptyTable": "לא קיימות רשומות, אפשר להתחיל להוסיף :)"
+            }, 
             data: boxdata,
             pageLength: 6,
             columns: [
-                { data: "ID" },
+                {
+                    render: function (data, type, row, meta) {
+                        return boxdata.findIndex(i => i.ID === row.ID) + 1;
+                    }
+                },
+                //{ data: "ID" },
                 { data: "Type" },
                 { data: "Height" },
                 { data: "Width" },
@@ -180,7 +195,10 @@ function getSuccess(boxdata) {
                 {
                     render: function (data, type, row, meta) {
                         let dataBox = "data-boxId='" + row.ID + "'";
-                        deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataBox + "> מחק ארגזת </button>";
+                        //deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataBox + "> מחק ארגזת </button>";
+
+                        deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataBox + ">  <span class='glyphicon glyphicon-remove' aria-hidden='true'></span> מחיקה </button>";
+
                         return deleteBtn;
                     }
                 },
