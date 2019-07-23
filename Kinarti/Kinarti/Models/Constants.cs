@@ -36,14 +36,35 @@ namespace kinarti.Models
             List<Constants> lp = dbs.getConstants("PriceITConnectionString", "parametersTbl");
             return lp;
         }
-        
 
-        public int updateConstants()
+        public int updateConstants(int Id)
         {
             DBservices dbs = new DBservices();
-            int numAffected = dbs.updateConstants(this);
+            int numAffected = dbs.updateConstants(this, Id);
             return numAffected;
         }
+        
+        //public List<Constants> UpdateConst()
+        //{
+        //    DBservices dbs = new DBservices();
+        //    List<Constants> lp = dbs.UpdateConst("PriceITConnectionString", "parametersTbl");
+        //    return lp;
+        //}
+
+        //public int updateConstants()
+        //{
+        //    DBservices dbs = new DBservices();
+        //    int numAffected = dbs.UpdateConstants(this);
+        //    return numAffected;
+        //}
+
+
+        //public int updateConstants()
+        //{
+        //    DBservices dbs = new DBservices();
+        //    int numAffected = dbs.updateConstants(this);
+        //    return numAffected;
+        //}
 
 
 

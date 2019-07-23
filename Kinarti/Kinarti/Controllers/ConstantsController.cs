@@ -26,23 +26,25 @@ namespace kinarti.Controllers
 
         [HttpPut]
         [Route("api/constants")]
-        public void Put([FromBody]Constants constants)
+        public void Put([FromBody]Constants p, int Id)
         {
-            constants.updateConstants();
+            p.updateConstants(Id);
         }
-        //// POST api/values
-        //[HttpPost]
-        //[Route("api/boxes")]
-        //public void Post([FromBody]Box p)
+
+        //[HttpPut]
+        //[Route("api/constants")]
+        //public void Put([FromBody]Constants p)
         //{
-        //    try
-        //    {                
-        //        p.insert();   //    int someError = Convert.ToInt32("will fail to convert");
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        throw e; // throw new Exception("Error in posting a new person");
-        //    }
+        //    p.updateConstants();
+        //}
+
+        //[System.Web.Http.HttpGet]
+        //[Route("api/constants")]
+        //public IEnumerable<Constants> UpdateConst()
+        //{
+        //    Constants constant = new Constants();
+        //    List<Constants> lm = constant.UpdateConst();
+        //    return lm;
         //}
     }
 }
