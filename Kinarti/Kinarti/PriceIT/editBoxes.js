@@ -196,9 +196,7 @@ function getSuccess(boxdata) {
                     render: function (data, type, row, meta) {
                         let dataBox = "data-boxId='" + row.ID + "'";
                         //deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataBox + "> מחק ארגזת </button>";
-
                         deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataBox + ">  <span class='glyphicon glyphicon-remove' aria-hidden='true'></span> מחיקה </button>";
-
                         return deleteBtn;
                     }
                 },
