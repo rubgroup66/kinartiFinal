@@ -396,23 +396,20 @@
         </div>
     </div>-->
 
-
-
-        <div id="filterDiv" class="form-group" style=" background-color:lightblue; border:double; direction:rtl" ;>
+        <div id="filterDiv" class="form-group" style=" background-color:lightblue; border:double; " >
             <!--// display:none;-->
-
             <div class="row item">
 
-                <div class="form-group col-sm-9">
+                <div class="form-group col-sm-9  ">
                     <!--//style="display:none"-->
-                    <div id="statusDiv">
+                    <div id="statusDiv" class=" col-sm-offset-3">
                         <!--<label id="filterStat">בחר סטטוס </label>
-    <select id='statusOpt' required>
-        <option value=''> בחר</option>
-        <option value='1.1'>בתהליך</option>
-        <option value='1.2'>הסתיים</option>
-    </select>-->
-                        <div class="form-group col-sm-4">
+                            <select id='statusOpt' required>
+                                <option value=''> בחר</option>
+                                <option value='1.1'>בתהליך</option>
+                                <option value='1.2'>הסתיים</option>
+                            </select>-->
+                        <div class="form-group col-sm-3 col-md-offset-9 ">
                             <label for="filterStat">סטטוס</label>
                             <select id="statusOpt" class="form-control" required>
                                 <option value=''> בחר</option>
@@ -420,50 +417,52 @@
                                 <option value='1.2'>הסתיים</option>
                             </select>
                         </div>
-                        </div>
+                    </div>
 
                         <!--<div id="custDiv" class="form-group" style="display:none">
-        <label for="custID"> לקוח</label>
-        <input type="text" id="custID" placeholder="שם לקוח" required>
-        <input type="button" value="מיין" onclick="filterCust()" />
-    </div>-->
+            <label for="custID"> לקוח</label>
+            <input type="text" id="custID" placeholder="שם לקוח" required>
+            <input type="button" value="מיין" onclick="filterCust()" />
+        </div>-->
 
-                        <div id="custDiv" class="form-group" style="display:none">
-
-                            <div class="form-group col-sm-4 ">
+                    <div id="custDiv" class=" col-sm-offset-3" style="display:none">
+                        <div class="row item">
+                            <div class="form-group col-sm-3  col-sm-offset-6">
                                 <button type="button" value="סינון" class="btn btn-primary btn-md " onclick="filterCust()">
                                     <span class="glyphicon glyphicon-filter"></span> סינון
                                 </button>
                             </div>
-                            <div class="form-group col-sm-4">
+                            <div class="form-group col-sm-3 col-sm-offset-9">
                                 <label for="custID">שם הלקוח</label>
                                 <input type="text" class="form-control" id="custID" placeholder="הזן שם לקוח לסינון" required>
                             </div>
                         </div>
+                    </div>
 
-                        <div id="priceDiv" class="form-group" style="display:none">
-                            <div class="form-group col-sm-4 ">
-                                <button type="button" value="מיון" class="btn btn-primary btn-md " onclick="filterPrice()">
-                                    <span class="glyphicon glyphicon-filter" aria-hidden="true"></span> סינון
-                                </button>
-                            </div>
-                            <div class="form-group col-sm-4 ">
-                                <label for="maxPrice">עד</label>
-                                <input type="number" class="form-control" id="maxPrice" placeholder="הזן סכום מקסימלי" required>
-                            </div>
-
-                            <div class="form-group col-sm-4">
-                                <label for="minPrice">סכום החל מ</label>
-                                <input type="number" class="form-control" id="minPrice" placeholder="הזן סכום מינימלי" required>
-                            </div>
-
-                            <!--<div class="form-group col-sm-4">
-            <input type="button" value="מיין" onclick="filterPrice()" />
-        </div>-->
-
+                    <!--<div class="form-group col-sm-4">
+                        <input type="button" value="מיין" onclick="filterPrice()" />
+                    </div>-->
+                    <div id="priceDiv" class="form-group" style="display:none">
+                        <div class="form-group col-sm-4 ">
+                            <button type="button" value="מיון" class="btn btn-primary btn-md " onclick="filterPrice()">
+                                <span class="glyphicon glyphicon-filter" aria-hidden="true"></span> סינון
+                            </button>
+                        </div>
+                        <div class="form-group col-sm-4 ">
+                            <label for="maxPrice">עד</label>
+                            <input type="number" class="form-control" id="maxPrice" placeholder="הזן סכום מקסימלי" required>
                         </div>
 
+                        <div class="form-group col-sm-4">
+                            <label for="minPrice">סכום החל מ</label>
+                            <input type="number" class="form-control" id="minPrice" placeholder="הזן סכום מינימלי" required>
+                        </div>
+
+
+
                     </div>
+
+                </div>
 
                 <div class="form-group col-sm-3">
 
