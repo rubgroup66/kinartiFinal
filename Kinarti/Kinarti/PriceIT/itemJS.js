@@ -979,8 +979,8 @@ function successGetItems(itemsdata) {    // this function is activated in case o
                     .reduce(function (a, b) {
                         return intVal(a) + intVal(b);
                     }, 0);
-                TC = total; // presenting total cost above the dattable
-                //$("#projectCost").val(total);
+                TC = total; 
+                //$("#projectCost").val(total);  // presenting total cost above the dattable
                 console.log(total);
 
                 // Total over this page
