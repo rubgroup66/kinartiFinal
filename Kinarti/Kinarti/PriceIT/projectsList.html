@@ -396,46 +396,46 @@
         </div>
     </div>-->
 
-        <div class="row item">
 
-            <div id="filterDiv" class="form-group" style=" background-color:lightblue; border:double; direction:rtl" ;>
-                <!--// display:none;-->
 
-                <div class="row item">
+        <div id="filterDiv" class="form-group" style=" background-color:lightblue; border:double; direction:rtl" ;>
+            <!--// display:none;-->
 
-                    <div class="form-group col-sm-9">
-                        <!--//style="display:none"-->
-                        <div id="statusDiv" >
-                            <!--<label id="filterStat">בחר סטטוס </label>
-                        <select id='statusOpt' required>
-                            <option value=''> בחר</option>
-                            <option value='1.1'>בתהליך</option>
-                            <option value='1.2'>הסתיים</option>
-                        </select>-->
+            <div class="row item">
 
+                <div class="form-group col-sm-9">
+                    <!--//style="display:none"-->
+                    <div id="statusDiv">
+                        <!--<label id="filterStat">בחר סטטוס </label>
+    <select id='statusOpt' required>
+        <option value=''> בחר</option>
+        <option value='1.1'>בתהליך</option>
+        <option value='1.2'>הסתיים</option>
+    </select>-->
+                        <div class="form-group col-sm-4">
                             <label for="filterStat">סטטוס</label>
                             <select id="statusOpt" class="form-control" required>
                                 <option value=''> בחר</option>
                                 <option value='1.1'>בתהליך</option>
                                 <option value='1.2'>הסתיים</option>
                             </select>
-
+                        </div>
                         </div>
 
                         <!--<div id="custDiv" class="form-group" style="display:none">
-                        <label for="custID"> לקוח</label>
-                        <input type="text" id="custID" placeholder="שם לקוח" required>
-                        <input type="button" value="מיין" onclick="filterCust()" />
-                    </div>-->
+        <label for="custID"> לקוח</label>
+        <input type="text" id="custID" placeholder="שם לקוח" required>
+        <input type="button" value="מיין" onclick="filterCust()" />
+    </div>-->
 
                         <div id="custDiv" class="form-group" style="display:none">
 
-                            <div class="form-group col-sm-6 ">
+                            <div class="form-group col-sm-4 ">
                                 <button type="button" value="סינון" class="btn btn-primary btn-md " onclick="filterCust()">
                                     <span class="glyphicon glyphicon-filter"></span> סינון
                                 </button>
                             </div>
-                            <div class="form-group col-sm-6">
+                            <div class="form-group col-sm-4">
                                 <label for="custID">שם הלקוח</label>
                                 <input type="text" class="form-control" id="custID" placeholder="הזן שם לקוח לסינון" required>
                             </div>
@@ -458,37 +458,38 @@
                             </div>
 
                             <!--<div class="form-group col-sm-4">
-                            <input type="button" value="מיין" onclick="filterPrice()" />
-                        </div>-->
+            <input type="button" value="מיין" onclick="filterPrice()" />
+        </div>-->
 
                         </div>
 
                     </div>
 
-                    <div class="form-group col-sm-3">
+                <div class="form-group col-sm-3">
 
-                        <!--<label for="filter">מיין לפי </label>
-                    <select id='filterOpt' required>
+                    <!--<label for="filter">מיין לפי </label>
+            <select id='filterOpt' required>
+                <option value='1'>סטטוס</option>
+                <option value='2'> לקוח</option>
+                <option value='3'> מחיר</option>
+            </select>-->
+
+                    <label for="filter">מיין לפי</label>
+                    <select id="filterOpt" class="form-control">
+                        <!--<option value=''> בחר</option>-->
                         <option value='1'>סטטוס</option>
                         <option value='2'> לקוח</option>
                         <option value='3'> מחיר</option>
-                    </select>-->
+                    </select>
 
-                        <label for="filter">מיין לפי</label>
-                        <select id="filterOpt" class="form-control">
-                            <!--<option value=''> בחר</option>-->
-                            <option value='1'>סטטוס</option>
-                            <option value='2'> לקוח</option>
-                            <option value='3'> מחיר</option>
-                        </select>
-
-                    </div>
                 </div>
 
             </div>
+
         </div>
 
-        <br />
+
+
 
         <form id="pForm">
             <table id="projects_table" class="display nowrap" style="width:80%">

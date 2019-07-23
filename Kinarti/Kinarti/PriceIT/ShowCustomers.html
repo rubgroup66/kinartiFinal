@@ -182,9 +182,9 @@
                     data: custsdata,
                     pageLength: 5,
                     columns: [
-                                                                                    {
+                    {
                     render: function (data, type, row, meta) {
-                        return custsdata.findIndex(i => i.ID === row.ID) + 1;
+                        return custsdata.findIndex(i => i.id === row.id) + 1;
                     }
                 },
                         //{ data: "id" },
@@ -311,7 +311,7 @@
 
                     <div class="form-group col-sm-3">
                         <label for="phone_num"><span class="red-star">★ </span>מספר טלפון </label>
-                        <input type="text" class="form-control" id="phone_num" placeholder="Enter the model name" required>
+                        <input type="text" class="form-control" id="phone_num" placeholder="Enter the model name" required pattern="[0-9]{3}">
                     </div>
 
                     <div class="form-group col-sm-3">

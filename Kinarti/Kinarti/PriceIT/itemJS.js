@@ -734,7 +734,6 @@ function onSubmitFunc2() {
         supervisor: $("#projectSupervisor").val(),
         cost: $(TC).val()
 
-
     };
     ajaxCall("PUT", "../api/projects/?Id=" + projectID, JSON.stringify(projecttoSave), updateProjectSuccess, error);
 
