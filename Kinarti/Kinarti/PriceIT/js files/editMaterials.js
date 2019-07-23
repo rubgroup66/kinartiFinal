@@ -99,66 +99,10 @@ function addMaterial() {
     return false;
 }
 
-//function addMaterial() {
-//    alert(matMode);
-//    console.log(matMode);
-//    if (matMode === "edit") {
-//        Id = material.ID;
-//    }
-    
-//    let mattoSave = {
-//        Name: $("#mat").val(),
-//        Type: $("#type").val(),
-//        Cost: $("#Cost").val(),
-//        Coefficient: $("#coef").val(),
-//        WorkCost: $("#wCost").val()
-//    };
-
-//    if (matMode === "edit")
-//        ajaxCall("PUT", "../api/materials/?Id=" + Id, JSON.stringify(mattoSave), updateSuccessMat, error);
-
-//    else if ((matMode === "new") || (matMode === "duplicate")) // add a new item record to the server
-//        ajaxCall("POST", "../api/materials", JSON.stringify(mattoSave), insertSuccessMat, error);
-//    console.log(matMode);
-//    return false;
-//}
 function updateStatusSuccess() {
     swal("עודכן בהצלחה!", "סטטוס הפרויקט עודכן", "success");
 }
 
-function successGetMaterials(materialsdata) {// this function is activated in case of a success
-    myMaterials = materialsdata;
-    for (var i = 0; i < materialsdata.length; i++) {
-        $('#boxMaterial').append('<option value="' + materialsdata[i].ID + '" >' + materialsdata[i].Name + '</option>');
-    }
-    console.log(myMaterials);
-}
-
-function successGetFacades(facadesdata) {// this function is activated in case of a success
-    console.log(facadesdata);
-    myFacades = facadesdata;
-    for (var i = 0; i < facadesdata.length; i++) {
-        $('#facadeType').append('<option value="' + facadesdata[i].ID + '" >' + facadesdata[i].Type + '</option>');
-    }
-    for (i = 0; i < facadesdata.length; i++) {
-        $('#extraWallType').append('<option value="' + facadesdata[i].ID + '" >' + facadesdata[i].Type + '</option>');
-    }
-    console.log(myFacades);
-}
-
-function successGetBoxes(boxesdata) {// this function is activated in case of a success
-    myBoxes = boxesdata;
-    for (var i = 0; i < boxesdata.length; i++) {
-        $('#boxMeasures').append('<option value="' + boxesdata[i].ID + '" >' + boxesdata[i].Height + 'X' + boxesdata[i].Width + 'X' + boxesdata[i].Depth + '</option>');
-    }
-}
-
-function successGetHandles(handlesdata) {// this function is activated in case of a success
-    myHandles = handlesdata;
-    for (var i = 0; i < handlesdata.length; i++) {
-        $('#handlesType').append('<option value="' + handlesdata[i].ID + '" >' + handlesdata[i].Type + '</option>');
-    }
-}
 
 function successGetMaterialsEdit(materialsdata) {// this function is activated in case of a success
     console.log(materialsdata);
@@ -207,24 +151,6 @@ function successGetMaterialsEdit(materialsdata) {// this function is activated i
         alert(err);
     }
 }
-
-function successGetIronWorks(ironworksdata) {// this function is activated in case of a success
-    myIronWorks = ironworksdata;
-    for (var i = 0; i < ironworksdata.length; i++) {
-        $('#ironWorksType1').append('<option value="' + ironworksdata[i].ID + '" >' + ironworksdata[i].Type + '</option>');
-        $('#ironWorksType2').append('<option value="' + ironworksdata[i].ID + '" >' + ironworksdata[i].Type + '</option>');
-    }
-}
-
-function successGetFacadeMaterials(facadeMaterialsdata) {// this function is activated in case of a success
-    myFacadeMaterials = facadeMaterialsdata;
-    console.log("facade materials -> " + JSON.stringify(facadeMaterialsdata));
-    for (var i = 0; i < facadeMaterialsdata.length; i++) {
-        $('#facadeMaterialType').append('<option value="' + facadeMaterialsdata[i].ID + '" >' + facadeMaterialsdata[i].Name + '</option>');
-    }
-
-}
-// עצרתי בטעינת הצצבעים של החזיתות (גמר + קיר נוסף)
 
 function error(err) { // this function is activated in case of a failure
     swal("Error: " + err);

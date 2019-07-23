@@ -375,7 +375,7 @@ public class DBservices
                 Constants constants = new Constants();
                 constants.constantName = Convert.ToString(dr["name"]);
                 constants.ID = Convert.ToInt32(dr["id"]);
-                constants.Cost = Convert.ToInt32(dr["cost"]);
+                constants.Cost = Convert.ToSingle(dr["cost"]);
 
                 constantsList.Add(constants);
             }
@@ -492,59 +492,7 @@ public class DBservices
         command = prefix + sb.ToString() + ";" + "SELECT CAST(scope_identity() AS int)";
         return command;
     }
-
-        public int updateConstants(Constants constants)
-    {
-        //SqlConnection con;
-        SqlCommand cmd;
-        try
-        {
-            this.con = connect("PriceITConnectionString"); // create the connection
-        }
-        catch (Exception ex)
-        {
-            throw (ex);          // write to log
-        }
-        String cStr = BuildUpdateCommand(constants);      // helper method to build the insert string
-
-        cmd = CreateCommand(cStr, this.con);             // create the command
-
-        try
-        {
-            int numEffected = (int)cmd.ExecuteNonQuery(); // execute the command
-            //for (int i = 0; i < material.Hobbies.Length; i++)
-            //{
-            //    String cStrInsertHobbies = BuildInsertHobbiesForUsersCommand(Id, person.Hobbies[i]);
-            //    cmd1 = CreateCommand(cStrInsertHobbies, con);
-            //    int numEffected1 = cmd1.ExecuteNonQuery();
-            //}
-            return numEffected;
-        }
-        catch (Exception ex)
-        {
-            return 0;
-            throw (ex);       // write to log
-        }
-        finally
-        {
-            if (this.con != null)
-            {
-                this.con.Close();        // close the db connection
-            }
-        }
-    }
-
-    // need to update the buildupdate command
-    private string BuildUpdateCommand(Constants constants)
-    {
-        //String command;
-        //StringBuilder sb = new StringBuilder();
-        // use a string builder to create the dynamic string
-        string prefix = "UPDATE constantParametersCostTbl SET boxWorkCost = '" + constants.Cost + "', cost = '" + constants.Cost/* + " WHERE id=" + id*/;//מעדכנים את כל הטבלה 
-        //command = prefix + "SELECT CAST(scope_identity() AS int)";
-         return prefix;
-    }
-
+   
     //upload Architect from DB
     public List<Architect> getArchitect(string conString2, string tableName2)
     {
@@ -2517,5 +2465,46 @@ public class DBservices
         //string cmdStr = "UPDATE boxTbl SET Active='" + 0 + "'";
         string cmdStr = "UPDATE boxTbl SET Active='" + 0 + "' WHERE id='" + boxID + "'";
         return cmdStr;
+    }
+
+    public int updateConstants(Constants constant, int Id)
+    {
+        //SqlConnection con;
+        SqlCommand cmd;
+        try
+        {
+            this.con = connect("PriceITConnectionString"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            throw (ex);          // write to log
+        }
+        String cStr = BuildUpdateConstCommand(constant, Id);      // helper method to build the insert string
+        cmd = CreateCommand(cStr, this.con);             // create the command
+
+        try
+        {
+            int numEffected = (int)cmd.ExecuteNonQuery(); // execute the command
+            return numEffected;
+        }
+        catch (Exception ex)
+        {
+            return 0;
+            throw (ex);       // write to log
+        }
+        finally
+        {
+            if (this.con != null)
+            {
+                this.con.Close();        // close the db connection
+            }
+        }
+    }
+    private string BuildUpdateConstCommand(Constants p, int id)
+    {
+        //String command;
+        string prefix = "UPDATE parametersTbl SET cost = '" + p.Cost + "' WHERE id=" + id;
+
+        return prefix;
     }
 }

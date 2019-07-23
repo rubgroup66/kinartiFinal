@@ -25,6 +25,7 @@
     <script src="js files/editSupervisor.js"></script>
     <script src="js files/editMaterials.js"></script>
     <script src="js files/editIronWorks.js"></script>
+    <script src="js files/editParam.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="cssGeneral.css" rel="stylesheet" />
     <style>
@@ -107,7 +108,7 @@
     <button class="tablink" onclick="openPage('totalDiv', this, 'deepskyblue')">פרזול</button>
     <button class="tablink" onclick="openPage('experts', this, 'deepskyblue')">בעלי מקצוע</button>
     <button class="tablink" onclick="openPage('material', this, 'deepskyblue')">חומרי גלם</button>
-    <button class="tablink" onclick="openPage('About', this, 'deepskyblue')">פרמטרים</button>
+    <button class="tablink" onclick="openPage('parameters', this, 'deepskyblue')">פרמטרים</button>
     <br />
     <!-------------------------Box----------------------------->
     <div id="box" class="tabcontent">
@@ -420,7 +421,7 @@
         <div class="container">
             <div class="row item">
                 <div class="form-group col-sm-12">
-                    <input type="button" value="הוסף חומר גלם חדש" class="btn btn-primary btn-lg"  id="newBTNMat" />
+                    <input type="button" value="הוסף חומר גלם חדש" class="btn btn-primary btn-lg" id="newBTNMat" />
                 </div>
             </div>
             <form id="matForm">
@@ -466,6 +467,37 @@
         </div>
     </div>
     <!-------------------------Material----------------------------->
+    <!-------------------------Parameters----------------------------->
+    <div id="parameters" class="tabcontent">
+        <div class="container">
+            <form id="parForm">
+
+                <table id="parTable" class="display nowrap" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>שם</th>
+                            <th>מחיר</th>
+                            <th>פעולות</th>
+                        </tr>
+                    </thead>
+                </table>
+            </form>
+            <div id="parEditDiv">
+                <form id="editParForm">
+                    <div class="form-group row">
+                        <div class="form-group col-lg-12">
+                            <label for="ParCost"><span class="red-star">★ </span>מחיר</label>
+                            <input type="text" class="form-control" id="ParCost" placeholder="הזן עלות בשקלים" required min="1">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg">אישור</button>
+                    <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTNPar" value="ביטול" />
+                </form>
+            </div>
+        </div>
+    </div>
+   
 
     <script>
         function openPage(pageName, elmnt, color) {
