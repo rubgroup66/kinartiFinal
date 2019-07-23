@@ -26,7 +26,7 @@ function buttonEventsM() {
         mode = "new";
         $("#matForm").hide();
         $("#editMatForm").show();
-        clearFields();
+        clearFieldsMat();
         $("#matEditDiv :input").prop("disabled", false); // new mode: enable all controls in the form
     });
 
@@ -165,10 +165,26 @@ function successGetMaterialsEdit(materialsdata) {// this function is activated i
     myMaterials = materialsdata;
     try {
         tbl = $('#matTable').DataTable({
+            retrieve: true,
+            paging: false,
+            language: {
+                'search': 'חיפוש:',
+                "lengthMenu": "הצג _MENU_ רשומות",
+                "info": "מציג _START_ עד _END_ מתוך _TOTAL_ רשומות",
+                "paginate": {
+                    "previous": "הקודם",
+                    "next": "הבא"
+                },
+                "emptyTable": "לא קיימות רשומות, אפשר להתחיל להוסיף :)"
+            }, 
             data: materialsdata,
             pageLength: 5,
             columns: [
-                { data: "ID" },
+                {
+                    render: function (data, type, row, meta) {
+                        return materialsdata.findIndex(i => i.ID === row.ID) + 1;
+                    }
+                },
                 { data: "Name" },
                 { data: "Type" },
                 { data: "Coefficient" },
@@ -229,7 +245,7 @@ function populateFields(materialId) {
     $("#Cost").val(material.Cost);
 }
     // fill the form fields
-    function clearFields() {
+function clearFieldsMat() {
         $("#wCost").val("");
         $("#coef").val("");
         $("#type").val("");

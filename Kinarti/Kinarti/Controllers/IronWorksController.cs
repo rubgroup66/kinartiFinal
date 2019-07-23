@@ -28,5 +28,34 @@ namespace kinarti.Controllers
             return lm;
         }
 
+        [HttpPost]
+        [Route("api/IronWorks")]
+        public void Post([FromBody]IronWork I)
+        {
+            try
+            {
+                I.insertIronW();   //    int someError = Convert.ToInt32("will fail to convert");
+            }
+            catch (Exception e)
+            {
+                throw e; // throw new Exception("Error in posting a new item");
+            }
+        }
+
+        [HttpPut]
+        [Route("api/IronWorks")]
+        public void Put([FromBody]IronWork I, int Id)
+        {
+            I.updateIronW(Id);
+        }
+
+        [System.Web.Http.HttpDelete]
+        [Route("api/IronWorks")]
+        public void Delete(int Id)
+        {
+            IronWork IronW = new IronWork();
+            IronW.deleteIronW(Id);
+        }
+
     }
 }

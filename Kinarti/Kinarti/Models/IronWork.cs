@@ -29,15 +29,14 @@ namespace kinarti.Models
         public IronWork()
         {
         }
-        //public int insert()
-        //{
-        //    DBservices dbs = new DBservices();
-        //    int numAffected = dbs.insertMaterial(this);
-        //    return numAffected;
-        //}
-        //--------------------------------------------------------------------------
-        // get the list of the boxes
-        //--------------------------------------------------------------------------
+
+        public int insertIronW()
+        {
+            DBservices dbs = new DBservices();
+            int numAffected = dbs.insertIronW(this);
+            return numAffected;
+        }
+
         public List<IronWork> getIronWorks()
         {
             DBservices dbs = new DBservices();
@@ -45,12 +44,19 @@ namespace kinarti.Models
             return lp;
         }
 
-        //public int SwitchActive(int isActive, int PersonId)
-        //{
-        //    DBservices dbs = new DBservices();
-        //    int numAffected = dbs.SwitchActive(isActive, PersonId);
-        //    return numAffected;
-        //}
+        public int updateIronW(int Id)
+        {
+            DBservices dbs = new DBservices();
+            int numAffected = dbs.updateIronW(this, Id);
+            return numAffected;
+        }
+
+        public void deleteIronW(int Id)
+        {
+            DBservices dbs = new DBservices();
+            int numAffected = dbs.deleteIronW(Id);
+
+        }
 
     }
 }

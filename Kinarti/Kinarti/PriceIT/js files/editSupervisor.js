@@ -53,10 +53,26 @@ function successGetSupEdit(supdata) {// this function is activated in case of a 
     mySup = supdata;
     try {
         tbl = $('#supTable').DataTable({
+            retrieve: true,
+            paging: false,
+            language: {
+                'search': 'חיפוש:',
+                "lengthMenu": "הצג _MENU_ רשומות",
+                "info": "מציג _START_ עד _END_ מתוך _TOTAL_ רשומות",
+                "paginate": {
+                    "previous": "הקודם",
+                    "next": "הבא"
+                },
+                "emptyTable": "לא קיימות רשומות, אפשר להתחיל להוסיף :)"
+            }, 
             data: supdata,
             pageLength: 5,
             columns: [
-                { data: "sup_id" },
+                {
+                    render: function (data, type, row, meta) {
+                        return supdata.findIndex(i => i.sup_id === row.sup_id) + 1;
+                    }
+                },
                 { data: "sup_name" },
                 { data: "sup_phone" },
                 {

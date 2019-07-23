@@ -336,7 +336,12 @@ public class DBservices
                 ironWork.Type = Convert.ToString(dr["type"]);
                 ironWork.ID = Convert.ToInt32(dr["id"]);
                 ironWork.Cost = Convert.ToInt32(dr["cost"]);
-                ironWorksList.Add(ironWork);
+                ironWork.Active = Convert.ToInt16(dr["Active"]);
+                if(ironWork.Active == 1)
+                {
+                    ironWorksList.Add(ironWork);
+
+                }
             }
             return ironWorksList;
         }
@@ -1181,6 +1186,55 @@ public class DBservices
         return command;
     }
 
+    public int insertIronW(IronWork ironW)//inserting new item
+    {
+        //SqlConnection con;
+        SqlCommand cmd;
+        try
+        {
+            this.con = connect("PriceITConnectionString"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        String cStr = BuildInsertIronWCommand(ironW);      // helper method to build the insert string
+        cmd = CreateCommand(cStr, this.con);             // create the command
+        try
+        {
+            int numEffected = cmd.ExecuteNonQuery(); // execute the command
+            return numEffected;
+        }
+        catch (Exception ex)
+        {
+            return 0;
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (this.con != null)
+            {
+                // close the db connection
+                this.con.Close();
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------
+    // Build the Insert command String
+    //--------------------------------------------------------------------
+    private String BuildInsertIronWCommand(IronWork ironW)
+    {
+        String command;
+        StringBuilder sbItem = new StringBuilder(); // use a string builder to create the dynamic string
+        sbItem.AppendFormat("Values('{0}', {1}, {2} )", ironW.Type, ironW.Cost, 1);
+        String prefix = "INSERT INTO ironWorkTbl " + "(type, cost, Active) ";
+        command = prefix + sbItem.ToString() + ";" + "SELECT CAST(scope_identity() AS int)";
+        return command;
+    }
+
 
     public int insertHandle(Handle handle)//inserting new item
     {
@@ -1443,6 +1497,47 @@ public class DBservices
     {
         //String command;
         string prefix = "UPDATE hingeTbl SET type = '" + p.Type + "', cost = '" + p.Cost + "' WHERE id = " + id;
+        return prefix;
+    }
+
+    public int updateIronW(IronWork ironW, int Id)
+    {
+        //SqlConnection con;
+        SqlCommand cmd;
+        try
+        {
+            this.con = connect("PriceITConnectionString"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            throw (ex);          // write to log
+        }
+        String cStr = BuildUpdateIronWCommand(ironW, Id);      // helper method to build the insert string
+        cmd = CreateCommand(cStr, this.con);             // create the command
+
+        try
+        {
+            int numEffected = (int)cmd.ExecuteNonQuery(); // execute the command
+            return numEffected;
+        }
+        catch (Exception ex)
+        {
+            return 0;
+            throw (ex);       // write to log
+        }
+        finally
+        {
+            if (this.con != null)
+            {
+                this.con.Close();        // close the db connection
+            }
+        }
+    }
+
+    private string BuildUpdateIronWCommand(IronWork I, int id)
+    {
+        //String command;
+        string prefix = "UPDATE ironWorkTbl SET type = '" + I.Type + "', cost = '" + I.Cost + "' WHERE id = " + id;
         return prefix;
     }
 
@@ -2048,6 +2143,46 @@ public class DBservices
     private string BuildDeleteHinge(int hingeID)
     {
         string cmdStr = "UPDATE hingeTbl SET Active='" + 0 + "' WHERE id='" + hingeID + "'";
+        return cmdStr;
+    }
+
+    public int deleteIronW(int ironWID)
+    {
+        //SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            this.con = connect("PriceITConnectionString"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            throw (ex);// write to log
+        }
+        String cStr = BuildDeleteIronW(ironWID);      // helper method to build the insert string
+        cmd = CreateCommand(cStr, this.con);             // create the command
+        try
+        {
+            int numAffected = cmd.ExecuteNonQuery(); // execute the comm
+            return numAffected;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (this.con != null)
+            {
+                this.con.Close();// close the db connection
+            }
+        }
+
+    }
+    private string BuildDeleteIronW(int ironWID)
+    {
+        string cmdStr = "UPDATE ironWorkTbl SET Active='" + 0 + "' WHERE id='" + ironWID + "'";
         return cmdStr;
     }
 
