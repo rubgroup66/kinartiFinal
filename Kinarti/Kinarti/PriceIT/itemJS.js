@@ -101,9 +101,6 @@ $(document).ready(function () {
 
         //var radioValue = $("input[name='status']:checked").val();
         var radioValue = $("input[name='status']:checked").val();
-        console.log("###########");
-        console.log(radioValue);
-        console.log("###########");
         var isActive = radioValue == 'inProgress' ? 0 : 1; // replace with true value
 
 
@@ -213,10 +210,6 @@ function successGetProject(projectdata) {// this function is activated in case o
 
     $("#projectCost").val(projectdata.cost);
 
-
-    //var date_test = new Date("2011-07-14 11:23:00".replace(/-/g, "/"));
-    //console.log(date_test);
-
     $("#projectDescription").val(projectdata.description);
     $("#projectArchitect").val(projectdata.architect);
     $("#projectSupervisor").val(projectdata.supervisor);
@@ -224,7 +217,6 @@ function successGetProject(projectdata) {// this function is activated in case o
     if (myProject.status === 1) {
         $("#doneBtn").addClass("active");
         $("#done").attr("checked", "checked");
-        //$("#doneBtn").prop('checked', true);
         $("#inProgressBtn").removeClass("active");
 
         $("#editDiv :input").attr("disabled", "disabled"); // this needs to be disabled when status = 1
@@ -232,19 +224,14 @@ function successGetProject(projectdata) {// this function is activated in case o
     else {
         $("#inProgressBtn").addClass("active");
         $("#inProgress").attr("checked", "checked");
-        //$("#inProgressBtn").prop('checked', true);
-
         $("#doneBtn").removeClass("active");
     }
-
 
     uriCustomer = "../api/getCust/?customerID=" + projectdata.customer_id;
     ajaxCall("GET", uriCustomer, "", successGetCustomers, error);
 
     uri = "../api/items/?projectID=" + projectID;
     ajaxCall("GET", uri, "", successGetItems, error); //get all relevant project's items from DB  
-
-
 
 }
 
@@ -305,8 +292,6 @@ function successGetCustomers(customersdata) {// this function is activated in ca
     console.log("customer -> " + JSON.stringify(customersdata));
     $("#customerName").val("customersdata.first_name " + "customersdata.last_name");
 
-    console.log(JSON.stringify(customersdata));
-
     $("#customerName").val((customersdata.first_name + " " + customersdata.last_name));
 }
 
@@ -316,7 +301,6 @@ function successGetFacadeMaterials(facadeMaterialsdata) {// this function is act
     for (var i = 0; i < facadeMaterialsdata.length; i++) {
         $('#facadeMaterialType').append('<option value="' + facadeMaterialsdata[i].ID + '" >' + facadeMaterialsdata[i].Name + '</option>');
     }
-
 }
 
 
@@ -326,17 +310,15 @@ function successGetFacadeMaterials(facadeMaterialsdata) {// this function is act
 function successGetConstants(constantsdata) {// this function is activated in case of a success
     constants = constantsdata;
     console.log(constants);
-    //constants = (JSON.stringify(constantsdata));
 }
 
-function f2() {
-    // addItem();
-    return false; // the return false will prevent the form from being submitted, hence the page will not reload
-}
+//function f2() {
+//    // addItem();
+//    return false; // the return false will prevent the form from being submitted, hence the page will not reload
+//}
 
 var materialCoefficient;
 var itemTotalSum = 0;
-
 
 function calculateItem() {
     collectChoices();
@@ -353,7 +335,6 @@ function calculateItem() {
 
     var withboxWoodDrawers = (plateSquareMeter * basicMaterialCoefficient * materialWoodDrawersCoefficient + plateSquareMeter * lacquerWorkCost + woodRailsCost + woodBoxDrawerWorkCost) * params.boxWoodDrawersQuantity;
     //debugger;
-
     var withInternalLegraBoxDrawers = (LegraBoxDrawerWork + LegraboxInternalRailsCost) * params.internalLegraBoxDrawersQuantity;
     var withExternalLegraBoxDrawers = (LegraBoxDrawerWork + LegraboxExternalRailsCost) * params.externalLegraBoxDrawersQuantity;
 
@@ -402,7 +383,7 @@ function calculateItem() {
 
     console.log(itemTotalSum);
     //$('#itemCost').val(Math.round(itemTotalSum));
-    $('#itemCostCalculation').html("<strong> עלות פריט:" + Math.round(itemTotalSum) + "</strong>");
+    $('#itemCostCalculation').html("<strong> עלות פריט: " + Math.round(itemTotalSum) + "</strong>");
 
     return false; // the return false will prevent the form from being submitted, hence the page will not reload
 }
@@ -449,7 +430,6 @@ function collectChoices() {
     for (i = 0; i < myMaterials.length; i++) {
         if (myMaterials[i].ID.toString() === params.materialID) { // this is the specific material cost
             materialCoefficient = myMaterials[i].Coefficient;
-            //console.log("myMaterials: ", myMaterials);
         }
     }
 
@@ -510,7 +490,6 @@ function collectChoices() {
         LegraboxExternalRailsCost = constants[12].Cost;
         ScalaInternalRailsCost = constants[11].Cost;
         ScalaExternalRailsCost = constants[13].Cost;
-
 
         facadeFRNWorkCoefficient = constants[6].Cost;// 280
 
@@ -608,6 +587,7 @@ function buttonEvents() {
     //        });
     //});
     ////////////////////////////////////////////////////////
+
     $("#finish").on("click", function () {
         onSubmitFunc2();
     });
@@ -649,14 +629,6 @@ function error(err) { // this function is activated in case of a failure
 function ShowInfo() {
     $("#info").show();
 }
-
-//function calculateProjectCost() {
-//    TC = tbl.column(4).data().sum();
-//    $("#projectCost").val(TC);
-//    console.log(TC);
-//}
-
-//$("#pForm").submit(onSubmitFunc); 
 
 function markSelected(btn) {  // mark the selected row
     $("#itemsTable tr").removeClass("selected"); // remove seleced class from rows that were selected before
@@ -741,7 +713,6 @@ function onSubmitFunc2() {
 }
 
 function populateFields(itemId) {    // fill the form fields
-    //debugger;
     item = getItem(itemId);
     console.log(item);
     //$("#image").attr("src", "images/" + item.Image);
@@ -751,13 +722,13 @@ function populateFields(itemId) {    // fill the form fields
             $("#boxMaterial").val(myMaterials[i].Name);
         }
     }
-
+        //$("#boxMeasures").val(item.BoxMeasures);
     for (i = 0; i < myBoxes.length; i++) {
         if (myBoxes[i].ID.toString() === item.BoxMeasuresID) { // this is the specific material cost
             $("#boxMeasures").val(myBoxes[i].Name);
         }
     }
-    //$("#boxMeasures").val(item.BoxMeasures);
+
 
     $("#partitions").val(item.Partitions);
     $("#shelves").val(item.Shelves);
@@ -789,7 +760,6 @@ function populateFields(itemId) {    // fill the form fields
     }
 
     $("#hingesQuantity2").val(item.HingesQuantity2);
-
     //$("#hingesType1").val(item.HingesType1);
     for (i = 0; i < myHinges.length; i++) {
         if (myHinges[i].ID.toString() === item.HingesType2ID) {
@@ -835,7 +805,7 @@ function populateFields(itemId) {    // fill the form fields
     }
 
     $("#itemCost").val(item.Cost);
-    calculateItem(); // need to be checked
+    calculateItem();
 }
 // fill the form fields
 function clearFields() {
@@ -868,8 +838,7 @@ function clearFields() {
     //  $("#image").attr("src", "images/item.jpg");
 }
 
-// get item according to its Id
-function getItem(id) {
+function getItem(id) { // get item according to its Id
     console.log(myItems);
     for (i in myItems) {
         if (myItems[i].ID == id)
@@ -883,7 +852,6 @@ function updateSuccess() {    // success callback function after update
     //tbl.clear();
     uri = "../api/items/?projectID=" + projectID;
     ajaxCall("GET", uri, "", populateTableWithUpdatedData, error); //get all relevant project's items from DB 
-
     //redrawTable(tbl, itemsdata);
     buttonEvents();
     $("#editDiv").hide();
