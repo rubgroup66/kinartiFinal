@@ -370,22 +370,28 @@ function calculateItem() {
     console.log("withFacade +" + withFacade);
     console.log("withExtraWall +" + withExtraWall);
     console.log("withDistancedInternalDrawer +" + withDistancedInternalDrawer);
-    console.log("withPartitions +" + withPartitions);
-    console.log("withShelves +" + withShelves);
-    console.log("withboxWoodDrawers +" + withboxWoodDrawers);
-    console.log("withInternalLegraBoxDrawers +" + withInternalLegraBoxDrawers);
-    console.log("withExternalLegraBoxDrawers +" + withExternalLegraBoxDrawers);
-    console.log("withInternalScalaBoxDrawers +" + withInternalScalaBoxDrawers);
-    console.log("withExternalScalaBoxDrawers +" + withExternalScalaBoxDrawers);
+     
+    //console.log("withPartitions +" + withPartitions);
+    //console.log("withShelves +" + withShelves);
+    //console.log("withboxWoodDrawers +" + withboxWoodDrawers);
+    //console.log("withInternalLegraBoxDrawers +" + withInternalLegraBoxDrawers);
+    //console.log("withExternalLegraBoxDrawers +" + withExternalLegraBoxDrawers);
+    //console.log("withInternalScalaBoxDrawers +" + withInternalScalaBoxDrawers);
+    //console.log("withExternalScalaBoxDrawers +" + withExternalScalaBoxDrawers);
     console.log("withHinges1 +" + withHinges1);
     console.log("withHinges2 +" + withHinges2);
-    console.log("withHandles +" + withHandles);
+    //console.log("withHandles +" + withHandles);
 
     console.log(itemTotalSum);
     //$('#itemCost').val(Math.round(itemTotalSum));
-    $('#itemCostCalculation').html("<strong> עלות פריט: " + Math.round(itemTotalSum) + "  שח " +"</strong>");
+    $('#itemCostCalculation').html("<strong> עלות פריט: " + formatNumber(Math.round(itemTotalSum)) + "  שח " +"</strong>");
 
     return false; // the return false will prevent the form from being submitted, hence the page will not reload
+}
+
+
+function formatNumber(num) {
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }
 
 function collectChoices() {
@@ -957,7 +963,7 @@ function successGetItems(itemsdata) {    // this function is activated in case o
                         editBtn = "<button type='button' class = 'editBtn btn btn-success' " + dataItem + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>  עריכה </button>";
                         //viewBtn = "<button type='button' class = 'viewBtn btn btn-info' " + dataItem + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>  צפייה </button>";
                         duplicateBtn = "<button type='button' class = 'duplicateBtn btn btn-info' " + dataItem + ">  <span class='glyphicon glyphicon-duplicate' aria-hidden='true'></span>  שכפול  </button>";
-                        deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataItem + ">  <span class='glyphicon glyphicon-remove' aria-hidden='true'></span> מחיקה </button>";
+                        deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataItem + ">  <span class='glyphicon glyphicon-trash' aria-hidden='true'></span> מחיקה </button>";
                         return editBtn + /*viewBtn +*/ duplicateBtn + deleteBtn;
                     }
                 }
