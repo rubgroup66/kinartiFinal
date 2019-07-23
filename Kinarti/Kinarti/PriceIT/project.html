@@ -115,9 +115,8 @@
                     <thead>
                         <tr>
                             <th></th>
-                            <!--<th>מס"ד</th>-->
                             <th>שם</th>
-                            <th>מידות</th>
+                            <th>מידות (ס"מ)</th>
                             <th>עלות (ש"ח)</th>
                             <th>פעולות</th>
                         </tr>
@@ -145,7 +144,7 @@
                                 <br />
                                 <div class="btn-group" data-toggle="buttons">
                                     <label class="btn btn-primary active" id="openItem">
-                                        <input type="radio" id="openItem" name="itemType" value="openItem" autocomplete="off"> ארגזת
+                                        <input type="radio" id="openItem" name="itemType" value="openItem" autocomplete="off" > ארגזת
                                     </label>
                                     <label class="btn btn-primary" id="closedItem">
                                         <input type="radio" id="closedItem" name="itemType" value="closedItem" disabled> ספריה
@@ -162,21 +161,21 @@
                         <div class="row item">
                             <div class="form-group col-sm-6">
                                 <label for="boxMaterial"><span class="red-star">★ </span>סוג החומר</label>
-                                <select id="boxMaterial" class="form-control" required></select>
+                                <select id="boxMaterial" class="form-control" required onchange="calculateItem()"></select>
                             </div>
                             <div class="form-group col-sm-6">
                                 <label for="boxMeasures"><span class="red-star">★ </span>מידות</label>
-                                <select id="boxMeasures" class="form-control" required></select>
+                                <select id="boxMeasures" class="form-control" required onchange="calculateItem()"></select>
                             </div>
                         </div>
                         <div class="row item">
                             <div class="form-group col-sm-6">
                                 <label for="partitions"><span class="red-star">★ </span>מחיצות</label>
-                                <input type="number" class="form-control" id="partitions" placeholder="כמות מחיצות" value="0" min="0" required onblur="calculateItem()">
+                                <input type="number" class="form-control" id="partitions" placeholder="כמות מחיצות" value="0" min="0" required onkeyup="calculateItem()">
                             </div>
                             <div class="form-group col-sm-6">
                                 <label for="shelves"><span class="red-star">★ </span>מדפים</label>
-                                <input type="number" class="form-control" id="shelves" placeholder="כמות מדפים" value="0" min="0" required onblur="calculateItem()">
+                                <input type="number" class="form-control" id="shelves" placeholder="כמות מדפים" value="0" min="0" required onkeyup="calculateItem()">
                             </div>
                         </div>
                         <div class="row">
@@ -186,29 +185,29 @@
                             </div>
                             <div class="form-group col-sm-6">
                                 <label for="boxWoodDrawers"><span class="red-star">★ </span> ארגזי מגירה עץ</label>
-                                <input type="number" class="form-control" id="boxWoodDrawers" placeholder="הזן מספר מגירות עץ" value="0" min="0" required onblur="calculateItem()">
+                                <input type="number" class="form-control" id="boxWoodDrawers" placeholder="הזן מספר מגירות עץ" value="0" min="0" required onkeyup="calculateItem()">
                             </div>
                         </div>
                         <p class="bg-info">מגירות LegraBox</p>
                         <div class="row">
                             <div class="form-group col-sm-6">
                                 <label for="internalLegraBoxDrawers"><span class="red-star">★ </span> כמות מגירות LegraBox פנימיות</label>
-                                <input type="number" class="form-control" id="internalLegraBoxDrawers" placeholder="הזן כמות מגירות LegraBox פנימיות" min="0" value="0" required onblur="calculateItem()">
+                                <input type="number" class="form-control" id="internalLegraBoxDrawers" placeholder="הזן כמות מגירות LegraBox פנימיות" min="0" value="0" required onkeyup="calculateItem()">
                             </div>
                             <div class="form-group col-sm-6">
                                 <label for="externalLegraBoxDrawers"><span class="red-star">★ </span> כמות מגירות LegraBox חיצוניות</label>
-                                <input type="number" class="form-control" id="externalLegraBoxDrawers" placeholder="הזן כמות מגירות חיצוניות" min="0" value="0" required onblur="calculateItem()">
+                                <input type="number" class="form-control" id="externalLegraBoxDrawers" placeholder="הזן כמות מגירות חיצוניות" min="0" value="0" required onkeyup="calculateItem()">
                             </div>
                         </div>
                         <p class="bg-info">מגירות Scala</p>
                         <div class="row">
                             <div class="form-group col-sm-6">
                                 <label for="internalScalaBoxDrawers"><span class="red-star">★ </span> כמות מגירות Scala פנימיות</label>
-                                <input type="number" class="form-control" id="internalScalaBoxDrawers" placeholder="הזן כמות מגירות LegraBox פנימיות" min="0" value="0" required onblur="calculateItem()">
+                                <input type="number" class="form-control" id="internalScalaBoxDrawers" placeholder="הזן כמות מגירות LegraBox פנימיות" min="0" value="0" required onkeyup="calculateItem()">
                             </div>
                             <div class="form-group col-sm-6">
                                 <label for="externalScalaBoxDrawers"><span class="red-star">★ </span> כמות מגירות Scala חיצוניות</label>
-                                <input type="number" class="form-control" id="externalScalaBoxDrawers" placeholder="הזן כמות מגירות Scala חיצוניות" min="0" value="0" required onblur="calculateItem()">
+                                <input type="number" class="form-control" id="externalScalaBoxDrawers" placeholder="הזן כמות מגירות Scala חיצוניות" min="0" value="0" required onkeyup="calculateItem()">
                             </div>
                         </div>
                         <h4>חזית</h4>
@@ -229,11 +228,11 @@
                         <div class="row">
                             <div class="form-group col-sm-6">
                                 <label for="hingesQuantity1"><span class="red-star">★ </span>כמות צירים מסוג 1</label>
-                                <input type="number" class="form-control" id="hingesQuantity1" placeholder="הזן כמות צירים מסוג 1" min="0" value="0" required onblur="calculateItem()">
+                                <input type="number" class="form-control" id="hingesQuantity1" placeholder="הזן כמות צירים מסוג 1" min="0" value="0" required onkeyup="calculateItem()">
                             </div>
                             <div class="form-group col-sm-6">
                                 <label for="hingesType1"><span class="red-star">★ </span>סוג ציר 1</label>
-                                <select id="hingesType1" class="form-control" required onchange="calculateItem()">
+                                <select id="hingesType1" class="form-control" required onkeyup="calculateItem()">
                                     <option value="0">ללא</option>
                                 </select>
                             </div>
@@ -242,11 +241,11 @@
                         <div class="row">
                             <div class="form-group col-sm-6">
                                 <label for="hingesQuantity2"><span class="red-star">★ </span>כמות צירים מסוג 2</label>
-                                <input type="number" class="form-control" id="hingesQuantity2" placeholder="הזן כמות צירים מסוג 2" min="0" value="0" required onblur="calculateItem()">
+                                <input type="number" class="form-control" id="hingesQuantity2" placeholder="הזן כמות צירים מסוג 2" min="0" value="0" required onkeyup="calculateItem()">
                             </div>
                             <div class="form-group col-sm-6">
                                 <label for="hingesType2"><span class="red-star">★ </span>סוג ציר 2</label>
-                                <select id="hingesType2" class="form-control" required onchange="calculateItem()">
+                                <select id="hingesType2" class="form-control" required onkeyup="calculateItem()">
                                     <option value="0">ללא</option>
                                 </select>
                             </div>
@@ -256,10 +255,10 @@
                         <div class="row">
                             <div class="form-group col-sm-6">
                                 <label for="extraWallQuantity"><span class="red-star">★ </span>כמות דפנות נוספות</label>
-                                <input type="number" class="form-control" id="extraWallQuantity" placeholder="הזן כמות דפנות נוספות" min="0" value="0" required onblur="calculateItem()">
+                                <input type="number" class="form-control" id="extraWallQuantity" placeholder="הזן כמות דפנות נוספות" min="0" value="0" required onkeyup="calculateItem()">
                             </div>
                             <div class="form-group col-sm-6">
-                                <label for="extraWallType"><span class="red-star" onchange="calculateItem()">★ </span> סוג גמר לדופן נוסף</label>
+                                <label for="extraWallType"><span class="red-star" onkeyup="calculateItem()">★ </span> סוג גמר לדופן נוסף</label>
                                 <select id="extraWallType" class="form-control">
                                     <option value="0">ללא</option>
                                 </select>
@@ -270,7 +269,7 @@
                         <div class="row">
                             <div class="form-group col-sm-6">
                                 <label for="handlesQuantity"><span class="red-star">★ </span>כמות ידיות</label>
-                                <input type="number" class="form-control" id="handlesQuantity" placeholder="הזן כמות ידיות" min="0" value="0" required onblur="calculateItem()">
+                                <input type="number" class="form-control" id="handlesQuantity" placeholder="הזן כמות ידיות" min="0" value="0" required onkeyup="calculateItem()">
                             </div>
                             <div class="form-group col-sm-6">
                                 <label for="handlesType"><span class="red-star">★ </span>סוג ידיות</label>
@@ -283,7 +282,7 @@
                         <div class="row">
                             <div class="form-group col-sm-6">
                                 <label for="ironWorksQuantity1"><span class="red-star">★ </span>כמות פרזולים מסוג 1</label>
-                                <input type="number" class="form-control" id="ironWorksQuantity1" placeholder="הזן כמות פרזולים" min="0" value="0" required onblur="calculateItem()">
+                                <input type="number" class="form-control" id="ironWorksQuantity1" placeholder="הזן כמות פרזולים" min="0" value="0" required onkeyup="calculateItem()">
                             </div>
                             <div class="form-group col-sm-6">
                                 <label for="ironWorksType1"><span class="red-star">★ </span>סוג פרזול 1</label>
@@ -295,7 +294,7 @@
                         <div class="row">
                             <div class="form-group col-sm-6">
                                 <label for="ironWorksQuantity2"><span class="red-star">★ </span>כמות פרזולים מסוג 2</label>
-                                <input type="number" class="form-control" id="ironWorksQuantity2" placeholder="הזן כמות פרזולים" min="0" value="0" required onblur="calculateItem()">
+                                <input type="number" class="form-control" id="ironWorksQuantity2" placeholder="הזן כמות פרזולים" min="0" value="0" required onkeyup="calculateItem()">
                             </div>
                             <div class="form-group col-sm-6">
                                 <label for="ironWorksType2"><span class="red-star">★ </span>סוג פרזול 2</label>
@@ -308,7 +307,7 @@
                         <div class="row">
                             <div class="form-group col-sm-12">
                                 <label for="extraCostForItem"><span class="red-star">★ </span>תוספת מחיר כללית לפריט</label>
-                                <input type="number" class="form-control" id="extraCostForItem" placeholder="הזן תוספת לפריט" min="0" value="0" required onblur="calculateItem()">
+                                <input type="number" class="form-control" id="extraCostForItem" placeholder="הזן תוספת לפריט" min="0" value="0" required onkeyup="calculateItem()">
                             </div>
                         </div>
                         <br />
@@ -323,12 +322,8 @@
                     </div>-->
 
                             <div class="well well-sm" id="itemCostCalculation">
-
                                 <strong>עלות פריט: </strong>
-                                <!--<input type="number" class="form-control" id="itemCost" placeholder="0" disabled>-->
-
                             </div>
-
                         </div>
 
                         <div class="form-group col-sm-12">
@@ -344,10 +339,8 @@
 
                     </div>
 
-
                 </form>
                 <br />
-
             </div>
 
             <div class="form-group col-sm-12">

@@ -287,10 +287,9 @@
                 alert("error filtering")
             }           
             function successfilterstatus(pdata) {
-                //
-                var dataTable = $('#projects_table2').DataTable();
-                dataTable.destroy();
-                dataTable.clear();
+                //var dataTable = $('#projects_table2').DataTable();
+                //dataTable.destroy();
+                //dataTable.clear();
 
                 document.getElementById('con').style.display = "none";
                 document.getElementById('filterd').style.display = "block"; 
@@ -353,6 +352,7 @@
                         },
                     ]
                 })
+                document.getElementById('con').style.display = "block";
             }
             $("#newProjectBtn").on("click", function () {
                 localStorage.clear();
@@ -396,7 +396,7 @@
         </div>
     </div>-->
 
-        <div id="filterDiv" class="form-group" style=" background-color:lightblue; border:double; " >
+        <div id="filterDiv" class="form-group filterDiv"  >
             <!--// display:none;-->
             <div class="row item">
 
@@ -498,7 +498,7 @@
             <table id="projects_table" class="display nowrap" style="width:80%">
                 <thead>
                     <tr>
-                        <th>מס"ד</th>
+                        <th></th>
                         <th>שם פרויקט</th>
                         <th>שם הלקוח</th>
                         <th>תיאור</th>

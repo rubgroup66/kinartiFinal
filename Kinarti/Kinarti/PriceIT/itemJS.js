@@ -103,10 +103,6 @@ $(document).ready(function () {
         var radioValue = $("input[name='status']:checked").val();
         var isActive = radioValue == 'inProgress' ? 0 : 1; // replace with true value
 
-
-        //var radioValue1 = $("#inProgress").hasClass("active");
-
-
         if (isActive == 1) {
             swal("!לא ניתן להוסיף פריטים נוספים..", "כדי לאפשר הוספה נדרש להעביר את הפרויקט למצב 'בתהליך'", "info");
         }
@@ -208,7 +204,7 @@ function successGetProject(projectdata) {// this function is activated in case o
 
     $("#createDate").val(formattedDate);
 
-    $("#projectCost").val(projectdata.cost);
+    $("#projectCost").val(formatNumber(projectdata.cost));
 
     $("#projectDescription").val(projectdata.description);
     $("#projectArchitect").val(projectdata.architect);
@@ -370,22 +366,28 @@ function calculateItem() {
     console.log("withFacade +" + withFacade);
     console.log("withExtraWall +" + withExtraWall);
     console.log("withDistancedInternalDrawer +" + withDistancedInternalDrawer);
-    console.log("withPartitions +" + withPartitions);
-    console.log("withShelves +" + withShelves);
-    console.log("withboxWoodDrawers +" + withboxWoodDrawers);
-    console.log("withInternalLegraBoxDrawers +" + withInternalLegraBoxDrawers);
-    console.log("withExternalLegraBoxDrawers +" + withExternalLegraBoxDrawers);
-    console.log("withInternalScalaBoxDrawers +" + withInternalScalaBoxDrawers);
-    console.log("withExternalScalaBoxDrawers +" + withExternalScalaBoxDrawers);
+     
+    //console.log("withPartitions +" + withPartitions);
+    //console.log("withShelves +" + withShelves);
+    //console.log("withboxWoodDrawers +" + withboxWoodDrawers);
+    //console.log("withInternalLegraBoxDrawers +" + withInternalLegraBoxDrawers);
+    //console.log("withExternalLegraBoxDrawers +" + withExternalLegraBoxDrawers);
+    //console.log("withInternalScalaBoxDrawers +" + withInternalScalaBoxDrawers);
+    //console.log("withExternalScalaBoxDrawers +" + withExternalScalaBoxDrawers);
     console.log("withHinges1 +" + withHinges1);
     console.log("withHinges2 +" + withHinges2);
-    console.log("withHandles +" + withHandles);
+    //console.log("withHandles +" + withHandles);
 
     console.log(itemTotalSum);
     //$('#itemCost').val(Math.round(itemTotalSum));
-    $('#itemCostCalculation').html("<strong> עלות פריט: " + Math.round(itemTotalSum) + "</strong>");
+    var formattedNumber = formatNumber(Math.round(itemTotalSum));
+    $('#itemCostCalculation').html("<strong> עלות פריט: " + formattedNumber + "  שח " +"</strong>");
 
     return false; // the return false will prevent the form from being submitted, hence the page will not reload
+}
+
+function formatNumber(num) {
+    return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 }
 
 function collectChoices() {
@@ -704,8 +706,8 @@ function onSubmitFunc2() {
         //status: $("#status").val(),       
         architect: $("#projectArchitect").val(),
         supervisor: $("#projectSupervisor").val(),
-        cost: $(TC).val()
-
+        //cost: $(int(TC)).val()
+        cost: TC
     };
     ajaxCall("PUT", "../api/projects/?Id=" + projectID, JSON.stringify(projecttoSave), updateProjectSuccess, error);
 
@@ -859,14 +861,30 @@ function updateSuccess() {    // success callback function after update
     mode = "";
 }
 
-function updateProjectSuccess() {    // success callback function after update
-    buttonEvents();
-    $("#editDiv").hide();
-    swal("עודכן בהצלחה!", "הפרויקט נשמר בהצלחה", "success");
-    mode = "";
+function updateProjectSuccess(data) {
+    swal({ // this will open a dialouge
+        title: "הפרויקט נשמר !",
+        text: "עודכן בהצלחה!",
+        icon: "success",
+        button: "אישור"
+    })
+        .then(function (create) {
 
-    //window.location.href = 'projectsList.html';
+                window.location.href = 'projectsList.html';
+
+        });
+
 }
+
+
+
+
+
+
+
+
+
+
 
 function insertSuccess(itemsdata) {  // success callback function after adding new item
     $("#pForm").show();
@@ -957,7 +975,7 @@ function successGetItems(itemsdata) {    // this function is activated in case o
                         editBtn = "<button type='button' class = 'editBtn btn btn-success' " + dataItem + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>  עריכה </button>";
                         //viewBtn = "<button type='button' class = 'viewBtn btn btn-info' " + dataItem + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>  צפייה </button>";
                         duplicateBtn = "<button type='button' class = 'duplicateBtn btn btn-info' " + dataItem + ">  <span class='glyphicon glyphicon-duplicate' aria-hidden='true'></span>  שכפול  </button>";
-                        deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataItem + ">  <span class='glyphicon glyphicon-remove' aria-hidden='true'></span> מחיקה </button>";
+                        deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataItem + ">  <span class='glyphicon glyphicon-trash' aria-hidden='true'></span> מחיקה </button>";
                         return editBtn + /*viewBtn +*/ duplicateBtn + deleteBtn;
                     }
                 }
@@ -992,7 +1010,7 @@ function successGetItems(itemsdata) {    // this function is activated in case o
                     }, 0);
                 // Update footer
                 $(api.column(3).footer()).html(
-                    ' עלות כוללת עדכנית :   ' + pageTotal + ' ש"ח ' + '(' + total + ' ש"ח ' + ' סה"כ)'
+                    '           עלות כוללת עדכנית :   ' + formatNumber(pageTotal) + ' ש"ח ' + '(' + formatNumber(total) + ' ש"ח ' + ' סה"כ)'
                 );
             }
         });
@@ -1002,7 +1020,7 @@ function successGetItems(itemsdata) {    // this function is activated in case o
         alert(err);
     }
 }
-
+//var formattedNumber = formatNumber(Math.round(itemTotalSum));
 function saveProjectSuccess() {
     tbl.clear();
     buttonEvents(); // after redrawing the table, we must wire the new buttons

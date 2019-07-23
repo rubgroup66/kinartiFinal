@@ -68,19 +68,20 @@
         }
 
         function errorPostProj(err) {
-            swal("error posting project");
+            swal("שגיאה בשמירת פרויקט");
         }
 
         function errorGetArchitect(err) {
-            swal("Error in getting architect");
+            swal("שגיאה באחזור רשימת ארכיטקטים");
         }
 
         function success(data) {
             swal({ // this will open a dialouge
-                title: "Customer added successfully",
-                text: "Creat new project?",
-                icon: "info",
-                buttons: true,
+                title: "הלקוח נוצר בהצלחה",
+                text: "האם ברצונך להמשיך לתמחור פרויקט?",
+                icon: "success",
+                //buttons: true,
+                 buttons: ["אישור"],
                 dangerMode: true
             })
                 .then(function (create) {
@@ -88,12 +89,9 @@
                         var proj_name = $("#project_name").val()
                         localStorage.setItem("storageProj_name", proj_name);
                         OpenNewProject();
-
                     }
-                    else swal("Customer saved!");
-
+                    else swal("הלקוח נשמר!");
                 });
-
         }
 
         function OpenNewProject() {
@@ -173,8 +171,6 @@
             </div>
                 <div id="ph"></div>
                 <br />
-                <!--<button class="btn btn-default" id="add">Add</button>-->
-                <!--<input type="submit" value="צור פרויקט" />-->
 
                 <div class="row item">
                     <div class="form-group col-sm-12">
