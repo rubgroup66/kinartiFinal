@@ -216,6 +216,7 @@
     <Content Include="PriceIT\cssGeneral.css" />
     <Content Include="PriceIT\edit.html" />
     <Content Include="PriceIT\editAllParams.html" />
+    <Content Include="PriceIT\js files\editIronWorks.js" />
     <Content Include="PriceIT\js files\editSupervisor.js" />
     <Content Include="PriceIT\js files\editBoxes.js" />
     <Content Include="PriceIT\js files\editArchitect.js" />

@@ -1,24 +1,23 @@
-﻿var myHinges, hingesCost1, hingesCost2;
-var myExrtaWallTypeID;
+﻿var myIronW;
 
 $(document).ready(function () {
-    ajaxCall("GET", "../api/hinges", "", successGetHingesEdit, error);
+    ajaxCall("GET", "../api/IronWorks", "", successGetIronWEdit, error);
     $("#editHingesForm").hide();
     $("#editHandlesForm").hide();
     $("#editIronWForm").hide();
-    $("#editHingesForm").submit(addHinge);
-    mode = "";
-    hingeMode = "new";
+    $("#editIronWForm").submit(addIronW);
 
-    buttonEventsH();
+    ironWMode = "new";
+    mode = "";
+    buttonEventsI();
 
 });
 
-function buttonEventsH() {
+function buttonEventsI() {
 
-    $("#newBTN2").on("click", function () {
+    $("#newBTNironW").on("click", function () {
         hingeMode = "new";
-        f3();
+        fnew();
 
     });
 
@@ -31,30 +30,33 @@ function buttonEventsH() {
     //    $("#hingesEditDiv :input").prop("disabled", false); // new mode: enable all controls in the form
     //});
 
-    $("#cancelSaveBTNhinges").on("click", function () {
+    $("#cancelSaveBTNIronW").on("click", function () {
         box = null;
-        mode = "new";
-        if (mode == "new") {
-            $("#editHingesForm").hide();
-            $("#hingesForm").show();
+        ironWMode = "new";
+        if (ironWMode == "new") {
+            $("#editIronWForm").hide();
+            $("#ironWForm").show();
+            ironWMode = "";
             mode = "";
         }
+        ironWMode = "";
         mode = "";
     });
 
 
-    $(document).on("click", ".editBtnHinges", function () {
-        hingeMode = "edit";
-        markSelectedHinge(this);
-        $("#editHingesForm").show();
-        $("#editHingesForm :input").prop("disabled", false); // edit mode: enable all controls in the form
-        populateFieldsHinge(this.getAttribute('data-hingeId'));
+    $(document).on("click", ".editBtnIronW", function () {
+        ironWMode = "edit";
+        markSelectedironW(this);
+        $("#editIronWForm").show();
+        $("#editIronWForm :input").prop("disabled", false); // edit mode: enable all controls in the form
+        populateFieldsIronW(this.getAttribute('data-ironWId'));
+        mode = "";
     });
 
-    $(document).on("click", ".deleteBtnHinge", function () {
+    $(document).on("click", ".deleteBtnIronW", function () {
         mode = "delete";
-        markSelectedHinge(this);
-        var hingeId = this.getAttribute('data-hingeId');
+        markSelectedironW(this);
+        var ironWId = this.getAttribute('data-ironWId');
         swal({ // this will open a dialouge 
             title: "האם אתה בטוח ?",
             text: "",
@@ -63,22 +65,22 @@ function buttonEventsH() {
             dangerMode: true
         })
             .then(function (willDelete) {
-                if (willDelete) DeleteHinge(hingeId);
+                if (willDelete) DeleteIronW(ironWId);
                 else swal("הפריט לא נמחק");
             });
     });
  
     
 }
-function DeleteHinge(id) {      // Delete a item from the server
-    ajaxCall("DELETE", "../api/hinges/?Id=" + id, "", deleteHingeSuccess, error);
+function DeleteIronW(id) {      // Delete a item from the server
+    ajaxCall("DELETE", "../api/IronWorks/?Id=" + id, "", deleteIronWSuccess, error);
 }
 
-function successGetHingesEdit(hingesdata) {// this function is activated in case of a success
-    console.log(hingesdata);
-    myHinges = hingesdata;
+function successGetIronWEdit(ironWdata) {// this function is activated in case of a success
+    console.log(ironWdata);
+    myIronW = ironWdata;
     try {
-        tbl = $('#hingesTable').DataTable({
+        tbl = $('#ironWTable').DataTable({
             retrieve: true,
             paging: false,
             language: {
@@ -91,28 +93,27 @@ function successGetHingesEdit(hingesdata) {// this function is activated in case
                 },
                 "emptyTable": "לא קיימות רשומות, אפשר להתחיל להוסיף :)"
             }, 
-            data: hingesdata,
+            data: ironWdata,
             pageLength: 5,
             columns: [
                 {
                     render: function (data, type, row, meta) {
-                        return hingesdata.findIndex(i => i.ID === row.ID) + 1;
+                        return ironWdata.findIndex(i => i.ID === row.ID) + 1;
                     }
                 },
                 { data: "Type" },
                 { data: "Cost" },
                 {
                     render: function (data, type, row, meta) {
-                        let dataHinge = "data-hingeId='" + row.ID + "'";
-                        editBtnHinges = "<button type='button' class = 'editBtnHinges btn btn-success' " + dataHinge + "> עריכה </button>";
-                        //viewBtn = "<button type='button' class = 'viewBtn btn btn-info' " + dataHinge + "> צפייה </button>";
-                        deleteBtnHinge = "<button type='button' class = 'deleteBtnHinge btn btn-danger' " + dataHinge + "> מחיקה </button>";
-                        return editBtnHinges + /*viewBtn +*/  deleteBtnHinge;
+                        let dataIronW = "data-ironWId='" + row.ID + "'";
+                        editBtnIronW = "<button type='button' class = 'editBtnIronW btn btn-success' " + dataIronW + "> עריכה </button>";
+                        deleteBtnIronW = "<button type='button' class = 'deleteBtnIronW btn btn-danger' " + dataIronW + "> מחיקה </button>";
+                        return editBtnIronW + deleteBtnIronW;
                     }
                 }
             ],
         });
-        buttonEventsH();
+        buttonEventsI();
     }
     catch (err) {
         alert(err);
@@ -120,83 +121,83 @@ function successGetHingesEdit(hingesdata) {// this function is activated in case
 }
 
 
-function f3() {
-    $("#hingesForm").hide();
-    $("#editHingesForm").show();
+function fnew() {
+    $("#ironWForm").hide();
+    $("#editIronWForm").show();
     clearFields();
     return false;
 }
 
 
-function addHinge() {
-    if (hingeMode === "edit") {
-        Id = hinge.ID;
+function addIronW() {
+    if (ironWMode === "edit") {
+        Id = ironW.ID;
     }
 
-    let hingetoSave = {
-        //ID: hinge.ID,
-        Type: $("#hingeName").val(),
-        Cost: $("#hingeCost").val()
+    let ironWtoSave = {
+        Type: $("#ironWType").val(),
+        Cost: $("#ironWCost").val()
     };
 
-    if (hingeMode === "edit")
-        ajaxCall("PUT", "../api/hinges/?Id=" + Id, JSON.stringify(hingetoSave), updateSuccess, error);
+    if (ironWMode === "edit")
+        ajaxCall("PUT", "../api/IronWorks/?Id=" + Id, JSON.stringify(ironWtoSave), updateSuccessIronW, error);
 
-    else if ((hingeMode === "new") || (hingeMode === "duplicate")) // add a new item record to the server
-        ajaxCall("POST", "../api/hinges", JSON.stringify(hingetoSave), insertSuccess, error);
-    console.log(hingeMode);
+    else if ((ironWMode === "new") || (ironWMode === "duplicate")) // add a new item record to the server
+        ajaxCall("POST", "../api/IronWorks", JSON.stringify(ironWtoSave), insertSuccessIronW, error);
     return false;
 }
 
 function clearFields() {
-    $("#hingeName").val("");
-    $("#hingeCost").val("");
+    $("#ironWType").val("");
+    $("#ironWCost").val("");
 
 }
 
-function insertSuccess() {  // success callback function after adding new item
-    uri = "../api/hinges";
-    ajaxCall("GET", uri, "", populateTableWithUpdatedData, errorGetUpdatedH);
-    buttonEventsH();
-    $("#hingesEditDiv").hide();
+function insertSuccessIronW() {  // success callback function after adding new item
+    uri = "../api/IronWorks";
+    ajaxCall("GET", uri, "", populateTableWithUpdatedDataIronW, errorGetUpdatedI);
+    buttonEventsI();
+    $("#ironWEditDiv").hide();
     swal("נוסף בהצלחה!", "הפעולה בוצעה", "success");
     mode = "";
-    $("#hingesForm").show();
+    $("#ironWForm").show();
 }
-function deleteHingeSuccess(itemsdata) {
-    uri = "../api/hinges";
-    ajaxCall("GET", uri, "", populateTableWithUpdatedData, error); //get all relevant project's items from DB 
-    buttonEventsH(); // after redrawing the table, we must wire the new buttons
-    $("#hingesEditDiv").hide();
+function deleteIronWSuccess(itemsdata) {
+    uri = "../api/IronWorks";
+    ajaxCall("GET", uri, "", populateTableWithUpdatedDataIronW, error); //get all relevant project's items from DB 
+    buttonEventsI(); // after redrawing the table, we must wire the new buttons
+    $("#ironWEditDiv").hide();
     swal("נמחק בהצלחה!", "הפעולה בוצעה", "success");
     mode = "";
 }
 
-function updateSuccess() {    // success callback function after update
+function updateSuccessIronW() {    // success callback function after update
 
-    uri = "../api/hinges";
-    ajaxCall("GET", uri, "", populateTableWithUpdatedData, error); //get all relevant project's items from DB 
-    buttonEventsH();
-    $("#hingesEditDiv").hide();
+    uri = "../api/IronWorks";
+    ajaxCall("GET", uri, "", populateTableWithUpdatedDataIronW, error); //get all relevant project's items from DB 
+    buttonEventsI();
+    $("#ironWEditDiv").hide();
     swal("עודכן בהצלחה!", "הפעולה בוצעה", "success");
     mode = "";
 }
 
-function populateTableWithUpdatedData(hinges) {
-    var dataTable = $('#hingesTable').DataTable();
+function populateTableWithUpdatedDataIronW(ironW) {
+    var dataTable = $('#ironWTable').DataTable();
     dataTable.destroy();
     dataTable.clear();
-    successGetHingesEdit(hinges);
+    successGetIronWEdit(ironW);
+    mode = "";
+    ironWMode = "";
 }
-function errorGetUpdatedH() {
-    alert("error");
+function errorGetUpdatedI() {
+    alert("שגיאה בשמירת פרזול");
 }
 
-function populateFieldsHinge(hingeId) {
-    hingeMode = "edit";
-    hinge = getHinge(hingeId);
-    $("#hingeName").val(hinge.Type);
-    $("#hingeCost").val(hinge.Cost);
+function populateFieldsIronW(ironWId) {
+    ironWMode = "edit";
+    ironW = getIronW(ironWId);
+    $("#ironWCost").val(ironW.Cost);
+    $("#ironWType").val(ironW.Type);
 
 
 }
@@ -263,24 +264,20 @@ function error(err) { // this function is activated in case of a failure
     swal("Error: " + err);
 }
 
-function ShowInfo() {
-    $("#info").show();
-}
 
-
-function markSelectedHinge(btn) {  // mark the selected row
-    $("#hingesTable tr").removeClass("selected"); // remove seleced class from rows that were selected before
+function markSelectedironW(btn) {  // mark the selected row
+    $("#ironWTable tr").removeClass("selected"); // remove seleced class from rows that were selected before
     row = (btn.parentNode).parentNode; // button is in TD which is in Row
     row.className = 'selected'; // mark as selected
 }
 
 
     // get item according to its Id
-function getHinge(id) {
-    console.log(myHinges);
-    for (i in myHinges) {
-        if (myHinges[i].ID == id)
-            return myHinges[i];
+function getIronW(id) {
+    console.log(myIronW);
+    for (i in myIronW) {
+        if (myIronW[i].ID == id)
+            return myIronW[i];
     }
     return null;
 }

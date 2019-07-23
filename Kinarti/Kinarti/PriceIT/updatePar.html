@@ -24,6 +24,7 @@
     <script src="js files/editArchitect.js"></script>
     <script src="js files/editSupervisor.js"></script>
     <script src="js files/editMaterials.js"></script>
+    <script src="js files/editIronWorks.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="cssGeneral.css" rel="stylesheet" />
     <style>
@@ -261,6 +262,55 @@
             </div>
         </div>
         <!-------------------------handles----------------------------->
+        <br />
+        <br />
+
+        <!-------------------------ironWorks----------------------------->
+
+        <button class="collapsible">פרזול</button>
+        <div id="ironW" class="content">
+            <div class="row item">
+                <div class="form-group col-sm-12">
+                    <input type="button" value="הוסף פרזול חדש" class="btn btn-primary btn-lg" id="newBTNironW" />
+                </div>
+            </div>
+            <form id="ironWForm">
+                <table id="ironWTable" class="display nowrap" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>סוג</th>
+                            <th>עלות (ש"ח)</th>
+                            <th>פעולות</th>
+                        </tr>
+                    <thead>
+                </table>
+            </form>
+
+            <div id="ironWEditDiv">
+                <form id="editIronWForm">
+                    <div class="form-group row">
+                        <div class="form-group col-sm-6">
+                            <label for="ironWCost"><span class="red-star">★ </span>עלות</label>
+                            <input type="number" class="form-control" id="ironWCost" placeholder="הזן את עלות הפרזול" required />
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <label for="ironWType"><span class="red-star">★ </span>שם</label>
+                            <input type="text" class="form-control" id="ironWType" placeholder="הזן את סוג הפרזול" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <button type="submit" class="btn btn-primary btn-lg" id="saveBTN">שמירה</button>
+                            <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTNIronW" value="ביטול" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-------------------------ironWorks----------------------------->
 
     </div>
     <!-------------------------pirzul total----------------------------->
