@@ -303,7 +303,7 @@
                     "previous": "הקודם",
                      "next": "הבא"
     },
-                        "emptyTable": "לא קיימות רשומות בטבלה. אפשר להתחיל להוסיף :)"
+                "emptyTable": "לא קיימות רשומות, אפשר להתחיל להוסיף :)"
                     }, 
                     data: pdata,
                     "autoWidth": false,
@@ -329,7 +329,7 @@
                                 if (month < 10) {
                                     month = '0' + month;
                                 }
-                                var formattedDate = day + '-' + month + '-' + year;
+                                var formattedDate = day + '/' + month + '/' + year;
                                 return formattedDate;
                             }
                         },

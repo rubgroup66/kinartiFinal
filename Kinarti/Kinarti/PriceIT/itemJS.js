@@ -207,7 +207,7 @@ function successGetProject(projectdata) {// this function is activated in case o
         month = '0' + month;
     }
 
-    var formattedDate = day + '-' + month + '-' + year;
+    var formattedDate = day + '/' + month + '/' + year;
 
     $("#createDate").val(formattedDate);
 
@@ -959,7 +959,7 @@ function successGetItems(itemsdata) {    // this function is activated in case o
                     "previous": "הקודם",
                     "next": "הבא"
                 },
-                "emptyTable": "אין רשומות בטבלה. אפשר להתחיל להוסיף :)"
+                "emptyTable": "לא קיימות רשומות, אפשר להתחיל להוסיף :)"
             }, 
             data: itemsdata,
             pageLength: 5,
