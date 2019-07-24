@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <title>PriceIT</title>
-
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -10,7 +9,6 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
     <link href="cssGeneral.css" rel="stylesheet" />
-
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
@@ -76,63 +74,59 @@
                     //{ data: "ID" },
                     { data: "project_name" },
                     {
-                            //data: "customer_id",
-                            render: function (data, type, row, meta) {
-                                for (var i = 0; i < pdata.length; i++) {
-                                    for (var j = 0; j < customersData.length; j++) {
-                                        if (row.customer_id == customersData[j].id) {
-                                            return customersData[j].first_name + " " + customersData[j].last_name;
-                                        }
+                        //data: "customer_id",
+                        render: function (data, type, row, meta) {
+                            for (var i = 0; i < pdata.length; i++) {
+                                for (var j = 0; j < customersData.length; j++) {
+                                    if (row.customer_id == customersData[j].id) {
+                                        return customersData[j].first_name + " " + customersData[j].last_name;
                                     }
                                 }
                             }
-<<<<<<< HEAD
-                        },
-=======
-                    },
-
-
->>>>>>> 74a8a929e17504198f676090c63d1d7c49b08297
-                    { data: "description" },
-                    {
-                        render: function (data, type, row, meta) {
-                            var date = new Date(row.create_date);
-                            var year = date.getFullYear();
-                            var month = date.getMonth() + 1;
-                            var day = date.getDate();
-                            if (day < 10) {
-                                day = '0' + day;
-                            }
-                            if (month < 10) {
-                                month = '0' + month;
-                            }
-                            var formattedDate = day + '/' + month + '/' + year;
-                            return formattedDate;
                         }
                     },
-                    { data: "cost" },
-                    {
-                        data: "status",
-                        render: function (data, type, row, meta) {
-                            status = "";
-                            if (data == 1) {
-                                status = '<img title="Complete" src="https://img.icons8.com/doodle/48/000000/checkmark.png">'
-                            } else status = '<img title="In progress" src="https://img.icons8.com/ios/50/000000/progress-indicator.png">'
-                            return status;
+                   
+                { data: "description" },
+                {
+                    render: function (data, type, row, meta) {
+                        var date = new Date(row.create_date);
+                        var year = date.getFullYear();
+                        var month = date.getMonth() + 1;
+                        var day = date.getDate();
+                        if (day < 10) {
+                            day = '0' + day;
                         }
-                    },
-                    {
-                        render: function (data, type, row, meta) {
-                            let dataCust = "data-custId='" + row.id + "'";
-                            EditProjBtn = "<button type='button' id=" + row.ID + " class = 'EditProjBtn btn btn-success' " + dataCust + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span> עריכה </button>";
-                            return EditProjBtn;
+                        if (month < 10) {
+                            month = '0' + month;
                         }
-                    },
-
+                        var formattedDate = day + '/' + month + '/' + year;
+                        return formattedDate;
+                    }
+                },
+                { data: "cost" },
+                {
+                    data: "status",
+                    render: function (data, type, row, meta) {
+                        status = "";
+                        if (data == 1) {
+                            status = '<img title="Complete" src="https://img.icons8.com/doodle/48/000000/checkmark.png">'
+                        } else status = '<img title="In progress" src="https://img.icons8.com/ios/50/000000/progress-indicator.png">'
+                        return status;
+                    }
+                },
+                {
+                    render: function (data, type, row, meta) {
+                        let dataCust = "data-custId='" + row.id + "'";
+                        EditProjBtn = "<button type='button' id=" + row.ID + " class = 'EditProjBtn btn btn-success' " + dataCust + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span> עריכה </button>";
+                        return EditProjBtn;
+                    }
+                },
+                    
                 ]
             });
-
         }
+
+       
 
         function successfilterPrice(pdata) {
             debugger;
@@ -144,7 +138,7 @@
             dataTable.clear();
             $('#projects_table').DataTable({
                 language: {
-                    'search': 'חיפוש (לפי שם לקוח/ שם פרויקט/ תאריך)',
+                    'search': 'חיפוש: ',
                     "paginate": {
                         "previous": "הקודם",
                         "next": "הבא"
@@ -385,7 +379,7 @@
             swal("שגיאה באחזור פרויקטים", "הפרויקטים לא נטענו ", "error")
         }
 
-<<<<<<< HEAD
+ 
         function getCustomersSuccess(cdata) {
             console.log(cdata);
             customersData = cdata;
@@ -394,7 +388,7 @@
             }
             ajaxCall("GET", "../api/proj", "", successGetProj, errorGetProj);
         }
-=======
+
            function getCustomersSuccess(cdata) {
                console.log(cdata);
                
@@ -406,7 +400,6 @@
 
                            ajaxCall("GET", "../api/proj", "", successGetProj, errorGetProj);
            }
->>>>>>> 74a8a929e17504198f676090c63d1d7c49b08297
 
         function errorGetCustomers(err) {
             swal("שגיאה באחזור לקוחות", "הלקוחות לא נטענו ", "error")
