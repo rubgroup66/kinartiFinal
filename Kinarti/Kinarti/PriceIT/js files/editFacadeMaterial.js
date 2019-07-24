@@ -2,10 +2,12 @@
 
 $(document).ready(function () {
     ajaxCall("GET", "../api/facadeMaterials", "", successGetFacMEdit, error);
+    ajaxCall("GET", "../api/facade", "", successGetFacList, error);
+
     $("#editFacForm").hide();
     $("#editFmatForm").hide();
-    $("#editFacForm").submit(addFac);
-    FacMode = "new";
+    $("#editFmatForm").submit(addFacMat);
+    FacMMode = "new";
 
     buttonEventsFacMat();
 
@@ -39,10 +41,10 @@ function buttonEventsFacMat() {
         populateFieldsFacM(this.getAttribute('data-FacMatId'));
     });
 
-    $(document).on("click", ".deleteBtnFac", function () {
+    $(document).on("click", ".deleteBtnFacM", function () {
         mode = "delete";
-        markSelectedFac(this);
-        var facId = this.getAttribute('data-FacId');
+        markSelectedFacM(this);
+        var facMId = this.getAttribute('data-FacMatId');
         swal({ // this will open a dialouge 
             title: "האם אתה בטוח ?",
             text: "",
@@ -51,36 +53,24 @@ function buttonEventsFacMat() {
             dangerMode: true
         })
             .then(function (willDelete) {
-                if (willDelete) DeleteFac(facId);
+                if (willDelete) DeleteFacM(facMId);
                 else swal("הפריט לא נמחק");
             });
     });
 
 
 }
-function DeleteFac(id) {      // Delete a item from the server
-    ajaxCall("DELETE", "../api/facade/?Id=" + id, "", deleteFacSuccess, error);
-}
-
-function fillDrop() {
-    ajaxCall("GET", "../api/facade", "", successGetFacList, error);
-    return false;
+function DeleteFacM(id) {      // Delete a item from the server
+    ajaxCall("DELETE", "../api/facadeMaterials/?Id=" + id, "", deleteFacMSuccess, error);
 }
 
 function successGetFacList(Facadetdata) {
-    //FacMat = getFacMat(this);
-    //console.log(FacMat.FacadeID);
-    //let TheID = FacMat.FacadeID;
-    alert("success");
     for (var i = 0; i < Facadetdata.length; i++) {
-        $("#FacadeID").append($("<option></option>").val(Facadetdata[i].ID).html(Facadetdata[i].Type));
-        if (Facadetdata[i].ID == Fac.ID) {
-            alert("success2");
-            let name = Fac.Type;
-            $("#FacadeID").append($("<option selected='selected'></option>").val(name));
-        }
+        $("#FacadeIDM").append($("<option></option>").val(Facadetdata[i].ID).html(Facadetdata[i].Type));
     }
 }
+
+
 function successGetFacMEdit(FacMdata) {// this function is activated in case of a success
     console.log(FacMdata);
     myFacM = FacMdata;
@@ -134,73 +124,78 @@ function fnewFacM() {
     return false;
 }
 
-function addFac() {
-    if (FacMode === "edit") {
-        Id = Fac.ID;
+function addFacMat() {
+    if (FacMMode === "edit") {
+        Id = FacMat.ID;
+        var selected = [];
+        $('#FacadeIDM :selected').each(function () {
+            selected.push($(this).val());
+        });
     }
 
-    let factoSave = {
-        Type: $("#FacName").val(),
-        Cost: $("#FacCost").val()
+    let facMattoSave = {
+        Name: $("#FmatName").val(),
+        Cost: $("#FmatCost").val(),
+        FacadeID: $("#FacadeIDM").val()
     };
 
-    if (FacMode === "edit")
-        ajaxCall("PUT", "../api/facade/?Id=" + Id, JSON.stringify(factoSave), updateFacSuccess, error);
+    if (FacMMode === "edit")
+        ajaxCall("PUT", "../api/facadeMaterials/?Id=" + Id, JSON.stringify(facMattoSave), updateFacMatSuccess, errorUpdateFacMat);
 
-    else if ((FacMode === "new") || (FacMode === "duplicate")) // add a new item record to the server
-        ajaxCall("POST", "../api/facade", JSON.stringify(factoSave), insertFacSuccessFac, error);
+    else if ((FacMMode === "new") || (FacMMode === "duplicate")) // add a new item record to the server
+        ajaxCall("POST", "../api/facadeMaterials", JSON.stringify(facMattoSave), insertFacMatSuccessFac, error);
     return false;
 }
-
+function errorUpdateFacMat() {
+    alert("שגיאה בעדכון נתונים");
+}
 function clearFieldsFacM() {
     $("#FacCost").val("");
     $("#FacName").val("");
 
 }
 
-function insertFacSuccessFac() {  // success callback function after adding new item
-    uri = "../api/facades";
-    ajaxCall("GET", uri, "", populateTableWithUpdatedDataFac, errorGetUpdatedH);
+function insertFacMatSuccessFac() {  // success callback function after adding new item
+    uri = "../api/facadeMaterials";
+    ajaxCall("GET", uri, "", populateTableWithUpdatedDataFacMat, errorGetUpdateFacMat);
     buttonEventsFacMat();
-    $("#facEditDiv").hide();
+    $("#FmatEditDiv").hide();
     swal("נוסף בהצלחה!", "הפעולה בוצעה", "success");
     mode = "";
-    $("#facForm").show();
+    $("#FmatForm").show();
 }
-function deleteFacSuccess(itemsdata) {
-    uri = "../api/facade";
-    ajaxCall("GET", uri, "", populateTableWithUpdatedDataFac, error); //get all relevant project's items from DB 
+function deleteFacMSuccess(itemsdata) {
+    uri = "../api/facadeMaterials";
+    ajaxCall("GET", uri, "", populateTableWithUpdatedDataFacMat, error); //get all relevant project's items from DB 
     buttonEventsFacMat(); // after redrawing the table, we must wire the new buttons
-    $("#facEditDiv").hide();
+    $("#FmatEditDiv").hide();
     swal("נמחק בהצלחה!", "הפעולה בוצעה", "success");
     mode = "";
 }
 
-function updateFacSuccess() {    // success callback function after update
+function updateFacMatSuccess() {    // success callback function after update
 
-    uri = "../api/facade";
-    ajaxCall("GET", uri, "", populateTableWithUpdatedDataFac, error); //get all relevant project's items from DB 
+    uri = "../api/facadeMaterials";
+    ajaxCall("GET", uri, "", populateTableWithUpdatedDataFacMat, error); //get all relevant project's items from DB 
     buttonEventsFacMat();
-    $("#facEditDiv").hide();
+    $("#FmatEditDiv").hide();
     swal("עודכן בהצלחה!", "הפעולה בוצעה", "success");
     mode = "";
 }
 
-function populateTableWithUpdatedDataFac(Fac) {
-    var dataTable = $('#facTable').DataTable();
+function populateTableWithUpdatedDataFacMat(FacMat) {
+    var dataTable = $('#FmatTable').DataTable();
     dataTable.destroy();
     dataTable.clear();
-    successGetFacEdit(Fac);
+    successGetFacMEdit(FacMat);
 }
-function errorGetUpdatedH() {
-    alert("error");
+function errorGetUpdateFacMat() {
+    alert("שגיאה בעדכון נתונים");
 }
 
 function populateFieldsFacM(FacMId) {    // fill the form fields
     FacMMode = "edit";
     FacMat = getFacMat(FacMId);
-    Fac = getFac2(FacMId);
-    fillDrop();
     $("#FmatName").val(FacMat.Name);
     $("#FmatCost").val(FacMat.Cost);
     mode = "edit";
@@ -213,7 +208,7 @@ function error(err) { // this function is activated in case of a failure
 
 
 function markSelectedFacM(btn) {  // mark the selected row
-    $("#facTable tr").removeClass("selected"); // remove seleced class from rows that were selected before
+    $("#FmatTable tr").removeClass("selected"); // remove seleced class from rows that were selected before
     row = (btn.parentNode).parentNode; // button is in TD which is in Row
     row.className = 'selected'; // mark as selected
 }
