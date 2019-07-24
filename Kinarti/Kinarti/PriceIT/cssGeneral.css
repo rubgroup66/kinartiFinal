@@ -1,26 +1,39 @@
-﻿item
+﻿.navbar-default .navbar-nav > .active > a:hover {
+    background-color: #a2a8d3;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:focus {
+    color: black;
+    background-color: #a2a8d3;
+}
+.navbar-default .navbar-nav > li > a {
+    color: white;
+}
+
 button {
     margin-left: 10px;
 }
 ul {
     position: fixed;
-    width:100%;
-    background-color:white;
-    /*color: white;*/
+    width: 100%;
+    background-color: #113f67;
+    color: white;
 }
-#logo{
-    font-size:xx-large;
+#logo {
+    font-size: xx-large;
+    float: left;
+    padding-left: 10px;
+    font-weight:bold;
 }
 
 #Menutabs{
     font-size:medium;
     float: right;
-    
 }
 
 
 body {
-    background-color: powderblue;
+    background-color: #e7eaf6;
     font-family: Arial;
 }
 hover span {
@@ -75,7 +88,7 @@ button {
 }
 
 table {
-    background-color: #d9edf7
+    background-color: #a2a8d3
 }
 
 /*.navbar-brand {
@@ -120,15 +133,18 @@ body, html {
         background-color: #777;
     }
 .pagination {
-    background-color: powderblue;
+    background-color: #e7eaf6;
 }
-/* Style the tab content (and add height:100% for full page content) */
-.tabcontent {
-    color: black;
-    display: none;
-    padding: 100px 20px;
-    height: 100%;
-}
+    .pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+        background-color: #113f67;
+    }
+    /* Style the tab content (and add height:100% for full page content) */
+    .tabcontent {
+        color: black;
+        display: none;
+        padding: 100px 20px;
+        height: 100%;
+    }
 
 #box {
     background-color: powderblue;
@@ -148,7 +164,9 @@ body, html {
 #CreateboxesForm{
     direction:rtl;
 }
-
+.btn.Filter.btn-md {
+    background-color: #a2a8d3;
+}
 .collapsible {
     background-color: #777;
     color: white;
@@ -161,9 +179,9 @@ body, html {
     font-size: 15px;
 }
 
-.active, .collapsible:hover {
-    background-color: #555;
-}
+    .active, .collapsible:hover {
+        background-color: #a2a8d3;
+    }
 
 .content {
     padding: 0 18px;

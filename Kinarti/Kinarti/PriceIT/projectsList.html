@@ -8,7 +8,6 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
-    <link href="cssGeneral.css" rel="stylesheet" />
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
@@ -16,10 +15,12 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="../Scripts/ajaxCalls.js"></script>
+    <link href="cssGeneral.css" rel="stylesheet" />
+
 
     <script>
         $(document).ready(function () { // once the document is ready we fetch a list of customers from the server
-            ajaxCall("GET", "../api/getCust", "", getCustomersSuccess, errorGetCustomers);         
+            ajaxCall("GET", "../api/getCust", "", getCustomersSuccess, errorGetCustomers);
         });
 
         var customersData;
@@ -85,48 +86,48 @@
                             }
                         }
                     },
-                   
-                { data: "description" },
-                {
-                    render: function (data, type, row, meta) {
-                        var date = new Date(row.create_date);
-                        var year = date.getFullYear();
-                        var month = date.getMonth() + 1;
-                        var day = date.getDate();
-                        if (day < 10) {
-                            day = '0' + day;
+
+                    { data: "description" },
+                    {
+                        render: function (data, type, row, meta) {
+                            var date = new Date(row.create_date);
+                            var year = date.getFullYear();
+                            var month = date.getMonth() + 1;
+                            var day = date.getDate();
+                            if (day < 10) {
+                                day = '0' + day;
+                            }
+                            if (month < 10) {
+                                month = '0' + month;
+                            }
+                            var formattedDate = day + '/' + month + '/' + year;
+                            return formattedDate;
                         }
-                        if (month < 10) {
-                            month = '0' + month;
+                    },
+                    { data: "cost" },
+                    {
+                        data: "status",
+                        render: function (data, type, row, meta) {
+                            status = "";
+                            if (data == 1) {
+                                status = '<img title="Complete" src="https://img.icons8.com/doodle/48/000000/checkmark.png">'
+                            } else status = '<img title="In progress" src="https://img.icons8.com/ios/50/000000/progress-indicator.png">'
+                            return status;
                         }
-                        var formattedDate = day + '/' + month + '/' + year;
-                        return formattedDate;
-                    }
-                },
-                { data: "cost" },
-                {
-                    data: "status",
-                    render: function (data, type, row, meta) {
-                        status = "";
-                        if (data == 1) {
-                            status = '<img title="Complete" src="https://img.icons8.com/doodle/48/000000/checkmark.png">'
-                        } else status = '<img title="In progress" src="https://img.icons8.com/ios/50/000000/progress-indicator.png">'
-                        return status;
-                    }
-                },
-                {
-                    render: function (data, type, row, meta) {
-                        let dataCust = "data-custId='" + row.id + "'";
-                        EditProjBtn = "<button type='button' id=" + row.ID + " class = 'EditProjBtn btn btn-success' " + dataCust + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span> עריכה </button>";
-                        return EditProjBtn;
-                    }
-                },
-                    
+                    },
+                    {
+                        render: function (data, type, row, meta) {
+                            let dataCust = "data-custId='" + row.id + "'";
+                            EditProjBtn = "<button type='button' id=" + row.ID + " class = 'EditProjBtn btn btn-success' " + dataCust + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span> עריכה </button>";
+                            return EditProjBtn;
+                        }
+                    },
+
                 ]
             });
         }
 
-       
+
 
         function successfilterPrice(pdata) {
             debugger;
@@ -158,20 +159,20 @@
                     //{ data: "ID" },
                     { data: "project_name" },
                     {
-                            //data: "customer_id",
-                            render: function (data, type, row, meta) {
-                                for (var i = 0; i < pdata.length; i++) {
-                                    for (var j = 0; j < customersData.length; j++) {
-                                        if (row.customer_id == customersData[j].id) {
-                                            return customersData[j].first_name + " " + customersData[j].last_name;
-                                        }
+                        //data: "customer_id",
+                        render: function (data, type, row, meta) {
+                            for (var i = 0; i < pdata.length; i++) {
+                                for (var j = 0; j < customersData.length; j++) {
+                                    if (row.customer_id == customersData[j].id) {
+                                        return customersData[j].first_name + " " + customersData[j].last_name;
                                     }
                                 }
-                                //return customer_id;
                             }
-                        },
+                            //return customer_id;
+                        }
+                    },
                     { data: "description" },
-                    // { data: "create_date" },             
+                    // { data: "create_date" },
                     {
                         render: function (data, type, row, meta) {
                             var date = new Date(row.create_date);
@@ -221,55 +222,55 @@
             dataTable.clear();
             $('#projects_table').DataTable({
                 language: {
-                'search': 'חיפוש:',
+                    'search': 'חיפוש:',
                     "lengthMenu": "הצג _MENU_ רשומות",
-                                "paginate": {
-                    "previous": "הקודם",
-                     "next": "הבא"
-    },
-                "info": "מציג _START_ עד _END_ מתוך _TOTAL_ רשומות",
-                "emptyTable": "לא קיימות רשומות בטבלה. אפשר להתחיל להוסיף :)"
-            }, 
+                    "paginate": {
+                        "previous": "הקודם",
+                        "next": "הבא"
+                    },
+                    "info": "מציג _START_ עד _END_ מתוך _TOTAL_ רשומות",
+                    "emptyTable": "לא קיימות רשומות בטבלה. אפשר להתחיל להוסיף :)"
+                },
                 data: pdata,
                 "autoWidth": false,
                 columns: [
-                                                        {
-                    render: function (data, type, row, meta) {
-                        return pdata.findIndex(i => i.ID === row.ID) + 1;
-                    }
-                },
+                    {
+                        render: function (data, type, row, meta) {
+                            return pdata.findIndex(i => i.ID === row.ID) + 1;
+                        }
+                    },
                     //{ data: "ID" },
                     { data: "project_name" },
                     {
-                            //data: "customer_id",
-                            render: function (data, type, row, meta) {
-                                for (var i = 0; i < pdata.length; i++) {
-                                    for (var j = 0; j < customersData.length; j++) {
-                                        if (row.customer_id == customersData[j].id) {
-                                            return customersData[j].first_name + " " + customersData[j].last_name;
-                                        }
+                        //data: "customer_id",
+                        render: function (data, type, row, meta) {
+                            for (var i = 0; i < pdata.length; i++) {
+                                for (var j = 0; j < customersData.length; j++) {
+                                    if (row.customer_id == customersData[j].id) {
+                                        return customersData[j].first_name + " " + customersData[j].last_name;
                                     }
                                 }
-                                //return customer_id;
                             }
-                        },
+                            //return customer_id;
+                        }
+                    },
                     { data: "description" },
                     {
-                            render: function (data, type, row, meta) {
-                                var date = new Date(row.create_date);
-                                var year = date.getFullYear();
-                                var month = date.getMonth() + 1;
-                                var day = date.getDate();
-                                if (day < 10) {
-                                    day = '0' + day;
-                                }
-                                if (month < 10) {
-                                    month = '0' + month;
-                                }
-                                var formattedDate = day + '-' + month + '-' + year;
-                                return formattedDate;
+                        render: function (data, type, row, meta) {
+                            var date = new Date(row.create_date);
+                            var year = date.getFullYear();
+                            var month = date.getMonth() + 1;
+                            var day = date.getDate();
+                            if (day < 10) {
+                                day = '0' + day;
                             }
-                    },            
+                            if (month < 10) {
+                                month = '0' + month;
+                            }
+                            var formattedDate = day + '-' + month + '-' + year;
+                            return formattedDate;
+                        }
+                    },
                     { data: "cost" },
                     {
                         data: "status",
@@ -411,7 +412,7 @@
 
         //function filterCust() {
         //    var customerName = $("#custID").val();
-        //    var Filter = { customer_id: 0 };          
+        //    var Filter = { customer_id: 0 };
         //    for (var i = 0; i < customersData.length; i++) {
         //        if (customersData[i].first_name.includes(customerName)) {
         //            Filter = { customer_id: customersData.id };
@@ -424,7 +425,7 @@
         //}
 
         function filterPrice() {
-            Filter = { 
+            Filter = {
                 minPrice: $("#minPrice").val(),
                 maxPrice: $("#maxPrice").val()
             }
@@ -434,11 +435,11 @@
         function errorfilterPrice() {
             alert("התרחשה שגיאה")
         }
-        
+
         function errorfilterCust() {
             alert("error")
-        }   
-        
+        }
+
         $(document).ready(function () {
             $("#filterOpt").change(function () {
                 if ($(this).val() === '1') {
@@ -450,7 +451,7 @@
                     document.getElementById('custDiv').style.display = "block";
                     document.getElementById('statusDiv').style.display = "none";
                     document.getElementById('priceDiv').style.display = "none";
-                    //////////////////////////////////                 
+                    //////////////////////////////////
                     autocomplete(document.getElementById("custID"), customerNames);
 
                     function autocomplete(inp, arr) {
@@ -557,17 +558,17 @@
                     document.getElementById('priceDiv').style.display = "block";
                 }
             });
-            
+
             $("#statusOpt").change(function () {
                 //document.getElementById('con').style.display = "none";
-                
-                switch($(this).val()) {
+
+                switch ($(this).val()) {
                     case "1.1":
                         Filter = { status: 0 };
-                    break;
+                        break;
                     case "1.2":
-                        Filter = { status: 1 };             
-                    break;
+                        Filter = { status: 1 };
+                        break;
                     default:
                         debugger;
                         var dataTable = $('#projects_table').DataTable();
@@ -585,22 +586,22 @@
                 //}
 
                 ajaxCall("POST", "../api/filter", JSON.stringify(Filter), successfilterstatus, errorfilterstatus);
-            });     
+            });
 
             function errorfilterstatus() {
                 alert("שגיאה בסינון הרשומות")
-            }           
- 
+            }
+
 
 
 
         });
-            //$("#newProjectBtn").on("click", function () {
-            //    localStorage.clear();
-            //    window.location.href = 'AddNewProject.html';
-            //});
-        
-          
+        //$("#newProjectBtn").on("click", function () {
+        //    localStorage.clear();
+        //    window.location.href = 'AddNewProject.html';
+        //});
+
+
 
     </script>
 </head>
@@ -611,7 +612,7 @@
             <li id="Menutabs"><a href="showCustomers.html">לקוחות</a></li>
             <li id="Menutabs"><a href="updatePar.html">עדכון נתונים</a></li>
             <li id="Menutabs"><a href="users.html">ניהול משתמשים</a></li>
-            <li id="logo" style="float:left; padding-left:10px"><a href="#about">PriceIT</a></li>
+            <li id="logo"><a href="#about">PriceIT</a></li>
         </ul>
     </nav>
 
@@ -621,8 +622,9 @@
         <div id="filterDiv" class="form-group filterDiv">
             <div class="row item">
                 <!--col-sm-offset-8-->
-                <div class="form-group col-sm-3 ">
-                    <button type="button" value="מיון" class="btn btn-primary btn-md " onclick="filterPrice()">
+                
+                <div style="padding-top:24px" class="form-group col-sm-3 ">
+                    <button type="button" value="מיון" class="btn Filter btn-md " onclick="filterPrice()">
                         <span class="glyphicon glyphicon-filter" aria-hidden="true"></span> סינון
                     </button>
                 </div>
