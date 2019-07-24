@@ -20,8 +20,8 @@
     <script src="../Scripts/ajaxCalls.js"></script>
     <script>
         $(document).ready(function () { // once the document is ready we fetch a list of customers from the server
-            ajaxCall("GET", "../api/proj", "", successGetProj, errorGetProj);     
-
+            ajaxCall("GET", "../api/proj", "", successGetProj, errorGetProj);
+            ajaxCall("GET", "../api/getCust", "", getCustomersSuccess, errorGetCustomers);
         });
 
         function destroyAndHideDataTableOne() {
@@ -46,12 +46,6 @@
         }
 
         function successGetProj(pdata) {
-
-
-            //////////////////////////////
-        ajaxCall("GET", "../api/getCust", "", getCustomersSuccess, errorGetCustomers);
-
-
 
             destroyAndHideDataTableTwo();
             destroyAndHideDataTableThree();
@@ -78,6 +72,10 @@
                     //{ data: "ID" },
                     { data: "project_name" },
                     { data: "customer_id" },
+
+
+
+
                     { data: "description" },
                     {
                         render: function (data, type, row, meta) {
@@ -288,7 +286,19 @@
                 },
                         //{ data: "ID" },
                         { data: "project_name" },
-                        { data: "customer_id" },
+                        {
+                            //data: "customer_id",
+                            render: function (data, type, row, meta) {
+                                for (var i = 0; i < pdata.length; i++) {
+                                    for (var j = 0; j < cdata.length; j++) {
+                                        if (pdata[i].customer_id == cdata[j].id) {
+                                            return cdata[j].first_name + " " + cdata[j].first_name;
+                                        }
+                                    }
+                                }
+                                //return customer_id;
+                            }
+                        },
                         { data: "description" },
                         {
                             render: function (data, type, row, meta) {
@@ -330,19 +340,16 @@
                 })
         }
 
+        var customersData;
+
         function errorGetProj(err) {
             swal("שגיאה באחזור פרויקטים", "הפרויקטים לא נטענו ", "error")
         }
 
 
-           function getCustomersSuccess(err) {
-               swal("שגיאה באחזור פרויקטים", "הפרויקטים לא נטענו ", "error")
-
-
-
-
-
-
+           function getCustomersSuccess(cdata) {
+               console.log(cdata);
+               customersData = cdata;
         }
 
                 function errorGetCustomers(err) {
