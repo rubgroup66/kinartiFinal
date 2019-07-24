@@ -18,12 +18,14 @@ namespace kinarti.Models
 
         public string Name { get; set; }
         public int Cost { get; set; }
+        public int FacadeID { get; set; }
 
-        public FacadeMaterial(int _id, string _name, int _cost)
+        public FacadeMaterial(int _id, string _name, int _cost, int _FacadeID)
         {
             ID = _id;
             Name = _name;
             Cost = _cost;
+            FacadeID = _FacadeID;
         }
         public FacadeMaterial()
         {
