@@ -135,7 +135,7 @@ $(document).ready(function () {
     $('input[type=radio][name=status]').change(function () {
         var radioValue = $("input[name='status']:checked").val();
         var isActive = radioValue == 'inProgress' ? 0 : 1; // replace with true value
-
+        
         ajaxCall("PUT", "../api/projects/?isActive=" + isActive + "&ProjectID=" + projectID, "", updateStatusSuccess, error);
     });
 
