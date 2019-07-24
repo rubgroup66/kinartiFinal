@@ -28,14 +28,14 @@
         function success(data) {
             swal({ // this will open a dialouge
                 title: "לקוח חדש נוסף בהצלחה",
-<<<<<<< HEAD
+ 
                 text: "האם ברצונך להמשיך בתמחור פרויקט?",
                 icon: "success",
                 buttons: true,
  
-=======
+
                 icon: "info",
->>>>>>> fb157068124d67528606a5e805be0b5600a8d501
+
             })
                 .then(function (create) {
                     if (create) {
@@ -52,13 +52,9 @@
                 });
         }
 
-<<<<<<< HEAD
         function OpenNewProject() {
             window.location.href = "AddNewProject.html";          
         }
-
-=======
->>>>>>> fb157068124d67528606a5e805be0b5600a8d501
         function error(err) {
             alert("error");
         }
@@ -79,9 +75,9 @@
             <li id="logo" style="float:left; padding-left:10px"><a href="#about">PriceIT</a></li>
         </ul>
     </nav>
-    <div class="container" style="direction:rtl">
+    <div class="container" style="direction:rtl; width:30%">
         <form id="pForm">
-            <h2>צור לקוח חדש</h2>
+            <h2>יצירת לקוח חדש</h2>
             <div class="form-group">
                 <label for="first_name">שם פרטי</label>
                 <input type="text" class="form-control" id="first_name" placeholder="הכנס שם פרטי" required>
@@ -100,17 +96,14 @@
             </div>
             <div id="ph"></div>
             <br />
-<<<<<<< HEAD
-            <div class="form-group col-sm-12">
-                <button type="button" value="שמירה" class="btn btn-info btn-md" id="saveBTN">
+            <div class="form-group">
+                <button type="button" value="שמירה" class="btn btn-info btn-md" id="newCustBTN">
                     <span class="glyphicon glyphicon-ok-circle" onclick="f1()"></span> שמירה
                 </button>
             </div>
-=======
-            <!--<button class="btn btn-default" id="add">Add</button>-->
-            <input  class="btn btn btn-md" onclick="f1()" id="newCustBTN" value="צור לקוח חדש" />
->>>>>>> fb157068124d67528606a5e805be0b5600a8d501
         </form>
+
     </div>
+
 </body>
 </html>
