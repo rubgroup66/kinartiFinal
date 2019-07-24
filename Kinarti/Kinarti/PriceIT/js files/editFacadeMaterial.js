@@ -1,14 +1,16 @@
 ﻿var myFacM;
-
+var facadeNames = [];
+var facadeData;
+var list = [];
 $(document).ready(function () {
-    ajaxCall("GET", "../api/facadeMaterials", "", successGetFacMEdit, error);
     ajaxCall("GET", "../api/facade", "", successGetFacList, error);
+    
 
     $("#editFacForm").hide();
     $("#editFmatForm").hide();
     $("#editFmatForm").submit(addFacMat);
     FacMMode = "new";
-
+    
     buttonEventsFacMat();
 
 
@@ -65,13 +67,23 @@ function DeleteFacM(id) {      // Delete a item from the server
 }
 
 function successGetFacList(Facadetdata) {
+
+    facadeData = Facadetdata;
+    for (var i = 0; i < facadeData.length; i++) {
+        facadeNames.push(facadeData[i].Type);
+        console.log(facadeNames);
+    }
+    ajaxCall("GET", "../api/facadeMaterials", "", successGetFacMEdit, error);
+
+
     for (var i = 0; i < Facadetdata.length; i++) {
         $("#FacadeIDM").append($("<option></option>").val(Facadetdata[i].ID).html(Facadetdata[i].Type));
     }
 }
 
 
-function successGetFacMEdit(FacMdata) {// this function is activated in case of a success
+function successGetFacMEdit(FacMdata) {
+
     console.log(FacMdata);
     myFacM = FacMdata;
     try {
@@ -96,7 +108,21 @@ function successGetFacMEdit(FacMdata) {// this function is activated in case of 
                         return FacMdata.findIndex(i => i.ID === row.ID) + 1;
                     }
                 },
-                { data: "FacadeID" },
+                {
+                    render: function (data, type, row, meta) {
+                        var i, j;
+                        for ( i = 0; i < FacMdata.length; i++) {
+                            console.log((FacMdata[i]));
+                            for ( j = 0; j < facadeData.length; j++) {
+                                if (row.FacadeID == facadeData[j].ID) {
+                                    return facadeData[j].Type;
+                                } 
+                            }
+                         
+                        }
+                       
+                    }
+                },
                 { data: "Name" },
                 { data: "Cost" },
                 {
