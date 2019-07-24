@@ -80,8 +80,8 @@
                             render: function (data, type, row, meta) {
                                 for (var i = 0; i < pdata.length; i++) {
                                     for (var j = 0; j < customersData.length; j++) {
-                                        if (pdata[i].customer_id == customersData[j].id) {
-                                            return customersData[j].first_name + " " + customersData[j].first_name;
+                                        if (row.customer_id == customersData[j].id) {
+                                            return customersData[j].first_name + " " + customersData[j].last_name;
                                         }
                                     }
                                 }
@@ -160,13 +160,13 @@
                     },
                     //{ data: "ID" },
                     { data: "project_name" },
-                                                               {
+                    {
                             //data: "customer_id",
                             render: function (data, type, row, meta) {
                                 for (var i = 0; i < pdata.length; i++) {
                                     for (var j = 0; j < customersData.length; j++) {
-                                        if (pdata[i].customer_id == customersData[j].id) {
-                                            return customersData[j].first_name + " " + customersData[j].first_name;
+                                        if (row.customer_id == customersData[j].id) {
+                                            return customersData[j].first_name + " " + customersData[j].last_name;
                                         }
                                     }
                                 }
@@ -243,13 +243,13 @@
                 },
                     //{ data: "ID" },
                     { data: "project_name" },
-                                            {
+                    {
                             //data: "customer_id",
                             render: function (data, type, row, meta) {
                                 for (var i = 0; i < pdata.length; i++) {
                                     for (var j = 0; j < customersData.length; j++) {
-                                        if (pdata[i].customer_id == customersData[j].id) {
-                                            return customersData[j].first_name + " " + customersData[j].first_name;
+                                        if (row.customer_id == customersData[j].id) {
+                                            return customersData[j].first_name + " " + customersData[j].last_name;
                                         }
                                     }
                                 }
@@ -324,13 +324,13 @@
                 },
                         //{ data: "ID" },
                         { data: "project_name" },
-                        {
+                    {
                             //data: "customer_id",
                             render: function (data, type, row, meta) {
                                 for (var i = 0; i < pdata.length; i++) {
                                     for (var j = 0; j < customersData.length; j++) {
-                                        if (pdata[i].customer_id == customersData[j].id) {
-                                            return customersData[j].first_name + " " + customersData[j].first_name;
+                                        if (row.customer_id == customersData[j].id) {
+                                            return customersData[j].first_name + " " + customersData[j].last_name;
                                         }
                                     }
                                 }
@@ -408,23 +408,21 @@
         }
 
         function filterCust() {
-
-
-
-            var customerName= $("#custID").val();
+            var customerName = $("#custID").val();
+            var Filter;
             for (var i = 0; i < customersData.length; i++) {
                 if (customersData[i].first_name.includes(customerName)) {
-                    Filter = {
-                        customer_id: $("#custID").val(),
-                    }
-                    ////////////////////////////////////////////////////////
+                    Filter = { customer_id: $("#custID").val() };
+                     console.log("i found it");
+                    //////////////////////////////////////////////////    
+                    break;
                 }
                 else {
-                    swal("no sucj customerrrrrr");
+                    console.log("no sucj customerrrrrr");
                 }
             }
+                      ajaxCall("POST", "../api/filter/cust", JSON.stringify(Filter), successfilterCust, errorfilterCust);
 
-            ajaxCall("POST", "../api/filter/cust", JSON.stringify(Filter), successfilterCust, errorfilterCust);
 
         }
 
@@ -442,8 +440,7 @@
         
         function errorfilterCust() {
             alert("error")
-        }
-       
+        }      
         $(document).ready(function () {
             $("#filterOpt").change(function () {
                 if ($(this).val() === '1') {
@@ -455,11 +452,10 @@
                     document.getElementById('custDiv').style.display = "block";
                     document.getElementById('statusDiv').style.display = "none";
                     document.getElementById('priceDiv').style.display = "none";
-                    //////////////////////////////////
-                    
-        autocomplete(document.getElementById("custID"), customerNames);
+                    //////////////////////////////////                 
+                    autocomplete(document.getElementById("custID"), customerNames);
 
-        function autocomplete(inp, arr) {
+                    function autocomplete(inp, arr) {
             /*the autocomplete function takes two arguments,
             the text field element and an array of possible autocompleted values:*/
             var currentFocus;
@@ -554,8 +550,8 @@
             document.addEventListener("click", function (e) {
                 closeAllLists(e.target);
             });
-        }
-
+                    }
+                    //////////////////////////////////
                 }
                 if ($(this).val() === '3') {
                     document.getElementById('custDiv').style.display = "none";
@@ -679,7 +675,7 @@
                                             <span class="glyphicon glyphicon-filter"></span> סינון
                                         </button>-->
                                     <!--<input type="submit" class="btn btn-primary btn-md ">-->
-                                    <button type="submit" value="סינון" class="btn btn-primary btn-md " onclick="filterCust()">
+                                    <button type="button" value="סינון" class="btn btn-primary btn-md " onclick="filterCust()">
                                         <span class="glyphicon glyphicon-filter"></span> סינון
                                     </button>
                                 </div>
@@ -687,7 +683,6 @@
                                 <div class="form-group col-sm-4 ">
                                     <label for="custID">שם הלקוח</label>
                                     <div class="autocomplete ">
-                                        <!--style="width:300px;"-->
                                         <input type="text" class="form-control" name="customersFilter" placeholder="הזן שם לקוח לסינון" id="custID" required>
                                     </div>
                                 </div>
