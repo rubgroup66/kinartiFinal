@@ -25,14 +25,13 @@
             ajaxCall("POST", "../api/newCust", JSON.stringify(Customer), success, error);
         }
 
-
         function success(data) {
             swal({ // this will open a dialouge
                 title: "לקוח חדש נוסף בהצלחה",
-                text: "ליצור פרויקט ללקוח?",
-                icon: "info",
+                text: "האם ברצונך להמשיך בתמחור פרויקט?",
+                icon: "success",
                 buttons: true,
-                dangerMode: true
+ 
             })
                 .then(function (create) {
                     if (create) {
@@ -50,26 +49,20 @@
         }
 
         function OpenNewProject() {
-            window.location.href = "AddNewProject.html";
-            
-
+            window.location.href = "AddNewProject.html";          
         }
 
         function error(err) {
             alert("error");
         }
-
         function f1() {
             AddCustomer();
-            return false; // the return false will prevent the form from being submitted
-            // hence the page will not reload
+            return false; 
         }
-
-    </script>
+ </script>
 
 </head>
 <body>
-
     <nav class="navbar navbar-default">
         <ul class="nav navbar-nav">
             <li id="Menutabs"><a href="projectsList.html">פרויקטים</a></li>
@@ -79,8 +72,6 @@
             <li id="logo" style="float:left; padding-left:10px"><a href="#about">PriceIT</a></li>
         </ul>
     </nav>
-
-
     <div class="container" style="direction:rtl">
         <form id="pForm">
             <h2>צור לקוח חדש</h2>
@@ -102,11 +93,12 @@
             </div>
             <div id="ph"></div>
             <br />
-            <!--<button class="btn btn-default" id="add">Add</button>-->
-            <input  class="btn btn-primary btn-md" onclick="f1()" value="צור לקוח חדש" />
+            <div class="form-group col-sm-12">
+                <button type="button" value="שמירה" class="btn btn-info btn-md" id="saveBTN">
+                    <span class="glyphicon glyphicon-ok-circle" onclick="f1()"></span> שמירה
+                </button>
+            </div>
         </form>
     </div>
-
-
 </body>
 </html>

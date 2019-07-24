@@ -77,27 +77,12 @@ $(document).ready(function () {
         mode = "";
     });
 
-
-    //<div class="form-group col-sm-12">
-    //    <button type="button" value="הוסף פריט" class="btn btn-primary btn-md addNew" id="newBTN">
-    //        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> הוספת פריט
-    //            </button>
-    //</div>
-
-    //    <div class="form-group col-sm-12">
-    //        <button type="button" value="ביטול" class="btn btn-warning btn-md" id="cancelSaveBTN">
-    //            <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> ביטול
-    //            </button>
-    //    </div>
-
     $("#newBTN").on("click", function () {
 
         //var showButton = '"<span class="glyphicon glyphicon-plus - sign" ></span> ביטול';
         //var hidebutton = '"<span class="glyphicon glyphicon-plus - sign" ></span> הוספת פריט';
 
         //$("#newBTN").text('value', '<span class="glyphicon glyphicon-plus-sign" ></span> ביטול'); 
-
-
 
         //var radioValue = $("input[name='status']:checked").val();
         var radioValue = $("input[name='status']:checked").val();
@@ -135,24 +120,11 @@ $(document).ready(function () {
     $('input[type=radio][name=status]').change(function () {
         var radioValue = $("input[name='status']:checked").val();
         var isActive = radioValue == 'inProgress' ? 0 : 1; // replace with true value
-        
+
         ajaxCall("PUT", "../api/projects/?isActive=" + isActive + "&ProjectID=" + projectID, "", updateStatusSuccess, error);
     });
 
 });
-
-//function successGetItems2(itemsdata) {// this function is activated in case of a success            
-//    console.log(itemsdata);
-//    for (var i = 0; i < itemsdata.length; i++) {
-//        //$('#accordion').append('<div class="panel panel-default"><div class="panel-heading"><h4 class="panel-title"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse' + (i + 1) + '">פריט ' + (i + 1) + ': ' + itemsdata[i].Name + ', עלות: ' +
-//        //    itemsdata[i].Cost + '   <button type="button" id=' + itemsdata[i].ID + ' onClick="goEditItem()" class = "editBtn btn btn-success editItem"> עריכה </button>' + '<button type="button" class = "deleteBtn btn btn-danger deleteItem"> מחיקה </button></a ></h4 ></div > <div id="collapse' + (i + 1) + '" class="panel-collapse collapse"><div class="panel-body">מחיצות:' + itemsdata[i].Partitions + '</div></div></div > ');
-//        //"<button type='button' id=btn" + itemsdata.ID + " class = 'EditProjBtn btn btn-success'> עריכת פריט </button>";
-//        console.log(itemsdata[i].Cost);
-//        totalCost = totalCost + itemsdata[i].Cost;
-//    }
-//    $("#itemcost").val(totalCost);
-//    console.log(totalCost);
-//}
 
 function updateStatusSuccess() {
 
@@ -161,9 +133,7 @@ function updateStatusSuccess() {
     if (isActive == 1) {
     $("#editDiv :input").attr("disabled", "disabled"); 
         $(".projectDetails :input").attr("disabled", "disabled"); 
-
         swal("סטטוס הפרויקט עודכן בהצלחה!", "ניתן לצפות בפרטי הפרויקט", "success");
-
     }
     else {
         $("#editDiv :input").attr("disabled", false);
@@ -178,14 +148,6 @@ function successGetProject(projectdata) {// this function is activated in case o
     console.log(projectdata);
     myProject = projectdata;
     $("#projectName").val(projectdata.project_name);
-
-    //let endIndex = projectdata.create_date.indexOf("T");
-    //if (endIndex > 0) {
-    //    let trimmedDate = projectdata.create_date.substr(0, endIndex);
-    //    $("#createDate").val(trimmedDate);
-    //} else {
-    //    $("#createDate").val(projectdata.create_date);
-    //}
 
     var date = new Date(projectdata.create_date);
 
@@ -207,8 +169,6 @@ function successGetProject(projectdata) {// this function is activated in case o
     $("#projectCost").val(formatNumber(projectdata.cost));
 
     $("#projectDescription").val(projectdata.description);
-    $("#projectArchitect").val(projectdata.architect);
-    $("#projectSupervisor").val(projectdata.supervisor);
 
     if (myProject.status === 1) {
         $("#doneBtn").addClass("active");
@@ -222,6 +182,9 @@ function successGetProject(projectdata) {// this function is activated in case o
         $("#doneBtn").removeClass("active");
     }
 
+    ajaxCall("GET", "../api/architect", "", successGetArchitect, errorGetArchitect);
+    ajaxCall("GET", "../api/supervisor", "", successGetSupervisor, errorGetSupervisor);
+
     uriCustomer = "../api/getCust/?customerID=" + projectdata.customer_id;
     ajaxCall("GET", uriCustomer, "", successGetCustomers, error);
 
@@ -229,6 +192,39 @@ function successGetProject(projectdata) {// this function is activated in case o
     ajaxCall("GET", uri, "", successGetItems, error); //get all relevant project's items from DB  
 
 }
+
+//$("#projectSupervisor").val(projectdata.supervisor);
+
+function successGetSupervisor(supervisordata) {// this function is activated in case of a success
+    console.log(supervisordata);
+    for (var i = 0; i < supervisordata.length; i++) {
+        if (myProject.supervisor == supervisordata[i].sup_id) {
+            $("#projectSupervisor").val(supervisordata.sup_name);
+            break;
+        }
+    }
+    console.log(myMaterials);
+}
+
+function errorGetSupervisor(err) { // this function is activated in case of a failure
+    swal("שגיאה באחזור npej");
+}
+function successGetArchitect(architectdata) {// this function is activated in case of a success
+    console.log(architectdata);
+    for (var i = 0; i < architectdata.length; i++) {
+        if (myProject.architect === architectdata[i].arc_id) {
+            $("#projectArchitect").val(architectdata.arc_name);
+            break;
+        }
+    }
+    console.log(myMaterials);
+}
+
+function errorGetArchitect(err) { // this function is activated in case of a failure
+    swal("שגיאה באחזור אדריכל");
+}
+
+
 
 function successGetMaterials(materialsdata) {// this function is activated in case of a success
     myMaterials = materialsdata;
@@ -306,11 +302,6 @@ function successGetConstants(constantsdata) {// this function is activated in ca
     constants = constantsdata;
     console.log(constants);
 }
-
-//function f2() {
-//    // addItem();
-//    return false; // the return false will prevent the form from being submitted, hence the page will not reload
-//}
 
 var materialCoefficient;
 var itemTotalSum = 0;

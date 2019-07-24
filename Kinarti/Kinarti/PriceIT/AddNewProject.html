@@ -1,5 +1,4 @@
 ﻿<!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>PriceIT</title>
@@ -15,7 +14,6 @@
     <link href="cssGeneral.css" rel="stylesheet" />
 
     <script>
-
         $(document).ready(function () {
             ajaxCall("GET", "../api/architect", "", successGetArchitect, errorGetArchitect);
             ajaxCall("GET", "../api/supervisor", "", successGetSupervisor, errorGetSupervisor);
@@ -23,6 +21,7 @@
             if (localStorage.getItem("EX") == 1) {
                 fillInfo();
             }
+            document.getElementById('create_date').valueAsDate = new Date();
         });
 
         function AddCustomer() {
@@ -63,7 +62,6 @@
                 $("#architect").append($("<option></option>").val(architectdata[i].arc_id).html(architectdata[i].arc_name));
             }
         }
-
         function errorPostProj(err) {
             swal("error posting project");
         }
@@ -73,12 +71,11 @@
         }
 
         function success(data) {
-            swal({ // this will open a dialouge
+            swal({ 
                 title: "הפרויקט נוצר בהצלחה!",
                 text: "האם ברצונך להמשיך לתמחור פרויקט?",
                 icon: "success",
                 buttons: true,
-                //dangerMode: true
             })
                 .then(function () {
                     window.location.href = "projectsList.html";
@@ -96,8 +93,7 @@
 
         function f1() {
             AddCustomer();
-            return false; // the return false will prevent the form from being submitted
-            // hence the page will not reload
+            return false; 
         }
 
         function fillInfo() {
@@ -109,26 +105,10 @@
             document.getElementById("last_name").disabled = true;
 
         }
-
-        //$(function () {
-        //    $('.input-group.date').datepicker({
-        //        calendarWeeks: true,
-        //        todayHighlight: true,
-        //        autoclose: true
-        //    });
-        //});
-
     </script>
-
-
-
-
-
 
 </head>
 <body>
-
-
     <nav class="navbar navbar-default">
         <ul class="nav navbar-nav">
             <li id="Menutabs"><a href="projectsList.html">פרויקטים</a></li>
@@ -139,57 +119,54 @@
         </ul>
     </nav>
 
-
-
-
     <div class="container" style="direction:rtl">
         <form id="pForm">
             <h2>יצירת פרויקט חדש</h2>
-            <div class="form-group">
-                <label for="first_name">שם פרטי</label>
-                <input type="text" class="form-control" id="first_name" required>
-            </div>
-            <div class="form-group">
-                <label for="last_name">שם משפחה</label>
-                <input type="text" class="form-control" id="last_name" placeholder="הכנס שם משפחה" required>
-            </div>
-            <div class="form-group">
-                <label for="project_name">שם פרויקט</label>
-                <input type="text" class="form-control" id="project_name" placeholder="הכנס שם פרויקט ייחודי" required>
-            </div>
-            <div class="form-group">
-                <label for="description">תיאור הפרויקט</label>
-                <input type="text" class="form-control" id="description" placeholder="הזן תיאור לפרויקט" required>
-            </div>
-
-
-
-            <div class="form-group">
-                <label for="create_date"> תאריך יצירה</label>
-                <input type="date" class="form-control" id="create_date" required>
-            </div>
-
-            <div class="form-group" style="width:auto">
-                <label for="supervisor">מפקח</label>
-                <select id="supervisor" required></select>
-            </div>
-            <div class="form-group" style="width:auto">
-                <label for="architect">אדריכל</label>
-                <select id="architect" required></select>
-            </div>
-            <div id="ph"></div>
-            <br />
-            <!--<button class="btn btn-default" id="add">Add</button>-->
-
-            <div class="row item">
-                <div class="form-group col-sm-12">
-                    <button type="submit" value="הוסף פרויקט" class="btn btn-primary btn-md" id="newProjectBtn">
-                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> צור פרויקט
-                    </button>
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label for="last_name">שם משפחה</label>
+                    <input type="text" class="form-control" id="last_name" placeholder="הכנס שם משפחה" required>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="first_name">שם פרטי</label>
+                    <input type="text" class="form-control" id="first_name" required>
                 </div>
             </div>
-
-                <!--<input type="submit" value="צור פרויקט" />-->
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label for="create_date"> תאריך יצירה</label>
+                    <input type="date" class="form-control" id="create_date" required>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="project_name">שם פרויקט</label>
+                    <input type="text" class="form-control" id="project_name" placeholder="הכנס שם פרויקט ייחודי" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-6 col-sm-offset-6">
+                    <label for="description">תיאור הפרויקט</label>
+                    <input type="text" class="form-control" id="description" placeholder="הזן תיאור לפרויקט" required>
+                </div>
+            </div>
+                <div class="row">
+                    <div class="form-group col-sm-6 ">
+                        <label for="architect">אדריכל</label>
+                        <select id="architect" class="form-control" required></select>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="supervisor">מפקח</label>
+                        <select id="supervisor" class="form-control" required></select>
+                    </div>
+                </div>
+                <div id="ph"></div>
+                <br />
+                <div class="row item">
+                    <div class="form-group col-sm-12">
+                        <button type="submit" value="שמירה" class="btn btn-info btn-md" id="newProjectBtn">
+                            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> שמירה
+                        </button>
+                    </div>
+                </div>
         </form>
     </div>
 
