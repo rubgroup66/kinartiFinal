@@ -86,7 +86,13 @@
                                     }
                                 }
                             }
+<<<<<<< HEAD
                         },
+=======
+                    },
+
+
+>>>>>>> 74a8a929e17504198f676090c63d1d7c49b08297
                     { data: "description" },
                     {
                         render: function (data, type, row, meta) {
@@ -379,6 +385,7 @@
             swal("שגיאה באחזור פרויקטים", "הפרויקטים לא נטענו ", "error")
         }
 
+<<<<<<< HEAD
         function getCustomersSuccess(cdata) {
             console.log(cdata);
             customersData = cdata;
@@ -387,6 +394,19 @@
             }
             ajaxCall("GET", "../api/proj", "", successGetProj, errorGetProj);
         }
+=======
+           function getCustomersSuccess(cdata) {
+               console.log(cdata);
+               
+               customersData = cdata;
+               for (var i = 0; i < customersData.length; i++) {
+                   customerNames.push(customersData[i].first_name + " " + customersData[i].last_name);
+                          console.log(customerNames);
+               }
+
+                           ajaxCall("GET", "../api/proj", "", successGetProj, errorGetProj);
+           }
+>>>>>>> 74a8a929e17504198f676090c63d1d7c49b08297
 
         function errorGetCustomers(err) {
             swal("שגיאה באחזור לקוחות", "הלקוחות לא נטענו ", "error")
