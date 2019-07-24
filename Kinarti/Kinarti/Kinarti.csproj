@@ -210,8 +210,6 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="PriceIT\.html" />
-    <Content Include="PriceIT\AddNewProject.html" />
     <Content Include="PriceIT\CreateNewCustomer.html" />
     <Content Include="PriceIT\cssGeneral.css" />
     <Content Include="PriceIT\js files\editFacadeMaterial.js" />
@@ -232,7 +230,6 @@
     <Content Include="PriceIT\updateAllParams.js" />
     <Content Include="PriceIT\old files\insertItem.html" />
     <Content Include="PriceIT\itemJS.js" />
-    <Content Include="PriceIT\newCustomer.html" />
     <Content Include="PriceIT\project.html" />
     <Content Include="PriceIT\projectsList.html" />
     <Content Include="PriceIT\ShowCustomers.html" />
