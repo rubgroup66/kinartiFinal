@@ -33,7 +33,7 @@
 
     <div class="container">
 
-        <div class="projectDetails">
+        <div id="ProjDetails">
 
             <div class="row item">
 
@@ -64,10 +64,10 @@
                     <label for="projectStatus"><span class="red-star"> </span>סטטוס</label>
                     <br />
                     <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-primary" id="doneBtn">
+                        <label class="btn btn" id="doneBtn">
                             <input type="radio" id="done" name="status" value="done" autocomplete="off"> הסתיים
                         </label>
-                        <label class="btn btn-primary" id="inProgressBtn">
+                        <label class="btn btn" id="inProgressBtn">
                             <input type="radio" id="inProgress" name="status" value="inProgress" autocomplete="off"> בתהליך
                         </label>
                     </div>
@@ -89,16 +89,10 @@
 
             </div>
         </div>
-            <!--<div class="row item">
-        <div class="form-group col-sm-12">
-            <input type="button" value="הוסף פריט" class="btn btn-primary btn-lg" id="newBTN" />
-            <span class='glyphicon glyphicon-remove' aria-hidden='true'></span>
-        </div>
-    </div>-->
-
+        <br />
         <div class="row item">
             <div class="form-group col-sm-12">
-                <button type="button" value="הוספת פריט" class="btn btn-primary btn-md addNew" id="newBTN">
+                <button type="button" value="הוספת פריט" class="btn btn btn-md addNew" id="newBTN">
                     <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> הוספת פריט
                 </button>
             </div>
@@ -345,7 +339,7 @@
                 </button>
             </div>
 
-        </div>
+    </div>
 </body>
 </html>
 

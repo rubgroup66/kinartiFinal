@@ -29,10 +29,7 @@
         function success(data) {
             swal({ // this will open a dialouge
                 title: "לקוח חדש נוסף בהצלחה",
-                text: "ליצור פרויקט ללקוח?",
                 icon: "info",
-                buttons: true,
-                dangerMode: true
             })
                 .then(function (create) {
                     if (create) {
@@ -40,19 +37,13 @@
                         var last_name = $("#last_name").val()
                         localStorage.setItem("storageF_name", first_name);
                         localStorage.setItem("storageL_name", last_name);
-                        OpenNewProject();
+                        parent.location = 'ShowCustomers.html';
+
                         
                     } 
                     else swal("Customer saved!");
-                    parent.location = 'ShowCustomers.html';
                     
                 });
-        }
-
-        function OpenNewProject() {
-            window.location.href = "AddNewProject.html";
-            
-
         }
 
         function error(err) {
@@ -103,7 +94,7 @@
             <div id="ph"></div>
             <br />
             <!--<button class="btn btn-default" id="add">Add</button>-->
-            <input  class="btn btn-primary btn-md" onclick="f1()" value="צור לקוח חדש" />
+            <input  class="btn btn btn-md" onclick="f1()" id="newCustBTN" value="צור לקוח חדש" />
         </form>
     </div>
 

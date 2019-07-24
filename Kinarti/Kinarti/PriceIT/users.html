@@ -20,18 +20,6 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="../Scripts/ajaxCalls.js"></script>
-    <style type="text/css">
-
-        button {
-            margin-left: 10px;
-        }
-        #newUserdiv {
-            border:double;
-            direction: rtl;
-            display:none;
-        }
-
-    </style>
     <script>
         $(document).ready(function () {
             // once the document is ready we fetch a list of customers from the server
@@ -40,6 +28,8 @@
             $("#userForm").submit(onSubmitFunc); // wire the submit event to a function called f1
             $("#editDiv").hide();
             $("#newUser").submit(f2);
+            $("#addNewCustDiv").hide();
+
 
         });
 
@@ -216,7 +206,7 @@
             }
         }
         function AddNewUser() {
-            $("#newUserdiv").show();
+            $("#addNewCustDiv").show();
         }
         function CreateNewUser() {
             User = { // Note that the name of the fields must be identical to the names of the properties of the object in the server
@@ -269,22 +259,22 @@
         <br/>
         <div class="row item">
             <div class="form-group col-sm-12">
-                <button type="button" value="הוסף משתמש חדש" class="btn btn-primary btn-md addNew" onclick="AddNewUser()" id="newUserBtn">
+                <button type="button" value="הוסף משתמש חדש" class="btn btn btn-md addNew" onclick="AddNewUser()" id="newUserBtn">
                     <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> הוסף משתמש חדש
                 </button>
             </div>
         </div>
 
-        <div id="newUserdiv">
+        <div class="container" id="addNewCustDiv">
             <form id="newUser">
 
                 <h2>צור משתמש חדש</h2>
-                <div class="form-group col-sm-5">
+                <div class="form-group col-lg-5">
                     <label for="userId">מזהה משתמש</label>
                     <input type="text" class="form-control" id="userId" placeholder="הכנס מספר מזהה" required>
                 </div>
 
-                <div class="form-group col-sm-5">
+                <div class="form-group col-lg-5">
                     <label for="new_name">שם פרטי</label>
                     <input type="text" class="form-control" id="new_name" placeholder="הכנס שם פרטי" required>
                 </div>
@@ -293,14 +283,14 @@
                     <input type="password" value="pass" class="form-control" id="password" placeholder="בחר סיסמא" required>
                     <input type="checkbox" onclick="showPass()">הצג סיסמא
                 </div>
-                <div id="user_type" class="form-group col-sm-5">
+                <div id="user_type" class="form-group col-lg-5">
                     <label for="user_type"><span class="red-star"> </span>סוג משתמש</label><br />
                     <input class="w3-radio" id="newtype" type="radio" name="newtype" value="1">
                     <label>מנהל</label><br />
                     <input class="w3-radio" id="newtype" type="radio" name="newtype" value="0">
                     <label>אורח</label>
                 </div>
-                <div id="user_status" class="form-group col-sm-5">
+                <div id="user_status" class="form-group col-lg-5">
                     <label for="user_status"><span class="red-star"> </span>פעיל/לא פעיל</label><br />
                     <input class="w3-radio" id="newactive" type="radio" name="newactive" value="1">
                     <label>פעיל</label><br />
@@ -309,10 +299,14 @@
                 </div>
                 <br />
 
-                <button type="submit" class="btn btn-primary btn-md form-group col-sm-2">צור משתמש חדש</button>
+                <button type="submit" class="btn btn btn-md form-group col-sm-2" id="createNewUser12">צור משתמש </button>
+
             </form>
         </div>
+        <br/>
+<br/>
         <!---------------------------------------------AddNewUserDIV----------------------------->
+        <div>
         <form id="UserForm">
 
             <table id="users_table" class="display nowrap" style="width:100%">
@@ -330,33 +324,35 @@
             </table>
 
         </form>
-
-        <div id="editDiv">
-            <form id="userForm">
+        </div>
+        <br/>
+        <br/>
+        <div id="editDiv" style="direction:rtl">
+            <form id="userForm" style="direction:rtl">
                 <div class="form-group row">
 
-                    <div class="form-group col-sm-3">
+                    <div class="form-group col-lg-4">
                         <label for="first_name"><span class="red-star">★ </span>שם פרטי</label>
                         <input type="text" class="form-control" id="first_name" placeholder="הכנס שם פרטי" required>
                     </div>
 
-                    <div class="form-group col-sm-3">
+                    <div class="form-group col-lg-4">
                         <label for="user_id"><span class="red-star">★ </span>מזהה משתמש </label>
                         <input type="text" class="form-control" id="user_id" placeholder="הכנס מזהה משתמש" required>
                     </div>
 
-                    <div class="form-group col-sm-3">
+                    <div class="form-group col-lg-4">
                         <label for="user_pass"><span class="red-star">★ </span>ססמא</label>
                         <input type="text" class="form-control" id="user_pass" placeholder="בחר ססמא" required>
                     </div>
-                    <div id="active" class="form-group col-sm-4">
+                    <div id="active" class="form-group col-lg-4">
                         <label for="active"><span class="red-star">★ </span>פעיל/לא פעיל</label><br />
                         <input id="active" class="w3-radio" type="radio" name="active" value="0">
                         <label>לא פעיל</label><br />
                         <input id="active" class="w3-radio" type="radio" name="active" value="1">
                         <label>פעיל</label>
                     </div>
-                    <div id="user_type" class="form-group col-sm-4">
+                    <div id="user_type" class="form-group col-lg-6">
                         <label for="user_type"><span class="red-star">★ </span>סוג משתמש</label><br />
                         <input class="w3-radio" id="type" type="radio" name="type" value="1">
                         <label>מנהל</label><br />
@@ -367,7 +363,7 @@
 
                 </div>
 
-                <button type="submit" class="btn btn-primary btn-md">שמירה</button>
+                <button type="submit" class="btn btn btn-md" id="SaveEditUserBTN">שמירה</button>
 
             </form>
         </div>
