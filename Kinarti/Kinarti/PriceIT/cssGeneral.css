@@ -2,6 +2,22 @@
 button {
     margin-left: 10px;
 }
+ul {
+    position: fixed;
+    width:100%;
+    background-color:white;
+    /*color: white;*/
+}
+#logo{
+    font-size:xx-large;
+}
+
+#Menutabs{
+    font-size:medium;
+    float: right;
+    
+}
+
 
 body {
     background-color: powderblue;
@@ -103,7 +119,9 @@ body, html {
     .tablink:hover {
         background-color: #777;
     }
-
+.pagination {
+    background-color: powderblue;
+}
 /* Style the tab content (and add height:100% for full page content) */
 .tabcontent {
     color: black;

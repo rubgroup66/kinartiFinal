@@ -64,69 +64,103 @@
 
         function successGetUser(data) {
             if (data.UserType == 1 && data.Active == 1) {
-                alert("user found successfully")
                 localStorage.setItem('user', JSON.stringify(data));
                 window.location.href = "ShowCustomers.html";
             }
             else {
-                alert("user not found");
+                alert("משתמש לא קיים");
             }
         }
 
         function errorGetUser() {
-            alert("error getting user");
+            alert("שגיאה בשליפת משתמשים");
         }
     </script>
     <style>
-        .container-login100{
-            width: 200px;
-            border:double;
-            background-color:deepskyblue;
-            position:center;
-
-
+        .limiter {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 30em;
+            height: 18em;
+            margin-top: -9em; /*set to a negative number 1/2 of your height*/
+            margin-left: -15em; /*set to a negative number 1/2 of your width*/
+            /*border: 1px solid #ccc;*/
+            background-color: #f3f3f3;
+            direction: rtl;
         }
-        div {
-            text-align: center;
-            background-color: white;
+        /* Bordered form */
+        form {
+            border: 3px solid #f1f1f1;
         }
-        .limiter{
+
+        /* Full-width inputs */
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        /* Set a style for all buttons */
+        button {
+            background-color: deepskyblue;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+            /* Add a hover effect for buttons */
+            button:hover {
+                opacity: 0.8;
+            }
+
+        /* Add padding to containers */
+        .container {
+            padding: 16px;
+        }
+
+        /* The "Forgot password" text */
+        span.psw {
+            float: right;
+            padding-top: 16px;
+        }
+        .hello {
+            font-size: large;
+            font-weight: bold;
             text-align:center;
+            
         }
+        
+      
     </style>
 </head>
 <body>
-
     <div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100">
                 <form class="login100-form validate-form">
-                    <span class="login100-form-title p-b-43" style="background-color:slategrey">
-                        התחבר
+                    <span class="hello" style=" padding:150px ">
+                        ברוכים הבאים
                     </span>
                     <br/>
                     <br/>
-
-
                     <div class="wrap-input100 validate-input" data-validate="Valid Id is required 9 digits">
+                        <span class="label-input100">מספר מזהה</span>
                         <input class="input100" type="text" id="id" name="id">
                         <span class="focus-input100"></span>
-                        <span class="label-input100">שם משתמש</span>
                     </div>
                     <br/>
 
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
+                        <span class="label-input100">סיסמא</span>
                         <input class="input100" type="password" id="pass" name="pass">
                         <span class="focus-input100"></span>
-                        <span class="label-input100">סיסמא</span>
-                    </div>
-                    <div class="flex-sb-m w-full p-t-3 p-b-32">
-                        <div class="contact100-form-checkbox">
-                            <input class="input-checkbox100" id="remember-me" type="checkbox" name="remember-me">
-                            <label class="label-checkbox100" for="remember-me">
-                                זכור אותי
-                            </label>
-                        </div>
                     </div>
 
                     <div class="container-login100-form-btn">
@@ -134,17 +168,9 @@
                             התחבר
                         </button>
                     </div>
-
-                    
                 </form>
-                
             </div>
         </div>
     </div>
-
-
-
-
-   
 </body>
 </html>

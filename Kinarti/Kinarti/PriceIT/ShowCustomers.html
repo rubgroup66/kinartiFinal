@@ -226,40 +226,35 @@
             document.getElementById('filterDiv').style.display = "block";
         }
 
-            //function successGetCustomers(data) {
-            //    $('#projects_table').DataTable({
-            //        data: data,
-            //        "autoWidth": false,
-            //        columns: [
-            //            { data: "project_name" },
-            //            { data: "first_name" },
-            //            { data: "last_name" },
-            //            { data: "phone_num" },
-            //            { data: "email" },
-            //            { data: "supervisor" },
-            //            { data: "architect" },
-            //        ]
-            //    })
-            //}
-            //function errorGetCustomers(err) {
-            //    swal("Error getting customers");
-            //}
+        function errorGetUserAd() {
+            alert("error");
+        }
+
     </script>
 </head>
 <body>
     <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">PriceIT</a>
-            </div>
-            <ul class="nav navbar-nav">
-                <li><a href="users.html">ניהול משתמשים</a></li>
-                <li><a href="updatePar.html">עדכון עלויות</a></li>
-                <li class="active"><a href="showCustomers.html">לקוחות</a></li>
-                <li><a href="projectsList.html">פרויקטים</a></li>
-
-            </ul>
+        <!--<div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">PriceIT</a>
         </div>
+        <ul class="nav navbar-nav">
+            <li><a href="users.html">ניהול משתמשים</a></li>
+            <li><a href="updatePar.html">עדכון עלויות</a></li>
+            <li class="active"><a href="showCustomers.html">לקוחות</a></li>
+            <li><a href="projectsList.html">פרויקטים</a></li>
+
+        </ul>-->
+
+        <ul class="nav navbar-nav">
+            <li id="Menutabs"><a href="projectsList.html">פרויקטים</a></li>
+            <li id="Menutabs" class="active"><a href="showCustomers.html">לקוחות</a></li>
+            <li id="Menutabs"><a href="updatePar.html">עדכון נתונים</a></li>
+            <li id="Menutabs"><a href="users.html">ניהול משתמשים</a></li>
+            <li id="logo" style="float:left; padding-left:10px"><a href="#about">PriceIT</a></li>
+        </ul>
+
+        <!--</div>-->
     </nav>
     <!-------------------------------------->
     <div class="container">

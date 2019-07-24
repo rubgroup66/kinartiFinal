@@ -253,24 +253,20 @@
 </head>
 <body>
     <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">PriceIT</a>
-            </div>
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="users.html">ניהול משתמשים</a></li>
-                <li><a href="updatePar.html">עדכון עלויות</a></li>
-                <li><a href="showCustomers.html">לקוחות</a></li>
-                <li><a href="projectsList.html">פרויקטים</a></li>
-
-            </ul>
-        </div>
+        <ul class="nav navbar-nav">
+            <li id="Menutabs"><a href="projectsList.html">פרויקטים</a></li>
+            <li id="Menutabs"><a href="showCustomers.html">לקוחות</a></li>
+            <li id="Menutabs"><a href="updatePar.html">עדכון נתונים</a></li>
+            <li id="Menutabs" class="active"><a href="users.html">ניהול משתמשים</a></li>
+            <li id="logo" style="float:left; padding-left:10px"><a href="#about">PriceIT</a></li>
+        </ul>
     </nav>
     <!-------------------------------------->
     <!---------------------------------------------AddNewUserDIV----------------------------->
     <div class="container">
         <!--<input type="button" value="הוסף משתמש חדש" class="btn btn-primary btn-lg" onclick="AddNewUser()" />-->
         <h1>ניהול משתמשים</h1>
+        <br/>
         <div class="row item">
             <div class="form-group col-sm-12">
                 <button type="button" value="הוסף משתמש חדש" class="btn btn-primary btn-md addNew" onclick="AddNewUser()" id="newUserBtn">
