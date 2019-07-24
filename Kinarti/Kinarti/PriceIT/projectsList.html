@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <title>PriceIT</title>
-
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -10,7 +9,6 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
     <link href="cssGeneral.css" rel="stylesheet" />
-
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
@@ -21,11 +19,9 @@
 
     <script>
         $(document).ready(function () { // once the document is ready we fetch a list of customers from the server
-
-            ajaxCall("GET", "../api/getCust", "", getCustomersSuccess, errorGetCustomers);
-            
-   
+            ajaxCall("GET", "../api/getCust", "", getCustomersSuccess, errorGetCustomers);         
         });
+
         var customersData;
         var customerNames = [];
 
@@ -50,8 +46,9 @@
             $('#filterd2').hide();
         }
 
+        var projectsData;
         function successGetProj(pdata) {
-
+            projectsData = pdata;
             destroyAndHideDataTableTwo();
             destroyAndHideDataTableThree();
             console.log(pdata);
@@ -77,60 +74,59 @@
                     //{ data: "ID" },
                     { data: "project_name" },
                     {
-                            //data: "customer_id",
-                            render: function (data, type, row, meta) {
-                                for (var i = 0; i < pdata.length; i++) {
-                                    for (var j = 0; j < customersData.length; j++) {
-                                        if (row.customer_id == customersData[j].id) {
-                                            return customersData[j].first_name + " " + customersData[j].last_name;
-                                        }
+                        //data: "customer_id",
+                        render: function (data, type, row, meta) {
+                            for (var i = 0; i < pdata.length; i++) {
+                                for (var j = 0; j < customersData.length; j++) {
+                                    if (row.customer_id == customersData[j].id) {
+                                        return customersData[j].first_name + " " + customersData[j].last_name;
                                     }
                                 }
-                                //return customer_id;
                             }
-                    },
-
-
-                    { data: "description" },
-                    {
-                        render: function (data, type, row, meta) {
-                            var date = new Date(row.create_date);
-                            var year = date.getFullYear();
-                            var month = date.getMonth() + 1;
-                            var day = date.getDate();
-                            if (day < 10) {
-                                day = '0' + day;
-                            }
-                            if (month < 10) {
-                                month = '0' + month;
-                            }
-                            var formattedDate = day + '/' + month + '/' + year;
-                            return formattedDate;
                         }
                     },
-                    { data: "cost" },
-                    {
-                        data: "status",
-                        render: function (data, type, row, meta) {
-                            status = "";
-                            if (data == 1) {
-                                status = '<img title="Complete" src="https://img.icons8.com/doodle/48/000000/checkmark.png">'
-                            } else status = '<img title="In progress" src="https://img.icons8.com/ios/50/000000/progress-indicator.png">'
-                            return status;
+                   
+                { data: "description" },
+                {
+                    render: function (data, type, row, meta) {
+                        var date = new Date(row.create_date);
+                        var year = date.getFullYear();
+                        var month = date.getMonth() + 1;
+                        var day = date.getDate();
+                        if (day < 10) {
+                            day = '0' + day;
                         }
-                    },
-                    {
-                        render: function (data, type, row, meta) {
-                            let dataCust = "data-custId='" + row.id + "'";
-                            EditProjBtn = "<button type='button' id=" + row.ID + " class = 'EditProjBtn btn btn-success' " + dataCust + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span> עריכה </button>";
-                            return EditProjBtn;
+                        if (month < 10) {
+                            month = '0' + month;
                         }
-                    },
-
+                        var formattedDate = day + '/' + month + '/' + year;
+                        return formattedDate;
+                    }
+                },
+                { data: "cost" },
+                {
+                    data: "status",
+                    render: function (data, type, row, meta) {
+                        status = "";
+                        if (data == 1) {
+                            status = '<img title="Complete" src="https://img.icons8.com/doodle/48/000000/checkmark.png">'
+                        } else status = '<img title="In progress" src="https://img.icons8.com/ios/50/000000/progress-indicator.png">'
+                        return status;
+                    }
+                },
+                {
+                    render: function (data, type, row, meta) {
+                        let dataCust = "data-custId='" + row.id + "'";
+                        EditProjBtn = "<button type='button' id=" + row.ID + " class = 'EditProjBtn btn btn-success' " + dataCust + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span> עריכה </button>";
+                        return EditProjBtn;
+                    }
+                },
+                    
                 ]
             });
-
         }
+
+       
 
         function successfilterPrice(pdata) {
             debugger;
@@ -142,7 +138,7 @@
             dataTable.clear();
             $('#projects_table').DataTable({
                 language: {
-                    'search': 'חיפוש:',
+                    'search': 'חיפוש: ',
                     "paginate": {
                         "previous": "הקודם",
                         "next": "הבא"
@@ -300,103 +296,108 @@
         function successfilterstatus(pdata) {
             destroyAndHideDataTableThree();
             destroyAndHideDataTableTwo();
-            document.getElementById('filterd').style.display = "block"; 
-                var dataTable = $('#projects_table').DataTable();
-                dataTable.destroy();
-                dataTable.clear();
-                $('#projects_table').DataTable({
-                    language: {
-                        'search': 'חיפוש:',
-                        "lengthMenu": "הצג _MENU_ רשומות",
-                        "info": "מציג _START_ עד _END_ מתוך _TOTAL_ רשומות",
-                                        "paginate": {
-                    "previous": "הקודם",
-                     "next": "הבא"
-    },
-                "emptyTable": "לא קיימות רשומות, אפשר להתחיל להוסיף :)"
-                    }, 
-                    data: pdata,
-                    "autoWidth": false,
-                    columns: [
-                                                            {
-                    render: function (data, type, row, meta) {
-                        return pdata.findIndex(i => i.ID === row.ID) + 1;
-                    }
+            document.getElementById('filterd').style.display = "block";
+            var dataTable = $('#projects_table').DataTable();
+            dataTable.destroy();
+            dataTable.clear();
+            $('#projects_table').DataTable({
+                language: {
+                    'search': 'חיפוש:',
+                    "lengthMenu": "הצג _MENU_ רשומות",
+                    "info": "מציג _START_ עד _END_ מתוך _TOTAL_ רשומות",
+                    "paginate": {
+                        "previous": "הקודם",
+                        "next": "הבא"
+                    },
+                    "emptyTable": "לא קיימות רשומות, אפשר להתחיל להוסיף :)"
                 },
-                        //{ data: "ID" },
-                        { data: "project_name" },
+                data: pdata,
+                "autoWidth": false,
+                columns: [
                     {
-                            //data: "customer_id",
-                            render: function (data, type, row, meta) {
-                                for (var i = 0; i < pdata.length; i++) {
-                                    for (var j = 0; j < customersData.length; j++) {
-                                        if (row.customer_id == customersData[j].id) {
-                                            return customersData[j].first_name + " " + customersData[j].last_name;
-                                        }
+                        render: function (data, type, row, meta) {
+                            return pdata.findIndex(i => i.ID === row.ID) + 1;
+                        }
+                    },
+                    //{ data: "ID" },
+                    { data: "project_name" },
+                    {
+                        //data: "customer_id",
+                        render: function (data, type, row, meta) {
+                            for (var i = 0; i < pdata.length; i++) {
+                                for (var j = 0; j < customersData.length; j++) {
+                                    if (row.customer_id == customersData[j].id) {
+                                        return customersData[j].first_name + " " + customersData[j].last_name;
                                     }
                                 }
-                                //return customer_id;
                             }
-                        },
-                        { data: "description" },
-                        {
-                            render: function (data, type, row, meta) {
-                                var date = new Date(row.create_date);
-                                var year = date.getFullYear();
-                                var month = date.getMonth() + 1;
-                                var day = date.getDate();
-                                if (day < 10) {
-                                    day = '0' + day;
-                                }
-                                if (month < 10) {
-                                    month = '0' + month;
-                                }
-                                var formattedDate = day + '/' + month + '/' + year;
-                                return formattedDate;
+                            //return customer_id;
+                        }
+                    },
+                    { data: "description" },
+                    {
+                        render: function (data, type, row, meta) {
+                            var date = new Date(row.create_date);
+                            var year = date.getFullYear();
+                            var month = date.getMonth() + 1;
+                            var day = date.getDate();
+                            if (day < 10) {
+                                day = '0' + day;
                             }
-                        },
-                        { data: "cost" },
-                        {
-                            data: "status",
-                            render: function (data, type, row, meta) {
-                                status = "";
-                                if (data == 1) {
-                                    status = '<img title="Complete" src="https://img.icons8.com/doodle/48/000000/checkmark.png">'
-                                } else status = '<img title="In progress" src="https://img.icons8.com/ios/50/000000/progress-indicator.png">'
-                                return status;
+                            if (month < 10) {
+                                month = '0' + month;
                             }
-                        },
-                        {
-                            render: function (data, type, row, meta) {
-                                let dataCust = "data-custId='" + row.id + "'";
-                                //EditProjBtn = "<button type='button' class = 'EditProjBtn btn btn-success' " + dataCust + "> Edit project </button>";
-                                EditProjBtn = "<button type='button' id=" + row.ID + " class = 'EditProjBtn btn btn-success' " + dataCust + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span> עריכה </button>";
+                            var formattedDate = day + '/' + month + '/' + year;
+                            return formattedDate;
+                        }
+                    },
+                    { data: "cost" },
+                    {
+                        data: "status",
+                        render: function (data, type, row, meta) {
+                            status = "";
+                            if (data == 1) {
+                                status = '<img title="Complete" src="https://img.icons8.com/doodle/48/000000/checkmark.png">'
+                            } else status = '<img title="In progress" src="https://img.icons8.com/ios/50/000000/progress-indicator.png">'
+                            return status;
+                        }
+                    },
+                    {
+                        render: function (data, type, row, meta) {
+                            let dataCust = "data-custId='" + row.id + "'";
+                            //EditProjBtn = "<button type='button' class = 'EditProjBtn btn btn-success' " + dataCust + "> Edit project </button>";
+                            EditProjBtn = "<button type='button' id=" + row.ID + " class = 'EditProjBtn btn btn-success' " + dataCust + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span> עריכה </button>";
 
-                                return EditProjBtn;
-                            }
-                        },
-                    ]
-                })
+                            return EditProjBtn;
+                        }
+                    },
+                ]
+            })
         }
-
 
         function errorGetProj(err) {
             swal("שגיאה באחזור פרויקטים", "הפרויקטים לא נטענו ", "error")
         }
 
-           function getCustomersSuccess(cdata) {
-               console.log(cdata);
-               
-               customersData = cdata;
-               for (var i = 0; i < customersData.length; i++) {
-                   customerNames.push(customersData[i].first_name + " " + customersData[i].last_name);
-                          console.log(customerNames);
-               }
+        function getCustomersSuccess(cdata) {
+            console.log(cdata);
+            customersData = cdata;
+            for (var i = 0; i < customersData.length; i++) {
+                customerNames.push(customersData[i].first_name + " " + customersData[i].last_name);
+            }
+            ajaxCall("GET", "../api/proj", "", successGetProj, errorGetProj);
+        }
 
-                           ajaxCall("GET", "../api/proj", "", successGetProj, errorGetProj);
-           }
+        function getCustomersSuccess(cdata) {
+            console.log(cdata);
+            customersData = cdata;
+            for (var i = 0; i < customersData.length; i++) {
+                customerNames.push(customersData[i].first_name + " " + customersData[i].last_name);
+            }
+            ajaxCall("GET", "../api/proj", "", successGetProj, errorGetProj);
+        }
 
-                function errorGetCustomers(err) {
+        function errorGetCustomers(err) {
             swal("שגיאה באחזור לקוחות", "הלקוחות לא נטענו ", "error")
         }
 
@@ -408,24 +409,19 @@
             document.getElementById('filterDiv').style.display = "block";
         }
 
-        function filterCust() {
-            var customerName = $("#custID").val();
-            var Filter;
-            for (var i = 0; i < customersData.length; i++) {
-                if (customersData[i].first_name.includes(customerName)) {
-                    Filter = { customer_id: $("#custID").val() };
-                     console.log("i found it");
-                    //////////////////////////////////////////////////    
-                    break;
-                }
-                else {
-                    console.log("no sucj customerrrrrr");
-                }
-            }
-                      ajaxCall("POST", "../api/filter/cust", JSON.stringify(Filter), successfilterCust, errorfilterCust);
-
-
-        }
+        //function filterCust() {
+        //    var customerName = $("#custID").val();
+        //    var Filter = { customer_id: 0 };          
+        //    for (var i = 0; i < customersData.length; i++) {
+        //        if (customersData[i].first_name.includes(customerName)) {
+        //            Filter = { customer_id: customersData.id };
+        //            debugger;
+        //            console.log("i found it");
+        //            break;
+        //        }
+        //        ajaxCall("POST", "../api/filter/cust", JSON.stringify(Filter), successfilterCust, errorfilterCust);
+        //    }
+        //}
 
         function filterPrice() {
             Filter = { 
@@ -441,7 +437,8 @@
         
         function errorfilterCust() {
             alert("error")
-        }      
+        }   
+        
         $(document).ready(function () {
             $("#filterOpt").change(function () {
                 if ($(this).val() === '1') {
@@ -457,100 +454,100 @@
                     autocomplete(document.getElementById("custID"), customerNames);
 
                     function autocomplete(inp, arr) {
-            /*the autocomplete function takes two arguments,
-            the text field element and an array of possible autocompleted values:*/
-            var currentFocus;
-            /*execute a function when someone writes in the text field:*/
-            inp.addEventListener("input", function (e) {
-                var a, b, i, val = this.value;
-                /*close any already open lists of autocompleted values*/
-                closeAllLists();
-                if (!val) { return false; }
-                currentFocus = -1;
-                /*create a DIV element that will contain the items (values):*/
-                a = document.createElement("DIV");
-                a.setAttribute("id", this.id + "autocomplete-list");
-                a.setAttribute("class", "autocomplete-items");
-                /*append the DIV element as a child of the autocomplete container:*/
-                this.parentNode.appendChild(a);
-                /*for each item in the array...*/
-                for (i = 0; i < arr.length; i++) {
-                    /*check if the item starts with the same letters as the text field value:*/
-                    if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-                        /*create a DIV element for each matching element:*/
-                        b = document.createElement("DIV");
-                        /*make the matching letters bold:*/
-                        b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-                        b.innerHTML += arr[i].substr(val.length);
-                        /*insert a input field that will hold the current array item's value:*/
-                        b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-                        /*execute a function when someone clicks on the item value (DIV element):*/
-                        b.addEventListener("click", function (e) {
-                            /*insert the value for the autocomplete text field:*/
-                            inp.value = this.getElementsByTagName("input")[0].value;
-                            /*close the list of autocompleted values,
-                            (or any other open lists of autocompleted values:*/
+                        /*the autocomplete function takes two arguments,
+                        the text field element and an array of possible autocompleted values:*/
+                        var currentFocus;
+                        /*execute a function when someone writes in the text field:*/
+                        inp.addEventListener("input", function (e) {
+                            var a, b, i, val = this.value;
+                            /*close any already open lists of autocompleted values*/
                             closeAllLists();
+                            if (!val) { return false; }
+                            currentFocus = -1;
+                            /*create a DIV element that will contain the items (values):*/
+                            a = document.createElement("DIV");
+                            a.setAttribute("id", this.id + "autocomplete-list");
+                            a.setAttribute("class", "autocomplete-items");
+                            /*append the DIV element as a child of the autocomplete container:*/
+                            this.parentNode.appendChild(a);
+                            /*for each item in the array...*/
+                            for (i = 0; i < arr.length; i++) {
+                                /*check if the item starts with the same letters as the text field value:*/
+                                if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+                                    /*create a DIV element for each matching element:*/
+                                    b = document.createElement("DIV");
+                                    /*make the matching letters bold:*/
+                                    b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                                    b.innerHTML += arr[i].substr(val.length);
+                                    /*insert a input field that will hold the current array item's value:*/
+                                    b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                                    /*execute a function when someone clicks on the item value (DIV element):*/
+                                    b.addEventListener("click", function (e) {
+                                        /*insert the value for the autocomplete text field:*/
+                                        inp.value = this.getElementsByTagName("input")[0].value;
+                                        /*close the list of autocompleted values,
+                                        (or any other open lists of autocompleted values:*/
+                                        closeAllLists();
+                                    });
+                                    a.appendChild(b);
+                                }
+                            }
                         });
-                        a.appendChild(b);
-                    }
-                }
-            });
-            /*execute a function presses a key on the keyboard:*/
-            inp.addEventListener("keydown", function (e) {
-                var x = document.getElementById(this.id + "autocomplete-list");
-                if (x) x = x.getElementsByTagName("div");
-                if (e.keyCode == 40) {
-                    /*If the arrow DOWN key is pressed,
-                    increase the currentFocus variable:*/
-                    currentFocus++;
-                    /*and and make the current item more visible:*/
-                    addActive(x);
-                } else if (e.keyCode == 38) { //up
-                    /*If the arrow UP key is pressed,
-                    decrease the currentFocus variable:*/
-                    currentFocus--;
-                    /*and and make the current item more visible:*/
-                    addActive(x);
-                } else if (e.keyCode == 13) {
-                    /*If the ENTER key is pressed, prevent the form from being submitted,*/
-                    e.preventDefault();
-                    if (currentFocus > -1) {
-                        /*and simulate a click on the "active" item:*/
-                        if (x) x[currentFocus].click();
-                    }
-                }
-            });
-            function addActive(x) {
-                /*a function to classify an item as "active":*/
-                if (!x) return false;
-                /*start by removing the "active" class on all items:*/
-                removeActive(x);
-                if (currentFocus >= x.length) currentFocus = 0;
-                if (currentFocus < 0) currentFocus = (x.length - 1);
-                /*add class "autocomplete-active":*/
-                x[currentFocus].classList.add("autocomplete-active");
-            }
-            function removeActive(x) {
-                /*a function to remove the "active" class from all autocomplete items:*/
-                for (var i = 0; i < x.length; i++) {
-                    x[i].classList.remove("autocomplete-active");
-                }
-            }
-            function closeAllLists(elmnt) {
-                /*close all autocomplete lists in the document,
-                except the one passed as an argument:*/
-                var x = document.getElementsByClassName("autocomplete-items");
-                for (var i = 0; i < x.length; i++) {
-                    if (elmnt != x[i] && elmnt != inp) {
-                        x[i].parentNode.removeChild(x[i]);
-                    }
-                }
-            }
-            /*execute a function when someone clicks in the document:*/
-            document.addEventListener("click", function (e) {
-                closeAllLists(e.target);
-            });
+                        /*execute a function presses a key on the keyboard:*/
+                        inp.addEventListener("keydown", function (e) {
+                            var x = document.getElementById(this.id + "autocomplete-list");
+                            if (x) x = x.getElementsByTagName("div");
+                            if (e.keyCode == 40) {
+                                /*If the arrow DOWN key is pressed,
+                                increase the currentFocus variable:*/
+                                currentFocus++;
+                                /*and and make the current item more visible:*/
+                                addActive(x);
+                            } else if (e.keyCode == 38) { //up
+                                /*If the arrow UP key is pressed,
+                                decrease the currentFocus variable:*/
+                                currentFocus--;
+                                /*and and make the current item more visible:*/
+                                addActive(x);
+                            } else if (e.keyCode == 13) {
+                                /*If the ENTER key is pressed, prevent the form from being submitted,*/
+                                e.preventDefault();
+                                if (currentFocus > -1) {
+                                    /*and simulate a click on the "active" item:*/
+                                    if (x) x[currentFocus].click();
+                                }
+                            }
+                        });
+                        function addActive(x) {
+                            /*a function to classify an item as "active":*/
+                            if (!x) return false;
+                            /*start by removing the "active" class on all items:*/
+                            removeActive(x);
+                            if (currentFocus >= x.length) currentFocus = 0;
+                            if (currentFocus < 0) currentFocus = (x.length - 1);
+                            /*add class "autocomplete-active":*/
+                            x[currentFocus].classList.add("autocomplete-active");
+                        }
+                        function removeActive(x) {
+                            /*a function to remove the "active" class from all autocomplete items:*/
+                            for (var i = 0; i < x.length; i++) {
+                                x[i].classList.remove("autocomplete-active");
+                            }
+                        }
+                        function closeAllLists(elmnt) {
+                            /*close all autocomplete lists in the document,
+                            except the one passed as an argument:*/
+                            var x = document.getElementsByClassName("autocomplete-items");
+                            for (var i = 0; i < x.length; i++) {
+                                if (elmnt != x[i] && elmnt != inp) {
+                                    x[i].parentNode.removeChild(x[i]);
+                                }
+                            }
+                        }
+                        /*execute a function when someone clicks in the document:*/
+                        document.addEventListener("click", function (e) {
+                            closeAllLists(e.target);
+                        });
                     }
                     //////////////////////////////////
                 }
@@ -563,24 +560,47 @@
             
             $("#statusOpt").change(function () {
                 //document.getElementById('con').style.display = "none";
-                debugger;
-                if ($(this).val() === '1.1') {
-                    Filter = {
-                        status: 0
-                    }
-                } else Filter = {
-                    status: 1
+                
+                switch($(this).val()) {
+                    case "1.1":
+                        Filter = { status: 0 };
+                    break;
+                    case "1.2":
+                        Filter = { status: 1 };             
+                    break;
+                    default:
+                        debugger;
+                        var dataTable = $('#projects_table').DataTable();
+                        dataTable.destroy();
+                        dataTable.clear();
+                        successGetProj(projectsData);
                 }
+
+                //if ($(this).val() === '1.1') {
+                //    Filter = {
+                //        status: 0
+                //    }
+                //} else Filter = {
+                //    status: 1
+                //}
+
                 ajaxCall("POST", "../api/filter", JSON.stringify(Filter), successfilterstatus, errorfilterstatus);
             });     
 
             function errorfilterstatus() {
                 alert("שגיאה בסינון הרשומות")
             }           
+ 
 
 
 
         });
+            //$("#newProjectBtn").on("click", function () {
+            //    localStorage.clear();
+            //    window.location.href = 'AddNewProject.html';
+            //});
+        
+          
 
     </script>
 </head>
@@ -596,126 +616,95 @@
     </nav>
 
     <div id="con" class="container">
-
         <h1>פרויקטים</h1>
-
         <br />
-        <!--<div class="row item">
-            <div class="form-group col-sm-12">
-                <button type="button" value="הוסף פרויקט" class="btn btn-primary btn-md addNew" id="newProjectBtn">
-                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> הוספת פרויקט
-                </button>
-            </div>
-        </div>-->
-
         <div id="filterDiv" class="form-group filterDiv">
-            <!--// display:none;-->
             <div class="row item">
-
-                <div class="form-group col-sm-9 ">
-                    <!--//style="display:none"-->
-                    <div id="statusDiv" class=" col-sm-offset-3 ">
-                        <div class="row item">
-                            <div class="form-group col-sm-4 col-sm-offset-8 ">
-                                <label for="filterStat">סטטוס</label>
-                                <select id="statusOpt" class="form-control" required>
-                                    <option value=''> בחר</option>
-                                    <option value='1.1'>בתהליך</option>
-                                    <option value='1.2'>הסתיים</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="custDiv" style="display:none">
-                        <div class="row item">
-                            <!--<div class="form-group col-sm-4  col-sm-offset-4">
-                                <button type="button" value="סינון" class="btn btn-primary btn-md " onclick="filterCust()">
-                                    <span class="glyphicon glyphicon-filter"></span> סינון
-                                </button>
-                            </div>-->
-                            <!--<div class="form-group col-sm-4 ">
-                                <label for="custID">שם הלקוח</label>
-                                <input type="text" class="form-control" id="custID" placeholder="הזן שם לקוח לסינון" required>
-                            </div>-->
-
-
-                            <form id="filterCustomer" autocomplete="off" action="/action_page.php">
-
-                                <div class="form-group col-sm-4  col-sm-offset-4">
-                                    <!--<button type="button" value="סינון" class="btn btn-primary btn-md " onclick="filterCust()">
-                                            <span class="glyphicon glyphicon-filter"></span> סינון
-                                        </button>-->
-                                    <!--<input type="submit" class="btn btn-primary btn-md ">-->
-                                    <button type="button" value="סינון" class="btn btn-primary btn-md " onclick="filterCust()">
-                                        <span class="glyphicon glyphicon-filter"></span> סינון
-                                    </button>
-                                </div>
-
-                                <div class="form-group col-sm-4 ">
-                                    <label for="custID">שם הלקוח</label>
-                                    <div class="autocomplete ">
-                                        <input type="text" class="form-control" name="customersFilter" placeholder="הזן שם לקוח לסינון" id="custID" required>
-                                    </div>
-                                </div>
-
-                            </form>
-
-
-
-
-
-
-
-
-                        </div>
-                    </div>
-
-                    <div id="priceDiv" style="display:none">
-                        <div class="row item">
-                            <div class="form-group col-sm-4 ">
-                                <button type="button" value="מיון" class="btn btn-primary btn-md " onclick="filterPrice()">
-                                    <span class="glyphicon glyphicon-filter" aria-hidden="true"></span> סינון
-                                </button>
-                            </div>
-                            <div class="form-group col-sm-4 ">
-                                <label for="maxPrice">עד</label>
-                                <input type="number" class="form-control" id="maxPrice" placeholder="הזן סכום מקסימלי" required>
-                            </div>
-
-                            <div class="form-group col-sm-4 ">
-                                <label for="minPrice">סכום החל מ</label>
-                                <input type="number" class="form-control" id="minPrice" placeholder="הזן סכום מינימלי" required>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group col-sm-3">
-                    <label for="filter">מיין לפי</label>
-                    <select id="filterOpt" class="form-control">
-                        <!--<option value=''> בחר</option>-->
-                        <option value='1'>סטטוס</option>
-                        <option value='2'> לקוח</option>
-                        <option value='3'> מחיר</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="filterd" class="container" background-color:lightblue; border:double">
-        <form id="pForm">
-
-
-
-            <div class="row item">
-                <div class="form-group col-sm-12">
-                    <button type="button" value="הוספת פריט" class="btn btn-primary btn-md ">
-                        <span class="glyphicon glyphicon-plus-ref" aria-hidden="true"></span> בטל סינון
+                <!--col-sm-offset-8-->
+                <div class="form-group col-sm-3 ">
+                    <button type="button" value="מיון" class="btn btn-primary btn-md " onclick="filterPrice()">
+                        <span class="glyphicon glyphicon-filter" aria-hidden="true"></span> סינון
                     </button>
                 </div>
+                <div class="form-group col-sm-3 ">
+                    <label for="maxPrice">עד</label>
+                    <input type="number" class="form-control" id="maxPrice" placeholder="הזן סכום מקסימלי" required>
+                </div>
+                <div class="form-group col-sm-3 ">
+                    <label for="minPrice">סכום החל מ</label>
+                    <input type="number" class="form-control" id="minPrice" placeholder="הזן סכום מינימלי" required>
+                </div>
+                <div class="form-group col-sm-3  ">
+                    <label for="filterStat">סטטוס</label>
+                    <select id="statusOpt" class="form-control" required>
+                        <option value='1.0'> הכל</option>
+                        <option value='1.1'>בתהליך</option>
+                        <option value='1.2'>הסתיים</option>
+                    </select>
+                </div>
+                <!--<div id="custDiv" style="display:none">
+                <div class="row item">
+                    <form id="filterCustomer" autocomplete="off" action="/action_page.php">
+                        <div class="form-group col-sm-4  col-sm-offset-4">
+                            <button type="button" value="סינון" class="btn btn-primary btn-md " onclick="filterCust()">
+                                <span class="glyphicon glyphicon-filter"></span> סינון
+                            </button>
+                        </div>
+                        <div class="form-group col-sm-4 ">
+                            <label for="custID">שם הלקוח</label>
+                            <div class="autocomplete ">
+                                <input type="text" class="form-control" name="customersFilter" placeholder="הזן שם לקוח לסינון" id="custID" required>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>-->
+                <!--<div id="priceDiv" style="display:none">
+                <div class="row item">
+                    <div class="form-group col-sm-4 ">
+                        <button type="button" value="מיון" class="btn btn-primary btn-md " onclick="filterPrice()">
+                            <span class="glyphicon glyphicon-filter" aria-hidden="true"></span> סינון
+                        </button>
+                    </div>
+                    <div class="form-group col-sm-4 ">
+                        <label for="maxPrice">עד</label>
+                        <input type="number" class="form-control" id="maxPrice" placeholder="הזן סכום מקסימלי" required>
+                    </div>
 
-                <br />
+                    <div class="form-group col-sm-4 ">
+                        <label for="minPrice">סכום החל מ</label>
+                        <input type="number" class="form-control" id="minPrice" placeholder="הזן סכום מינימלי" required>
+                    </div>
+                </div>
+            </div>-->
+            </div>
+
+            <!--<div class="form-group col-sm-3">
+            <label for="filter">מיין לפי</label>
+            <select id="filterOpt" class="form-control">
+                <option value='1'>סטטוס</option>
+                <option value='2'> לקוח</option>
+                <option value='3'> מחיר</option>
+            </select>
+        </div>-->
+            <!--<div class="form-group col-sm-3">
+            <label for="filter"><span class="red-star"> </span>מיין לפי</label>
+            <br />
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-primary active" id="openItem">
+                    <input type="radio" id="status" name="itemType" value="1" autocomplete="off"> סטטוס
+                </label>
+                <label class="btn btn-primary" id="closedItem">
+                    <input type="radio" id="costRange" name="itemType" value="3" disabled> טווח מחירים
+                </label>
+            </div>
+        </div>-->
+        </div>
+    </div>
+    <!--</div>-->
+    <div id="filterd" class="container" background-color:lightblue; border:double">
+        <form id="pForm">
+            <!--<div class="row item">-->
                 <table id="projects_table" class="display nowrap" style="width:100%">
                     <thead>
                         <tr>
@@ -730,14 +719,12 @@
                         </tr>
                     </thead>
                 </table>
-            </div>
+            <!--</div>-->
         </form>
-    </div>
-    
+    </div>    
     <br />
-
     <div id="filterd1" class="container" style="display:none; background-color:lightblue; border:double">
-        <form id="pForm">
+        <!--<form id="pForm">-->
             <button value="Refresh Page" class="btn btn-primary btn-md" onClick="window.location.href=window.location.href">בטל סינון</button>
             <br />
             <table id="projects_table2" class="display nowrap" style="width:100% ">
@@ -754,12 +741,10 @@
                     </tr>
                 </thead>
             </table>
-        </form>
-
+        <!--</form>-->
     </div>
-
     <div id="filterd2" class="container" style="display:none; background-color:lightblue; border:double">
-        <form id="pForm">
+        <!--<form id="pForm">-->
             <button value="Refresh Page" class="btn btn-primary btn-md" onClick="window.location.href=window.location.href">חזור</button>
             <br />
             <table id="projects_table3" class="display nowrap" style="width:100% ">
@@ -776,9 +761,8 @@
                     </tr>
                 </thead>
             </table>
-        </form>
+        <!--</form>-->
     </div>
-
 
 </body>
 </html>
