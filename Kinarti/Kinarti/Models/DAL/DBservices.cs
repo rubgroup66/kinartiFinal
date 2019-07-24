@@ -923,18 +923,14 @@ public class DBservices
     {
         //SqlConnection con;
         List<Project> projectList = new List<Project>();
-
         try   {
             con = connect("PriceITConnectionString"); // create a connection to the database using the connection String defined in the web config file
         }
 
-        catch (Exception ex) {
-            // write to log
-            throw (ex);
+        catch (Exception ex) {        
+            throw (ex); // write to log
         }
-
-        try
-        {
+        try  {
             String selectSTR = "SELECT * FROM Project2 where custID= " + c.customer_id + "";
 
             SqlCommand cmd = new SqlCommand(selectSTR, this.con);

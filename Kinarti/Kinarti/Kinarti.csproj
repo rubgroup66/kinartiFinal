@@ -221,6 +221,7 @@
     <Content Include="PriceIT\js files\editSupervisor.js" />
     <Content Include="PriceIT\js files\editBoxes.js" />
     <Content Include="PriceIT\js files\editArchitect.js" />
+    <Content Include="PriceIT\autoCompleteCSS.css" />
     <Content Include="PriceIT\updatePar.html" />
     <Content Include="PriceIT\js files\editHandles.js" />
     <Content Include="PriceIT\js files\editMaterials.js" />

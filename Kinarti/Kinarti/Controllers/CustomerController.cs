@@ -11,10 +11,8 @@ using System.Web;
 using System.Web.Hosting;
 namespace kinarti.Controllers
 {
-
     public class CustomerController : ApiController
     {
-
         // POST api/values
         //public void Post([FromBody]string value)
         [Route("api/cust")]
