@@ -901,9 +901,9 @@ public class DBservices
              // read first field from the row into the list collection
                 Project project = new Project();
                 project.project_name = Convert.ToString(dr["project_name"]);
-                //project.create_date = Convert.ToDateTime(dr["create_date"]);
+                project.create_date = Convert.ToDateTime(dr["create_date"]);
                 project.description = Convert.ToString(dr["description"]);
-                //project.cost = Convert.ToInt32(dr["cost"]);
+                project.cost = Convert.ToInt32(dr["cost"]);
                 project.status = Convert.ToInt32(dr["status"]);
                 project.customer_id = Convert.ToInt32(dr["custID"]);
 
@@ -921,17 +921,14 @@ public class DBservices
 
     public List<Project> filterProjC(Filter c)
     {
-
         //SqlConnection con;
         List<Project> projectList = new List<Project>();
 
-        try
-        {
+        try   {
             con = connect("PriceITConnectionString"); // create a connection to the database using the connection String defined in the web config file
         }
 
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             // write to log
             throw (ex);
         }
@@ -949,9 +946,9 @@ public class DBservices
              // read first field from the row into the list collection
                 Project project = new Project();
                 project.project_name = Convert.ToString(dr["project_name"]);
-                //project.create_date = Convert.ToDateTime(dr["create_date"]);
+                project.create_date = Convert.ToDateTime(dr["create_date"]);
                 project.description = Convert.ToString(dr["description"]);
-                //project.cost = Convert.ToInt32(dr["cost"]);
+                project.cost = Convert.ToInt32(dr["cost"]);
                 project.status = Convert.ToInt32(dr["status"]);
                 project.customer_id = Convert.ToInt32(dr["custID"]);
 
@@ -969,23 +966,17 @@ public class DBservices
 
     public List<Project> filterProjP(Filter p)
     {
-
         //SqlConnection con;
         List<Project> projectList = new List<Project>();
-
-        try
-        {
+        try {
             this.con = connect("PriceITConnectionString"); // create a connection to the database using the connection String defined in the web config file
         }
-
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             // write to log
             throw (ex);
         }
 
-        try
-        {
+        try {
             String selectSTR = "SELECT * FROM Project2 where cost>= " + p.minPrice + " and cost<= " + p.maxPrice + "";
 
             SqlCommand cmd = new SqlCommand(selectSTR, this.con);
@@ -997,22 +988,20 @@ public class DBservices
              // read first field from the row into the list collection
                 Project project = new Project();
                 project.project_name = Convert.ToString(dr["project_name"]);
-                //project.create_date = Convert.ToDateTime(dr["create_date"]);
+                project.create_date = Convert.ToDateTime(dr["create_date"]);
                 project.description = Convert.ToString(dr["description"]);
-                //project.cost = Convert.ToInt32(dr["cost"]);
+                project.cost = Convert.ToInt32(dr["cost"]);
                 project.status = Convert.ToInt32(dr["status"]);
                 project.customer_id = Convert.ToInt32(dr["custID"]);
 
                 projectList.Add(project);
             }
         }
-        catch (Exception ex)
-        {
+        catch (Exception ex) {
             // write to log
             throw (ex);
         }
         return projectList;
-
     }
 
 
