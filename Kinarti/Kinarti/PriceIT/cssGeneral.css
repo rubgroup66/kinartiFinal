@@ -12,7 +12,7 @@ hover span {
 }
 
 
-#newBTN, #newProjectBtn, #newBTN2, #newBTN3, #newBTNArch, #newBTNSup, #newBTNMat, #newBTNironW {
+#newBTN, #newProjectBtn, #newBTN2, #newBTN3, #newBTNArch, #newBTNSup, #newBTNMat, #newBTNironW, #newBTNFac, #newBTNFmat {
     background-color: blueviolet;
     margin-bottom: 10px;
 }

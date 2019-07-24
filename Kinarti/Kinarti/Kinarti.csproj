@@ -214,10 +214,10 @@
     <Content Include="PriceIT\AddNewProject.html" />
     <Content Include="PriceIT\CreateNewCustomer.html" />
     <Content Include="PriceIT\cssGeneral.css" />
-    <Content Include="PriceIT\edit.html" />
+    <Content Include="PriceIT\js files\editFacadeMaterial.js" />
+    <Content Include="PriceIT\js files\editFacade.js" />
     <Content Include="PriceIT\js files\editIronWorks.js" />
     <Content Include="PriceIT\js files\editParam.js" />
-    <Content Include="PriceIT\js files\editParameter.js" />
     <Content Include="PriceIT\js files\editSupervisor.js" />
     <Content Include="PriceIT\js files\editBoxes.js" />
     <Content Include="PriceIT\js files\editArchitect.js" />

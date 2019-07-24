@@ -17,26 +17,25 @@ namespace kinarti.Models
 
         public string Type { get; set; }
         public int Cost { get; set; }
+        public int Active { get; set; }
 
-        public Facade(int _id, string _type, int _cost)
+        public Facade(int _id, string _type, int _cost, int _Active)
         {
             ID = _id;
             Type = _type;
             Cost = _cost;
+            Active = _Active;
         }
         public Facade()
         {
         }
-        public int insert()
+        public int insertFac()
         {
             DBservices dbs = new DBservices();
             int numAffected = dbs.insertFacade(this);
             return numAffected;
         }
 
-        //--------------------------------------------------------------------------
-        // get the list of the persons
-        //--------------------------------------------------------------------------
         public List<Facade> getFacades()
         {
             DBservices dbs = new DBservices();
@@ -45,12 +44,18 @@ namespace kinarti.Models
         }
 
 
-        //public int updateFacade(int Id)
-        //{
-        //    DBservices dbs = new DBservices();
-        //    int numAffected = dbs.updateFacade(this, Id);
-        //    return numAffected;
-        //}
+        public int updateFac(int Id)
+        {
+            DBservices dbs = new DBservices();
+            int numAffected = dbs.updateFac(this, Id);
+            return numAffected;
+        }
 
+        public void deleteFac(int Id)
+        {
+            DBservices dbs = new DBservices();
+            int numAffected = dbs.deleteFac(Id);
+
+        }
     }
 }

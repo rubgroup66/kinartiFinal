@@ -136,7 +136,12 @@ public class DBservices
                 m.ID = Convert.ToInt32(dr["id"]);
                 m.Type = Convert.ToString(dr["type"]);
                 m.Cost = Convert.ToInt32(dr["cost"]);
-                lm.Add(m);
+                m.Active = Convert.ToInt16(dr["Active"]);
+                if (m.Active == 1)
+                {
+                    lm.Add(m);
+
+                }
             }
             return lm;
         }
@@ -188,9 +193,9 @@ public class DBservices
 
         StringBuilder sbFacade = new StringBuilder();
         // use a string builder to create the dynamic string
-        sbFacade.AppendFormat("Values('{0}', {1})",
-             facade.Type, facade.Cost);
-        String prefix = "INSERT INTO materialTbl " + "(type, cost) ";
+        sbFacade.AppendFormat("Values('{0}', {1},{2})",
+             facade.Type, facade.Cost, 1);
+        String prefix = "INSERT INTO facadeTbl " + "(type, cost, Active) ";
         command = prefix + sbFacade.ToString() + ";" + "SELECT CAST(scope_identity() AS int)";
         return command;
 
@@ -1020,6 +1025,7 @@ public class DBservices
                 m.ID = Convert.ToInt32(dr["id"]);
                 m.Name = Convert.ToString(dr["name"]);
                 m.Cost = Convert.ToInt32(dr["cost"]);
+                m.FacadeID = Convert.ToInt16(dr["facadeID"]);
 
                 lm.Add(m);
             }
@@ -1559,6 +1565,47 @@ public class DBservices
     {
         //String command;
         string prefix = "UPDATE handleTbl SET type = '" + p.Type + "', cost = '" + p.Cost + "' WHERE id = " + id;
+        return prefix;
+    }
+
+    public int updateFac(Facade fac, int Id)
+    {
+        //SqlConnection con;
+        SqlCommand cmd;
+        try
+        {
+            this.con = connect("PriceITConnectionString"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            throw (ex);          // write to log
+        }
+        String cStr = BuildUpdateFacCommand(fac, Id);      // helper method to build the insert string
+        cmd = CreateCommand(cStr, this.con);             // create the command
+
+        try
+        {
+            int numEffected = (int)cmd.ExecuteNonQuery(); // execute the command
+            return numEffected;
+        }
+        catch (Exception ex)
+        {
+            return 0;
+            throw (ex);       // write to log
+        }
+        finally
+        {
+            if (this.con != null)
+            {
+                this.con.Close();        // close the db connection
+            }
+        }
+    }
+
+    private string BuildUpdateFacCommand(Facade p, int id)
+    {
+        //String command;
+        string prefix = "UPDATE facadeTbl SET type = '" + p.Type + "', cost = '" + p.Cost + "' WHERE id = " + id;
         return prefix;
     }
     //update edited item in system
@@ -2199,6 +2246,45 @@ public class DBservices
     private string BuildDeleteHandle(int handleID)
     {
         string cmdStr = "UPDATE handleTbl SET Active='" + 0 + "' WHERE id='" + handleID + "'";
+        return cmdStr;
+    }
+
+    public int deleteFac(int FacID)
+    {
+        //SqlConnection con;
+        SqlCommand cmd;
+        try
+        {
+            this.con = connect("PriceITConnectionString"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            throw (ex);// write to log
+        }
+        String cStr = BuildDeleteFac(FacID);      // helper method to build the insert string
+        cmd = CreateCommand(cStr, this.con);             // create the command
+        try
+        {
+            int numAffected = cmd.ExecuteNonQuery(); // execute the comm
+            return numAffected;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (this.con != null)
+            {
+                this.con.Close();// close the db connection
+            }
+        }
+
+    }
+    private string BuildDeleteFac(int FacID)
+    {
+        string cmdStr = "UPDATE facadeTbl SET Active='" + 0 + "' WHERE id='" + FacID + "'";
         return cmdStr;
     }
 

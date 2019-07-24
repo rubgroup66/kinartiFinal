@@ -26,6 +26,8 @@
     <script src="js files/editMaterials.js"></script>
     <script src="js files/editIronWorks.js"></script>
     <script src="js files/editParam.js"></script>
+    <script src="js files/editFacade.js"></script>
+    <script src="js files/editFacadeMaterial.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="cssGeneral.css" rel="stylesheet" />
     <style>
@@ -109,6 +111,8 @@
     <button class="tablink" onclick="openPage('experts', this, 'deepskyblue')">בעלי מקצוע</button>
     <button class="tablink" onclick="openPage('material', this, 'deepskyblue')">חומרי גלם</button>
     <button class="tablink" onclick="openPage('parameters', this, 'deepskyblue')">פרמטרים</button>
+    <button class="tablink" onclick="openPage('facade', this, 'deepskyblue')">חזית</button>
+
     <br />
     <!-------------------------Box----------------------------->
     <div id="box" class="tabcontent">
@@ -497,7 +501,108 @@
             </div>
         </div>
     </div>
-   
+    <!-------------------------Parameters----------------------------->
+
+    <div id="facade" class="tabcontent">
+        <button class="collapsible"> סוג חומר גמר</button>
+        <!-------------------------FacedeMat----------------------------->
+
+        <div id="Fmat" class="content">
+            <div class="row item">
+                <div class="form-group col-sm-12">
+                    <input type="button" value=" הוסף חומר חדש" class="btn btn-primary btn-lg" id="newBTNFmat" />
+                </div>
+            </div>
+            <form id="FmatForm">
+                <table id="FmatTable" class="display nowrap" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>סוג גמר</th>
+                            <th>שם חומר</th>
+                            <th>עלות</th>
+                            <th>פעולות</th>
+                        </tr>
+                    <thead>
+                </table>
+            </form>
+            <div id="FmatEditDiv">
+                <form id="editFmatForm">
+                    <div class="form-group row">
+                        <div class="form-group col-sm-5">
+                            <label for="FmatCost"><span class="red-star">★ </span> עלות</label>
+                            <input type="number" class="form-control" id="FmatCost" placeholder="הזן את עלות החומר" required>
+                        </div>
+
+                        <div class="form-group col-sm-5">
+                            <label for="FmatName"><span class="red-star">★ </span>שם חומר</label>
+                            <input type="text" class="form-control" id="FmatName" placeholder="הזן את שם החומר" required />
+                        </div>
+                        <div class="form-group col-sm-5" style="width:auto">
+                            <label for="FacadeID"><span class="red-star">★ </span>סוג גמר</label>
+                            <br/>
+                            <select id="FacadeID" class="form-control" required></select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <button type="submit" class="btn btn-primary btn-lg" id="saveBTN">שמירה</button>
+                            <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTNAFmat" value="ביטול" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-------------------------FacedeMat----------------------------->
+        <br />
+        <br />
+        <button class="collapsible">סוג גמר</button>
+        <!-------------------------Facede----------------------------->
+        <div id="Facade" class="content">
+            <div class="row item">
+                <div class="form-group col-sm-12">
+                    <input type="button" value=" הוסף סוג גמר חדש" class="btn btn-primary btn-lg" id="newBTNFac" />
+                </div>
+            </div>
+            <form id="facForm" style="direction:rtl">
+                <table id="facTable" class="display nowrap" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>שם סוג</th>
+                            <th>עלות</th>
+                            <th>פעולות</th>
+                        </tr>
+                    <thead>
+                </table>
+            </form>
+            <div id="facEditDiv" style="direction:rtl;">
+                <form id="editFacForm" style="direction:rtl">
+                    <div class="form-group row" style="direction:rtl">
+
+                        <div class="form-group col-lg-6">
+                            <label for="FacCost"><span class="red-star">★ </span> עלות</label>
+                            <input type="number" class="form-control" id="FacCost" placeholder="הזן עלות" required>
+                        </div>
+
+                        <div class="form-group col-lg-6">
+                            <label for="FacName"><span class="red-star">★ </span>שם סוג</label>
+                            <input type="text" class="form-control" id="FacName" placeholder="הזן שם סוג " required />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <button type="submit" class="btn btn-primary btn-lg">שמירה</button>
+                            <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTNFac" value="ביטול" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 
     <script>
         function openPage(pageName, elmnt, color) {

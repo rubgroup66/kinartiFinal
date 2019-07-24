@@ -27,7 +27,7 @@ namespace kinarti.Controllers
             try
             {
                 //    int someError = Convert.ToInt32("will fail to convert");
-                m.insert();
+                m.insertFac();
             }
             catch (Exception e)
             {
@@ -36,17 +36,8 @@ namespace kinarti.Controllers
             }
         }
 
-        //[HttpGet]
-        //[Route("api/persons")]
-        //public IEnumerable<Person> GetPerson()
-        //{
-        //    Person person = new Person();
-        //    List<Person> lp = person.getPersons();
-        //    return lp;
-        //}
-
         [System.Web.Http.HttpGet]
-        [Route("api/facades")]
+        [Route("api/facade")]
         public IEnumerable<Facade> GetFacade()
         {
             Facade facade = new Facade();
@@ -55,37 +46,20 @@ namespace kinarti.Controllers
         }
 
 
-        //[System.Web.Http.HttpGet]
-        //[Route("api/test")]
-        //public String GetTest()
-        //{
+        [HttpPut]
+        [Route("api/facade")]
+        public void Put([FromBody]Facade p, int Id)
+        {
+            p.updateFac(Id);
+        }
 
-        //    return "success";
-        //}
-
-
-        //[HttpGet]
-        //[Route("api/persons")]
-        //public Person GetPerson(string email, string password)
-        //{
-        //    Person person = new Person();
-        //    return person.getPerson(email, password);
-        //}
-
-
-        //[HttpPut]
-        //[Route("api/persons")]
-        //public void Put([System.Web.Http.FromBody]Person p, int Id)
-        //{
-        //    p.updatePerson(Id);
-        //}
-
-        //[HttpPut]
-        //[Route("api/materials")]
-        //public void Put([System.Web.Http.FromBody]Material m, int Id)
-        //{
-        //    m.updatefacade(Id);
-        //}
+        [System.Web.Http.HttpDelete]
+        [Route("api/facade")]
+        public void Delete(int Id)
+        {
+            Facade fac = new Facade();
+            fac.deleteFac(Id);
+        }
     }
     
 }
