@@ -41,7 +41,7 @@ hover span {
 }
 
 
-#newBTN, #newProjectBtn, #newBTN2, #newBTN3, #newBTNArch, #newBTNSup, #newBTNMat, #newBTNironW, #newBTNFac, #newBTNFmat {
+#newBTN, #newProjectBtn, #newBTN2, #newBTN3, #newBTNArch, #newBTNSup, #newBTNMat, #newBTNironW, #newBTNFac, #newBTNFmat, #newCustomerBtn {
     background-color: blueviolet;
     margin-bottom: 10px;
 }
