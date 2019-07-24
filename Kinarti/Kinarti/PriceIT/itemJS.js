@@ -198,8 +198,8 @@ function successGetProject(projectdata) {// this function is activated in case o
 function successGetSupervisor(supervisordata) {// this function is activated in case of a success
     console.log(supervisordata);
     for (var i = 0; i < supervisordata.length; i++) {
-        if (myProject.supervisor == supervisordata[i].sup_id) {
-            $("#projectSupervisor").val(supervisordata.sup_name);
+            if (myProject.supervisor == supervisordata[i].sup_id) {
+            $("#projectSupervisor").val(supervisordata[i].sup_name);
             break;
         }
     }
@@ -207,13 +207,13 @@ function successGetSupervisor(supervisordata) {// this function is activated in 
 }
 
 function errorGetSupervisor(err) { // this function is activated in case of a failure
-    swal("שגיאה באחזור npej");
+    swal("שגיאה באחזור מפקח");
 }
 function successGetArchitect(architectdata) {// this function is activated in case of a success
     console.log(architectdata);
     for (var i = 0; i < architectdata.length; i++) {
-        if (myProject.architect === architectdata[i].arc_id) {
-            $("#projectArchitect").val(architectdata.arc_name);
+        if (myProject.architect == architectdata[i].arc_id) {
+            $("#projectArchitect").val(architectdata[i].arc_name);
             break;
         }
     }
