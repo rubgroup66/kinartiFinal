@@ -16,6 +16,7 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="../Scripts/ajaxCalls.js"></script>
+
     <script>
         $(document).ready(function () { // once the document is ready we fetch a list of customers from the server
             ajaxCall("GET", "../api/getCust", "", getCustomersSuccess, errorGetCustomers);         
@@ -590,28 +591,29 @@
             function errorfilterstatus() {
                 alert("שגיאה בסינון הרשומות")
             }           
+ 
+
+
+
+        });
             //$("#newProjectBtn").on("click", function () {
             //    localStorage.clear();
             //    window.location.href = 'AddNewProject.html';
             //});
-        });
+        
           
 
     </script>
 </head>
 <body>
     <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">PriceIT</a>
-            </div>
-            <ul class="nav navbar-nav">
-                <li><a href="users.html">ניהול משתמשים</a></li>
-                <li><a href="updatePar.html">עדכון עלויות</a></li>
-                <li><a href="showCustomers.html">לקוחות</a></li>
-                <li class="active"><a href="projectsList.html">פרויקטים</a></li>
-            </ul>
-        </div>
+        <ul class="nav navbar-nav">
+            <li id="Menutabs" class="active"><a href="projectsList.html">פרויקטים</a></li>
+            <li id="Menutabs"><a href="showCustomers.html">לקוחות</a></li>
+            <li id="Menutabs"><a href="updatePar.html">עדכון נתונים</a></li>
+            <li id="Menutabs"><a href="users.html">ניהול משתמשים</a></li>
+            <li id="logo" style="float:left; padding-left:10px"><a href="#about">PriceIT</a></li>
+        </ul>
     </nav>
 
     <div id="con" class="container">
