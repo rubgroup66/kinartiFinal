@@ -28,10 +28,14 @@
         function success(data) {
             swal({ // this will open a dialouge
                 title: "לקוח חדש נוסף בהצלחה",
+<<<<<<< HEAD
                 text: "האם ברצונך להמשיך בתמחור פרויקט?",
                 icon: "success",
                 buttons: true,
  
+=======
+                icon: "info",
+>>>>>>> fb157068124d67528606a5e805be0b5600a8d501
             })
                 .then(function (create) {
                     if (create) {
@@ -39,19 +43,22 @@
                         var last_name = $("#last_name").val()
                         localStorage.setItem("storageF_name", first_name);
                         localStorage.setItem("storageL_name", last_name);
-                        OpenNewProject();
+                        parent.location = 'ShowCustomers.html';
+
                         
                     } 
                     else swal("Customer saved!");
-                    parent.location = 'ShowCustomers.html';
                     
                 });
         }
 
+<<<<<<< HEAD
         function OpenNewProject() {
             window.location.href = "AddNewProject.html";          
         }
 
+=======
+>>>>>>> fb157068124d67528606a5e805be0b5600a8d501
         function error(err) {
             alert("error");
         }
@@ -65,8 +72,8 @@
 <body>
     <nav class="navbar navbar-default">
         <ul class="nav navbar-nav">
-            <li id="Menutabs"><a href="projectsList.html">פרויקטים</a></li>
             <li id="Menutabs"><a href="showCustomers.html">לקוחות</a></li>
+            <li id="Menutabs"><a href="projectsList.html">פרויקטים</a></li>
             <li id="Menutabs"><a href="updatePar.html">עדכון נתונים</a></li>
             <li id="Menutabs"><a href="users.html">ניהול משתמשים</a></li>
             <li id="logo" style="float:left; padding-left:10px"><a href="#about">PriceIT</a></li>
@@ -93,11 +100,16 @@
             </div>
             <div id="ph"></div>
             <br />
+<<<<<<< HEAD
             <div class="form-group col-sm-12">
                 <button type="button" value="שמירה" class="btn btn-info btn-md" id="saveBTN">
                     <span class="glyphicon glyphicon-ok-circle" onclick="f1()"></span> שמירה
                 </button>
             </div>
+=======
+            <!--<button class="btn btn-default" id="add">Add</button>-->
+            <input  class="btn btn btn-md" onclick="f1()" id="newCustBTN" value="צור לקוח חדש" />
+>>>>>>> fb157068124d67528606a5e805be0b5600a8d501
         </form>
     </div>
 </body>
