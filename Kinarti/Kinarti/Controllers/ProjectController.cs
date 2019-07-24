@@ -44,8 +44,8 @@ namespace kinarti.Controllers
             Project p = new Project();
             List<Project> projectList = p.filter(status);
             return projectList;
-
         }
+
         [HttpPost]
         [Route("api/filter/cust")]
         public IEnumerable<Project> filtercust(Filter cust)
