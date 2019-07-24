@@ -214,7 +214,6 @@ function successGetProject(projectdata) {// this function is activated in case o
         $("#doneBtn").addClass("active");
         $("#done").attr("checked", "checked");
         $("#inProgressBtn").removeClass("active");
-
         $("#editDiv :input").attr("disabled", "disabled"); // this needs to be disabled when status = 1
     }
     else {

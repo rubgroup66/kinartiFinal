@@ -931,7 +931,8 @@ public class DBservices
             throw (ex); // write to log
         }
         try  {
-            String selectSTR = "SELECT * FROM Project2 where custID= " + c.customer_id + "";
+           /// String selectSTR = "SELECT * FROM Project2 where custID= " + c.customer_id + "";
+            String selectSTR = "SELECT * FROM Project2 WHERE cost BETWEEN " + c.minPrice+ " AND " + c.maxPrice ;
 
             SqlCommand cmd = new SqlCommand(selectSTR, this.con);
 
@@ -973,7 +974,7 @@ public class DBservices
         }
 
         try {
-            String selectSTR = "SELECT * FROM Project2 where cost>= " + p.minPrice + " and cost<= " + p.maxPrice + "";
+            String selectSTR = "SELECT * FROM Project2 where cost>= " + p.minPrice + " and cost<= " + p.maxPrice ;
 
             SqlCommand cmd = new SqlCommand(selectSTR, this.con);
 
