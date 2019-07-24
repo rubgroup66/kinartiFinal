@@ -59,7 +59,7 @@ $(document).ready(function () {
     ajaxCall("GET", uri2, "", successGetProject, errorGetProject); //get project's details from DB
 
     ajaxCall("GET", "../api/materials", "", successGetMaterials, errorGetMaterials); //get all materials from DB
-    ajaxCall("GET", "../api/facades", "", successGetFacades, errorGetFacades);
+    ajaxCall("GET", "../api/facade", "", successGetFacades, errorGetFacades);
     ajaxCall("GET", "../api/boxes", "", successGetBoxes, errorGetBoxes);
     ajaxCall("GET", "../api/handles", "", successGetHandles, errorGetHandles);
     ajaxCall("GET", "../api/hinges", "", successGetHinges, errorGetHinges);

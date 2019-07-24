@@ -1022,8 +1022,12 @@ public class DBservices
                 m.Name = Convert.ToString(dr["name"]);
                 m.Cost = Convert.ToInt32(dr["cost"]);
                 m.FacadeID = Convert.ToInt16(dr["facadeID"]);
+                m.Active = Convert.ToInt16(dr["Active"]);
+                if(m.Active== 1)
+                {
+                    lm.Add(m);
 
-                lm.Add(m);
+                }
             }
             return lm;
         }
@@ -1363,8 +1367,8 @@ public class DBservices
     {
         String command;
         StringBuilder sbItem = new StringBuilder(); // use a string builder to create the dynamic string
-        sbItem.AppendFormat("Values('{0}', {1} )", facadeMaterial.Name, facadeMaterial.Cost);
-        String prefix = "INSERT INTO facadeMaterialTbl " + "(type, cost) ";
+        sbItem.AppendFormat("Values('{0}', {1}, {2}, {3} )", facadeMaterial.Name, facadeMaterial.Cost,facadeMaterial.FacadeID,1);
+        String prefix = "INSERT INTO facadeMaterialTbl " + "(name, cost, facadeID, Active) ";
         command = prefix + sbItem.ToString() + ";" + "SELECT CAST(scope_identity() AS int)";
         return command;
     }
@@ -1518,7 +1522,7 @@ public class DBservices
     private string BuildUpdateFacadeMaterialCommand(FacadeMaterial p, int id)
     {
         //String command;
-        string prefix = "UPDATE facadeMaterialTbl SET type = '" + p.Name + "', cost = '" + p.Cost + "' WHERE id = " + id;
+        string prefix = "UPDATE facadeMaterialTbl SET name = '" + p.Name + "', cost = '" + p.Cost + "',facadeID = '" +p.FacadeID+ "' WHERE id = " + id;
         return prefix;
     }
 
@@ -2201,7 +2205,7 @@ public class DBservices
     }
     private string BuildDeleteFacadeMaterial(int facadeMaterialID)
     {
-        string cmdStr = "DELETE FROM facadeMaterialTbl  WHERE id='" + facadeMaterialID + "'";
+        string cmdStr = "UPDATE facadeMaterialTbl SET Active='" + 0 + "' WHERE id='" + facadeMaterialID + "'";
         return cmdStr;
     }
 
