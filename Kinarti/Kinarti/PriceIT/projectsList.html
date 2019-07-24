@@ -51,7 +51,6 @@
             destroyAndHideDataTableTwo();
             destroyAndHideDataTableThree();
             console.log(pdata);
-
             $('#projects_table').DataTable({
                 language: {
                     'search': 'חיפוש:',
@@ -296,90 +295,89 @@
         function successfilterstatus(pdata) {
             destroyAndHideDataTableThree();
             destroyAndHideDataTableTwo();
-            document.getElementById('filterd').style.display = "block"; 
-                var dataTable = $('#projects_table').DataTable();
-                dataTable.destroy();
-                dataTable.clear();
-                $('#projects_table').DataTable({
-                    language: {
-                        'search': 'חיפוש:',
-                        "lengthMenu": "הצג _MENU_ רשומות",
-                        "info": "מציג _START_ עד _END_ מתוך _TOTAL_ רשומות",
-                                        "paginate": {
-                    "previous": "הקודם",
-                     "next": "הבא"
-    },
-                "emptyTable": "לא קיימות רשומות, אפשר להתחיל להוסיף :)"
-                    }, 
-                    data: pdata,
-                    "autoWidth": false,
-                    columns: [
-                                                            {
-                    render: function (data, type, row, meta) {
-                        return pdata.findIndex(i => i.ID === row.ID) + 1;
-                    }
+            document.getElementById('filterd').style.display = "block";
+            var dataTable = $('#projects_table').DataTable();
+            dataTable.destroy();
+            dataTable.clear();
+            $('#projects_table').DataTable({
+                language: {
+                    'search': 'חיפוש:',
+                    "lengthMenu": "הצג _MENU_ רשומות",
+                    "info": "מציג _START_ עד _END_ מתוך _TOTAL_ רשומות",
+                    "paginate": {
+                        "previous": "הקודם",
+                        "next": "הבא"
+                    },
+                    "emptyTable": "לא קיימות רשומות, אפשר להתחיל להוסיף :)"
                 },
-                        //{ data: "ID" },
-                        { data: "project_name" },
+                data: pdata,
+                "autoWidth": false,
+                columns: [
                     {
-                            //data: "customer_id",
-                            render: function (data, type, row, meta) {
-                                for (var i = 0; i < pdata.length; i++) {
-                                    for (var j = 0; j < customersData.length; j++) {
-                                        if (row.customer_id == customersData[j].id) {
-                                            return customersData[j].first_name + " " + customersData[j].last_name;
-                                        }
+                        render: function (data, type, row, meta) {
+                            return pdata.findIndex(i => i.ID === row.ID) + 1;
+                        }
+                    },
+                    //{ data: "ID" },
+                    { data: "project_name" },
+                    {
+                        //data: "customer_id",
+                        render: function (data, type, row, meta) {
+                            for (var i = 0; i < pdata.length; i++) {
+                                for (var j = 0; j < customersData.length; j++) {
+                                    if (row.customer_id == customersData[j].id) {
+                                        return customersData[j].first_name + " " + customersData[j].last_name;
                                     }
                                 }
-                                //return customer_id;
                             }
-                        },
-                        { data: "description" },
-                        {
-                            render: function (data, type, row, meta) {
-                                var date = new Date(row.create_date);
-                                var year = date.getFullYear();
-                                var month = date.getMonth() + 1;
-                                var day = date.getDate();
-                                if (day < 10) {
-                                    day = '0' + day;
-                                }
-                                if (month < 10) {
-                                    month = '0' + month;
-                                }
-                                var formattedDate = day + '/' + month + '/' + year;
-                                return formattedDate;
+                            //return customer_id;
+                        }
+                    },
+                    { data: "description" },
+                    {
+                        render: function (data, type, row, meta) {
+                            var date = new Date(row.create_date);
+                            var year = date.getFullYear();
+                            var month = date.getMonth() + 1;
+                            var day = date.getDate();
+                            if (day < 10) {
+                                day = '0' + day;
                             }
-                        },
-                        { data: "cost" },
-                        {
-                            data: "status",
-                            render: function (data, type, row, meta) {
-                                status = "";
-                                if (data == 1) {
-                                    status = '<img title="Complete" src="https://img.icons8.com/doodle/48/000000/checkmark.png">'
-                                } else status = '<img title="In progress" src="https://img.icons8.com/ios/50/000000/progress-indicator.png">'
-                                return status;
+                            if (month < 10) {
+                                month = '0' + month;
                             }
-                        },
-                        {
-                            render: function (data, type, row, meta) {
-                                let dataCust = "data-custId='" + row.id + "'";
-                                //EditProjBtn = "<button type='button' class = 'EditProjBtn btn btn-success' " + dataCust + "> Edit project </button>";
-                                EditProjBtn = "<button type='button' id=" + row.ID + " class = 'EditProjBtn btn btn-success' " + dataCust + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span> עריכה </button>";
+                            var formattedDate = day + '/' + month + '/' + year;
+                            return formattedDate;
+                        }
+                    },
+                    { data: "cost" },
+                    {
+                        data: "status",
+                        render: function (data, type, row, meta) {
+                            status = "";
+                            if (data == 1) {
+                                status = '<img title="Complete" src="https://img.icons8.com/doodle/48/000000/checkmark.png">'
+                            } else status = '<img title="In progress" src="https://img.icons8.com/ios/50/000000/progress-indicator.png">'
+                            return status;
+                        }
+                    },
+                    {
+                        render: function (data, type, row, meta) {
+                            let dataCust = "data-custId='" + row.id + "'";
+                            //EditProjBtn = "<button type='button' class = 'EditProjBtn btn btn-success' " + dataCust + "> Edit project </button>";
+                            EditProjBtn = "<button type='button' id=" + row.ID + " class = 'EditProjBtn btn btn-success' " + dataCust + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span> עריכה </button>";
 
-                                return EditProjBtn;
-                            }
-                        },
-                    ]
-                })
+                            return EditProjBtn;
+                        }
+                    },
+                ]
+            })
         }
 
         function errorGetProj(err) {
             swal("שגיאה באחזור פרויקטים", "הפרויקטים לא נטענו ", "error")
         }
 
- 
         function getCustomersSuccess(cdata) {
             console.log(cdata);
             customersData = cdata;
@@ -389,17 +387,14 @@
             ajaxCall("GET", "../api/proj", "", successGetProj, errorGetProj);
         }
 
-           function getCustomersSuccess(cdata) {
-               console.log(cdata);
-               
-               customersData = cdata;
-               for (var i = 0; i < customersData.length; i++) {
-                   customerNames.push(customersData[i].first_name + " " + customersData[i].last_name);
-                          console.log(customerNames);
-               }
-
-                           ajaxCall("GET", "../api/proj", "", successGetProj, errorGetProj);
-           }
+        function getCustomersSuccess(cdata) {
+            console.log(cdata);
+            customersData = cdata;
+            for (var i = 0; i < customersData.length; i++) {
+                customerNames.push(customersData[i].first_name + " " + customersData[i].last_name);
+            }
+            ajaxCall("GET", "../api/proj", "", successGetProj, errorGetProj);
+        }
 
         function errorGetCustomers(err) {
             swal("שגיאה באחזור לקוחות", "הלקוחות לא נטענו ", "error")
@@ -564,9 +559,7 @@
             
             $("#statusOpt").change(function () {
                 //document.getElementById('con').style.display = "none";
-                //debugger;
-
-
+                
                 switch($(this).val()) {
                     case "1.1":
                         Filter = { status: 0 };
@@ -575,6 +568,7 @@
                         Filter = { status: 1 };             
                     break;
                     default:
+                        debugger;
                         var dataTable = $('#projects_table').DataTable();
                         dataTable.destroy();
                         dataTable.clear();
@@ -595,12 +589,10 @@
             function errorfilterstatus() {
                 alert("שגיאה בסינון הרשומות")
             }           
-
             //$("#newProjectBtn").on("click", function () {
             //    localStorage.clear();
             //    window.location.href = 'AddNewProject.html';
             //});
-
         });
           
 
@@ -622,20 +614,9 @@
     </nav>
 
     <div id="con" class="container">
-
         <h1>פרויקטים</h1>
-
         <br />
-        <!--<div class="row item">
-            <div class="form-group col-sm-12">
-                <button type="button" value="הוסף פרויקט" class="btn btn-primary btn-md addNew" id="newProjectBtn">
-                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> הוספת פרויקט
-                </button>
-            </div>
-        </div>-->
-
         <div id="filterDiv" class="form-group filterDiv">
-    
             <div class="row item">
                 <!--col-sm-offset-8-->
                 <div class="form-group col-sm-3 ">
@@ -647,12 +628,10 @@
                     <label for="maxPrice">עד</label>
                     <input type="number" class="form-control" id="maxPrice" placeholder="הזן סכום מקסימלי" required>
                 </div>
-
                 <div class="form-group col-sm-3 ">
                     <label for="minPrice">סכום החל מ</label>
                     <input type="number" class="form-control" id="minPrice" placeholder="הזן סכום מינימלי" required>
                 </div>
-
                 <div class="form-group col-sm-3  ">
                     <label for="filterStat">סטטוס</label>
                     <select id="statusOpt" class="form-control" required>
@@ -661,84 +640,69 @@
                         <option value='1.2'>הסתיים</option>
                     </select>
                 </div>
-
-
                 <!--<div id="custDiv" style="display:none">
-        <div class="row item">
-            <form id="filterCustomer" autocomplete="off" action="/action_page.php">
-                <div class="form-group col-sm-4  col-sm-offset-4">
-                    <button type="button" value="סינון" class="btn btn-primary btn-md " onclick="filterCust()">
-                        <span class="glyphicon glyphicon-filter"></span> סינון
-                    </button>
+                <div class="row item">
+                    <form id="filterCustomer" autocomplete="off" action="/action_page.php">
+                        <div class="form-group col-sm-4  col-sm-offset-4">
+                            <button type="button" value="סינון" class="btn btn-primary btn-md " onclick="filterCust()">
+                                <span class="glyphicon glyphicon-filter"></span> סינון
+                            </button>
+                        </div>
+                        <div class="form-group col-sm-4 ">
+                            <label for="custID">שם הלקוח</label>
+                            <div class="autocomplete ">
+                                <input type="text" class="form-control" name="customersFilter" placeholder="הזן שם לקוח לסינון" id="custID" required>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group col-sm-4 ">
-                    <label for="custID">שם הלקוח</label>
-                    <div class="autocomplete ">
-                        <input type="text" class="form-control" name="customersFilter" placeholder="הזן שם לקוח לסינון" id="custID" required>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>-->
+            </div>-->
                 <!--<div id="priceDiv" style="display:none">
-        <div class="row item">
-            <div class="form-group col-sm-4 ">
-                <button type="button" value="מיון" class="btn btn-primary btn-md " onclick="filterPrice()">
-                    <span class="glyphicon glyphicon-filter" aria-hidden="true"></span> סינון
-                </button>
-            </div>
-            <div class="form-group col-sm-4 ">
-                <label for="maxPrice">עד</label>
-                <input type="number" class="form-control" id="maxPrice" placeholder="הזן סכום מקסימלי" required>
-            </div>
-
-            <div class="form-group col-sm-4 ">
-                <label for="minPrice">סכום החל מ</label>
-                <input type="number" class="form-control" id="minPrice" placeholder="הזן סכום מינימלי" required>
-            </div>
-        </div>
-    </div>-->
-            </div>
-
-                <!--<div class="form-group col-sm-3">
-                    <label for="filter">מיין לפי</label>
-                    <select id="filterOpt" class="form-control">
-                        <option value='1'>סטטוס</option>
-                        <option value='2'> לקוח</option>
-                        <option value='3'> מחיר</option>
-                    </select>
-                </div>-->
-
-                <!--<div class="form-group col-sm-3">
-                    <label for="filter"><span class="red-star"> </span>מיין לפי</label>
-                    <br />
-                    <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-primary active" id="openItem">
-                            <input type="radio" id="status" name="itemType" value="1" autocomplete="off"> סטטוס
-                        </label>
-                        <label class="btn btn-primary" id="closedItem">
-                            <input type="radio" id="costRange" name="itemType" value="3" disabled> טווח מחירים
-                        </label>
+                <div class="row item">
+                    <div class="form-group col-sm-4 ">
+                        <button type="button" value="מיון" class="btn btn-primary btn-md " onclick="filterPrice()">
+                            <span class="glyphicon glyphicon-filter" aria-hidden="true"></span> סינון
+                        </button>
                     </div>
-                </div>-->
+                    <div class="form-group col-sm-4 ">
+                        <label for="maxPrice">עד</label>
+                        <input type="number" class="form-control" id="maxPrice" placeholder="הזן סכום מקסימלי" required>
+                    </div>
 
-
+                    <div class="form-group col-sm-4 ">
+                        <label for="minPrice">סכום החל מ</label>
+                        <input type="number" class="form-control" id="minPrice" placeholder="הזן סכום מינימלי" required>
+                    </div>
+                </div>
+            </div>-->
             </div>
+
+            <!--<div class="form-group col-sm-3">
+            <label for="filter">מיין לפי</label>
+            <select id="filterOpt" class="form-control">
+                <option value='1'>סטטוס</option>
+                <option value='2'> לקוח</option>
+                <option value='3'> מחיר</option>
+            </select>
+        </div>-->
+            <!--<div class="form-group col-sm-3">
+            <label for="filter"><span class="red-star"> </span>מיין לפי</label>
+            <br />
+            <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-primary active" id="openItem">
+                    <input type="radio" id="status" name="itemType" value="1" autocomplete="off"> סטטוס
+                </label>
+                <label class="btn btn-primary" id="closedItem">
+                    <input type="radio" id="costRange" name="itemType" value="3" disabled> טווח מחירים
+                </label>
+            </div>
+        </div>-->
         </div>
     </div>
+    <!--</div>-->
     <div id="filterd" class="container" background-color:lightblue; border:double">
         <form id="pForm">
-
-
-
-            <div class="row item">
-                <div class="form-group col-sm-12">
-                    <button type="button" value="הוספת פריט" class="btn btn-primary btn-md ">
-                        <span class="glyphicon glyphicon-plus-ref" aria-hidden="true"></span> בטל סינון
-                    </button>
-                </div>
-
-                <br />
+            <!--<div class="row item">-->
                 <table id="projects_table" class="display nowrap" style="width:100%">
                     <thead>
                         <tr>
@@ -753,14 +717,12 @@
                         </tr>
                     </thead>
                 </table>
-            </div>
+            <!--</div>-->
         </form>
-    </div>
-    
+    </div>    
     <br />
-
     <div id="filterd1" class="container" style="display:none; background-color:lightblue; border:double">
-        <form id="pForm">
+        <!--<form id="pForm">-->
             <button value="Refresh Page" class="btn btn-primary btn-md" onClick="window.location.href=window.location.href">בטל סינון</button>
             <br />
             <table id="projects_table2" class="display nowrap" style="width:100% ">
@@ -777,12 +739,10 @@
                     </tr>
                 </thead>
             </table>
-        </form>
-
+        <!--</form>-->
     </div>
-
     <div id="filterd2" class="container" style="display:none; background-color:lightblue; border:double">
-        <form id="pForm">
+        <!--<form id="pForm">-->
             <button value="Refresh Page" class="btn btn-primary btn-md" onClick="window.location.href=window.location.href">חזור</button>
             <br />
             <table id="projects_table3" class="display nowrap" style="width:100% ">
@@ -799,9 +759,8 @@
                     </tr>
                 </thead>
             </table>
-        </form>
+        <!--</form>-->
     </div>
-
 
 </body>
 </html>
