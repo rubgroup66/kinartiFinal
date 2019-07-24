@@ -52,13 +52,13 @@ hover span {
     background-color: #38598b;
     color: white;
 }
-    #doneBtn.active, #inProgressBtn.active {
+#doneBtn.active, #inProgressBtn.active {
         background-color: #113f67;
     }
-    .addnewBTN {
-        background-color: blueviolet;
-        margin-bottom: 10px;
-    }
+.addnewBTN {
+    background-color: blueviolet;
+    margin-bottom: 10px;
+}
 
 .item {
     direction: rtl;
@@ -240,4 +240,9 @@ body, html {
     padding: 5px 5px 5px 5px;
 }
 
-
+#paramTabs {
+    width: 60%;
+    right: 0px;
+    position: absolute;
+    padding: 20px;
+}

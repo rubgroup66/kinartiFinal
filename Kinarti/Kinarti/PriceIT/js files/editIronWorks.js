@@ -57,7 +57,7 @@ function buttonEventsI() {
         mode = "delete";
         markSelectedironW(this);
         var ironWId = this.getAttribute('data-ironWId');
-        swal({ // this will open a dialouge 
+        swal({  
             title: "האם אתה בטוח ?",
             text: "",
             icon: "warning",
@@ -106,8 +106,11 @@ function successGetIronWEdit(ironWdata) {// this function is activated in case o
                 {
                     render: function (data, type, row, meta) {
                         let dataIronW = "data-ironWId='" + row.ID + "'";
-                        editBtnIronW = "<button type='button' class = 'editBtnIronW btn btn-success' " + dataIronW + "> עריכה </button>";
-                        deleteBtnIronW = "<button type='button' class = 'deleteBtnIronW btn btn-danger' " + dataIronW + "> מחיקה </button>";
+                        //editBtnIronW = "<button type='button' class = 'editBtnIronW btn btn-success' " + dataIronW + "> עריכה </button>";
+                        //deleteBtnIronW = "<button type='button' class = 'deleteBtnIronW btn btn-danger' " + dataIronW + "> מחיקה </button>";
+                        editBtnIronW = "<button type='button' class = 'editBtnIronW btn btn-success' " + dataIronW + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>  עריכה </button>";
+                        deleteBtnIronW = "<button type='button' class = 'deleteBtnIronW btn btn-danger' " + dataIronW + ">  <span class='glyphicon glyphicon-trash' aria-hidden='true'></span> מחיקה </button>";
+
                         return editBtnIronW + deleteBtnIronW;
                     }
                 }
@@ -202,61 +205,6 @@ function populateFieldsIronW(ironWId) {
 
 }
 
-
-
-//function successGetMaterials(materialsdata) {// this function is activated in case of a success
-//    myMaterials = materialsdata;
-//    for (var i = 0; i < materialsdata.length; i++) {
-//        $('#boxMaterial').append('<option value="' + materialsdata[i].ID + '" >' + materialsdata[i].Name + '</option>');
-//    }
-//    console.log(myMaterials);
-//}
-
-//function successGetFacades(facadesdata) {// this function is activated in case of a success
-//    console.log(facadesdata);
-//    myFacades = facadesdata;
-//    for (var i = 0; i < facadesdata.length; i++) {
-//        $('#facadeType').append('<option value="' + facadesdata[i].ID + '" >' + facadesdata[i].Type + '</option>');
-//    }
-//    for (i = 0; i < facadesdata.length; i++) {
-//        $('#extraWallType').append('<option value="' + facadesdata[i].ID + '" >' + facadesdata[i].Type + '</option>');
-//    }
-//    console.log(myFacades);
-//}
-
-//function successGetBoxes(boxesdata) {// this function is activated in case of a success
-//    myBoxes = boxesdata;
-//    for (var i = 0; i < boxesdata.length; i++) {
-//        $('#boxMeasures').append('<option value="' + boxesdata[i].ID + '" >' + boxesdata[i].Height + 'X' + boxesdata[i].Width + 'X' + boxesdata[i].Depth + '</option>');
-//    }
-//}
-
-//function successGetHandles(handlesdata) {// this function is activated in case of a success
-//    myHandles = handlesdata;
-//    for (var i = 0; i < handlesdata.length; i++) {
-//        $('#handlesType').append('<option value="' + handlesdata[i].ID + '" >' + handlesdata[i].Type + '</option>');
-//    }
-//}
-
-
-
-//function successGetIronWorks(ironworksdata) {// this function is activated in case of a success
-//    myIronWorks = ironworksdata;
-//    for (var i = 0; i < ironworksdata.length; i++) {
-//        $('#ironWorksType1').append('<option value="' + ironworksdata[i].ID + '" >' + ironworksdata[i].Type + '</option>');
-//        $('#ironWorksType2').append('<option value="' + ironworksdata[i].ID + '" >' + ironworksdata[i].Type + '</option>');
-//    }
-//}
-
-//function successGetFacadeMaterials(facadeMaterialsdata) {// this function is activated in case of a success
-//    myFacadeMaterials = facadeMaterialsdata;
-//    console.log("facade materials -> " + JSON.stringify(facadeMaterialsdata));
-//    for (var i = 0; i < facadeMaterialsdata.length; i++) {
-//        $('#facadeMaterialType').append('<option value="' + facadeMaterialsdata[i].ID + '" >' + facadeMaterialsdata[i].Name + '</option>');
-//    }
-
-//}
-//// עצרתי בטעינת הצצבעים של החזיתות (גמר + קיר נוסף)
 
 
 

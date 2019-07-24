@@ -47,7 +47,7 @@ function updateSuccessPar() {
     swal("עודכן בהצלחה!", "הפעולה בוצעה", "success");
 }
 function errorUpdatePAr() {
-    alert("error")
+    alert("שגיאה בעדכון פרמטרים");
 }
 
 function successGetConstantsEdit(constsdata) {
@@ -102,7 +102,9 @@ function successGetConstantsEdit(constsdata) {
                 {
                     render: function (data, type, row, meta) {
                         let dataConst = "data-parId='" + row.ID + "'";
-                        editBtnPar = "<button type='button' class = 'editBtnPar btn btn-success' " + dataConst + "> עריכה </button>";
+                        //editBtnPar = "<button type='button' class = 'editBtnPar btn btn-success' " + dataConst + "> עריכה </button>";
+                        editBtnPar = "<button type='button' class = 'editBtnPar btn btn-success' " + dataConst + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>  עריכה </button>";
+
                         return editBtnPar;
                     }
                 }
@@ -116,7 +118,7 @@ function successGetConstantsEdit(constsdata) {
 }
 
 function error(err) { // this function is activated in case of a failure
-    swal("Error: " + err);
+    swal("שגיאה: " + err);
 }
 
 function markSelectedPar(btn) {  // mark the selected row

@@ -34,7 +34,6 @@
 </head>
 <body>
     <nav class="navbar navbar-default">
-
         <ul class="nav navbar-nav">
             <li id="Menutabs"><a href="showCustomers.html">לקוחות</a></li>
             <li id="Menutabs"><a href="projectsList.html">פרויקטים</a></li>
@@ -42,549 +41,552 @@
             <li id="Menutabs"><a href="users.html">ניהול משתמשים</a></li>
             <li id="logo" style="float:left; padding-left:10px"><a href="#about">PriceIT</a></li>
         </ul>
-
     </nav>
+    <div>
+        <h1>עדכון נתוני מערכת</h1>
+        <br />
+    </div>
+    <div class="container">
+        <div id="paramTabs">
+            <button class="tablink" onclick="openPage('box', this, '#a2a8d3')" id="defaultOpen">ארגזות</button>
+            <button class="tablink" onclick="openPage('totalDiv', this, '#a2a8d3')">פרזולים</button>
+            <button class="tablink" onclick="openPage('experts', this, '#a2a8d3')">בעלי מקצוע</button>
+            <button class="tablink" onclick="openPage('material', this, '#a2a8d3')">חומרי גלם</button>
+            <button class="tablink" onclick="openPage('parameters', this, '#a2a8d3')">פרמטרים</button>
+            <button class="tablink" onclick="openPage('facade', this, '#a2a8d3')">חזית</button>
+        </div>
+    </div>
+        <!-------------------------Box----------------------------->
+        <div id="box" class="tabcontent">
+            <div class="container">
+                <br />
+                <div class="row item">
+                    <div class="form-group col-sm-12">
+                        <button type="button" value="הוסף ארגזת" class="btn btn btn-md addNew" id="newBTN2" onclick="f2()">
+                            <span class="glyphicon glyphicon-plus-sign"></span> הוספת ארגזת
+                        </button>
+                    </div>
+                </div>
+                <form id="boxForm">
+                    <table id="boxesTable" class="display nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>סוג</th>
+                                <th>גובה</th>
+                                <th>רוחב</th>
+                                <th>עומק</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </form>
+                <div id="boxEditDiv">
+                    <form id="CreateboxesForm">
+                        <div class="form-group row">
+                            <div class="form-group col-lg-4">
+                                <label for="depth"><span class="red-star">★ </span>עומק</label>
+                                <input type="text" class="form-control" id="depth" placeholder="הזן עומק" required min="1">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="width"><span class="red-star">★ </span>רוחב</label>
+                                <input type="text" class="form-control" id="width" placeholder="הזן רוחב" required min="1">
+                            </div>
+                            <div class="form-group col-lg-4">
+                                <label for="height"><span class="red-star">★ </span>גובה</label>
+                                <input type="text" class="form-control" id="height" placeholder="הזן גובה" required min="1">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg">אישור</button>
+                        <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTNbox" value="ביטול" />
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-------------------------Box----------------------------->
+        <!-------------------------pirzul total----------------------------->
 
-    <button class="tablink" onclick="openPage('box', this, '#a2a8d3')" id="defaultOpen">ארגזות</button>
-    <button class="tablink" onclick="openPage('totalDiv', this, '#a2a8d3')">פרזול</button>
-    <button class="tablink" onclick="openPage('experts', this, '#a2a8d3')">בעלי מקצוע</button>
-    <button class="tablink" onclick="openPage('material', this, '#a2a8d3')">חומרי גלם</button>
-    <button class="tablink" onclick="openPage('parameters', this, '#a2a8d3')">פרמטרים</button>
-    <button class="tablink" onclick="openPage('facade', this, '#a2a8d3')">חזית</button>
+        <div id="totalDiv" class="tabcontent">
+            <button class="collapsible">צירים</button>
+            <!-------------------------hinges----------------------------->
 
-    <!-------------------------Box----------------------------->
-    <div id="box" class="tabcontent">
-        <div class="container">
+            <div id="hinges" class="content">
+                <div class="row item">
+                    <div class="form-group col-sm-12">
+                        <button type="button" value="הוסף ציר" class="btn btn btn-md addNew" id="newBTN2" onclick="f3()">
+                            <span class="glyphicon glyphicon-plus-sign"></span> הוספת ציר
+                        </button>
+                    </div>
+                </div>
+                <form id="hingesForm">
+                    <table id="hingesTable" class="display nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>סוג</th>
+                                <th>עלות (ש"ח)</th>
+                                <th>פעולות</th>
+                            </tr>
+                        <thead>
+                    </table>
+                </form>
+                <div id="hingesEditDiv">
+                    <form id="editHingesForm">
+                        <div class="form-group row">
+                            <div class="form-group col-sm-6">
+                                <label for="hingeCost"><span class="red-star">★ </span>עלות</label>
+                                <input type="number" class="form-control" id="hingeCost" placeholder="הזן את עלות הציר" required />
+                            </div>
+
+                            <div class="form-group col-sm-6">
+                                <label for="hingeName"><span class="red-star">★ </span>שם</label>
+                                <input type="text" class="form-control" id="hingeName" placeholder="הזן את סוג הציר" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <button type="submit" class="btn btn-primary btn-lg">שמירה</button>
+                                <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTNhinges" value="ביטול" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-------------------------hinges----------------------------->
+
             <br />
-            <div class="row item">
-                <div class="form-group col-sm-12">
-                    <button type="button" value="הוסף ארגזת" class="btn btn btn-md addNew" id="newBTN2" onclick="f2()">
-                        <span class="glyphicon glyphicon-plus-sign"></span> הוספת ארגזת
-                    </button>
+            <br />
+            <!-------------------------handles----------------------------->
+
+            <button class="collapsible">ידיות</button>
+            <div id="handles" class="content">
+                <div class="row item">
+                    <div class="form-group col-sm-12">
+                        <button type="button" value="הוסף ידית" class="btn btn btn-md addNew" id="newBTN3" onclick="f4()">
+                            <span class="glyphicon glyphicon-plus-sign"></span> הוספת ידית
+                        </button>
+                    </div>
+                </div>
+                <form id="HandlesForm">
+                    <table id="handlesTable" class="display nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>סוג</th>
+                                <th>עלות (ש"ח)</th>
+                                <th>פעולות</th>
+                            </tr>
+                        <thead>
+                    </table>
+                </form>
+
+                <div id="handlesEditDiv">
+                    <form id="editHandlesForm">
+                        <div class="form-group row">
+                            <div class="form-group col-sm-6">
+                                <label for="handleCost"><span class="red-star">★ </span>עלות</label>
+                                <input type="number" class="form-control" id="handleCost" placeholder="הזן את עלות הידית" required />
+                            </div>
+
+                            <div class="form-group col-sm-6">
+                                <label for="handleName"><span class="red-star">★ </span>שם</label>
+                                <input type="text" class="form-control" id="handleName" placeholder="הזן את סוג הידית" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <button type="submit" class="btn btn-primary btn-lg" id="saveBTN">שמירה</button>
+                                <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTNHandles" value="ביטול" />
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <form id="boxForm">
-                <table id="boxesTable" class="display nowrap" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>סוג</th>
-                            <th>גובה</th>
-                            <th>רוחב</th>
-                            <th>עומק</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                </table>
-            </form>
-            <div id="boxEditDiv">
-                <form id="CreateboxesForm">
-                    <div class="form-group row">
-                        <div class="form-group col-lg-4">
-                            <label for="depth"><span class="red-star">★ </span>עומק</label>
-                            <input type="text" class="form-control" id="depth" placeholder="הזן עומק" required min="1">
-                        </div>
-                        <div class="form-group col-lg-4">
-                            <label for="width"><span class="red-star">★ </span>רוחב</label>
-                            <input type="text" class="form-control" id="width" placeholder="הזן רוחב" required min="1">
-                        </div>
-                        <div class="form-group col-lg-4">
-                            <label for="height"><span class="red-star">★ </span>גובה</label>
-                            <input type="text" class="form-control" id="height" placeholder="הזן גובה" required min="1">
-                        </div>
+            <!-------------------------handles----------------------------->
+            <br />
+            <br />
+
+            <!-------------------------ironWorks----------------------------->
+
+            <button class="collapsible">פרזול</button>
+            <div id="ironW" class="content">
+                <div class="row item">
+                    <div class="form-group col-sm-12">
+                        <button type="button" value="הוסף פרזול" class="btn btn btn-md addNew" id="newBTNironW">
+                            <span class="glyphicon glyphicon-plus-sign"></span> הוספת פרזול
+                        </button>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-lg">אישור</button>
-                    <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTNbox" value="ביטול" />
+                </div>
+                <form id="ironWForm">
+                    <table id="ironWTable" class="display nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>סוג</th>
+                                <th>עלות (ש"ח)</th>
+                                <th>פעולות</th>
+                            </tr>
+                        <thead>
+                    </table>
                 </form>
-            </div>
-        </div>
-    </div>
-    <!-------------------------Box----------------------------->
-    <!-------------------------pirzul total----------------------------->
 
-    <div id="totalDiv" class="tabcontent">
-        <button class="collapsible">צירים</button>
-        <!-------------------------hinges----------------------------->
+                <div id="ironWEditDiv">
+                    <form id="editIronWForm">
+                        <div class="form-group row">
+                            <div class="form-group col-sm-6">
+                                <label for="ironWCost"><span class="red-star">★ </span>עלות</label>
+                                <input type="number" class="form-control" id="ironWCost" placeholder="הזן את עלות הפרזול" required />
+                            </div>
 
-        <div id="hinges" class="content">
-            <div class="row item">
-                <div class="form-group col-sm-12">
-                    <button type="button" value="הוסף ציר" class="btn btn btn-md addNew" id="newBTN2" onclick="f3()">
-                        <span class="glyphicon glyphicon-plus-sign"></span> הוספת ציר
-                    </button>
+                            <div class="form-group col-sm-6">
+                                <label for="ironWType"><span class="red-star">★ </span>שם</label>
+                                <input type="text" class="form-control" id="ironWType" placeholder="הזן את סוג הפרזול" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <button type="submit" class="btn btn-primary btn-lg" id="saveBTN">שמירה</button>
+                                <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTNIronW" value="ביטול" />
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <form id="hingesForm">
-                <table id="hingesTable" class="display nowrap" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>סוג</th>
-                            <th>עלות (ש"ח)</th>
-                            <th>פעולות</th>
-                        </tr>
-                    <thead>
-                </table>
-            </form>
-            <div id="hingesEditDiv">
-                <form id="editHingesForm">
-                    <div class="form-group row">
-                        <div class="form-group col-sm-6">
-                            <label for="hingeCost"><span class="red-star">★ </span>עלות</label>
-                            <input type="number" class="form-control" id="hingeCost" placeholder="הזן את עלות הציר" required />
-                        </div>
+            <!-------------------------ironWorks----------------------------->
 
-                        <div class="form-group col-sm-6">
-                            <label for="hingeName"><span class="red-star">★ </span>שם</label>
-                            <input type="text" class="form-control" id="hingeName" placeholder="הזן את סוג הציר" required>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group col-sm-12">
-                            <button type="submit" class="btn btn-primary btn-lg">שמירה</button>
-                            <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTNhinges" value="ביטול" />
-                        </div>
-                    </div>
-                </form>
-            </div>
         </div>
-        <!-------------------------hinges----------------------------->
+        <!-------------------------pirzul total----------------------------->
+        <!-------------------------experts----------------------------->
 
-        <br />
-        <br />
-        <!-------------------------handles----------------------------->
+        <div id="experts" class="tabcontent">
+            <button class="collapsible">אדריכלים</button>
+            <!-------------------------Architect----------------------------->
 
-        <button class="collapsible">ידיות</button>
-        <div id="handles" class="content">
-            <div class="row item">
-                <div class="form-group col-sm-12">
-                    <button type="button" value="הוסף ידית" class="btn btn btn-md addNew" id="newBTN3" onclick="f4()">
-                        <span class="glyphicon glyphicon-plus-sign"></span> הוספת ידית
-                    </button>
+            <div id="architect" class="content">
+                <div class="row item">
+                    <div class="form-group col-sm-12">
+                        <button type="button" value="הוסף אדריכל" class="btn btn btn-md addNew" id="newBTNArch">
+                            <span class="glyphicon glyphicon-plus-sign"></span> הוספת אדריכל
+                        </button>
+                    </div>
+                </div>
+                <form id="archForm">
+                    <table id="archTable" class="display nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>מספר מזהה</th>
+                                <th>שם פרטי</th>
+                                <th>פעולות</th>
+                            </tr>
+                        <thead>
+                    </table>
+                </form>
+                <div id="archEditDiv">
+                    <form id="editArchForm">
+                        <div class="form-group row">
+                            <div class="form-group col-sm-6">
+                                <label for="archName"><span class="red-star">★ </span> שם</label>
+                                <input type="text" class="form-control" id="archName" placeholder="הזן את שם האדריכל" required>
+                            </div>
+
+                            <div class="form-group col-sm-6">
+                                <label for="archID"><span class="red-star">★ </span>מספר מזהה</label>
+                                <input type="number" class="form-control" id="archID" placeholder="הזן את המספר מזהה של האדריכל" required />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <button type="submit" class="btn btn-primary btn-lg" id="saveBTN">שמירה</button>
+                                <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTNArch" value="ביטול" />
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <form id="HandlesForm">
-                <table id="handlesTable" class="display nowrap" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>סוג</th>
-                            <th>עלות (ש"ח)</th>
-                            <th>פעולות</th>
-                        </tr>
-                    <thead>
-                </table>
-            </form>
-
-            <div id="handlesEditDiv">
-                <form id="editHandlesForm">
-                    <div class="form-group row">
-                        <div class="form-group col-sm-6">
-                            <label for="handleCost"><span class="red-star">★ </span>עלות</label>
-                            <input type="number" class="form-control" id="handleCost" placeholder="הזן את עלות הידית" required />
-                        </div>
-
-                        <div class="form-group col-sm-6">
-                            <label for="handleName"><span class="red-star">★ </span>שם</label>
-                            <input type="text" class="form-control" id="handleName" placeholder="הזן את סוג הידית" required>
-                        </div>
+            <!-------------------------Architect----------------------------->
+            <br />
+            <br />
+            <button class="collapsible">מפקחים</button>
+            <!-------------------------Supervisor----------------------------->
+            <div id="supervisor" class="content">
+                <div class="row item">
+                    <div class="form-group col-sm-12">
+                        <button type="button" value="הוסף מפקח" class="btn btn btn-md addNew" id="newBTNSup">
+                            <span class="glyphicon glyphicon-plus-sign"></span> הוספת מפקח
+                        </button>
                     </div>
-
-                    <div class="row">
-                        <div class="form-group col-sm-12">
-                            <button type="submit" class="btn btn-primary btn-lg" id="saveBTN">שמירה</button>
-                            <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTNHandles" value="ביטול" />
-                        </div>
-                    </div>
+                </div>
+                <form id="supForm" style="direction:rtl">
+                    <table id="supTable" class="display nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>שם פרטי</th>
+                                <th>מספר טלפון נייד</th>
+                                <th>פעולות</th>
+                            </tr>
+                        <thead>
+                    </table>
                 </form>
-            </div>
-        </div>
-        <!-------------------------handles----------------------------->
-        <br />
-        <br />
+                <div id="supEditDiv" style="direction:rtl;">
+                    <form id="editSupForm" style="direction:rtl">
+                        <div class="form-group row" style="direction:rtl">
+                            <div class="form-group col-lg-4">
+                                <label for="supPnum"><span class="red-star">★ </span> מספר נייד</label>
+                                <input type="text" class="form-control" id="supPnum" placeholder="הזן מספר טלפון נייד" required>
+                            </div>
 
-        <!-------------------------ironWorks----------------------------->
+                            <div class="form-group col-lg-4">
+                                <label for="supName"><span class="red-star">★ </span> שם</label>
+                                <input type="text" class="form-control" id="supName" placeholder="הזן את שם המפקח" required>
+                            </div>
 
-        <button class="collapsible">פרזול</button>
-        <div id="ironW" class="content">
-            <div class="row item">
-                <div class="form-group col-sm-12">
-                    <button type="button" value="הוסף פרזול" class="btn btn btn-md addNew" id="newBTNironW">
-                        <span class="glyphicon glyphicon-plus-sign"></span> הוספת פרזול
-                    </button>
+                            <div class="form-group col-lg-4">
+                                <label for="supID"><span class="red-star">★ </span>מספר מזהה</label>
+                                <input type="number" class="form-control" id="supID" placeholder="הזן את המספר מזהה של המפקח" required />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <button type="submit" class="btn btn-primary btn-lg" id="saveBTN">שמירה</button>
+                                <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTNSup" value="ביטול" />
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <form id="ironWForm">
-                <table id="ironWTable" class="display nowrap" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>סוג</th>
-                            <th>עלות (ש"ח)</th>
-                            <th>פעולות</th>
-                        </tr>
-                    <thead>
-                </table>
-            </form>
-
-            <div id="ironWEditDiv">
-                <form id="editIronWForm">
-                    <div class="form-group row">
-                        <div class="form-group col-sm-6">
-                            <label for="ironWCost"><span class="red-star">★ </span>עלות</label>
-                            <input type="number" class="form-control" id="ironWCost" placeholder="הזן את עלות הפרזול" required />
-                        </div>
-
-                        <div class="form-group col-sm-6">
-                            <label for="ironWType"><span class="red-star">★ </span>שם</label>
-                            <input type="text" class="form-control" id="ironWType" placeholder="הזן את סוג הפרזול" required>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group col-sm-12">
-                            <button type="submit" class="btn btn-primary btn-lg" id="saveBTN">שמירה</button>
-                            <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTNIronW" value="ביטול" />
-                        </div>
-                    </div>
-                </form>
-            </div>
         </div>
-        <!-------------------------ironWorks----------------------------->
+        <!-------------------------Material----------------------------->
 
-    </div>
-    <!-------------------------pirzul total----------------------------->
+        <div id="material" class="tabcontent">
+            <div class="container">
+                <div class="row item">
+                    <div class="form-group col-sm-12">
+                        <button type="button" value="הוסף חומר גלם" class="btn btn btn-md addNew" id="newBTNMat">
+                            <span class="glyphicon glyphicon-plus-sign"></span> הוספת חומר גלם
+                        </button>
+                    </div>
+                </div>
+                <form id="matForm">
 
-    <!-------------------------experts----------------------------->
-
-    <div id="experts" class="tabcontent">
-        <button class="collapsible">אדריכלים</button>
-        <!-------------------------Architect----------------------------->
-
-        <div id="architect" class="content">
-            <div class="row item">
-                <div class="form-group col-sm-12">
-                    <button type="button" value="הוסף אדריכל" class="btn btn btn-md addNew" id="newBTNArch">
-                        <span class="glyphicon glyphicon-plus-sign"></span> הוספת אדריכל
-                    </button>
+                    <table id="matTable" class="display nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>חומר גלם</th>
+                                <th>סוג</th>
+                                <th>מקדם</th>
+                                <th>עלות עבודה</th>
+                                <th>עלות חומר</th>
+                                <th>פעולות</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </form>
+                <div id="matEditDiv">
+                    <form id="editMatForm">
+                        <div class="form-group row">
+                            <div class="form-group col-lg-3">
+                                <label for="Cost"><span class="red-star">★ </span>עלות חומר</label>
+                                <input type="text" class="form-control" id="Cost" placeholder="הזן עלות חומר בשקלים" required min="1">
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <label for="wCost"><span class="red-star">★ </span>עלות עבודה</label>
+                                <input type="text" class="form-control" id="wCost" placeholder="הזן עלות עבודה בשקלים" required min="1">
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <label for="coef"><span class="red-star">★ </span>מקדם</label>
+                                <input type="text" class="form-control" id="coef" placeholder="הזן מקדם חישוב" required min="1">
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <label for="mat"><span class="red-star">★ </span>חומר גלם</label>
+                                <input type="text" class="form-control" id="mat" placeholder="הזן שם חומר גלם" required min="1">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg">אישור</button>
+                        <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTNMat" value="ביטול" />
+                    </form>
                 </div>
             </div>
-            <form id="archForm">
-                <table id="archTable" class="display nowrap" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>מספר מזהה</th>
-                            <th>שם פרטי</th>
-                            <th>פעולות</th>
-                        </tr>
-                    <thead>
-                </table>
-            </form>
-            <div id="archEditDiv">
-                <form id="editArchForm">
-                    <div class="form-group row">
-                        <div class="form-group col-sm-6">
-                            <label for="archName"><span class="red-star">★ </span> שם</label>
-                            <input type="text" class="form-control" id="archName" placeholder="הזן את שם האדריכל" required>
-                        </div>
-
-                        <div class="form-group col-sm-6">
-                            <label for="archID"><span class="red-star">★ </span>מספר מזהה</label>
-                            <input type="number" class="form-control" id="archID" placeholder="הזן את המספר מזהה של האדריכל" required />
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group col-sm-12">
-                            <button type="submit" class="btn btn-primary btn-lg" id="saveBTN">שמירה</button>
-                            <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTNArch" value="ביטול" />
-                        </div>
-                    </div>
-                </form>
-            </div>
         </div>
-        <!-------------------------Architect----------------------------->
-        <br />
-        <br />
-        <button class="collapsible">מפקחים</button>
-        <!-------------------------Supervisor----------------------------->
-        <div id="supervisor" class="content">
-            <div class="row item">
-                <div class="form-group col-sm-12">
-                    <button type="button" value="הוסף מפקח" class="btn btn btn-md addNew" id="newBTNSup">
-                        <span class="glyphicon glyphicon-plus-sign"></span> הוספת מפקח
-                    </button>
+        <!-------------------------Material----------------------------->
+        <!-------------------------Parameters----------------------------->
+        <div id="parameters" class="tabcontent">
+            <div class="container">
+                <form id="parForm">
+
+                    <table id="parTable" class="display nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>שם</th>
+                                <th>מחיר</th>
+                                <th>פעולות</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </form>
+                <div id="parEditDiv">
+                    <form id="editParForm">
+                        <div class="form-group row">
+                            <div class="form-group col-lg-12">
+                                <label for="ParCost"><span class="red-star">★ </span>מחיר</label>
+                                <input type="text" class="form-control" id="ParCost" placeholder="הזן עלות בשקלים" required min="1">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg">אישור</button>
+                        <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTNPar" value="ביטול" />
+                    </form>
                 </div>
             </div>
-            <form id="supForm" style="direction:rtl">
-                <table id="supTable" class="display nowrap" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>שם פרטי</th>
-                            <th>מספר טלפון נייד</th>
-                            <th>פעולות</th>
-                        </tr>
-                    <thead>
-                </table>
-            </form>
-            <div id="supEditDiv" style="direction:rtl;">
-                <form id="editSupForm" style="direction:rtl">
-                    <div class="form-group row" style="direction:rtl">
-                        <div class="form-group col-lg-4">
-                            <label for="supPnum"><span class="red-star">★ </span> מספר נייד</label>
-                            <input type="text" class="form-control" id="supPnum" placeholder="הזן מספר טלפון נייד" required>
-                        </div>
-
-                        <div class="form-group col-lg-4">
-                            <label for="supName"><span class="red-star">★ </span> שם</label>
-                            <input type="text" class="form-control" id="supName" placeholder="הזן את שם המפקח" required>
-                        </div>
-
-                        <div class="form-group col-lg-4">
-                            <label for="supID"><span class="red-star">★ </span>מספר מזהה</label>
-                            <input type="number" class="form-control" id="supID" placeholder="הזן את המספר מזהה של המפקח" required />
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group col-sm-12">
-                            <button type="submit" class="btn btn-primary btn-lg" id="saveBTN">שמירה</button>
-                            <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTNSup" value="ביטול" />
-                        </div>
-                    </div>
-                </form>
-            </div>
         </div>
-    </div>
-    <!-------------------------Material----------------------------->
+        <!-------------------------Parameters----------------------------->
 
-    <div id="material" class="tabcontent">
-        <div class="container">
-            <div class="row item">
-                <div class="form-group col-sm-12">
-                    <button type="button" value="הוסף חומר גלם" class="btn btn btn-md addNew" id="newBTNMat">
-                        <span class="glyphicon glyphicon-plus-sign"></span> הוספת חומר גלם
-                    </button>
+        <div id="facade" class="tabcontent">
+            <button class="collapsible"> סוג חומר גמר</button>
+            <!-------------------------FacedeMat----------------------------->
+
+            <div id="Fmat" class="content">
+                <div class="row item">
+                    <div class="form-group col-sm-12">
+                        <button type="button" value="הוסף חומר גמר" class="btn btn btn-md addNew" id="newBTNFmat">
+                            <span class="glyphicon glyphicon-plus-sign"></span> הוספת חומר גמר
+                        </button>
+                    </div>
+                </div>
+                <form id="FmatForm">
+                    <table id="FmatTable" class="display nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>סוג גמר</th>
+                                <th>שם חומר</th>
+                                <th>עלות</th>
+                                <th>פעולות</th>
+                            </tr>
+                        <thead>
+                    </table>
+                </form>
+                <div id="FmatEditDiv">
+                    <form id="editFmatForm">
+                        <div class="form-group row">
+                            <div class="form-group col-sm-5">
+                                <label for="FmatCost"><span class="red-star">★ </span> עלות</label>
+                                <input type="number" class="form-control" id="FmatCost" placeholder="הזן את עלות החומר" required>
+                            </div>
+
+                            <div class="form-group col-sm-5">
+                                <label for="FmatName"><span class="red-star">★ </span>שם חומר</label>
+                                <input type="text" class="form-control" id="FmatName" placeholder="הזן את שם החומר" required />
+                            </div>
+                            <div class="form-group col-sm-5" style="width:auto">
+                                <label for="FacadeIDM"><span class="red-star">★ </span>סוג גמר</label>
+                                <br />
+                                <select id="FacadeIDM" class="form-control" required></select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <button type="submit" class="btn btn-primary btn-lg" id="saveBTN">שמירה</button>
+                                <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTNAFmat" value="ביטול" />
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <form id="matForm">
-
-                <table id="matTable" class="display nowrap" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>מס"ד</th>
-                            <th>חומר גלם</th>
-                            <th>סוג</th>
-                            <th>מקדם</th>
-                            <th>עלות עבודה</th>
-                            <th>עלות חומר</th>
-                            <th>פעולות</th>
-                        </tr>
-                    </thead>
-                </table>
-            </form>
-            <div id="matEditDiv">
-                <form id="editMatForm">
-                    <div class="form-group row">
-                        <div class="form-group col-lg-3">
-                            <label for="Cost"><span class="red-star">★ </span>עלות חומר</label>
-                            <input type="text" class="form-control" id="Cost" placeholder="הזן עלות חומר בשקלים" required min="1">
-                        </div>
-                        <div class="form-group col-lg-3">
-                            <label for="wCost"><span class="red-star">★ </span>עלות עבודה</label>
-                            <input type="text" class="form-control" id="wCost" placeholder="הזן עלות עבודה בשקלים" required min="1">
-                        </div>
-                        <div class="form-group col-lg-3">
-                            <label for="coef"><span class="red-star">★ </span>מקדם</label>
-                            <input type="text" class="form-control" id="coef" placeholder="הזן מקדם חישוב" required min="1">
-                        </div>
-                        <div class="form-group col-lg-3">
-                            <label for="mat"><span class="red-star">★ </span>חומר גלם</label>
-                            <input type="text" class="form-control" id="mat" placeholder="הזן שם חומר גלם" required min="1">
-                        </div>
+            <!-------------------------FacedeMat----------------------------->
+            <br />
+            <br />
+            <button class="collapsible">סוג גמר</button>
+            <!-------------------------Facede----------------------------->
+            <div id="Facade" class="content">
+                <div class="row item">
+                    <div class="form-group col-sm-12">
+                        <button type="button" value="הוסף סוג גמר" class="btn btn btn-md addNew" id="newBTNFac">
+                            <span class="glyphicon glyphicon-plus-sign"></span> הוספת סוג גמר
+                        </button>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-lg">אישור</button>
-                    <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTNMat" value="ביטול" />
+                </div>
+                <form id="facForm" style="direction:rtl">
+                    <table id="facTable" class="display nowrap" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>שם סוג</th>
+                                <th>עלות</th>
+                                <th>פעולות</th>
+                            </tr>
+                        <thead>
+                    </table>
                 </form>
-            </div>
-        </div>
-    </div>
-    <!-------------------------Material----------------------------->
-    <!-------------------------Parameters----------------------------->
-    <div id="parameters" class="tabcontent">
-        <div class="container">
-            <form id="parForm">
+                <div id="facEditDiv" style="direction:rtl;">
+                    <form id="editFacForm" style="direction:rtl">
+                        <div class="form-group row" style="direction:rtl">
 
-                <table id="parTable" class="display nowrap" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>שם</th>
-                            <th>מחיר</th>
-                            <th>פעולות</th>
-                        </tr>
-                    </thead>
-                </table>
-            </form>
-            <div id="parEditDiv">
-                <form id="editParForm">
-                    <div class="form-group row">
-                        <div class="form-group col-lg-12">
-                            <label for="ParCost"><span class="red-star">★ </span>מחיר</label>
-                            <input type="text" class="form-control" id="ParCost" placeholder="הזן עלות בשקלים" required min="1">
+                            <div class="form-group col-lg-6">
+                                <label for="FacCost"><span class="red-star">★ </span> עלות</label>
+                                <input type="number" class="form-control" id="FacCost" placeholder="הזן עלות" required>
+                            </div>
+
+                            <div class="form-group col-lg-6">
+                                <label for="FacName"><span class="red-star">★ </span>שם סוג</label>
+                                <input type="text" class="form-control" id="FacName" placeholder="הזן שם סוג " required />
+                            </div>
                         </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-lg">אישור</button>
-                    <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTNPar" value="ביטול" />
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-------------------------Parameters----------------------------->
 
-    <div id="facade" class="tabcontent">
-        <button class="collapsible"> סוג חומר גמר</button>
-        <!-------------------------FacedeMat----------------------------->
-
-        <div id="Fmat" class="content">
-            <div class="row item">
-                <div class="form-group col-sm-12">
-                    <button type="button" value="הוסף חומר גמר" class="btn btn btn-md addNew" id="newBTNFmat">
-                        <span class="glyphicon glyphicon-plus-sign"></span> הוספת חומר גמר
-                    </button>
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <button type="submit" class="btn btn-primary btn-lg">שמירה</button>
+                                <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTNFac" value="ביטול" />
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <form id="FmatForm">
-                <table id="FmatTable" class="display nowrap" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>סוג גמר</th>
-                            <th>שם חומר</th>
-                            <th>עלות</th>
-                            <th>פעולות</th>
-                        </tr>
-                    <thead>
-                </table>
-            </form>
-            <div id="FmatEditDiv">
-                <form id="editFmatForm">
-                    <div class="form-group row">
-                        <div class="form-group col-sm-5">
-                            <label for="FmatCost"><span class="red-star">★ </span> עלות</label>
-                            <input type="number" class="form-control" id="FmatCost" placeholder="הזן את עלות החומר" required>
-                        </div>
-
-                        <div class="form-group col-sm-5">
-                            <label for="FmatName"><span class="red-star">★ </span>שם חומר</label>
-                            <input type="text" class="form-control" id="FmatName" placeholder="הזן את שם החומר" required />
-                        </div>
-                        <div class="form-group col-sm-5" style="width:auto">
-                            <label for="FacadeIDM"><span class="red-star">★ </span>סוג גמר</label>
-                            <br/>
-                            <select id="FacadeIDM" class="form-control" required></select>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group col-sm-12">
-                            <button type="submit" class="btn btn-primary btn-lg" id="saveBTN">שמירה</button>
-                            <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTNAFmat" value="ביטול" />
-                        </div>
-                    </div>
-                </form>
-            </div>
         </div>
-        <!-------------------------FacedeMat----------------------------->
-        <br />
-        <br />
-        <button class="collapsible">סוג גמר</button>
-        <!-------------------------Facede----------------------------->
-        <div id="Facade" class="content">
-            <div class="row item">
-                <div class="form-group col-sm-12">
-                    <button type="button" value="הוסף סוג גמר" class="btn btn btn-md addNew" id="newBTNFac">
-                        <span class="glyphicon glyphicon-plus-sign"></span> הוספת סוג גמר
-                    </button>
-                </div>
-            </div>
-            <form id="facForm" style="direction:rtl">
-                <table id="facTable" class="display nowrap" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>שם סוג</th>
-                            <th>עלות</th>
-                            <th>פעולות</th>
-                        </tr>
-                    <thead>
-                </table>
-            </form>
-            <div id="facEditDiv" style="direction:rtl;">
-                <form id="editFacForm" style="direction:rtl">
-                    <div class="form-group row" style="direction:rtl">
 
-                        <div class="form-group col-lg-6">
-                            <label for="FacCost"><span class="red-star">★ </span> עלות</label>
-                            <input type="number" class="form-control" id="FacCost" placeholder="הזן עלות" required>
-                        </div>
-
-                        <div class="form-group col-lg-6">
-                            <label for="FacName"><span class="red-star">★ </span>שם סוג</label>
-                            <input type="text" class="form-control" id="FacName" placeholder="הזן שם סוג " required />
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="form-group col-sm-12">
-                            <button type="submit" class="btn btn-primary btn-lg">שמירה</button>
-                            <input type="button" class="btn btn-warning btn-lg" id="cancelSaveBTNFac" value="ביטול" />
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+        <script>
 
 
-    <script>
-
-
-        function openPage(pageName, elmnt, color) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-            tablinks = document.getElementsByClassName("tablink");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].style.backgroundColor = "";
-            }
-            document.getElementById(pageName).style.display = "block";
-            elmnt.style.backgroundColor = color;
-        }
-
-        // Get the element with id="defaultOpen" and click on it
-        document.getElementById("defaultOpen").click();
-    </script>
-    <script>
-        var coll = document.getElementsByClassName("collapsible");
-        var i;
-
-        for (i = 0; i < coll.length; i++) {
-            coll[i].addEventListener("click", function () {
-                this.classList.toggle("active");
-                var content = this.nextElementSibling;
-                if (content.style.display === "block") {
-                    content.style.display = "none";
-                } else {
-                    content.style.display = "block";
+            function openPage(pageName, elmnt, color) {
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
                 }
-            });
-        }
-    </script>
+                tablinks = document.getElementsByClassName("tablink");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].style.backgroundColor = "";
+                }
+                document.getElementById(pageName).style.display = "block";
+                elmnt.style.backgroundColor = color;
+            }
+
+            // Get the element with id="defaultOpen" and click on it
+            document.getElementById("defaultOpen").click();
+        </script>
+        <script>
+            var coll = document.getElementsByClassName("collapsible");
+            var i;
+
+            for (i = 0; i < coll.length; i++) {
+                coll[i].addEventListener("click", function () {
+                    this.classList.toggle("active");
+                    var content = this.nextElementSibling;
+                    if (content.style.display === "block") {
+                        content.style.display = "none";
+                    } else {
+                        content.style.display = "block";
+                    }
+                });
+            }
+        </script>
 
 </body>
 </html>

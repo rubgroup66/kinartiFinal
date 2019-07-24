@@ -12,7 +12,6 @@ $(document).ready(function () {
 
 });
 
-
 function buttonEventsM() {
     $("#cancelSaveBTNMat").on("click", function () {
         item = null;
@@ -62,7 +61,7 @@ function DeleteMaterial(id) {      // Delete a item from the server
 }
 
 function errorDelMat() {
-    alert("שגיאה במחיקת חומר גלם")
+    alert("שגיאה במחיקת חומר גלם");
 }
 function deleteSuccessMat(itemsdata) {
 
@@ -138,8 +137,11 @@ function successGetMaterialsEdit(materialsdata) {// this function is activated i
                 {
                     render: function (data, type, row, meta) {
                         let dataMaterial = "data-materialId='" + row.ID + "'";
-                        editBtnMat = "<button type='button' class = 'editBtnMat btn btn-success' " + dataMaterial + "> עריכה </button>";
-                        deleteBtnMat = "<button type='button' class = 'deleteBtnMat btn btn-danger' " + dataMaterial + "> מחיקה </button>";
+                        //editBtnMat = "<button type='button' class = 'editBtnMat btn btn-success' " + dataMaterial + "> עריכה </button>";
+                        //deleteBtnMat = "<button type='button' class = 'deleteBtnMat btn btn-danger' " + dataMaterial + "> מחיקה </button>";
+                        editBtnMat = "<button type='button' class = 'editBtnMat btn btn-success' " + dataMaterial + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>  עריכה </button>";
+                        deleteBtnMat = "<button type='button' class = 'deleteBtnMat btn btn-danger' " + dataMaterial + ">  <span class='glyphicon glyphicon-trash' aria-hidden='true'></span> מחיקה </button>";
+
                         return editBtnMat + deleteBtnMat;
                     }
                 }

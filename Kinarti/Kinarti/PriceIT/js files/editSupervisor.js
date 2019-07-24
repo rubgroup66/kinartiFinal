@@ -8,7 +8,6 @@ $(document).ready(function () {
 
     buttonEventsS();
 
-
 });
 
 function buttonEventsS() {
@@ -19,10 +18,8 @@ function buttonEventsS() {
     });
 
     $("#cancelSaveBTNSup").on("click", function () {
-
             $("#editSupForm").hide();
             $("#supForm").show();
-
     });
 
     $(document).on("click", ".deleteBtnSup", function () {
@@ -78,7 +75,8 @@ function successGetSupEdit(supdata) {// this function is activated in case of a 
                 {
                     render: function (data, type, row, meta) {
                         let dataSup = "data-supId='" + row.sup_id + "'";
-                        deleteBtnSup = "<button type='button' class = 'deleteBtnSup btn btn-danger' " + dataSup + "> מחיקה </button>";
+                        //deleteBtnSup = "<button type='button' class = 'deleteBtnSup btn btn-danger' " + dataSup + "> מחיקה </button>";
+                        deleteBtnSup = "<button type='button' class = 'deleteBtnSup btn btn-danger' " + dataSup + ">  <span class='glyphicon glyphicon-trash' aria-hidden='true'></span> מחיקה </button>";
                         return deleteBtnSup;
                     }
                 }
@@ -113,13 +111,8 @@ function addSup() {
 function errorPostSup() {
     alert("שגיאה בשמירת מפקחים");
 }
-//function clearFields() {
-//    $("#handleName").val("");
-//    $("#handleCost").val("");
 
-//}
-
-function insertSupSuccess() {  // success callback function after adding new item
+function insertSupSuccess() { 
     uri = "../api/supervisor";
     ajaxCall("GET", uri, "", populateTableWithUpdatedDataSup, errorGetUpdateSup);
     buttonEventsS();
@@ -134,14 +127,12 @@ function errorGetUpdateSup() {
 }
 function deleteSupSuccess(itemsdata) {
     uri = "../api/supervisor";
-    ajaxCall("GET", uri, "", populateTableWithUpdatedDataSup, error); //get all relevant project's items from DB 
-    buttonEventsS(); // after redrawing the table, we must wire the new buttons
+    ajaxCall("GET", uri, "", populateTableWithUpdatedDataSup, error); 
+    buttonEventsS(); 
     $("#supEditDiv").hide();
     swal("נמחק בהצלחה!", "הפעולה בוצעה", "success");
     mode = "";
 }
-
-
 
 function populateTableWithUpdatedDataSup(sup) {
     var dataTable = $('#supTable').DataTable();
@@ -153,76 +144,8 @@ function errorGetUpdatedAr() {
     alert("שגיאה בטעינת אדריכלים");
 }
 
-//function populateFields(handleId) {    // fill the form fields
-//    //debugger;
-//    handle = getHandle(handleId);
-//    console.log(handle);
-//    $("#handleName").val(handle.Type);
-//    $("#handleCost").val(handle.Cost);
-//    mode = "edit";
-
-//}
-
-
-
-//function successGetMaterials(materialsdata) {// this function is activated in case of a success
-//    myMaterials = materialsdata;
-//    for (var i = 0; i < materialsdata.length; i++) {
-//        $('#boxMaterial').append('<option value="' + materialsdata[i].ID + '" >' + materialsdata[i].Name + '</option>');
-//    }
-//    console.log(myMaterials);
-//}
-
-//function successGetFacades(facadesdata) {// this function is activated in case of a success
-//    console.log(facadesdata);
-//    myFacades = facadesdata;
-//    for (var i = 0; i < facadesdata.length; i++) {
-//        $('#facadeType').append('<option value="' + facadesdata[i].ID + '" >' + facadesdata[i].Type + '</option>');
-//    }
-//    for (i = 0; i < facadesdata.length; i++) {
-//        $('#extraWallType').append('<option value="' + facadesdata[i].ID + '" >' + facadesdata[i].Type + '</option>');
-//    }
-//    console.log(myFacades);
-//}
-
-//function successGetBoxes(boxesdata) {// this function is activated in case of a success
-//    myBoxes = boxesdata;
-//    for (var i = 0; i < boxesdata.length; i++) {
-//        $('#boxMeasures').append('<option value="' + boxesdata[i].ID + '" >' + boxesdata[i].Height + 'X' + boxesdata[i].Width + 'X' + boxesdata[i].Depth + '</option>');
-//    }
-//}
-
-//function successGetHandles(handlesdata) {// this function is activated in case of a success
-//    myHandles = handlesdata;
-//    for (var i = 0; i < handlesdata.length; i++) {
-//        $('#handlesType').append('<option value="' + handlesdata[i].ID + '" >' + handlesdata[i].Type + '</option>');
-//    }
-//}
-
-
-
-//function successGetIronWorks(ironworksdata) {// this function is activated in case of a success
-//    myIronWorks = ironworksdata;
-//    for (var i = 0; i < ironworksdata.length; i++) {
-//        $('#ironWorksType1').append('<option value="' + ironworksdata[i].ID + '" >' + ironworksdata[i].Type + '</option>');
-//        $('#ironWorksType2').append('<option value="' + ironworksdata[i].ID + '" >' + ironworksdata[i].Type + '</option>');
-//    }
-//}
-
-//function successGetFacadeMaterials(facadeMaterialsdata) {// this function is activated in case of a success
-//    myFacadeMaterials = facadeMaterialsdata;
-//    console.log("facade materials -> " + JSON.stringify(facadeMaterialsdata));
-//    for (var i = 0; i < facadeMaterialsdata.length; i++) {
-//        $('#facadeMaterialType').append('<option value="' + facadeMaterialsdata[i].ID + '" >' + facadeMaterialsdata[i].Name + '</option>');
-//    }
-
-//}
-//// עצרתי בטעינת הצצבעים של החזיתות (גמר + קיר נוסף)
-
-
-
 function error(err) { // this function is activated in case of a failure
-    swal("Error: " + err);
+    swal("שגיאה: " + err);
 }
 
 

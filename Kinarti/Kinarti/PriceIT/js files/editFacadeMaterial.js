@@ -4,15 +4,13 @@ var facadeData;
 var list = [];
 $(document).ready(function () {
     ajaxCall("GET", "../api/facade", "", successGetFacList, error);
-    
-
+ 
     $("#editFacForm").hide();
     $("#editFmatForm").hide();
     $("#editFmatForm").submit(addFacMat);
     FacMMode = "new";
     
     buttonEventsFacMat();
-
 
 });
 
@@ -75,13 +73,10 @@ function successGetFacList(Facadetdata) {
     }
     ajaxCall("GET", "../api/facadeMaterials", "", successGetFacMEdit, error);
 
-
-    for (var i = 0; i < Facadetdata.length; i++) {
-        $("#FacadeIDM").append($("<option></option>").val(Facadetdata[i].ID).html(Facadetdata[i].Type));
+    for (var j = 0; i < Facadetdata.length; j++) {
+        $("#FacadeIDM").append($("<option></option>").val(Facadetdata[j].ID).html(Facadetdata[j].Type));
     }
 }
-
-
 function successGetFacMEdit(FacMdata) {
 
     console.log(FacMdata);
@@ -112,7 +107,6 @@ function successGetFacMEdit(FacMdata) {
                     render: function (data, type, row, meta) {
                         var i, j;
                         for ( i = 0; i < FacMdata.length; i++) {
-                            console.log((FacMdata[i]));
                             for ( j = 0; j < facadeData.length; j++) {
                                 if (row.FacadeID == facadeData[j].ID) {
                                     return facadeData[j].Type;
@@ -128,8 +122,11 @@ function successGetFacMEdit(FacMdata) {
                 {
                     render: function (data, type, row, meta) {
                         let FacadeMatdata = "data-FacMatId='" + row.ID + "'";
-                        editBtnFacM = "<button type='button' class = 'editBtnFacM btn btn-success' " + FacadeMatdata + "> עריכה </button>";
-                        deleteBtnFacM = "<button type='button' class = 'deleteBtnFacM btn btn-danger' " + FacadeMatdata + "> מחיקה </button>";
+                        //editBtnFacM = "<button type='button' class = 'editBtnFacM btn btn-success' " + FacadeMatdata + "> עריכה </button>";
+                        //deleteBtnFacM = "<button type='button' class = 'deleteBtnFacM btn btn-danger' " + FacadeMatdata + "> מחיקה </button>";
+                        editBtnFacM = "<button type='button' class = 'editBtnFacM btn btn-success' " + FacadeMatdata + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>  עריכה </button>";
+                        deleteBtnFacM = "<button type='button' class = 'deleteBtnFacM btn btn-danger' " + FacadeMatdata + ">  <span class='glyphicon glyphicon-trash' aria-hidden='true'></span> מחיקה </button>";
+
                         return editBtnFacM + deleteBtnFacM;
                     }
                 }
