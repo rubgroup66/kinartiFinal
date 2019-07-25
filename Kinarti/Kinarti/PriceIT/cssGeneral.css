@@ -151,8 +151,6 @@ body, html {
         }
 
 
-
-
 #CreateboxesForm{
     direction:rtl;
 }
@@ -206,9 +204,9 @@ body, html {
     color: black;
     display: none;
     padding: 100px 20px;
+
     height: 100%;
-    width:auto;
-    
+    width: auto;
 }
 
 .collapsible {
@@ -244,5 +242,5 @@ body, html {
     width: 60%;
     /*right: 0px;*/
     position: absolute;
-    padding: 20px;
+    /*padding: 20px;*/
 }
