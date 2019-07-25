@@ -364,8 +364,8 @@ function calculateItem() {
     //console.log("withExternalLegraBoxDrawers +" + withExternalLegraBoxDrawers);
     //console.log("withInternalScalaBoxDrawers +" + withInternalScalaBoxDrawers);
     //console.log("withExternalScalaBoxDrawers +" + withExternalScalaBoxDrawers);
-    console.log("withHinges1 +" + withHinges1);
-    console.log("withHinges2 +" + withHinges2);
+    //console.log("withHinges1 +" + withHinges1);
+    //console.log("withHinges2 +" + withHinges2);
     //console.log("withHandles +" + withHandles);
 
     console.log(itemTotalSum);
@@ -471,8 +471,6 @@ function collectChoices() {
 
         woodBoxDrawerWorkCost = constants[6].Cost;
         LegraBoxDrawerWork = constants[7].Cost;
-        //LegraBoxDrawerWork = constants.find(function (item) { return item.constantName === "LegraboxDrawerWork"; });
-        console.log(LegraBoxDrawerWork);
 
         ScalaDrawerWork = constants[8].Cost;
         drawerCoefficientCost = constants[3].Cost;
@@ -481,9 +479,9 @@ function collectChoices() {
         LegraboxInternalRailsCost = constants[10].Cost;
         LegraboxExternalRailsCost = constants[12].Cost;
         ScalaInternalRailsCost = constants[11].Cost;
-        ScalaExternalRailsCost = constants[13].Cost;
+        ScalaExternalRailsCost = constants[4].Cost;
 
-        facadeFRNWorkCoefficient = constants[6].Cost;// 280
+        facadeFRNWorkCoefficient = constants[15].Cost;// 280
 
         plateWorkCostForSquareMeter = constants[13].Cost;// 25
         facadeColorWorkCoefficient = constants[14].Cost; // 200;
