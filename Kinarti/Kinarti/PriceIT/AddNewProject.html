@@ -11,9 +11,8 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="../Scripts/ajaxCalls.js"></script>
 
-    <link href="cssGeneral.css" rel="stylesheet" />
-
     <script>
+
         $(document).ready(function () {
             ajaxCall("GET", "../api/architect", "", successGetArchitect, errorGetArchitect);
             ajaxCall("GET", "../api/supervisor", "", successGetSupervisor, errorGetSupervisor);
@@ -21,6 +20,7 @@
             if (localStorage.getItem("EX") == 1) {
                 fillInfo();
             }
+
             document.getElementById('create_date').valueAsDate = new Date();
         });
 
@@ -62,6 +62,8 @@
                 $("#architect").append($("<option></option>").val(architectdata[i].arc_id).html(architectdata[i].arc_name));
             }
         }
+
+
         function errorPostProj(err) {
             swal("error posting project");
         }
@@ -71,7 +73,7 @@
         }
 
         function success(data) {
-            swal({ 
+            swal({
                 title: "הפרויקט נוצר בהצלחה!",
                 text: "האם ברצונך להמשיך לתמחור פרויקט?",
                 icon: "success",
@@ -93,7 +95,9 @@
 
         function f1() {
             AddCustomer();
-            return false; 
+            return false; // the return false will prevent the form from being submitted
+            // hence the page will not reload
+            return false;
         }
 
         function fillInfo() {
@@ -105,10 +109,17 @@
             document.getElementById("last_name").disabled = true;
 
         }
+
     </script>
+
+
+
+
+
 
 </head>
 <body>
+
     <nav class="navbar navbar-default">
         <ul class="nav navbar-nav">
             <li id="Menutabs"><a href="projectsList.html">פרויקטים</a></li>

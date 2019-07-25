@@ -101,7 +101,7 @@ function markSelected(btn) {
 
 // Delete a box from the server
 function DeleteBox(id) {
-    ajaxCall("DELETE", "../api/boxes/" + id, "", deleteSuccess, errorDeleteBox);
+    ajaxCall("DELETE", "../api/boxes/" + id, "", deleteSuccessBox, errorDeleteBox);
     return false;
 }
 
@@ -141,18 +141,30 @@ return null;
 
 
 // success callback function after delete
-function deleteSuccess(boxdata) {
-    tbl.clear();
-    buttonEvents();
-    swal({ // this will open a dialouge
-        title: "ארגזת נמחקה בהצלחה",
-        icon: "success",
-    })
-        .then(function () {
-            window.location.reload();
-        }); 
-}
+function deleteSuccessBox(boxdata) {
+    //tbl.clear();
+    //buttonEvents();
+    //swal({ // this will open a dialouge
+    //    title: "ארגזת נמחקה בהצלחה",
+    //    icon: "success",
+    //})
+    //    .then(function () {
+    //        window.location.reload();
+    //    }); 
+    uri = "../api/boxes";
+    ajaxCall("GET", uri, "", populateTableWithUpdatedDataBx, error); //get all relevant project's items from DB 
+    buttonEvents(); // after redrawing the table, we must wire the new buttons
+    $("#boxEditDiv").hide();
+    swal("נמחק בהצלחה!", "הפעולה בוצעה", "success");
+    mode = "";
 
+}
+function populateTableWithUpdatedDataBx(BOx) {
+    var dataTable = $('#boxesTable').DataTable();
+    dataTable.destroy();
+    dataTable.clear();
+    getSuccess(BOx);
+}
 
 // redraw a datatable with new data
         function redrawTable(tbl, data) {

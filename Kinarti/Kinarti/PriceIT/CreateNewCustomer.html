@@ -54,7 +54,7 @@
         function error(err) {
             alert("error");
         }
-        function f1() {
+        function fnewCust() {
             AddCustomer();
             return false; 
         }
@@ -93,8 +93,8 @@
             <div id="ph"></div>
             <br />
             <div class="form-group">
-                <button type="button" value="שמירה" class="btn btn-info btn-md" id="newCustBTN">
-                    <span class="glyphicon glyphicon-ok-circle" onclick="f1()"></span> שמירה
+                <button type="button" value="שמירה" class="btn btn-info btn-md" onclick="fnewCust()" id="newCustBTN">
+                    <span class="glyphicon glyphicon-ok-circle"></span> שמירה
                 </button>
             </div>
         </form>

@@ -47,6 +47,7 @@ hover span {
 #newBTN, #newProjectBtn, #newBTN2, #SaveEditUserBTN, #cancelNewUserBTN, #newBTN3, #newBTNArch, #createNewUser12, #CreatenewCustomerBtn, #newCustBTN, #newBTNSup, #newBTNMat, #newBTNironW, #newBTNFac, #newBTNFmat, #newCustomerBtn, #newUserBtn {
     background-color: #a2a8d3;
     margin-bottom: 10px;
+    border-color: #a2a8d3;
 }
 #inProgressBtn, #doneBtn {
     background-color: #38598b;
