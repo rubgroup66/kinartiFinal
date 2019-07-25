@@ -9,6 +9,11 @@
 .navbar-default .navbar-nav > li > a {
     color: white;
 }
+#NowCost {
+    border: 2px double #a2a8d3;
+    padding: 5px 5px 5px 5px;
+    border-radius: 5px;
+}
 
 button {
     margin-left: 10px;
@@ -235,7 +240,7 @@ body, html {
 #ProjDetails, #addNewCustDiv, .filterDiv {
     border: 2px solid #a2a8d3;
     border-radius: 5px;
-    padding: 5px 5px 5px 5px;
+    padding: 20px 20px 20px 50px;
 }
 
 #paramTabs {
