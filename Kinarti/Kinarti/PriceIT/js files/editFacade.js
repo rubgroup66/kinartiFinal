@@ -91,8 +91,8 @@ function successGetFacEdit(Facdata) {// this function is activated in case of a 
                 {
                     render: function (data, type, row, meta) {
                         let Facadedata = "data-FacId='" + row.ID + "'";
-                        editBtnFac = "<button type='button' class = 'editBtnFac btn btn-success' " + Facadedata + "> עריכה </button>";
-                        deleteBtnFac = "<button type='button' class = 'deleteBtnFac btn btn-danger' " + Facadedata + "> מחיקה </button>";
+                        editBtnFac = "<button type='button' class = 'editBtnFac btn btn-success' " + Facadedata + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>  עריכה </button>";
+                        deleteBtnFac = "<button type='button' class = 'deleteBtnFac btn btn-danger' " + Facadedata + ">  <span class='glyphicon glyphicon-trash' aria-hidden='true'></span> מחיקה </button>";
                         return editBtnFac + deleteBtnFac;
                     }
                 }
@@ -104,7 +104,6 @@ function successGetFacEdit(Facdata) {// this function is activated in case of a 
         alert(err);
     }
 }
-
 
 function fnewFac() {
     $("#facForm").hide();

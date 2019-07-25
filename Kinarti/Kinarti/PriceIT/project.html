@@ -25,81 +25,79 @@
         <ul class="nav navbar-nav">
             <li id="Menutabs"><a href="projectsList.html">פרויקטים</a></li>
             <li id="Menutabs"><a href="showCustomers.html">לקוחות</a></li>
-            <li id="Menutabs"><a href="updatePar.html">עדכון עלויות</a></li>
+            <li id="Menutabs"><a href="updatePar.html">עדכון נתונים</a></li>
             <li id="Menutabs"><a href="users.html">ניהול משתמשים</a></li>
             <li id="logo" style="float:left; padding-left:10px"><a href="#about">PriceIT</a></li>
         </ul>
     </nav>
 
     <div class="container">
+        <h1>תמחור פרויקט</h1>
+        <br />
+        <div class="projectDetails">
+            <div id="ProjDetails">
+                <div class="row item">
+                    <div class="form-group col-sm-3">
+                        <label for="projectCost"><span class="red-star"></span>עלות כוללת נוכחית (ש"ח)</label>
+                        <input type="text" class="form-control" id="projectCost" value="0" disabled>
+                    </div>
 
-        <div id="ProjDetails">
+                    <div class="form-group col-sm-3">
+                        <label for="createDate"><span class="red-star"></span>תאריך יצירה</label>
+                        <input type="datetime" class="form-control" id="createDate" disabled>
+                    </div>
 
-            <div class="row item">
+                    <div class="form-group col-sm-3">
+                        <label for="customerName"><span class="red-star"></span>שם הלקוח</label>
+                        <input type="text" class="form-control" id="customerName" placeholder="שם הלקוח" disabled>
+                    </div>
 
-                <div class="form-group col-sm-3">
-                    <label for="projectCost"><span class="red-star"></span>עלות כוללת נוכחית (ש"ח)</label>
-                    <input type="text" class="form-control" id="projectCost" value="0" disabled>
-                </div>
-
-                <div class="form-group col-sm-3">
-                    <label for="createDate"><span class="red-star"></span>תאריך יצירה</label>
-                    <input type="datetime" class="form-control" id="createDate" disabled>
-                </div>
-
-                <div class="form-group col-sm-3">
-                    <label for="customerName"><span class="red-star"></span>שם הלקוח</label>
-                    <input type="text" class="form-control" id="customerName" placeholder="שם הלקוח" disabled>
-                </div>
-
-                <div class="form-group col-sm-3">
-                    <label for="projectName"><span class="red-star"></span>שם הפרויקט</label>
-                    <input type="text" class="form-control" id="projectName" placeholder="שם הפרויקט">
-                </div>
-            </div>
-
-            <div class="row item">
-
-                <div class="form-group col-sm-3">
-                    <label for="projectStatus"><span class="red-star"> </span>סטטוס</label>
-                    <br />
-                    <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn" id="doneBtn">
-                            <input type="radio" id="done" name="status" value="done" autocomplete="off"> הסתיים
-                        </label>
-                        <label class="btn btn" id="inProgressBtn">
-                            <input type="radio" id="inProgress" name="status" value="inProgress" autocomplete="off"> בתהליך
-                        </label>
+                    <div class="form-group col-sm-3">
+                        <label for="projectName"><span class="red-star"></span>שם הפרויקט</label>
+                        <input type="text" class="form-control" id="projectName" placeholder="שם הפרויקט">
                     </div>
                 </div>
 
-                <div class="form-group col-sm-3">
-                    <label for="projectDescription"><span class="red-star"></span>תאור</label>
-                    <input type="text" class="form-control" id="projectDescription" placeholder="תאור הפרויקט">
-                </div>
+                <div class="row item">
 
-                <div class="form-group col-sm-3">
-                    <label for="projectArchitect"><span class="red-star"></span>ארכיטקט</label>
-                    <input type="text" class="form-control" id="projectArchitect" placeholder="שם הארכיטקט">
+                    <div class="form-group col-sm-3">
+                        <label for="projectStatus"><span class="red-star"> </span>סטטוס</label>
+                        <br />
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn" id="doneBtn">
+                                <input type="radio" id="done" name="status" value="done" autocomplete="off"> הסתיים
+                            </label>
+                            <label class="btn btn" id="inProgressBtn">
+                                <input type="radio" id="inProgress" name="status" value="inProgress" autocomplete="off"> בתהליך
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-3">
+                        <label for="projectDescription"><span class="red-star"></span>תאור</label>
+                        <input type="text" class="form-control" id="projectDescription" placeholder="תאור הפרויקט">
+                    </div>
+
+                    <div class="form-group col-sm-3">
+                        <label for="projectArchitect"><span class="red-star"></span>ארכיטקט</label>
+                        <input type="text" class="form-control" id="projectArchitect" placeholder="שם הארכיטקט">
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label for="projectSupervisor"><span class="red-star"></span>מפקח</label>
+                        <input type="text" class="form-control" id="projectSupervisor" placeholder="שם המפקח">
+                    </div>
+
                 </div>
-                <div class="form-group col-sm-3">
-                    <label for="projectSupervisor"><span class="red-star"></span>מפקח</label>
-                    <input type="text" class="form-control" id="projectSupervisor" placeholder="שם המפקח">
+            </div>
+            <br />
+            <div class="row item">
+                <div class="form-group col-sm-12">
+                    <button type="button" value="הוספת פריט" class="btn btn btn-md addNew" id="newBTN">
+                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> הוספת פריט
+                    </button>
                 </div>
 
             </div>
-        </div>
-        <br />
-        <div class="row item">
-            <div class="form-group col-sm-12">
-                <button type="button" value="הוספת פריט" class="btn btn btn-md addNew" id="newBTN">
-                    <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> הוספת פריט
-                </button>
-            </div>
-
-
-        </div>
-
             <form id="pForm">
                 <table id="itemsTable" class="display nowrap" style="width:100%">
                     <thead>
@@ -120,21 +118,18 @@
                 </table>
             </form>
 
-
             <div id="editDiv">
                 <form id="pForm">
 
                     <p class="bg-info">תמחור פריט</p>
-
                     <div class="form-group col-sm-12">
                         <div class="row item">
-
                             <div class="form-group col-sm-6">
                                 <label for="projectCost"><span class="red-star"> </span>סוג פריט</label>
                                 <br />
                                 <div class="btn-group" data-toggle="buttons">
                                     <label class="btn btn-primary active" id="openItem">
-                                        <input type="radio" id="openItem" name="itemType" value="openItem" autocomplete="off" > ארגזת
+                                        <input type="radio" id="openItem" name="itemType" value="openItem" autocomplete="off"> ארגזת
                                     </label>
                                     <label class="btn btn-primary" id="closedItem">
                                         <input type="radio" id="closedItem" name="itemType" value="closedItem" disabled> ספריה
@@ -295,22 +290,14 @@
                         </div>
                         <p class="bg-info">כללי</p>
                         <div class="row">
-                            <div class="form-group col-sm-12">
+                            <div class="form-group col-sm-6 col-md-offset-6 ">
                                 <label for="extraCostForItem"><span class="red-star">★ </span>תוספת מחיר כללית לפריט</label>
                                 <input type="number" class="form-control" id="extraCostForItem" placeholder="הזן תוספת לפריט" min="0" value="0" required onkeyup="calculateItem()">
                             </div>
                         </div>
                         <br />
 
-
                         <div id="costt">
-                            <!--<div class="form-group col-sm-12">
-                        <div class="form-group" id="itemCost">
-                            <label for="cost">עלות</label>
-                            <input type="number" class="form-control" id="itemCost" placeholder="0" disabled>
-                        </div>
-                    </div>-->
-
                             <div class="well well-sm" id="itemCostCalculation">
                                 <strong>עלות פריט: </strong>
                             </div>
@@ -339,7 +326,8 @@
                 </button>
             </div>
 
-    </div>
+        </div>
+
 </body>
 </html>
 

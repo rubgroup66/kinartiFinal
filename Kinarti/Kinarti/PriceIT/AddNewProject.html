@@ -22,6 +22,8 @@
             if (localStorage.getItem("EX") == 1) {
                 fillInfo();
             }
+
+            document.getElementById('create_date').valueAsDate = new Date();
         });
 
         function AddCustomer() {
@@ -63,6 +65,7 @@
             }
         }
 
+
         function errorPostProj(err) {
             swal("error posting project");
         }
@@ -72,9 +75,11 @@
         }
 
         function success(data) {
-            swal({ // this will open a dialouge
-                title: "הפרויקט נוצר בהצלחה",
-                icon: "info",
+            swal({ 
+                title: "הפרויקט נוצר בהצלחה!",
+                text: "האם ברצונך להמשיך לתמחור פרויקט?",
+                icon: "success",
+                buttons: true,
             })
                 .then(function () {
                     window.location.href = "projectsList.html";
@@ -94,6 +99,7 @@
             AddCustomer();
             return false; // the return false will prevent the form from being submitted
             // hence the page will not reload
+            return false; 
         }
 
         function fillInfo() {
@@ -105,14 +111,6 @@
             document.getElementById("last_name").disabled = true;
 
         }
-
-        //$(function () {
-        //    $('.input-group.date').datepicker({
-        //        calendarWeeks: true,
-        //        todayHighlight: true,
-        //        autoclose: true
-        //    });
-        //});
 
     </script>
 
@@ -176,7 +174,7 @@
         <div class="input-group date" id='datetimepicker2'>
             <input type="text" class="form-control"><span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
         </div>
-    </div>-->
+       </div>-->
 
             <div class="form-group" style="width:auto">
                 <label for="supervisor">מפקח</label>
@@ -198,7 +196,67 @@
                 </div>
             </div>
 
-                <!--<input type="submit" value="צור פרויקט" />-->
+        </form>     <!--<input type="submit" value="צור פרויקט" />-->
+    </div>
+
+    <nav class="navbar navbar-default">
+        <ul class="nav navbar-nav">
+            <li id="Menutabs"><a href="projectsList.html">פרויקטים</a></li>
+            <li id="Menutabs"><a href="showCustomers.html">לקוחות</a></li>
+            <li id="Menutabs"><a href="updatePar.html">עדכון עלויות</a></li>
+            <li id="Menutabs"><a href="users.html">ניהול משתמשים</a></li>
+            <li id="logo" style="float:left; padding-left:10px"><a href="#about">PriceIT</a></li>
+        </ul>
+    </nav>
+
+    <div class="container" style="direction:rtl; width:40%">
+        <form id="pForm">
+            <h2>יצירת פרויקט חדש</h2>
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label for="last_name">שם משפחה</label>
+                    <input type="text" class="form-control" id="last_name" placeholder="הכנס שם משפחה" required>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="first_name">שם פרטי</label>
+                    <input type="text" class="form-control" id="first_name" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label for="create_date"> תאריך יצירה</label>
+                    <input type="date" class="form-control" id="create_date" required>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="project_name">שם פרויקט</label>
+                    <input type="text" class="form-control" id="project_name" placeholder="הכנס שם פרויקט ייחודי" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-6 col-sm-offset-6">
+                    <label for="description">תיאור הפרויקט</label>
+                    <input type="text" class="form-control" id="description" placeholder="הזן תיאור לפרויקט" required>
+                </div>
+            </div>
+                <div class="row">
+                    <div class="form-group col-sm-6 ">
+                        <label for="architect">אדריכל</label>
+                        <select id="architect" class="form-control" required></select>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="supervisor">מפקח</label>
+                        <select id="supervisor" class="form-control" required></select>
+                    </div>
+                </div>
+                <div id="ph"></div>
+                <br />
+                <div class="row item">
+                    <div class="form-group col-sm-12">
+                        <button type="submit" value="שמירה" class="btn btn-info btn-md" id="newProjectBtn">
+                            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> שמירה
+                        </button>
+                    </div>
+                </div>
         </form>
     </div>
 

@@ -7,9 +7,7 @@ $(document).ready(function () {
     $("#editArchForm").submit(addArch);
     mode = "";
     handleMode = "new";
-
     buttonEventsA();
-
 
 });
 
@@ -84,7 +82,9 @@ function successGetArchEdit(archdata) {// this function is activated in case of 
                 {
                     render: function (data, type, row, meta) {
                         let dataArch = "data-archId='" + row.arc_id + "'";
-                        deleteBtnArch = "<button type='button' class = 'deleteBtnArch btn btn-danger' " + dataArch + "> מחיקה </button>";
+                        //deleteBtnArch = "<button type='button' class = 'deleteBtnArch btn btn-danger' " + dataArch + "> מחיקה </button>";
+                        deleteBtnArch = "<button type='button' class = 'deleteBtnArch btn btn-danger' " + dataArch + ">  <span class='glyphicon glyphicon-trash' aria-hidden='true'></span> מחיקה </button>";
+
                         return  deleteBtnArch;
                     }
                 }
@@ -176,64 +176,6 @@ function populateFields(handleId) {    // fill the form fields
 
 }
 
-
-
-//function successGetMaterials(materialsdata) {// this function is activated in case of a success
-//    myMaterials = materialsdata;
-//    for (var i = 0; i < materialsdata.length; i++) {
-//        $('#boxMaterial').append('<option value="' + materialsdata[i].ID + '" >' + materialsdata[i].Name + '</option>');
-//    }
-//    console.log(myMaterials);
-//}
-
-//function successGetFacades(facadesdata) {// this function is activated in case of a success
-//    console.log(facadesdata);
-//    myFacades = facadesdata;
-//    for (var i = 0; i < facadesdata.length; i++) {
-//        $('#facadeType').append('<option value="' + facadesdata[i].ID + '" >' + facadesdata[i].Type + '</option>');
-//    }
-//    for (i = 0; i < facadesdata.length; i++) {
-//        $('#extraWallType').append('<option value="' + facadesdata[i].ID + '" >' + facadesdata[i].Type + '</option>');
-//    }
-//    console.log(myFacades);
-//}
-
-//function successGetBoxes(boxesdata) {// this function is activated in case of a success
-//    myBoxes = boxesdata;
-//    for (var i = 0; i < boxesdata.length; i++) {
-//        $('#boxMeasures').append('<option value="' + boxesdata[i].ID + '" >' + boxesdata[i].Height + 'X' + boxesdata[i].Width + 'X' + boxesdata[i].Depth + '</option>');
-//    }
-//}
-
-//function successGetHandles(handlesdata) {// this function is activated in case of a success
-//    myHandles = handlesdata;
-//    for (var i = 0; i < handlesdata.length; i++) {
-//        $('#handlesType').append('<option value="' + handlesdata[i].ID + '" >' + handlesdata[i].Type + '</option>');
-//    }
-//}
-
-
-
-//function successGetIronWorks(ironworksdata) {// this function is activated in case of a success
-//    myIronWorks = ironworksdata;
-//    for (var i = 0; i < ironworksdata.length; i++) {
-//        $('#ironWorksType1').append('<option value="' + ironworksdata[i].ID + '" >' + ironworksdata[i].Type + '</option>');
-//        $('#ironWorksType2').append('<option value="' + ironworksdata[i].ID + '" >' + ironworksdata[i].Type + '</option>');
-//    }
-//}
-
-//function successGetFacadeMaterials(facadeMaterialsdata) {// this function is activated in case of a success
-//    myFacadeMaterials = facadeMaterialsdata;
-//    console.log("facade materials -> " + JSON.stringify(facadeMaterialsdata));
-//    for (var i = 0; i < facadeMaterialsdata.length; i++) {
-//        $('#facadeMaterialType').append('<option value="' + facadeMaterialsdata[i].ID + '" >' + facadeMaterialsdata[i].Name + '</option>');
-//    }
-
-//}
-//// עצרתי בטעינת הצצבעים של החזיתות (גמר + קיר נוסף)
-
-
-
 function error(err) { // this function is activated in case of a failure
     swal("Error: " + err);
 }
@@ -242,13 +184,11 @@ function ShowInfo() {
     $("#info").show();
 }
 
-
 function markSelected(btn) {  // mark the selected row
     $("#handlesTable tr").removeClass("selected"); // remove seleced class from rows that were selected before
     row = (btn.parentNode).parentNode; // button is in TD which is in Row
     row.className = 'selected'; // mark as selected
 }
-
 
 // get item according to its Id
 function getHandle(id) {

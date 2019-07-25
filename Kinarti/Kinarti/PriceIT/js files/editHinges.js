@@ -42,7 +42,6 @@ function buttonEventsH() {
         mode = "";
     });
 
-
     $(document).on("click", ".editBtnHinges", function () {
         hingeMode = "edit";
         markSelectedHinge(this);
@@ -59,8 +58,8 @@ function buttonEventsH() {
             title: "האם אתה בטוח ?",
             text: "",
             icon: "warning",
-            buttons: true,
-            dangerMode: true
+            buttons: true
+
         })
             .then(function (willDelete) {
                 if (willDelete) DeleteHinge(hingeId);
@@ -104,9 +103,11 @@ function successGetHingesEdit(hingesdata) {// this function is activated in case
                 {
                     render: function (data, type, row, meta) {
                         let dataHinge = "data-hingeId='" + row.ID + "'";
-                        editBtnHinges = "<button type='button' class = 'editBtnHinges btn btn-success' " + dataHinge + "> עריכה </button>";
-                        //viewBtn = "<button type='button' class = 'viewBtn btn btn-info' " + dataHinge + "> צפייה </button>";
-                        deleteBtnHinge = "<button type='button' class = 'deleteBtnHinge btn btn-danger' " + dataHinge + "> מחיקה </button>";
+                        //editBtnHinges = "<button type='button' class = 'editBtnHinges btn btn-success' " + dataHinge + "> עריכה </button>";
+                        ////viewBtn = "<button type='button' class = 'viewBtn btn btn-info' " + dataHinge + "> צפייה </button>";
+                        //deleteBtnHinge = "<button type='button' class = 'deleteBtnHinge btn btn-danger' " + dataHinge + "> מחיקה </button>";
+                        editBtnHinges = "<button type='button' class = 'editBtnHinges btn btn-success' " + dataHinge + ">  <span class='glyphicon glyphicon-edit' aria-hidden='true'></span>  עריכה </button>";
+                        deleteBtnHinge = "<button type='button' class = 'deleteBtnHinge btn btn-danger' " + dataHinge + ">  <span class='glyphicon glyphicon-trash' aria-hidden='true'></span> מחיקה </button>";
                         return editBtnHinges + /*viewBtn +*/  deleteBtnHinge;
                     }
                 }
@@ -119,14 +120,12 @@ function successGetHingesEdit(hingesdata) {// this function is activated in case
     }
 }
 
-
 function f3() {
     $("#hingesForm").hide();
     $("#editHingesForm").show();
     clearFields();
     return false;
 }
-
 
 function addHinge() {
     if (hingeMode === "edit") {
@@ -189,7 +188,7 @@ function populateTableWithUpdatedData(hinges) {
     successGetHingesEdit(hinges);
 }
 function errorGetUpdatedH() {
-    alert("error");
+    alert("שגיאה בעדכון");
 }
 
 function populateFieldsHinge(hingeId) {
@@ -201,66 +200,8 @@ function populateFieldsHinge(hingeId) {
 
 }
 
-
-
-//function successGetMaterials(materialsdata) {// this function is activated in case of a success
-//    myMaterials = materialsdata;
-//    for (var i = 0; i < materialsdata.length; i++) {
-//        $('#boxMaterial').append('<option value="' + materialsdata[i].ID + '" >' + materialsdata[i].Name + '</option>');
-//    }
-//    console.log(myMaterials);
-//}
-
-//function successGetFacades(facadesdata) {// this function is activated in case of a success
-//    console.log(facadesdata);
-//    myFacades = facadesdata;
-//    for (var i = 0; i < facadesdata.length; i++) {
-//        $('#facadeType').append('<option value="' + facadesdata[i].ID + '" >' + facadesdata[i].Type + '</option>');
-//    }
-//    for (i = 0; i < facadesdata.length; i++) {
-//        $('#extraWallType').append('<option value="' + facadesdata[i].ID + '" >' + facadesdata[i].Type + '</option>');
-//    }
-//    console.log(myFacades);
-//}
-
-//function successGetBoxes(boxesdata) {// this function is activated in case of a success
-//    myBoxes = boxesdata;
-//    for (var i = 0; i < boxesdata.length; i++) {
-//        $('#boxMeasures').append('<option value="' + boxesdata[i].ID + '" >' + boxesdata[i].Height + 'X' + boxesdata[i].Width + 'X' + boxesdata[i].Depth + '</option>');
-//    }
-//}
-
-//function successGetHandles(handlesdata) {// this function is activated in case of a success
-//    myHandles = handlesdata;
-//    for (var i = 0; i < handlesdata.length; i++) {
-//        $('#handlesType').append('<option value="' + handlesdata[i].ID + '" >' + handlesdata[i].Type + '</option>');
-//    }
-//}
-
-
-
-//function successGetIronWorks(ironworksdata) {// this function is activated in case of a success
-//    myIronWorks = ironworksdata;
-//    for (var i = 0; i < ironworksdata.length; i++) {
-//        $('#ironWorksType1').append('<option value="' + ironworksdata[i].ID + '" >' + ironworksdata[i].Type + '</option>');
-//        $('#ironWorksType2').append('<option value="' + ironworksdata[i].ID + '" >' + ironworksdata[i].Type + '</option>');
-//    }
-//}
-
-//function successGetFacadeMaterials(facadeMaterialsdata) {// this function is activated in case of a success
-//    myFacadeMaterials = facadeMaterialsdata;
-//    console.log("facade materials -> " + JSON.stringify(facadeMaterialsdata));
-//    for (var i = 0; i < facadeMaterialsdata.length; i++) {
-//        $('#facadeMaterialType').append('<option value="' + facadeMaterialsdata[i].ID + '" >' + facadeMaterialsdata[i].Name + '</option>');
-//    }
-
-//}
-//// עצרתי בטעינת הצצבעים של החזיתות (גמר + קיר נוסף)
-
-
-
 function error(err) { // this function is activated in case of a failure
-    swal("Error: " + err);
+    swal("שגיאה: " + err);
 }
 
 function ShowInfo() {

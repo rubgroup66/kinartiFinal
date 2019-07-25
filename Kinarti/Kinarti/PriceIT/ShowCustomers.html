@@ -210,9 +210,7 @@
             }
         }
 
-        // this function is activated in case of a failure
         function error(err) {
-            //swal("Error: " + err);
             swal("שגיאה ", "התרחשה שגיאה באחזור הנתונים", "error")
         }
 
@@ -294,11 +292,16 @@
                     <div class="form-group col-sm-3">
                         <label for="email"><span class="red-star">★ </span>דואר אלקטרוני</label>
                         <input type="text" class="form-control" id="email" placeholder="Enter the model name" required>
-                    </div> 
+                    </div>
 
                 </div>
-                <button type="submit" class="btn btn-primary btn-md" id="saveBTN" >Save</button>
+                <!--<button type="submit" class="btn btn-primary btn-md" id="saveBTN">שמירה</button>-->
 
+                <div class="form-group col-sm-12">
+                    <button type="submit" value="שמירה" class="btn btn-info btn-md" id="saveBTN">
+                        <span class="glyphicon glyphicon-ok-circle" ></span> שמירה
+                    </button>
+                </div>
             </form>
         </div>
 

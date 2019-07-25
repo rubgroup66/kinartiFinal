@@ -38,7 +38,7 @@ function buttonEvents() {
         markSelected(this);
         var boxId = this.getAttribute('data-boxId');
         swal({ // this will open a dialouge
-            title: "האם אתה בטוח שברצונך למחוק ארגזת?",
+            title: "האם אתה בטוח שברצונך למחוק את הארגזת?",
             text: "",
             icon: "warning",
             buttons: true,
@@ -57,12 +57,12 @@ function CreateNewBox() {
         Width: $("#width").val(),
         Height: $("#height").val(),
         Type: 'ארגזת'
-    }
+    };
     ajaxCall("POST", "../api/boxes", JSON.stringify(Box), successNewBox, errorNewBox);
     return false;
 }
 function errorGetBoxes() {
-    alert("error fetting boxes");
+    alert("שגיאה באחזור ארגזות");
 }
 function successNewBox(boxdata) {
     tbl.clear();
@@ -70,7 +70,8 @@ function successNewBox(boxdata) {
     $("#CreateboxesForm").hide();
     swal({ // this will open a dialouge
         title: "ארגזת נוספה בהצלחה",
-        icon: "info",
+        text: "ניתן להוסיף ארזות נוספות",
+        icon: "success"
     })
         .then(function () {
             window.location.reload();
@@ -79,7 +80,8 @@ function successNewBox(boxdata) {
 function errorDeleteBox() {
     swal({ // this will open a dialouge
         title: "שגיאה במחיקת ארגזת",
-        icon: "info",
+        
+        icon: "error"
     })
         .then(function () {
             window.location.reload();
@@ -87,7 +89,7 @@ function errorDeleteBox() {
 }
 
 function errorNewBox() {
-    alert("error");
+    alert("שגיאה בטעינת ארגזות");
 }
 
 // mark the selected row
@@ -144,7 +146,7 @@ function deleteSuccess(boxdata) {
     buttonEvents();
     swal({ // this will open a dialouge
         title: "ארגזת נמחקה בהצלחה",
-        icon: "info",
+        icon: "success",
     })
         .then(function () {
             window.location.reload();
@@ -196,7 +198,7 @@ function getSuccess(boxdata) {
                     render: function (data, type, row, meta) {
                         let dataBox = "data-boxId='" + row.ID + "'";
                         //deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataBox + "> מחק ארגזת </button>";
-                        deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataBox + ">  <span class='glyphicon glyphicon-remove' aria-hidden='true'></span> מחיקה </button>";
+                        deleteBtn = "<button type='button' class = 'deleteBtn btn btn-danger' " + dataBox + ">  <span class='glyphicon glyphicon-trash' aria-hidden='true'></span> מחיקה </button>";
                         return deleteBtn;
                     }
                 },
@@ -205,7 +207,7 @@ function getSuccess(boxdata) {
         buttonEvents();
     }
     catch (err) {
-        alert("error in create table");
+        alert("שגיאה ביצירת טבלה");
     }
 
 }
