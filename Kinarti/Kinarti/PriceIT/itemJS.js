@@ -203,7 +203,7 @@ function successGetSupervisor(supervisordata) {// this function is activated in 
             break;
         }
     }
-    console.log(myMaterials);
+   
 }
 
 function errorGetSupervisor(err) { // this function is activated in case of a failure
@@ -217,7 +217,7 @@ function successGetArchitect(architectdata) {// this function is activated in ca
             break;
         }
     }
-    console.log(myMaterials);
+
 }
 
 function errorGetArchitect(err) { // this function is activated in case of a failure
@@ -278,17 +278,11 @@ function successGetIronWorks(ironworksdata) {// this function is activated in ca
 }
 
 function successGetCustomers(customersdata) {// this function is activated in case of a success
-
-
-    console.log("customer -> " + JSON.stringify(customersdata));
-    $("#customerName").val("customersdata.first_name " + "customersdata.last_name");
-
     $("#customerName").val((customersdata.first_name + " " + customersdata.last_name));
 }
 
 function successGetFacadeMaterials(facadeMaterialsdata) {// this function is activated in case of a success
     myFacadeMaterials = facadeMaterialsdata;
-    console.log("facade materials -> " + JSON.stringify(facadeMaterialsdata));
     for (var i = 0; i < facadeMaterialsdata.length; i++) {
         $('#facadeMaterialType').append('<option value="' + facadeMaterialsdata[i].ID + '" >' + facadeMaterialsdata[i].Name + '</option>');
     }
@@ -308,7 +302,8 @@ var itemTotalSum = 0;
 
 function calculateItem() {
     collectChoices();
-
+    //var basicMaterialCoefficient boxWorkCost * height * depth + (height * width / 10000 * facadeColorWorkCoefficient + height * width / 10000 * 100) + facadeFRNWorkCoefficient * height * width / 10000 + height * width / 10000 * 100 + 12 * (height * 2 + width * 2); //need to update according to material type params.extraWallTypeID)
+    var basicMaterialCoefficient = 8.5;
     boxSquareMeter = (2 * height * depth + 2 * width * depth + height * width) / 10000;
 
     var boxCost = basicMaterialCoefficient * boxSquareMeter * materialCoefficient + boxWorkCost * boxSquareMeter + lacquerWorkCost * boxSquareMeter;
@@ -317,10 +312,10 @@ function calculateItem() {
 
     var withShelves = (boxWorkCost * depth * width + lacquerWorkCost * height * width) * params.shelvesQuantity / (params.partitionsQuantity + 1);
 
-    var plateSquareMeter = drawerCoefficientCost * (depth - 5) * (2 * + width * 2 * drawerCoefficientCost + (depth - 5) * width) / 10000;
+    var plateSquareMeter = (drawerCoefficientCost * (depth - 5) * (2 * + width * 2 * drawerCoefficientCost + (depth - 5) * width)) / 10000;
 
     var withboxWoodDrawers = (plateSquareMeter * basicMaterialCoefficient * materialWoodDrawersCoefficient + plateSquareMeter * lacquerWorkCost + woodRailsCost + woodBoxDrawerWorkCost) * params.boxWoodDrawersQuantity;
-    //debugger;
+    
     var withInternalLegraBoxDrawers = (LegraBoxDrawerWork + LegraboxInternalRailsCost) * params.internalLegraBoxDrawersQuantity;
     var withExternalLegraBoxDrawers = (LegraBoxDrawerWork + LegraboxExternalRailsCost) * params.externalLegraBoxDrawersQuantity;
 
@@ -333,44 +328,42 @@ function calculateItem() {
 
     var withFacade = plateSquareMeter * facadeMaterialWorkCost + facadeworkCostForSquareMeter + (plateSquareMeter * 2 * facadeColorWorkCoefficient * isColor + plateSquareMeter * 2 * facadeFRNWorkCoefficient + 12 * (height * 2 + width * 2) * (isColor + 1)); // kantim
 
-    // basicMaterialCoefficient + boxWorkCost * height * depth + (height * width / 10000 * facadeColorWorkCoefficient + height * width / 10000 * 100) + facadeFRNWorkCoefficient * height * width / 10000 + height * width / 10000 * 100 + 12 * (height * 2 + width * 2)); //need to update according to material type params.extraWallTypeID)
-
     var withExtraWall = params.extraWallQuantity * (height * depth * basicMaterialCoefficient + boxWorkCost * height * depth + (height * width / 10000 * facadeColorWorkCoefficient + height * width / 10000 * 100) + facadeFRNWorkCoefficient * height * width / 10000 + height * width / 10000 * 100 + 12 * (height * 2 + width * 2)); //need to update according to material type params.extraWallTypeID)
 
     var withHinges1 = hingesCost1 * params.hingesQuantity1;
     var withHinges2 = hingesCost2 * params.hingesQuantity2;
 
     var withHandles = handlesCost * params.handlesQuantity;
-
+    //debugger;
     var withIronWorks1 = ironWorksCost1 * params.ironWorksQuantity1;
     var withIronWorks2 = ironWorksCost2 * params.ironWorksQuantity2;
 
-    itemTotalSum = boxCost + withPartitions
-        + withShelves + withboxWoodDrawers
-        + withInternalLegraBoxDrawers + withExternalLegraBoxDrawers
-        + withInternalScalaBoxDrawers + withExternalScalaBoxDrawers
+    itemTotalSum = boxCost + withPartitions/10
+        + withShelves/10 + withboxWoodDrawers/10
+        + withInternalLegraBoxDrawers/10 + withExternalLegraBoxDrawers/10
+        + withInternalScalaBoxDrawers + withExternalScalaBoxDrawers/10
         + withHinges1 + withHinges2 + withHandles
         + withIronWorks1 + withIronWorks2
-        + withDistancedInternalDrawer + withExtraWall + withFacade + extraCostForItem;
+        + withDistancedInternalDrawer + withExtraWall/10 + withFacade/10 + extraCostForItem;
+
+    // temporary ! dividing by 10
 
     console.log("withFacade +" + withFacade);
     console.log("withExtraWall +" + withExtraWall);
-    console.log("withDistancedInternalDrawer +" + withDistancedInternalDrawer);
-     
-    //console.log("withPartitions +" + withPartitions);
-    //console.log("withShelves +" + withShelves);
-    //console.log("withboxWoodDrawers +" + withboxWoodDrawers);
-    //console.log("withInternalLegraBoxDrawers +" + withInternalLegraBoxDrawers);
-    //console.log("withExternalLegraBoxDrawers +" + withExternalLegraBoxDrawers);
-    //console.log("withInternalScalaBoxDrawers +" + withInternalScalaBoxDrawers);
-    //console.log("withExternalScalaBoxDrawers +" + withExternalScalaBoxDrawers);
-    //console.log("withHinges1 +" + withHinges1);
-    //console.log("withHinges2 +" + withHinges2);
-    //console.log("withHandles +" + withHandles);
+    console.log("withDistancedInternalDrawer +" + withDistancedInternalDrawer);  
+    console.log("withPartitions +" + withPartitions);
+    console.log("withShelves +" + withShelves);
+    console.log("withboxWoodDrawers +" + withboxWoodDrawers);
+    console.log("withInternalLegraBoxDrawers +" + withInternalLegraBoxDrawers);
+    console.log("withExternalLegraBoxDrawers +" + withExternalLegraBoxDrawers);
+    console.log("withInternalScalaBoxDrawers +" + withInternalScalaBoxDrawers);
+    console.log("withExternalScalaBoxDrawers +" + withExternalScalaBoxDrawers);
+    console.log("withHinges1 +" + withHinges1);
+    console.log("withHinges2 +" + withHinges2);
+    console.log("withHandles +" + withHandles);
 
     console.log(itemTotalSum);
-    //$('#itemCost').val(Math.round(itemTotalSum));
-    var formattedNumber = formatNumber(Math.round(itemTotalSum));
+    var formattedNumber = formatNumber(Math.round(itemTotalSum)); 
     $('#itemCostCalculation').html("<strong> עלות פריט: " + formattedNumber + "  שח " +"</strong>");
 
     return false; // the return false will prevent the form from being submitted, hence the page will not reload
@@ -417,7 +410,7 @@ function collectChoices() {
 
     boxWorkCost = constants[0].Cost;
     lacquerWorkCost = constants[1].Cost;
-    basicMaterialCoefficient = constants[2].Cost;
+    //basicMaterialCoefficient = constants[2].Cost;
 
     for (i = 0; i < myMaterials.length; i++) {
         if (myMaterials[i].ID.toString() === params.materialID) { // this is the specific material cost
